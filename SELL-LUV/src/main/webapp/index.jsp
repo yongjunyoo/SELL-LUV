@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Insert title here</title>
+<title>Home</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<!-- SEO Meta Tags -->
     <meta name="description" content="Your description">
@@ -165,7 +165,7 @@
             <div class="row">
                 <div class="col-lg-6 col-xl-7">
                     <div class="image-container">
-                        <img class="img-fluid" src="resources/images/details-1.png" alt="alternative">
+                        <img class="img-fluid" src="resources/images/company.png" alt="alternative">
                     </div> <!-- end of image-container -->
                 </div> <!-- end of col -->
                 <div class="col-lg-6 col-xl-5">
@@ -183,20 +183,20 @@
 
 
     <!-- Details 2 -->
-    <div class="basic-2">
+    <div class="basic-2" style="padding-bottom:0">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-xl-5">
                     <div class="text-container">
-                        <div class="section-title">ABOUT US</div>
-                        <h2>We have ten years experience in marketing</h2>
-                        <p>Etiam tempus condimentum congue. In sit amet nisi eget massa condimentum lobortis eget ac eros. In hac habitasse platea dictumst. Aenean molestie mauris eget sapien sagittis, a bibendum magna tincidunt</p>
-                        <a class="btn-outline-reg" href="article.html">Details</a>
+                        <div class="section-title"></div>
+                        <h2>깐부가 되어보세요!</h2>
+                        <p>SELL-LUV에서 원하는 조건에 맞는 나의 깐부를 찾아서 깐부맺기 클릭만 하면 상대에게 자동으로 깐부 요청이 생성됩니다. 깐부가 되면 일정을 잡고, 만나서 일을 어떻게 진행할지 논의해보세요. 리뷰를 남겨 상대에게 피드백을 할 수도 있습니다. </p>
+                        <a class="btn-outline-reg" href="article.html">회원가입 하러가기</a>
                     </div> <!-- end of text-container -->
                 </div> <!-- end of col -->
                 <div class="col-lg-6 col-xl-7">
                     <div class="image-container">
-                        <img class="img-fluid" src="resources/images/details-2.png" alt="alternative">
+                        <img class="img-fluid" src="resources/images/kkanbu.png" alt="alternative">
                     </div> <!-- end of image-container -->
                 </div> <!-- end of col -->
             </div> <!-- end of row -->
@@ -206,11 +206,11 @@
 
 
     <!-- Features -->
-    <div id="features" class="accordion-1">
+    <div id="features" class="accordion-1" style="display:none;">
         <div class="container">
             <div class="row">
                 <div class="col-xl-12">
-                    <h2 class="h2-heading">Online service features</h2>
+                    <h2 class="h2-heading"></h2>
                     <p class="p-heading">Suspendisse vitae enim arcu. Aliquam convallis risus a felis blandit, at mollis nisi bibendum. Aliquam nec purus at ex blandit posuere nec a odio. Proin lacinia dolor justo</p>
                 </div> <!-- end of col -->
             </div> <!-- end of row -->   
@@ -300,7 +300,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h2 class="h2-heading">Customer testimonials</h2>
+                    <h2 class="h2-heading">Customer Review</h2>
                 </div> <!-- end of col -->
             </div> <!-- end of row -->
             <div class="row">
@@ -310,9 +310,9 @@
                     <div class="card">
                         <img class="quotes" src="resources/images/quotes.svg" alt="alternative">
                         <div class="card-body">
-                            <p class="testimonial-text">Suspendisse vitae enim arcu. Aliqu convallis risus a felis blandit, at mollis nisi bibendum aliquam noto ricos</p>
-                            <div class="testimonial-author">Roe Smith</div>
-                            <div class="occupation">General Manager, Presentop</div>
+                            <p class="testimonial-text">저희 기업 제품을 어디서 홍보해야하나 막막했는데 셀럽을 발견해서 정말 다행이었습니다.</p>
+                            <div class="testimonial-author">(주)이랜드이노플</div>
+                            <div class="occupation">이준협</div>
                         </div>
                         <div class="gradient-floor red-to-blue"></div>
                     </div>
@@ -322,9 +322,9 @@
                     <div class="card">
                         <img class="quotes" src="resources/images/quotes.svg" alt="alternative">
                         <div class="card-body">
-                            <p class="testimonial-text">Suspendisse vitae enim arcu. Aliqu convallis risus a felis blandit, at mollis nisi bibendum aliquam noto ricos</p>
-                            <div class="testimonial-author">Sam Bloom</div>
-                            <div class="occupation">General Manager, Presentop</div>
+                            <p class="testimonial-text">원하는 계약 조건들을 상세히 적을 수 있어서 좋았습니다. 조건이 맞는 파트너를 고르기도 편했습니다.</p>
+                            <div class="testimonial-author">웅진식품(주)</div>
+                            <div class="occupation">김정국</div>
                         </div>
                         <div class="gradient-floor blue-to-purple"></div>
                     </div>
@@ -334,9 +334,9 @@
                     <div class="card">
                         <img class="quotes" src="resources/images/quotes.svg" alt="alternative">
                         <div class="card-body">
-                            <p class="testimonial-text">Suspendisse vitae enim arcu. Aliqu convallis risus a felis blandit, at mollis nisi bibendum aliquam noto ricos</p>
-                            <div class="testimonial-author">Bill McKenzie</div>
-                            <div class="occupation">General Manager, Presentop</div>
+                            <p class="testimonial-text">저희 제품이 워낙 독특해서, 평범하게 홍보를 하고싶지 않았어요. <br>만족합니다.</p>
+                            <div class="testimonial-author">맥시즘</div>
+                            <div class="occupation">박재은</div>
                         </div>
                         <div class="gradient-floor purple-to-green"></div>
                     </div>
@@ -346,9 +346,9 @@
                     <div class="card">
                         <img class="quotes" src="resources/images/quotes.svg" alt="alternative">
                         <div class="card-body">
-                            <p class="testimonial-text">Suspendisse vitae enim arcu. Aliqu convallis risus a felis blandit, at mollis nisi bibendum aliquam noto ricos</p>
-                            <div class="testimonial-author">Vanya Dropper</div>
-                            <div class="occupation">General Manager, Presentop</div>
+                            <p class="testimonial-text">장난감을 가지고 노는 어른이라니.. 다들 무시했죠. 그런데 이제는 이게 직업이 되었습니다.</p>
+                            <div class="testimonial-author">유튜브(구독자 12만)</div>
+                            <div class="occupation">홍지tube</div>
                         </div>
                         <div class="gradient-floor red-to-blue"></div>
                     </div>
@@ -358,9 +358,9 @@
                     <div class="card">
                         <img class="quotes" src="resources/images/quotes.svg" alt="alternative">
                         <div class="card-body">
-                            <p class="testimonial-text">Suspendisse vitae enim arcu. Aliqu convallis risus a felis blandit, at mollis nisi bibendum aliquam noto ricos</p>
-                            <div class="testimonial-author">Lefty Brown</div>
-                            <div class="occupation">General Manager, Presentop</div>
+                            <p class="testimonial-text">요리를 시작한지 10년, 직접 요리를 할 줄 아니까 어떻게 홍보해야할지 그려지더라구요.</p>
+                            <div class="testimonial-author">인스타그램(팔로워 7만)</div>
+                            <div class="occupation">승훈아빠</div>
                         </div>
                         <div class="gradient-floor blue-to-purple"></div>
                     </div>
@@ -370,9 +370,9 @@
                     <div class="card">
                         <img class="quotes" src="resources/images/quotes.svg" alt="alternative">
                         <div class="card-body">
-                            <p class="testimonial-text">Suspendisse vitae enim arcu. Aliqu convallis risus a felis blandit, at mollis nisi bibendum aliquam noto ricos</p>
-                            <div class="testimonial-author">Susane Blake</div>
-                            <div class="occupation">General Manager, Presentop</div>
+                            <p class="testimonial-text">강아지 3마리와 함께하는 제 삶에서 애견용품 리뷰는 뗄래야 뗄 수 없는 존재죠.<br>&nbsp;</p>
+                            <div class="testimonial-author">유튜브(구독자 3만)</div>
+                            <div class="occupation">찰리와 도로시</div>
                         </div>
                         <div class="gradient-floor purple-to-green"></div>
                     </div>
@@ -386,7 +386,7 @@
 
 
     <!-- Customers -->
-    <div class="slider-1">
+    <div class="slider-1" style="display:none;">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -428,7 +428,7 @@
 
 
     <!-- Invitation -->
-    <div class="basic-3">
+    <div class="basic-3" style="display:none;">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -445,7 +445,7 @@
 
 
     <!-- Contact -->
-    <div id="contact" class="form-1">
+    <div id="contact" class="form-1" style="display:none;">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
