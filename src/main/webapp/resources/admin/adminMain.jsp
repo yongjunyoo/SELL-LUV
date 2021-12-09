@@ -23,8 +23,11 @@
 	rel="stylesheet">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+	integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <style type="text/css">
 body {
@@ -132,7 +135,6 @@ body {
 #header {
 	margin-bottom: 100px;
 }
-
 </style>
 <script type="text/javascript">
 	
@@ -160,15 +162,16 @@ body {
 						<div class="d-grid"></div>
 						<div class="list-group list-group-flush">
 							<a href="/adminMain.admin" class="list-group-item py-1">
-							<h5 class="my-3">DashBoard</h5></a>
+								<h5 class="my-3">DashBoard</h5>
+							</a>
 						</div>
 						<div class="fm-menu">
 							<div class="list-group list-group-flush">
 								<a href="/adminCard.admin" class="list-group-item py-1"><i
-									class="bx bx-folder me-2"></i><span>카드 관리</span></a> 
-								<a href="/adminBoard.admin" class="list-group-item py-1"><i
-									class="bx bx-devices me-2"></i><span>자유게시판 관리</span></a> 
-								<a href="/adminMember.admin" class="list-group-item py-1"><i
+									class="bx bx-folder me-2"></i><span>카드 관리</span></a> <a
+									href="/adminBoard.admin" class="list-group-item py-1"><i
+									class="bx bx-devices me-2"></i><span>자유게시판 관리</span></a> <a
+									href="/adminMember.admin" class="list-group-item py-1"><i
 									class="bx bx-file me-2"></i><span>회원관리</span></a>
 							</div>
 						</div>
@@ -179,13 +182,13 @@ body {
 				<div class="card">
 					<div class="card-body">
 						<div class="row mt-3">
-						<h5>DashBoard</h5>
+							<h5>DashBoard</h5>
 							<div class="col-12 col-lg-4">
 								<div class="card shadow-none border radius-15">
 									<div class="card-body">
 										<div class="d-flex align-items-center">
 											<div class="fm-icon-box radius-15 bg-primary text-white">
-											<i class="far fa-address-card"></i>
+												<i class="far fa-address-card"></i>
 											</div>
 											<div class="ms-auto font-24"></div>
 										</div>
@@ -230,39 +233,43 @@ body {
 						</div>
 						<div class="table-responsive mt-3">
 							<table class="table table-striped table-hover table-sm mb-0">
-							<h6 class="mt-3 mb-0">등급 별 회원</h6><br>
-							<canvas id="myChart" width="400vw" height="300vh"></canvas><br>
+								<h6 class="mt-3 mb-0">등급 별 회원</h6>
+								<br>
+								<canvas id="myChart" width="400vw" height="300vh"></canvas>
+								<br>
 								<script>
-									const ctx = document.getElementById('myChart').getContext('2d');
-									const myChart = new Chart(ctx, {
-									    type: 'doughnut',
-									    data: {
-									        labels: ['골드', '실버', '브론즈'],
-									        datasets: [{
-									            label: '# of Votes',
-            									data: [12, 19, 3],
-            									backgroundColor: [
-                									'rgba(255, 217, 0, 0.5)',
-                									'rgba(192, 192, 192, 0.5)',
-                									'rgba(168, 128, 74, 0.5)',
-            										],
-            									borderColor: [
-                									'rgba(255, 217, 0)',
-                									'rgba(192, 192, 192)',
-                									'rgba(168, 128, 74)',
-           											],
-            									borderWidth: 1
-        										}]
-    									},
-    									options: {
-    										responsive: false,
-        									scales: {
-            									y: {
-                								beginAtZero: true
-            									}
-        									}
-    									}
-									});
+									const ctx = document.getElementById(
+											'myChart').getContext('2d');
+									const myChart = new Chart(
+											ctx,
+											{
+												type : 'doughnut',
+												data : {
+													labels : [ '골드', '실버',
+															'브론즈' ],
+													datasets : [ {
+														label : '# of Votes',
+														data : [ 12, 19, 3 ],
+														backgroundColor : [
+																'rgba(255, 217, 0, 0.5)',
+																'rgba(192, 192, 192, 0.5)',
+																'rgba(168, 128, 74, 0.5)', ],
+														borderColor : [
+																'rgba(255, 217, 0)',
+																'rgba(192, 192, 192)',
+																'rgba(168, 128, 74)', ],
+														borderWidth : 1
+													} ]
+												},
+												options : {
+													responsive : false,
+													scales : {
+														y : {
+															beginAtZero : true
+														}
+													}
+												}
+											});
 								</script>
 							</table>
 						</div>
@@ -270,11 +277,8 @@ body {
 				</div>
 			</div>
 		</div>
-		<div class="row" id="footer">
-			<div class="col">
-				풋터
-			</div>
-		</div>
 	</div>
+	<!-- 풋터 -->
+	<jsp:include page="/footer.jsp" flush="false" />
 </body>
 </html>

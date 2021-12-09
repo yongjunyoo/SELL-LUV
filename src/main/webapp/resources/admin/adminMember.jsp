@@ -270,9 +270,8 @@ body {
 				</div>
 			</div>
 		</div>
-		<div class="row" id="footer">
-			<div class="col">풋터</div>
-		</div>
 	</div>
+	<!-- 풋터 -->
+	<jsp:include page="/footer.jsp" flush="false" />
 </body>
 </html>

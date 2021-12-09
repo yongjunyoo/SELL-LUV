@@ -212,6 +212,7 @@ body {
 								</div>
 							</div>
 						</div>
+						<!-- 게시글 목록 -->
 						<div class="table-responsive mt-3">
 							<table class="table table-striped table-hover table-sm mb-0">
 								<thead>
@@ -234,6 +235,8 @@ body {
 								</tbody>
 							</table>
 						</div>
+						<!-- 게시글 목록 끝-->
+
 						<!-- 버튼 페이징 -->
 						<nav aria-label="Page navigation example">
 							<ul class="pagination justify-content-center">
@@ -269,9 +272,8 @@ body {
 				</div>
 			</div>
 		</div>
-		<div class="row" id="footer">
-			<div class="col">풋터</div>
-		</div>
 	</div>
+	<!-- 풋터 -->
+	<jsp:include page="/footer.jsp" flush="false" />
 </body>
 </html>
