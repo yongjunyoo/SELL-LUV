@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet("*.mem")
-public class MemberController extends HttpServlet {
+@WebServlet("*.board")
+public class BoardController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("utf8");  // get방식 한글 깨짐 방지
@@ -20,14 +20,18 @@ public class MemberController extends HttpServlet {
 		System.out.println("사용자가 요청한 기능 : " + cmd);
 		
 		try {
-			if(cmd.equals("/login.mem")) {
+			if(cmd.equals("/boardList.board")) {
 				
-				response.sendRedirect("/resources/login/login.jsp");
+				response.sendRedirect("/resources/board/board.jsp");
+			}else if(cmd.equals("")) {
+				
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
 			response.sendRedirect("error.jsp");
 		}
+		
+		
 		
 		
 		
