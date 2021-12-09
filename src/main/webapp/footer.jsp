@@ -67,16 +67,16 @@
             빠른 실행
           </h6>
           <p>
-            <a href="#!" class="text-reset" style="text-decoration:none;">기업</a>
+            <a href="/ifList.ifcp" class="text-reset" style="text-decoration:none;">기업</a>
           </p>
           <p>
-            <a href="#!" class="text-reset" style="text-decoration:none;">인플루언서</a>
+            <a href="/cpList.ifcp" class="text-reset" style="text-decoration:none;">인플루언서</a>
           </p>
           <p>
-            <a href="#!" class="text-reset" style="text-decoration:none;">커뮤니티</a>
+            <a href="/boardList.board" class="text-reset" style="text-decoration:none;">커뮤니티</a>
           </p>
           <p>
-            <a href="#!" class="text-reset" style="text-decoration:none;">검색</a>
+            <a href="/search.ifcp" class="text-reset" style="text-decoration:none;">검색</a>
           </p>
         </div>
         <!-- Grid column -->
