@@ -64,6 +64,9 @@
             </div>
         </div>
     </div>
+    
+    <!-- 푸터 -->
+	<jsp:include page="/footer.jsp" flush="false"/>
 </form>
 </body>
 </html>
