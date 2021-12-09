@@ -40,7 +40,7 @@
         <div class="container">
 
             <!-- Image Logo -->   <!-- SELL LUV LOGO -->
-            <a class="navbar-brand logo-image" href="index.html"><img src="resources/mainpage/images/SELL_LUV_NEW1.png" alt="alternative"></a> 
+            <a class="navbar-brand logo-image" href="index.html"><img src="/resources/mainpage/images/SELL_LUV_NEW1.png" alt="alternative"></a> 
 	
             <!-- Text Logo - Use this if you don't have a graphic logo -->
             <!-- <a class="navbar-brand logo-text" href="index.html">Nubis</a> -->
