@@ -42,7 +42,7 @@
         <div class="container">
 
             <!-- Image Logo -->   <!-- SELL LUV LOGO -->
-            <a class="navbar-brand logo-image" href="index.html"><img src="resources/images/Sellluvlogo.png" alt="alternative"></a> 
+            <a class="navbar-brand logo-image" href="index.html"><img src="resources/images/SELL_LUV_NEW1.png" alt="alternative"></a> 
 	
             <!-- Text Logo - Use this if you don't have a graphic logo -->
             <!-- <a class="navbar-brand logo-text" href="index.html">Nubis</a> -->
@@ -57,19 +57,19 @@
                         <a class="nav-link active" aria-current="page	" href="#header"></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#services">Community</a>
+                        <a class="nav-link" href="#services">기업</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#details">Company</a>
+                        <a class="nav-link" href="#details">인플루언서</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#features">Influencer</a>
+                        <a class="nav-link" href="#features">커뮤니티</a>
                     </li>
                     <li class="nav-item">
-                    	<a class="nav-link" href="#features">Search</a>
+                    	<a class="nav-link" href="#features">검색</a>
                 </ul>
                 <span class="nav-item">
-                    <a class="btn-solid-sm" href="#contact">Login</a>
+                    <a class="btn-solid-sm" href="#contact">로그인</a>
                 </span>
             </div> <!-- end of navbar-collapse -->
         </div> <!-- end of container -->
@@ -494,83 +494,90 @@
     </div> <!-- end of form-1 -->
     <!-- end of contact -->
 
+ <!-- Footer -->
+<footer class="text-center text-lg-start bg-light text-muted">
+  <!-- Section: Social media -->
+  <section
+    class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+    <!-- Right -->
+  </section>
+  <!-- Section: Social media -->
+  <!-- Section: Links  -->
+  <section class="">
+    <div class="container text-center text-md-start mt-5">
+      <!-- Grid row -->
+      <div class="row mt-3">
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+          <!-- Content -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            <i class="fas fa-gem me-3"></i>SELL LUV
+          </h6>
+            안녕하세요 !<br>
+			우리는 SELL-LUV!<br>
+			사이트를 찾아주셔서 감사합니다!<br>
+			더 나은 서비스로 보답하겠습니다!
+        </div>
+        <!-- Grid column -->
 
-    <!-- Footer -->
-    <div class="footer bg-gray">
-        <img class="decoration-circles" src="resources/images/decoration-circles.png" alt="alternative">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h4>If you want to find out which are the right influencers for your product marketing campaigns then follow us</h4>
-                    <div class="social-container">
-                        <span class="fa-stack">
-                            <a href="#your-link">
-                                <i class="fas fa-circle fa-stack-2x"></i>
-                                <i class="fab fa-facebook-f fa-stack-1x"></i>
-                            </a>
-                        </span>
-                        <span class="fa-stack">
-                            <a href="#your-link">
-                                <i class="fas fa-circle fa-stack-2x"></i>
-                                <i class="fab fa-twitter fa-stack-1x"></i>
-                            </a>
-                        </span>
-                        <span class="fa-stack">
-                            <a href="#your-link">
-                                <i class="fas fa-circle fa-stack-2x"></i>
-                                <i class="fab fa-pinterest-p fa-stack-1x"></i>
-                            </a>
-                        </span>
-                        <span class="fa-stack">
-                            <a href="#your-link">
-                                <i class="fas fa-circle fa-stack-2x"></i>
-                                <i class="fab fa-instagram fa-stack-1x"></i>
-                            </a>
-                        </span>
-                        <span class="fa-stack">
-                            <a href="#your-link">
-                                <i class="fas fa-circle fa-stack-2x"></i>
-                                <i class="fab fa-youtube fa-stack-1x"></i>
-                            </a>
-                        </span>
-                    </div> <!-- end of social-container -->
-                </div> <!-- end of col -->
-            </div> <!-- end of row -->
-        </div> <!-- end of container -->
-    </div> <!-- end of footer -->  
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-4 col-xl-2 mx-auto mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            빠른 실행
+          </h6>
+          <p>
+            <a href="#!" class="text-reset" style="text-decoration:none;">기업</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset" style="text-decoration:none;">인플루언서</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset" style="text-decoration:none;">커뮤니티</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset" style="text-decoration:none;">검색</a>
+          </p>
+        </div>
+        <!-- Grid column -->
+        <!-- Grid column -->
+        <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mb-md-0 mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            연락처
+          </h6>
+          <p>
+          <i class="fas fa-home me-3"></i>서울 중구 남대문로 120 대일빌딩 2층, 3층
+          </p>
+          <p>
+            <i class="fas fa-envelope me-3"></i>
+            example@gmail.com
+          </p>
+          <p><i class="fas fa-phone me-3"></i> 010 - 1234 - 5716</p>
+          <p><i class="fas fa-print me-3"></i> 02 - 123 - 1234</p>
+        </div>
+        <!-- Grid column -->
+      </div>
+      <!-- Grid row -->
+    </div>
+  </section>
+  <!-- Section: Links  -->
+
+  <!-- Copyright -->
+  <div class="text-center p-4" style="background-color: rgba(255, 111, 97, 0.5);">
+    Copyright 2020. KKANBU All rights reserved.
+  </div>
+  <!-- Copyright -->
+</footer>
+<!-- Footer -->
     <!-- end of footer -->
-
-
-    <!-- Copyright -->
-    <div class="copyright bg-gray">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 col-md-12 col-sm-12">
-                    <ul class="list-unstyled li-space-lg p-small">
-                        <li><a href="article.html">Article Details</a></li>
-                        <li><a href="terms.html">Terms & Conditions</a></li>
-                        <li><a href="privacy.html">Privacy Policy</a></li>
-                    </ul>
-                </div> <!-- end of col -->
-                <div class="col-lg-3 col-md-12 col-sm-12">
-                    <p class="p-small statement">Copyright © <a href="#">Your name</a></p>
-                </div> <!-- end of col -->
-
-                <div class="col-lg-3 col-md-12 col-sm-12">
-                    <p class="p-small statement">Distributed by <a href="https://themewagon.com/" target="_blank">Themewagon</a></p>
-                </div> <!-- end of col -->
-            </div> <!-- enf of row -->
-        </div> <!-- end of container -->
-    </div> <!-- end of copyright --> 
-    <!-- end of copyright -->
-    
 
     <!-- Back To Top Button -->
     <button onclick="topFunction()" id="myBtn">
         <img src="resources/images/up-arrow.png" alt="alternative">
     </button>
     <!-- end of back to top button -->
-    	
+    
     <!-- Scripts -->
     <script src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
     <script src="<c:url value="/resources/js/swiper.min.js" />"></script>
