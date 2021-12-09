@@ -342,7 +342,28 @@ p {
                             <label class="fieldlabels">연락처: *</label> <input type="text" name="cPhone" placeholder="Contact No." /> 
                             <label class="fieldlabels">주소1: * <button type="button" class="btn btn-dark" style="background-color:rgb(255, 111, 97);">주소 검색</button></label> <input type="text" name="cAddress1" placeholder="Address." />
                             <label class="fieldlabels">주소2: *</label> <input type="text" name="cAddress2" placeholder="Detail Address." />
-                           
+                           <div class="list-group">
+  <label class="list-group-item">
+    <input class="form-check-input me-1" type="checkbox" value="">
+    First checkbox
+  </label>
+  <label class="list-group-item">
+    <input class="form-check-input me-1" type="checkbox" value="">
+    Second checkbox
+  </label>
+  <label class="list-group-item">
+    <input class="form-check-input me-1" type="checkbox" value="">
+    Third checkbox
+  </label>
+  <label class="list-group-item">
+    <input class="form-check-input me-1" type="checkbox" value="">
+    Fourth checkbox
+  </label>
+  <label class="list-group-item">
+    <input class="form-check-input me-1" type="checkbox" value="">
+    Fifth checkbox
+  </label>
+</div>
   
 
  
