@@ -40,7 +40,7 @@
         <div class="container">
 
             <!-- Image Logo -->   <!-- SELL LUV LOGO -->
-            <a class="navbar-brand logo-image" href="index.html"><img src="resources/mainpage/images/SELL_LUV_NEW1.png" alt="alternative"></a> 
+            <a class="navbar-brand logo-image" href="index.html"><img src="/resources/mainpage/images/SELL_LUV_NEW1.png" alt="alternative"></a> 
 	
             <!-- Text Logo - Use this if you don't have a graphic logo -->
             <!-- <a class="navbar-brand logo-text" href="index.html">Nubis</a> -->
@@ -55,13 +55,13 @@
                         <a class="nav-link active" aria-current="page	" href="#header"></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/ifView.ifcp">기업</a>
+                        <a class="nav-link" href="/ifList.ifcp">기업</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/cpView.ifcp">인플루언서</a>
+                        <a class="nav-link" href="/cpList.ifcp">인플루언서</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/boardView.board">커뮤니티</a>
+                        <a class="nav-link" href="/boardList.board">커뮤니티</a>
                     </li>
                     <li class="nav-item">
                     	<a class="nav-link" href="/search.ifcp">검색</a>

@@ -49,7 +49,7 @@
                     <div class="text-container">
                         <h1 class="h1-large">영향력 있는<br> 인플루언서들을<br> 만나보세요.</h1>
                         <p class="p-large">당신의 제품들을 홍보할 준비가 되어있습니다. <br>유튜브, 인스타그램, 트위터, 페이스북 등 다방면의<br> 인플루언서들과 협업이 가능합니다.</p>
-                        <a class="btn-solid-lg" href="#services">인플루언서 보러가기</a>
+                        <a class="btn-solid-lg" href="/ifList.ifcp">인플루언서 보러가기</a>
                     </div> <!-- end of text-container -->
                 </div> <!-- end of col -->
                 <div class="col-lg-6 col-xl-7">
