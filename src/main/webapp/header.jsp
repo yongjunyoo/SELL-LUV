@@ -1,11 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
 <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Home</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://kit.fontawesome.com/5c87e9ee71.js" crossorigin="anonymous"></script>
+
 	<!-- SEO Meta Tags -->
     <meta name="description" content="Your description">
     <meta name="author" content="Your name">
@@ -21,10 +27,10 @@
 
     <!-- Styles -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/fontawesome-all.min.css"> 
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/swiper.css"> 
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/styles.css"> 
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/mainpage/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/mainpage/css/fontawesome-all.min.css"> 
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/mainpage/css/swiper.css"> 
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/mainpage/css/styles.css"> 
 	
 	<!-- Favicon  -->
 </head>
@@ -33,9 +39,9 @@
     <nav id="navbarExample" class="navbar navbar-expand-lg fixed-top navbar-light" aria-label="Main navigation">
         <div class="container">
 
-            <!-- Image Logo -->
-            <a class="navbar-brand logo-image" href="index.html"><img src="resources/images/logo.svg" alt="alternative"></a> 
-
+            <!-- Image Logo -->   <!-- SELL LUV LOGO -->
+            <a class="navbar-brand logo-image" href="index.html"><img src="resources/mainpage/images/SELL_LUV_NEW1.png" alt="alternative"></a> 
+	
             <!-- Text Logo - Use this if you don't have a graphic logo -->
             <!-- <a class="navbar-brand logo-text" href="index.html">Nubis</a> -->
 
@@ -46,30 +52,22 @@
             <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
                 <ul class="navbar-nav ms-auto navbar-nav-scroll">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#header">Home</a>
+                        <a class="nav-link active" aria-current="page	" href="#header"></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#services">Services</a>
+                        <a class="nav-link" href="/ifView.ifcp">기업</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#details">Details</a>
+                        <a class="nav-link" href="/cpView.ifcp">인플루언서</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#features">Features</a>
+                        <a class="nav-link" href="/boardView.board">커뮤니티</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">Drop</a>
-                        <ul class="dropdown-menu" aria-labelledby="dropdown01">
-                            <li><a class="dropdown-item" href="article.html">Article Details</a></li>
-                            <li><div class="dropdown-divider"></div></li>
-                            <li><a class="dropdown-item" href="terms.html">Terms Conditions</a></li>
-                            <li><div class="dropdown-divider"></div></li>
-                            <li><a class="dropdown-item" href="privacy.html">Privacy Policy</a></li>
-                        </ul>
-                    </li>
+                    <li class="nav-item">
+                    	<a class="nav-link" href="/search.ifcp">검색</a>
                 </ul>
                 <span class="nav-item">
-                    <a class="btn-solid-sm" href="#contact">Get quote</a>
+                    <a class="btn-solid-sm" href="/login.mem">로그인</a>
                 </span>
             </div> <!-- end of navbar-collapse -->
         </div> <!-- end of container -->
