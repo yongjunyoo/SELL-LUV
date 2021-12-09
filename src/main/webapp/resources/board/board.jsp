@@ -282,6 +282,8 @@ a {
         </ul>
     </nav>
     
+    <!-- 푸터 -->
+	<jsp:include page="/footer.jsp" flush="false"/>
 </div>                            
 <script type="text/javascript"></script>
 </body>
