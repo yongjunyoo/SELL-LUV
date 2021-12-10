@@ -46,14 +46,15 @@ public class MemberController extends HttpServlet {
 				
 			}else if(cmd.equals("/IFSubmit.mem")) {
 				
-			
+				
+			}
 			
 		}catch(Exception e) {
 			e.printStackTrace();
 			response.sendRedirect("error.jsp");
 		}
 		
-		
+	
 		
 	}
 	
