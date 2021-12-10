@@ -2,22 +2,22 @@
     pageEncoding="UTF-8"%>
      <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<!-- Created By CodingNepal -->
+
 <html lang="en" dir="ltr">
    <head>
       <meta charset="utf-8">
       <title>Login and Registration Form in HTML | CodingNepal</title>
-      <link rel="stylesheet" href="style.css">
+     <!--  <link rel="stylesheet" href="style.css"> -->
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
       <style>
-         @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
-        *{
+          /*  @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap'); */
+         *{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
-}
+} 
 html,body{
   display: grid;
   height: 100%;
@@ -36,6 +36,8 @@ html,body{
   padding: 30px;
   border-radius: 5px;
   box-shadow: 0px 15px 20px rgba(0,0,0,0.1);
+  margin-top: 120px;
+  margin-bottom: 100px;
 }
 .wrapper .title-text{
   display: flex;
@@ -193,6 +195,12 @@ form .btn input[type="submit"]{
   font-weight: 500;
   cursor: pointer;
 }
+
+#footer{
+	width: 100%;
+}
+
+
       </style>
    </head>
    <body>
@@ -251,7 +259,13 @@ form .btn input[type="submit"]{
                </form>
             </div>
          </div>
+          
       </div>
+     
+      <div id="footer">
+       	<jsp:include page="/footer.jsp" flush="false" />
+      </div>
+      
       <script>
          const loginText = document.querySelector(".title-text .login");
          const loginForm = document.querySelector("form.login");
@@ -268,6 +282,6 @@ form .btn input[type="submit"]{
          });
          
       </script>
-      <jsp:include page="/footer.jsp" flush="false" />
+    
    </body>
 </html>

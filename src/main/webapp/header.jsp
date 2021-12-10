@@ -55,10 +55,10 @@
                         <a class="nav-link active" aria-current="page	" href="#header"></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/ifList.ifcp">기업</a>
+                        <a class="nav-link" href="/companyList.ifcp">기업</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/cpList.ifcp">인플루언서</a>
+                        <a class="nav-link" href="/influencerList.ifcp">인플루언서</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/boardList.board">커뮤니티</a>
