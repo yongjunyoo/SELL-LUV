@@ -70,7 +70,7 @@
                 <span class="nav-item">
                    
 
-                    <a class="btn-solid-sm" href=""resources/login/login.jsp"" style="background-color: #000000;border:none;">로그인</a>
+                    <a class="btn-solid-sm" href="resources/login/login.jsp" style="background-color: #000000;border:none;">로그인</a>
 
                 </span>
             </div> <!-- end of navbar-collapse -->
