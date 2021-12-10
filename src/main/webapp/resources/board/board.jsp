@@ -274,7 +274,8 @@ a {
                 </div>
             </div>
         </div>
-        
+        <%= (String)session.getAttribute("cpage") %>
+        <%= request.getParameter("cpage") %>
     </div>
     
      <!-- 글쓰기 & 검색 라인 -->
@@ -288,7 +289,7 @@ a {
          		검색하기 </button>     
          		</div>
 		    	<div class="col-2" style="text-align:right;"> 
-		        <button type="button" class="btn btn-shadow btn-wide btn-primary" style="background-color:rgb(255, 111, 97); border-color:rgb(255, 111, 97);"> 
+		        <button type="button" class="btn-write btn btn-shadow btn-wide btn-primary" style="background-color:rgb(255, 111, 97); border-color:rgb(255, 111, 97);"> 
 		         글 쓰기 </button> 
 		        </div> 	
     		</div>
@@ -304,8 +305,14 @@ a {
          		검색하기 </button>     
          		</div>
          		<div class="col-3" style="text-align:right;"> 
-	        		<button type="button" class="btn btn-shadow btn-wide btn-primary" style="background-color:rgb(255, 111, 97); border-color:rgb(255, 111, 97);"> 
+	         		
+	        		<button type="button" class="btn btn-shadow btn-wide btn-primary btn-write" style="background-color:rgb(255, 111, 97); border-color:rgb(255, 111, 97);"> 
 	         		글 쓰기 </button> 
+	         		<script>
+	         			$(".btn-write").on("click",function(){
+	         				location.href="/write.board?cpage=${cpage}";
+	         			})
+	         		</script>
         		</div> 
         	</div>
         </div>
