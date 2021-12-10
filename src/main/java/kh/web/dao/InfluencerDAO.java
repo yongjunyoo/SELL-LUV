@@ -37,7 +37,7 @@ private static InfluencerDAO instance = null;
 		return null;
 	}
 	public boolean login(String id, String pw) throws SQLException, Exception {
-		String sql = "SELECT * FROM members WHERE id_if =? AND pw_if=?";
+		String sql = "SELECT * FROM influencer WHERE id_if =? AND pw_if=?";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
 				pstat.setString(1, id);
