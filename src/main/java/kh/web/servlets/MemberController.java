@@ -41,7 +41,7 @@ public class MemberController extends HttpServlet {
 			if(cmd.equals("/influencerLogin.mem")) { //인플루언서 로그인 부분...
 				
 				String id = request.getParameter("id_if");
-				String pw = sha512.generate(request.getParameter("pw_cp"));
+				String pw = sha512.generate(request.getParameter("pw_if"));
 				
 				boolean result = influencerDAO.login(id, pw);
 				System.out.println(id+pw);
@@ -53,11 +53,11 @@ public class MemberController extends HttpServlet {
 					response.sendRedirect("/index.jsp");
 				}else if(!result) {
 					System.out.println( id+ "로그인실패..");
-					String idResult = String.valueOf(result);
-					request.setAttribute("result", idResult);
+//					String idResult = String.valueOf(result);
+//					request.setAttribute("result", idResult);
 					
-					RequestDispatcher rd =request.getRequestDispatcher("resources/login/login.jsp");  
-					rd.forward(request, response);
+					 response.getWriter().append(String.valueOf(result));
+					 response.sendRedirect("resources/login/login.jsp");
 				}
 				
 				
@@ -80,11 +80,15 @@ public class MemberController extends HttpServlet {
 					
 				}else if(!result) {
 					System.out.println( id+ "로그인실패..");
-					String idResult = String.valueOf(result);
-					request.setAttribute("result", idResult);
+//					String idResult = String.valueOf(result);
 					
-					RequestDispatcher rd =request.getRequestDispatcher("resources/login/login.jsp");  
-					rd.forward(request, response);
+//					request.setAttribute("result", idResult);
+//					RequestDispatcher rd =request.getRequestDispatcher("resources/login/login.jsp");  
+//					rd.include(request, response);
+					
+					 response.getWriter().append(String.valueOf(result));
+					 response.sendRedirect("resources/login/login.jsp");
+
 				}
 				
 				

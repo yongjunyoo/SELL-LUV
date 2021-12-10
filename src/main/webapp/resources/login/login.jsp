@@ -281,18 +281,29 @@ form .btn input[type="submit"]{
            loginForm.style.marginLeft = "0%";
            loginText.style.marginLeft = "0%";
          });
-         signupLink.onclick = (()=>{
+        /*  signupLink.onclick = (()=>{
            signupBtn.click();
            return false;
-         });
+         }); */
          
          // 로그인 유효성 검사..
-         
-         $(".loginCheck").on("click",function(){
-        	 console.log(${result});
-        	 let result = ${result};
+        
+   	    $("#cp_login").on("click",function(){
+        	
+        	 let result = "${result}"
         	 if(result==false){
-        		 $(".idCheckSpan").text("올바른 정보를 입력하세요..")
+        			alert("올바른 정보를 입력하세요..");
+        		
+        	 }
+         })
+         
+ 		
+         
+           $("#if_login").on("click",function(){
+        	 
+        	 let result = "${result}"
+        	 if(result==false){
+        			alert("올바른 정보를 입력하세요..");
         		
         	 }
          })
