@@ -23,7 +23,31 @@ public class MemberController extends HttpServlet {
 			if(cmd.equals("/login.mem")) {
 				
 				response.sendRedirect("/resources/login/login.jsp");
-			}
+				
+			}else if(cmd.equals("/loginCheck.mem")) {
+				
+				response.sendRedirect("/index.jsp");
+				
+			}else if(cmd.equals("/signup.mem")) {
+				
+				response.sendRedirect("/resources/signup/selectSignup.jsp");
+				
+			}else if(cmd.equals("/CPSignup.mem")) {
+				
+				response.sendRedirect("/resources/signup/CPSignup.jsp");
+				
+			}else if(cmd.equals("/IFSignup.mem")) {
+				
+				response.sendRedirect("/resources/signup/IFSignup.jsp");
+				
+			}else if(cmd.equals("/CPSubmit.mem")) {
+				
+
+				
+			}else if(cmd.equals("/IFSubmit.mem")) {
+				
+			
+			
 		}catch(Exception e) {
 			e.printStackTrace();
 			response.sendRedirect("error.jsp");

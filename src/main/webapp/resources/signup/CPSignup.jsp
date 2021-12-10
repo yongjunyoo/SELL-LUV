@@ -256,7 +256,7 @@ p {
             <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
                 <h2 id="heading" style="padding-top:50px;">기업 계정생성</h2>
                 <p>모든 칸은 작성되어야 합니다.</p>
-                <form id="msform">
+                <form id="msform" action="/CPSubmit.mem" method="post">
                     <!-- progressbar -->
                     <ul id="progressbar">
                         <li class="active" id="account"><strong>계정</strong></li>
@@ -297,28 +297,7 @@ p {
                             <label class="fieldlabels">연락처: *</label> <input type="text" name="cPhone" placeholder="Contact No." /> 
                             <label class="fieldlabels">주소1: * <button type="button" class="btn btn-dark" style="background-color:rgb(255, 111, 97);">주소 검색</button></label> <input type="text" name="cAddress1" placeholder="Address." />
                             <label class="fieldlabels">주소2: *</label> <input type="text" name="cAddress2" placeholder="Detail Address." />
-                           <div class="list-group">
-  <label class="list-group-item">
-    <input class="form-check-input me-1" type="checkbox" value="">
-    First checkbox
-  </label>
-  <label class="list-group-item">
-    <input class="form-check-input me-1" type="checkbox" value="">
-    Second checkbox
-  </label>
-  <label class="list-group-item">
-    <input class="form-check-input me-1" type="checkbox" value="">
-    Third checkbox
-  </label>
-  <label class="list-group-item">
-    <input class="form-check-input me-1" type="checkbox" value="">
-    Fourth checkbox
-  </label>
-  <label class="list-group-item">
-    <input class="form-check-input me-1" type="checkbox" value="">
-    Fifth checkbox
-  </label>
-</div>
+                          
   
 
  
@@ -337,7 +316,7 @@ p {
                             <label class="fieldlabels">Upload Your Photo:</label> <input type="file" name="pic" accept="image/*"> 
                             <label class="fieldlabels">Upload Signature Photo:</label> <input type="file" name="pic" accept="image/*">
                         </div> 
-                        <input type="button" name="next" class="next action-button" value="제출" /> <input type="button" name="이전" class="previous action-button-previous" value="이전" />
+                        <input type="submit" name="next" class="next action-button" value="제출" /> <input type="button" name="이전" class="previous action-button-previous" value="이전" />
                     </fieldset>
                     <fieldset>
                         <div class="form-card">
@@ -359,7 +338,7 @@ p {
                                 </div>
                             </div>
                             <div class="row justify-content-center">
-                            	<button type="button" class="btn btn-dark" style="background-color:rgb(255, 111, 97); width:20%;">로그인 하기</button>
+                            	<button type="button" class="btn btn-dark" style="background-color:rgb(255, 111, 97); width:20%;" id="goLogin">로그인 하기</button>
                             </div>
                         </div>
                     </fieldset>
@@ -369,10 +348,11 @@ p {
     </div>
     <jsp:include page="/footer.jsp" flush="false"/>
 </div>
-                                <script type='text/javascript' src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js'></script>
-                                <script type='text/javascript' src=''></script>
-                                <script type='text/javascript' src=''></script>
-                                <script type='text/Javascript'>$(document).ready(function(){
+
+<script type='text/javascript' src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js'></script>
+<script type='text/javascript' src=''></script>
+<script type='text/javascript' src=''></script>
+<script type='text/Javascript'>$(document).ready(function(){
 
 var current_fs, next_fs, previous_fs; //fieldsets
 var opacity;
@@ -445,6 +425,12 @@ $(".progress-bar")
 
 $(".submit").click(function(){
 return false;
+})
+
+$("#goLogin").on("click",function(){
+	
+	location.href="/login.mem";
+	
 })
 
 });</script>
