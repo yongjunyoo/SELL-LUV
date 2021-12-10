@@ -67,11 +67,16 @@
                     	<a class="nav-link" href="/search.ifcp">검색</a>
                 </ul>
                 <span class="nav-item">
-                    <a class="btn-solid-sm" href="/login.mem">로그인</a>
+                    <a class="btn-solid-sm" href="resources/login/login.jsp">로그인</a>
+                </span>
+                <span class="nav-item">
+                    <a class="btn-solid-sm" href="/logout.mem">로그아웃..</a>
                 </span>
             </div> <!-- end of navbar-collapse -->
         </div> <!-- end of container -->
     </nav> <!-- end of navbar -->
     <!-- end of navigation -->
+    <script type="text/javascript">
+    </script>
 </body>
 </html>

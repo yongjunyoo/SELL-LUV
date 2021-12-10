@@ -7,11 +7,11 @@
    <head>
       <meta charset="utf-8">
       <title>Login and Registration Form in HTML | CodingNepal</title>
-     <!--  <link rel="stylesheet" href="style.css"> -->
+   <!-- <link rel="stylesheet" href="style.css">  -->
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
       <style>
-          /*  @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap'); */
+          /*  @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');  */
          *{
   margin: 0;
   padding: 0;
@@ -204,6 +204,7 @@ form .btn input[type="submit"]{
       </style>
    </head>
    <body>
+   
   <jsp:include page="/header.jsp" flush="false"/>
       <div class="wrapper">
          <div class="title-text">
@@ -211,42 +212,50 @@ form .btn input[type="submit"]{
                기업로그인
             </div>
             <div class="title signup">
-               로그인
+               개인 로그인
             </div>
          </div>
          <div class="form-container">
             <div class="slide-controls">
-               <input type="radio" name="slide" id="login" checked>
-               <input type="radio" name="slide" id="signup">
                <label for="login" class="slide login">기업로그인</label>
                <label for="signup" class="slide signup">개인로그인</label>
                <div class="slider-tab"></div>
             </div>
             <div class="form-inner">
-               <form action="#" class="login">
+               <form action="/companyLogin.mem" method="post" class="login" >
                   <div class="field">
-                     <input type="text" placeholder="아이디" required>
+                     <input type="text" name="id_cp" placeholder="아이디" required>
                   </div>
                   <div class="field">
-                     <input type="password" placeholder="비밀번호" required>
+                     <input type="password" name="pw_cp" placeholder="비밀번호" required>
                   </div>
+                  <c:choose>
+				<c:when test="${!result}">
+				
+					<div class="pass-link">
+                     <a href="#">올바른 정보를 입력해주세요..</a>
+                  </div>
+				</c:when>
+				<c:otherwise>
                   <div class="pass-link">
                      <a href="#">비밀번호를 잊으셨습니까..?</a>
                   </div>
+                  </c:otherwise>
+                  </c:choose>
                   <div class="field btn">
                      <div class="btn-layer"></div>
-                     <input type="submit" value="로그인">
+                     <input type="submit" value="로그인" id="cp_login">
                   </div>
                   <div class="signup-link">
                      회원이 아니세요? <a href="">회원가입</a>
                   </div>
                </form>
-               <form action="#" class="signup">
+               <form action="/influencerLogin.mem" class="signup" method="post">
                   <div class="field">
-                     <input type="text" placeholder="아이디" required>
+                     <input type="text" name="id_if" placeholder="아이디" required>
                   </div>
                   <div class="field">
-                     <input type="password" placeholder="비밀번호" required>
+                     <input type="password" name="pw_if" placeholder="비밀번호" required>
                   </div>
                   <div class="pass-link">
                     <a href="#">비밀번호를 잊으셨습니까..?</a>
@@ -254,7 +263,7 @@ form .btn input[type="submit"]{
                   
                   <div class="field btn">
                      <div class="btn-layer"></div>
-                     <input type="submit" value="로그인">
+                     <input type="submit" value="로그인" id="if_login">
                   </div>
                </form>
             </div>
@@ -284,6 +293,8 @@ form .btn input[type="submit"]{
            signupBtn.click();
            return false;
          });
+         
+         
       </script>
     
    </body>

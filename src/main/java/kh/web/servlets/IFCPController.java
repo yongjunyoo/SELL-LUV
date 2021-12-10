@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import kh.web.dao.CompanyDAO;
 import kh.web.dao.InfluencerDAO;
-import kh.web.dao.MemberDAO;
 import kh.web.dto.InfluencerDTO;
 import kh.web.statics.Table;
 
@@ -27,8 +26,8 @@ public class IFCPController extends HttpServlet {
 		String cmd = uri.substring(ctx.length());
 		System.out.println("사용자가 요청한 기능 : " + cmd);
 		
-		MemberDAO influencerDAO = new InfluencerDAO();
-		MemberDAO companyDAO = new CompanyDAO();
+		InfluencerDAO influencerDAO = new InfluencerDAO();
+		CompanyDAO companyDAO = new CompanyDAO();
 		
 		try {
 			if(cmd.equals("/influencerList.ifcp")) {
@@ -37,7 +36,7 @@ public class IFCPController extends HttpServlet {
 				
 				
 				response.sendRedirect("/resources/ifcp/list.jsp");
-			}else if(cmd.equals("/CompanyList.ifcp")) {
+			}else if(cmd.equals("/companyList.ifcp")) {
 				
 				response.sendRedirect("/resources/ifcp/list.jsp");
 			}
