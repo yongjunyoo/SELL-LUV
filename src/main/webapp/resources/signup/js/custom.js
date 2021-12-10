@@ -31,18 +31,11 @@
 		offset: 56
 	  });
 
-	// Collapse Navbar
-	  var navbarCollapse = function() {
-		if ($("#mainNav").offset().top > 100) {
-		  $("#mainNav").addClass("navbar-shrink");
-		} else {
-		  $("#mainNav").removeClass("navbar-shrink");
-		}
-	  };
+	
 	// Collapse now if page is not at top
-	  navbarCollapse();
+	  
 	  // Collapse the navbar when page is scrolled
-	  $(window).scroll(navbarCollapse);
+	  
 
 	// Hide navbar when modals trigger
 	  $('.portfolio-modal').on('show.bs.modal', function(e) {
@@ -121,40 +114,6 @@
         $(this).data('count', parseInt($(this).html(), 10));
         $(this).html('0');
         count($(this));
-    });
-
-    // CONTACT
-    jQuery(document).ready(function() {
-        $('#contactform').submit(function() {
-            var action = $(this).attr('action');
-            $("#message").slideUp(750, function() {
-                $('#message').hide();
-                $('#submit')
-                    .after('<img src="images/ajax-loader.gif" class="loader" />')
-                    .attr('disabled', 'disabled');
-                $.post(action, {
-                        first_name: $('#first_name').val(),
-                        last_name: $('#last_name').val(),
-                        email: $('#email').val(),
-                        phone: $('#phone').val(),
-                        select_service: $('#select_service').val(),
-                        select_price: $('#select_price').val(),
-                        comments: $('#comments').val(),
-                        verify: $('#verify').val()
-                    },
-                    function(data) {
-                        document.getElementById('message').innerHTML = data;
-                        $('#message').slideDown('slow');
-                        $('#contactform img.loader').fadeOut('slow', function() {
-                            $(this).remove()
-                        });
-                        $('#submit').removeAttr('disabled');
-                        if (data.match('success') != null) $('#contactform').slideUp('slow');
-                    }
-                );
-            });
-            return false;
-        });
     });
 
 })(jQuery);

@@ -229,22 +229,14 @@ form .btn input[type="submit"]{
                   <div class="field">
                      <input type="password" name="pw_cp" placeholder="비밀번호" required>
                   </div>
-                  <c:choose>
-				<c:when test="${!result}">
-				
-					<div class="pass-link">
-                     <a href="#">올바른 정보를 입력해주세요..</a>
+                
+                  <div class="pass-link" >
+                     <a href="#" class="idCheckSpan">비밀번호를 잊으셨습니까..?</a>
                   </div>
-				</c:when>
-				<c:otherwise>
-                  <div class="pass-link">
-                     <a href="#">비밀번호를 잊으셨습니까..?</a>
-                  </div>
-                  </c:otherwise>
-                  </c:choose>
+                
                   <div class="field btn">
                      <div class="btn-layer"></div>
-                     <input type="submit" value="로그인" id="cp_login">
+                     <input type="submit" value="로그인" id="cp_login" class="loginCheck">
                   </div>
                   <div class="signup-link">
                      회원이 아니세요? <a href="">회원가입</a>
@@ -258,12 +250,12 @@ form .btn input[type="submit"]{
                      <input type="password" name="pw_if" placeholder="비밀번호" required>
                   </div>
                   <div class="pass-link">
-                    <a href="#">비밀번호를 잊으셨습니까..?</a>
+                    <a href="#" class="idCheckSpan">비밀번호를 잊으셨습니까..?</a>
                  </div>
                   
                   <div class="field btn">
                      <div class="btn-layer"></div>
-                     <input type="submit" value="로그인" id="if_login">
+                     <input type="submit" value="로그인" id="if_login" class="loginCheck">
                   </div>
                </form>
             </div>
@@ -293,6 +285,17 @@ form .btn input[type="submit"]{
            signupBtn.click();
            return false;
          });
+         
+         // 로그인 유효성 검사..
+         
+         $(".loginCheck").on("click",function(){
+        	 console.log(${result});
+        	 let result = ${result};
+        	 if(result==false){
+        		 $(".idCheckSpan").text("올바른 정보를 입력하세요..")
+        		
+        	 }
+         })
          
          
       </script>

@@ -50,12 +50,18 @@ public class MemberController extends HttpServlet {
 					HttpSession session = request.getSession();
 					session.setAttribute("loginID", id);
 					System.out.println("logged in!");
+					response.sendRedirect("/index.jsp");
 				}else if(!result) {
-					response.getWriter().append(String.valueOf(result));
+					System.out.println( id+ "로그인실패..");
+					String idResult = String.valueOf(result);
+					request.setAttribute("result", idResult);
+					
+					RequestDispatcher rd =request.getRequestDispatcher("resources/login/login.jsp");  
+					rd.forward(request, response);
 				}
-				response.sendRedirect("/index.jsp");
 				
-				response.sendRedirect("/resources/login/login.jsp");
+				
+				
 				
 				
 			}else if(cmd.equals("/companyLogin.mem")) { //기업 로그인 부분...
@@ -71,7 +77,7 @@ public class MemberController extends HttpServlet {
 					HttpSession session = request.getSession();
 					session.setAttribute("loginID", id);
 					System.out.println( id+ "logged in!");
-					response.sendRedirect("/index.jsp");
+					
 				}else if(!result) {
 					System.out.println( id+ "로그인실패..");
 					String idResult = String.valueOf(result);
