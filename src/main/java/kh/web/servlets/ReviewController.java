@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kh.web.dao.ReviewDAO;
+import kh.web.dto.ReviewDTO;
 
 
 @WebServlet("*.review")
@@ -22,7 +24,7 @@ request.setCharacterEncoding("utf8");  // get방식 한글 깨짐 방지
 		String cmd = uri.substring(ctx.length());
 		System.out.println("사용자가 요청한 기능 : " + cmd);
 		
-	
+		ReviewDAO reviewDAO = new ReviewDAO();
 		
 		try {
 			if(cmd.equals("/write.reivew")) {
@@ -31,8 +33,9 @@ request.setCharacterEncoding("utf8");  // get방식 한글 깨짐 방지
 				String content = request.getParameter("content");
 				String raiting= request.getParameter("raiting");
 				
-				
-				
+//				ReviewDTO reviewDTO = new ReviewDTO(writer,content,raiting);
+//				
+//				int result = reviewDAO.writeReview(reviewDTO);
 				
 				response.sendRedirect("/resources/searchDetail/searchDetail.jsp");
 			}

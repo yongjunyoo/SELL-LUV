@@ -1,6 +1,9 @@
 package kh.web.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.naming.Context;
@@ -32,6 +35,19 @@ private static InfluencerDAO instance = null;
 	public List getListByTable(String member) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	public boolean login(String id, String pw) throws SQLException, Exception {
+		String sql = "SELECT * FROM members WHERE id_if =? AND pw_if=?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+				pstat.setString(1, id);
+				pstat.setString(2, pw);
+				try(ResultSet rs = pstat.executeQuery();){
+			
+				return rs.next();
+				
+				}
+			}
 	}
 
 }
