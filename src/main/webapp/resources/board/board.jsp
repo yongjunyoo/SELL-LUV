@@ -307,7 +307,7 @@ a {
          		<div class="col-3" style="text-align:right;"> 
 	         		
 	        		<button type="button" class="btn btn-shadow btn-wide btn-primary btn-write" style="background-color:rgb(255, 111, 97); border-color:rgb(255, 111, 97);"> 
-	         		글 쓰기 </button> 
+	         		글쓰기 </button> 
 	         		<script>
 	         			$(".btn-write").on("click",function(){
 	         				location.href="/write.board?cpage=${cpage}";
@@ -317,7 +317,7 @@ a {
         	</div>
         </div>
         
-        
+         
     </div>
     
     <br>
