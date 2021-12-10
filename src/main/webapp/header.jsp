@@ -66,12 +66,18 @@
                     <li class="nav-item">
                     	<a class="nav-link" href="/msearch.search">검색</a>
                 </ul>
+                
                 <span class="nav-item">
-                    <a class="btn-solid-sm" href="/login.mem" style="background-color: #000000;border:none;">로그인</a>
+                   
+
+                    <a class="btn-solid-sm" href="resources/login/login.jsp" style="background-color: #000000;border:none;">로그인</a>
+
                 </span>
             </div> <!-- end of navbar-collapse -->
         </div> <!-- end of container -->
     </nav> <!-- end of navbar -->
     <!-- end of navigation -->
+    <script type="text/javascript">
+    </script>
 </body>
 </html>
