@@ -20,10 +20,10 @@ public class IFCPController extends HttpServlet {
 		System.out.println("사용자가 요청한 기능 : " + cmd);
 		
 		try {
-			if(cmd.equals("/ifView.ifcp")) {
+			if(cmd.equals("/ifList.ifcp")) {
 				
 				response.sendRedirect("/resources/ifcp/list.jsp");
-			}else if(cmd.equals("/cpView.ifcp")) {
+			}else if(cmd.equals("/cpList.ifcp")) {
 				
 				response.sendRedirect("/resources/ifcp/list.jsp");
 			}

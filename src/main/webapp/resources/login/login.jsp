@@ -196,7 +196,7 @@ form .btn input[type="submit"]{
       </style>
    </head>
    <body>
-   <jsp:include page='/header.jsp' flush='false'/>
+  <jsp:include page="/header.jsp" flush="false"/>
       <div class="wrapper">
          <div class="title-text">
             <div class="title login">
@@ -268,5 +268,6 @@ form .btn input[type="submit"]{
          });
          
       </script>
+      <jsp:include page="/footer.jsp" flush="false" />
    </body>
 </html>
