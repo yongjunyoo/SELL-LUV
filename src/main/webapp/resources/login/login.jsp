@@ -215,7 +215,7 @@ form .btn input[type="submit"]{
                <div class="slider-tab"></div>
             </div>
             <div class="form-inner">
-               <form action="#" class="login">
+               <form action="/loginCheck.mem" class="login">
                   <div class="field">
                      <input type="text" placeholder="아이디" required>
                   </div>
@@ -230,7 +230,7 @@ form .btn input[type="submit"]{
                      <input type="submit" value="로그인">
                   </div>
                   <div class="signup-link">
-                     회원이 아니세요? <a href="">회원가입</a>
+                     회원이 아니세요? <a href="/signup.mem">회원가입</a>
                   </div>
                </form>
                <form action="#" class="signup">
@@ -241,7 +241,7 @@ form .btn input[type="submit"]{
                      <input type="password" placeholder="비밀번호" required>
                   </div>
                   <div class="pass-link">
-                    <a href="#">비밀번호를 잊으셨습니까..?</a>
+                    <a href="">비밀번호를 잊으셨습니까..?</a>
                  </div>
                   
                   <div class="field btn">
@@ -266,10 +266,7 @@ form .btn input[type="submit"]{
            loginForm.style.marginLeft = "0%";
            loginText.style.marginLeft = "0%";
          });
-         signupLink.onclick = (()=>{
-           signupBtn.click();
-           return false;
-         });
+         
       </script>
       <jsp:include page="/footer.jsp" flush="false" />
    </body>
