@@ -61,7 +61,7 @@
                         <a class="nav-link" href="/influencerList.ifcp">인플루언서</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/boardList.board">커뮤니티</a>
+                        <a class="nav-link" href="/boardList.board?cpage=1">커뮤니티</a>
                     </li>
                     <li class="nav-item">
                     	<a class="nav-link" href="/msearch.search">검색</a>
