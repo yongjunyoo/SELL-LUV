@@ -135,6 +135,8 @@ a {
     <div id="board-title">
     <img id="title" src="/resources/board/image/title.png">
     <span>커뮤니티 게시판</span>
+    <%= (String)session.getAttribute("cpage") %>
+        <%= request.getParameter("cpage") %>
     </div>       
     <br>
 	
@@ -142,26 +144,67 @@ a {
     <div class="card mb-3 col-xl-8 col-md-12">
     
       <!-- 분류 네비 -->  
-        <div class="card-header pl-0 pr-0">
-            <div class="row no-gutters w-100 align-items-center">
-                <div class="col ml-3" style="text-align:center;">제목</div>
+        <div class="card-header pl-0 pr-0" style="justify-content: space-around;">
+            <div class="row no-gutters w-100 align-items-center" style="justify-content: space-around">
+                <div class="col-1 d-none d-md-block" style="text-align:center;" >111번호</div>
+                <div class="col-7 d-none d-md-block" style="text-align:center;" >111제목</div>
+                <div class="col-2 d-md-none" style="text-align:center;" >번호</div>
+                <div class="col-9 d-md-none" style="text-align:center;" >제목</div>
                 <div class="col-4 text-muted">
                     <div class="row no-gutters align-items-center">
-                        <div class="d-none d-md-block col-4" style="text-align:center;">댓글</div>
-                        <div class="d-none d-md-block col-4" style="text-align:center;">글 작성일</div>
+                        <div class="d-none d-md-block col-4" style="text-align:center;">조회수</div>
+                        <div class="d-none d-md-block col-8" style="text-align:center;">작성자/작성일</div>
                     </div>
                 </div>
             </div>
         </div>
         
+        <c:forEach var="dto" items="${boardList}">
+        	
+        	
+        	<div class="card-body py-3 " style="justify-content: space-around;">
+            	<div class="row no-gutters align-items-center" style="justify-content: space-around">
+                <div class="col-2 d-none d-md-block pl-3"> ${dto.seq } </div>
+                <div class="col-2 d-md-none pl-2"> ${dto.seq } </div>
+                <div class="col-6 d-none d-md-block"> <a href="javascript:void(0)" class="text-big" data-abc="true">111${dto.title }</a>
+                    <div class="text-muted small mt-1 d-md-none">${dto.write_date } &nbsp;·&nbsp; <a href="javascript:void(0)" class="text-muted" data-abc="true">by ${dto.writer }</a></div>
+                </div>
+                <div class="col-8 d-md-none pl-2"> <a href="javascript:void(0)" class="text-big" data-abc="true">${dto.title }</a>
+                    <div class="text-muted small mt-1 d-md-none">${dto.write_date } &nbsp;·&nbsp; <a href="javascript:void(0)" class="text-muted" data-abc="true">by ${dto.writer }</a></div>
+                </div>
+                <div class="d-none d-md-block col-4">
+                    <div class="row no-gutters align-items-center"  >
+                        <div class="col-4" style="text-align:center;">${dto.view_count }</div>
+                        <div class="media pl-4 col-8 align-items-center"> <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1574583246/AAA/2.jpg" alt="" class="d-block ui-w-30 rounded-circle">
+                            <div class="media-body flex-truncate ml-2">
+                                <div class="line-height-1 text-truncate">${dto.write_date }</div> <a href="javascript:void(0)" class="text-muted small text-truncate" data-abc="true">by ${dto.writer }</a>
+                            </div>
+                       	</div>
+                    </div>
+                </div>
+	            </div>
+	        </div>
+	        
+	        <hr class="m-0">
+        </c:forEach>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         <!-- 게시판 내용들 -->
         <div class="card-body py-3">
             <div class="row no-gutters align-items-center">
-                <div class="col"> <a href="javascript:void(0)" class="text-big" data-abc="true">How can i change the username?</a>
-                    <div class="text-muted small mt-1">Started 25 days ago &nbsp;·&nbsp; <a href="javascript:void(0)" class="text-muted" data-abc="true">Neon Mandela</a></div>
+                <div class="col pl-3"> <a href="javascript:void(0)" class="text-big" data-abc="true">제목제목글제목</a>
+                    <div class="text-muted small mt-1 d-md-none">2021.12.08 &nbsp;·&nbsp; <a href="javascript:void(0)" class="text-muted" data-abc="true">홍길동</a></div>
                 </div>
                 <div class="d-none d-md-block col-4">
-                    <div class="row no-gutters align-items-center">
+                    <div class="row no-gutters align-items-center" >
                         <div class="col-4" style="text-align:center;">12</div>
                         <div class="media col-8 align-items-center"> <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1574583246/AAA/2.jpg" alt="" class="d-block ui-w-30 rounded-circle">
                             <div class="media-body flex-truncate ml-2">
@@ -174,6 +217,7 @@ a {
         </div>
         
         <hr class="m-0">
+        <%-- 
         
         <div class="card-body py-3">
             <div class="row no-gutters align-items-center">
@@ -274,8 +318,8 @@ a {
                 </div>
             </div>
         </div>
-        <%= (String)session.getAttribute("cpage") %>
-        <%= request.getParameter("cpage") %>
+        --%>
+        
     </div>
     
      <!-- 글쓰기 & 검색 라인 -->

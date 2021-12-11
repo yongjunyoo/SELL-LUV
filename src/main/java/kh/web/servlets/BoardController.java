@@ -1,6 +1,7 @@
 package kh.web.servlets;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,7 +35,6 @@ public class BoardController extends HttpServlet {
 			if(cmd.equals("/boardList.board")) {
 				String cpage = request.getParameter("cpage");
 				
-				
 				if(cpage == null) {
 					cpage = "1";
 				}
@@ -42,7 +42,10 @@ public class BoardController extends HttpServlet {
 				session.setAttribute("cpage", cpage);
 				System.out.println("cpage : " + cpage);
 				System.out.println("세션 cpage : " + session.getAttribute("cpage"));
-				response.sendRedirect("/resources/board/board.jsp?cpage="+cpage);
+				
+				List<BoardDTO> boardList = bdao.selectAll();
+				request.setAttribute("boardList", boardList);
+				request.getRequestDispatcher("/resources/board/board.jsp?cpage="+cpage).forward(request, response);
 			// 글쓰기 기능
 			}else if(cmd.equals("/write.board")) {
 				// session.removeAttribute("cpage");

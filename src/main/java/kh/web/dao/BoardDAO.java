@@ -3,6 +3,9 @@ package kh.web.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -41,5 +44,41 @@ private static BoardDAO instance = null;
 		}
 	}
 	
+	public List<BoardDTO> selectAll() throws Exception {
+		String sql = "SELECT * FROM freeboard";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				ResultSet rs = pstat.executeQuery();
+				){
+			List<BoardDTO> list = new ArrayList<>();
+			while(rs.next()) {
+				int seq = rs.getInt("seq");
+				String writer = rs.getString("writer");
+				String title = rs.getString("title");
+				String contents = rs.getString("contents");
+				Timestamp write_date = rs.getTimestamp("write_date");
+				int view_count = rs.getInt("view_count");
+				list.add(new BoardDTO(seq,writer,title,contents,write_date,view_count));
+			}
+			return list;
+			}
+		}
+	
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
