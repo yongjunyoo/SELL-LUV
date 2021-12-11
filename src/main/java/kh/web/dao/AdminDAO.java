@@ -43,6 +43,17 @@ public class AdminDAO {
 			return rs.getInt(1);	
 		}
 	}
+	public int getIfCardWriterCount(String searchContents) throws Exception { // 총 인플루언서 카드 수 출력.(작성자로 검색시)
+		String sql = "select count(seq_if) from profile_if where writer_if like ?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, "%"+searchContents+"%");
+			try(ResultSet rs = pstat.executeQuery();) {
+				rs.next();
+				return rs.getInt(1);	
+			}	
+		}
+	}
 	
 	public int getCpCardCount() throws Exception { // 총 기업 카드 수 출력.
 		String sql = "select count(seq_cp) from board_cp";
@@ -51,6 +62,30 @@ public class AdminDAO {
 				ResultSet rs = pstat.executeQuery();){
 			rs.next();
 			return rs.getInt(1);	
+		}
+	}
+	
+	public int getCpCardTitleCount(String searchContents) throws Exception { // 총 기업 카드 수 출력.(제목으로 검색시)
+		String sql = "select count(seq_cp) from board_cp where title_cp like ?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, "%"+searchContents+"%");
+			try(ResultSet rs = pstat.executeQuery();) {
+				rs.next();
+				return rs.getInt(1);	
+			}	
+		}
+	}
+	
+	public int getCpCardWriterCount(String searchContents) throws Exception { // 총 기업 카드 수 출력.(작성자로 검색시)
+		String sql = "select count(seq_cp) from board_cp where writer_cp like ?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, "%"+searchContents+"%");
+			try(ResultSet rs = pstat.executeQuery();) {
+				rs.next();
+				return rs.getInt(1);	
+			}	
 		}
 	}
 
@@ -63,6 +98,28 @@ public class AdminDAO {
 			return rs.getInt(1);	
 		}
 	}
+	public int getAllBoardWriterCount(String searchContents) throws Exception { // 메인에서 총 자유게시판 글 수 출력.(작성자로 검색시)
+		String sql = "select count(*) from freeboard where writer like ?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, "%"+searchContents+"%");
+			try(ResultSet rs = pstat.executeQuery();) {
+				rs.next();
+				return rs.getInt(1);	
+			}	
+		}
+	}
+	public int getAllBoardTitleCount(String searchContents) throws Exception { // 메인에서 총 자유게시판 글 수 출력.(제목으로 검색시)
+		String sql = "select count(*) from freeboard where title like ?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, "%"+searchContents+"%");
+			try(ResultSet rs = pstat.executeQuery();){
+				rs.next();
+				return rs.getInt(1);	
+			}
+		}
+	}
 
 	public int getIfMemberCount() throws Exception { // 메인에서 인플루언서 회원 수 출력.
 		String sql = "select count(*) from influencer";
@@ -73,6 +130,39 @@ public class AdminDAO {
 			return rs.getInt(1);	
 		}
 	}
+	public int getIfMemberIdCount(String searchContents) throws Exception { // 메인에서 인플루언서 회원 수 출력.(아이디로 검색시)
+		String sql = "select count(*) from influencer where id_if like ?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, "%"+searchContents+"%");
+			try(ResultSet rs = pstat.executeQuery();){
+				rs.next();
+				return rs.getInt(1);	
+			}
+		}
+	}
+	public int getIfMemberNameCount(String searchContents) throws Exception { // 메인에서 인플루언서 회원 수 출력.(이름으로 검색시)
+		String sql = "select count(*) from influencer where name_if like ?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, "%"+searchContents+"%");
+			try(ResultSet rs = pstat.executeQuery();){
+				rs.next();
+				return rs.getInt(1);	
+			}
+		}
+	}
+	public int getIfMemberNNCount(String searchContents) throws Exception { // 메인에서 인플루언서 회원 수 출력.(닉네임으로 검색시)
+		String sql = "select count(*) from influencer where nickname_if like ?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, "%"+searchContents+"%");
+			try(ResultSet rs = pstat.executeQuery();){
+				rs.next();
+				return rs.getInt(1);	
+			}
+		}
+	}
 	
 	public int getCpMemberCount() throws Exception { // 메인에서 기업 회원 수 출력.
 		String sql = "select count(*) from company";
@@ -81,6 +171,30 @@ public class AdminDAO {
 				ResultSet rs = pstat.executeQuery();){
 			rs.next();
 			return rs.getInt(1);	
+		}
+	}
+	
+	public int getCpMemberIdCount(String searchContents) throws Exception { // 메인에서 기업 회원 수 출력.(아이디로 찾을시)
+		String sql = "select count(*) from company where id_cp like ?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, "%"+searchContents+"%");
+			try(ResultSet rs = pstat.executeQuery();){
+				rs.next();
+				return rs.getInt(1);	
+			}
+		}
+	}
+	
+	public int getCpMemberNameCount(String searchContents) throws Exception { // 메인에서 기업 회원 수 출력.(기업이름으로 찾을시)
+		String sql = "select count(*) from company where name_cp like ?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, "%"+searchContents+"%");
+			try(ResultSet rs = pstat.executeQuery();){
+				rs.next();
+				return rs.getInt(1);	
+			}
 		}
 	}
 	
@@ -115,6 +229,18 @@ public class AdminDAO {
 	
 	public int getifCardPageTotalCount() throws Exception { // 인플루언서 카드 페이지
 		int recordTotalCount = this.getIfCardCount();
+		
+		// 총 페이지 개수
+		int pageTotalCount = 0;
+		if(recordTotalCount%PageStatics.RECORD_COUNT_PER_PAGE==0) {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE;
+		}else {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE+1;
+		}
+		return pageTotalCount;
+	}
+	public int getifCardWriterPageTotalCount(String searchContents) throws Exception { // 인플루언서 카드 페이지(작성자로 검색시)
+		int recordTotalCount = this.getIfCardWriterCount(searchContents);
 		
 		// 총 페이지 개수
 		int pageTotalCount = 0;
@@ -172,6 +298,54 @@ public class AdminDAO {
 		
 		return pageNavi;
 	}
+	
+	public String getifCardWriterPageNavi(int currentPage,String searchContents) throws Exception { // 인플루언서 카드 네비(작성자로 검색시)
+		int recordTotalCount = this.getIfCardWriterCount(searchContents);
+
+		int pageTotalCount = 0;
+		if(recordTotalCount%PageStatics.RECORD_COUNT_PER_PAGE==0) {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE;
+		}else {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE+1;
+		}
+
+		int startNavi = (currentPage-1)/PageStatics.NAVI_COUNT_PER_PAGE*PageStatics.NAVI_COUNT_PER_PAGE+1;
+		int endNavi = startNavi+PageStatics.NAVI_COUNT_PER_PAGE-1;
+		
+		if(endNavi > pageTotalCount) {  
+			endNavi = pageTotalCount;
+		}
+		
+		boolean needPrev = true;
+		boolean needNext = true;
+		
+		if(startNavi==1) {
+			needPrev = false;
+		}
+		if(endNavi==pageTotalCount) {
+			needNext = false;
+		}
+		
+		String pageNavi ="";
+		if(needPrev) {
+			pageNavi +="								<li class=\"page-item\"><a class=\"page-link\" href=\"/adminIfCardSearch.admin?select=작성자&cpage="+(startNavi-1)+"&searchContents="+searchContents+"\"\r\n"
+					+ "									aria-label=\"Previous\"> <span aria-hidden=\"true\">&laquo;</span>\r\n"
+					+ "										<span class=\"sr-only\">Previous</span>\r\n"
+					+ "								</a></li>";
+		}
+		for(int i=startNavi; i<=endNavi; i++) {
+			pageNavi+="<li class=\"page-item\"><a class=\"page-link\" href=/adminIfCardSearch.admin?select=작성자&cpage="+i+"&searchContents="+searchContents+">"+i+"</a></li>";
+		}
+		if(needNext) {
+			pageNavi += "								<li class=\"page-item\"><a class=\"page-link\" href=\"/adminIfCardSearch.admin?select=작성자&cpage="+(endNavi+1)+"&searchContents="+searchContents+"\"\r\n"
+					+ "									aria-label=\"Next\"> <span aria-hidden=\"true\">&raquo;</span>\r\n"
+					+ "										<span class=\"sr-only\">Next</span>\r\n"
+					+ "								</a></li>";
+		}
+		
+		return pageNavi;
+	}
+	
 	public List<Profile_IfDTO> ifCardBoundary(int start, int end) throws Exception { // 인플루언서 10개씩 뽑아오는 코드.
 		String sql = "select * from (select profile_if.*, row_number() over(order by seq_if desc) rn from profile_if) where rn between ? and ?";
 		try(Connection con = this.getConnection();
@@ -201,6 +375,30 @@ public class AdminDAO {
 	
 	public int getCpCardPageTotalCount() throws Exception { // 기업 카드 페이지
 		int recordTotalCount = this.getCpCardCount();
+		
+		// 총 페이지 개수
+		int pageTotalCount = 0;
+		if(recordTotalCount%PageStatics.RECORD_COUNT_PER_PAGE==0) {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE;
+		}else {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE+1;
+		}
+		return pageTotalCount;
+	}
+	public int getCpCardWriterPageTotalCount(String searchContents) throws Exception { // 기업 카드 페이지(작성자로 검색시)
+		int recordTotalCount = this.getCpCardWriterCount(searchContents);
+		
+		// 총 페이지 개수
+		int pageTotalCount = 0;
+		if(recordTotalCount%PageStatics.RECORD_COUNT_PER_PAGE==0) {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE;
+		}else {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE+1;
+		}
+		return pageTotalCount;
+	}
+	public int getCpCardTitlePageTotalCount(String searchContents) throws Exception { // 기업 카드 페이지(제목으로 검색시)
+		int recordTotalCount = this.getCpCardTitleCount(searchContents);
 		
 		// 총 페이지 개수
 		int pageTotalCount = 0;
@@ -258,6 +456,98 @@ public class AdminDAO {
 		return pageNavi;
 	}
 	
+	public String getCpCardTitlePageNavi(int currentPage,String searchContents) throws Exception { // 기업 카드 네비(제목으로 검색시)
+		int recordTotalCount = this.getCpCardTitleCount(searchContents);
+
+		int pageTotalCount = 0;
+		if(recordTotalCount%PageStatics.RECORD_COUNT_PER_PAGE==0) {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE;
+		}else {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE+1;
+		}
+
+		int startNavi = (currentPage-1)/PageStatics.NAVI_COUNT_PER_PAGE*PageStatics.NAVI_COUNT_PER_PAGE+1;
+		int endNavi = startNavi+PageStatics.NAVI_COUNT_PER_PAGE-1;
+		
+		if(endNavi > pageTotalCount) {  
+			endNavi = pageTotalCount;
+		}
+		
+		boolean needPrev = true;
+		boolean needNext = true;
+		
+		if(startNavi==1) {
+			needPrev = false;
+		}
+		if(endNavi==pageTotalCount) {
+			needNext = false;
+		}
+		
+		String pageNavi ="";
+		if(needPrev) {
+			pageNavi +="								<li class=\"page-item\"><a class=\"page-link\" href=\"/adminCpCardSearch.admin?select=제목&cpage="+(startNavi-1)+"&searchContents="+searchContents+"\"\r\n"
+					+ "									aria-label=\"Previous\"> <span aria-hidden=\"true\">&laquo;</span>\r\n"
+					+ "										<span class=\"sr-only\">Previous</span>\r\n"
+					+ "								</a></li>";
+		}
+		for(int i=startNavi; i<=endNavi; i++) {
+			pageNavi+="<li class=\"page-item\"><a class=\"page-link\" href=/adminCpCardSearch.admin?select=제목&cpage="+i+"&searchContents="+searchContents+">"+i+"</a></li>";
+		}
+		if(needNext) {
+			pageNavi += "								<li class=\"page-item\"><a class=\"page-link\" href=\"/adminCpCardSearch.admin?select=제목&cpage="+(endNavi+1)+"&searchContents="+searchContents+"\"\r\n"
+					+ "									aria-label=\"Next\"> <span aria-hidden=\"true\">&raquo;</span>\r\n"
+					+ "										<span class=\"sr-only\">Next</span>\r\n"
+					+ "								</a></li>";
+		}
+		return pageNavi;
+	}
+	
+	public String getCpCardWriterPageNavi(int currentPage, String searchContents) throws Exception { // 기업 카드 네비(작성자로 검색시)
+		int recordTotalCount = this.getCpCardWriterCount(searchContents);
+
+		int pageTotalCount = 0;
+		if(recordTotalCount%PageStatics.RECORD_COUNT_PER_PAGE==0) {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE;
+		}else {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE+1;
+		}
+
+		int startNavi = (currentPage-1)/PageStatics.NAVI_COUNT_PER_PAGE*PageStatics.NAVI_COUNT_PER_PAGE+1;
+		int endNavi = startNavi+PageStatics.NAVI_COUNT_PER_PAGE-1;
+		
+		if(endNavi > pageTotalCount) {  
+			endNavi = pageTotalCount;
+		}
+		
+		boolean needPrev = true;
+		boolean needNext = true;
+		
+		if(startNavi==1) {
+			needPrev = false;
+		}
+		if(endNavi==pageTotalCount) {
+			needNext = false;
+		}
+		
+		String pageNavi ="";
+		if(needPrev) {
+			pageNavi +="								<li class=\"page-item\"><a class=\"page-link\" href=\"/adminCpCardSearch.admin?select=작성자&cpage="+(startNavi-1)+"&searchContents="+searchContents+"\"\r\n"
+					+ "									aria-label=\"Previous\"> <span aria-hidden=\"true\">&laquo;</span>\r\n"
+					+ "										<span class=\"sr-only\">Previous</span>\r\n"
+					+ "								</a></li>";
+		}
+		for(int i=startNavi; i<=endNavi; i++) {
+			pageNavi+="<li class=\"page-item\"><a class=\"page-link\" href=/adminCpCardSearch.admin?select=작성자&cpage="+i+"&searchContents="+searchContents+">"+i+"</a></li>";
+		}
+		if(needNext) {
+			pageNavi += "								<li class=\"page-item\"><a class=\"page-link\" href=\"/adminCpCardSearch.admin?select=작성자&cpage="+(endNavi+1)+"&searchContents="+searchContents+"\"\r\n"
+					+ "									aria-label=\"Next\"> <span aria-hidden=\"true\">&raquo;</span>\r\n"
+					+ "										<span class=\"sr-only\">Next</span>\r\n"
+					+ "								</a></li>";
+		}
+		return pageNavi;
+	}
+	
 	public List<Board_CpDTO> cpCardBoundary(int start, int end) throws Exception { // 기업 10개씩 뽑아오는 코드.
 		String sql = "select * from (select board_cp.*, row_number() over(order by seq_cp desc) rn from board_cp) where rn between ? and ?";
 		try(Connection con = this.getConnection();
@@ -287,6 +577,32 @@ public class AdminDAO {
 	
 	public int getBoardPageTotalCount() throws Exception { // 자유게시판 페이지
 		int recordTotalCount = this.getAllBoardCount();
+		
+		// 총 페이지 개수
+		int pageTotalCount = 0;
+		if(recordTotalCount%PageStatics.RECORD_COUNT_PER_PAGE==0) {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE;
+		}else {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE+1;
+		}
+		return pageTotalCount;
+	}
+	
+	public int getBoardTitlePageTotalCount(String searchContents) throws Exception { // 자유게시판 페이지(제목)
+		int recordTotalCount = this.getAllBoardTitleCount(searchContents);
+		
+		// 총 페이지 개수
+		int pageTotalCount = 0;
+		if(recordTotalCount%PageStatics.RECORD_COUNT_PER_PAGE==0) {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE;
+		}else {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE+1;
+		}
+		return pageTotalCount;
+	}
+	
+	public int getBoardWriterPageTotalCount(String searchContents) throws Exception { // 자유게시판 페이지(작성자)
+		int recordTotalCount = this.getAllBoardWriterCount(searchContents);
 		
 		// 총 페이지 개수
 		int pageTotalCount = 0;
@@ -344,6 +660,98 @@ public class AdminDAO {
 		return pageNavi;
 	}
 	
+	public String getBoardTitlePageNavi(int currentPage,String searchContents) throws Exception { // 자유게시판 네비(제목으로 검색)
+		int recordTotalCount = this.getAllBoardTitleCount(searchContents);
+
+		int pageTotalCount = 0;
+		if(recordTotalCount%PageStatics.RECORD_COUNT_PER_PAGE==0) {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE;
+		}else {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE+1;
+		}
+
+		int startNavi = (currentPage-1)/PageStatics.NAVI_COUNT_PER_PAGE*PageStatics.NAVI_COUNT_PER_PAGE+1;
+		int endNavi = startNavi+PageStatics.NAVI_COUNT_PER_PAGE-1;
+		
+		if(endNavi > pageTotalCount) {  
+			endNavi = pageTotalCount;
+		}
+		
+		boolean needPrev = true;
+		boolean needNext = true;
+		
+		if(startNavi==1) {
+			needPrev = false;
+		}
+		if(endNavi==pageTotalCount) {
+			needNext = false;
+		}
+		
+		String pageNavi ="";
+		if(needPrev) {
+			pageNavi +="								<li class=\"page-item\"><a class=\"page-link\" href=\"/adminBoardSearch.admin?select=제목&cpage="+(startNavi-1)+"&searchContents="+searchContents+"\"\r\n"
+					+ "									aria-label=\"Previous\"> <span aria-hidden=\"true\">&laquo;</span>\r\n"
+					+ "										<span class=\"sr-only\">Previous</span>\r\n"
+					+ "								</a></li>";
+		}
+		for(int i=startNavi; i<=endNavi; i++) {
+			pageNavi+="<li class=\"page-item\"><a class=\"page-link\" href=/adminBoardSearch.admin?select=제목&cpage="+i+"&searchContents="+searchContents+">"+i+"</a></li>";
+		}
+		if(needNext) {
+			pageNavi += "								<li class=\"page-item\"><a class=\"page-link\" href=\"/adminBoardSearch.admin?select=제목&cpage="+(endNavi+1)+"&searchContents="+searchContents+"\"\r\n"
+					+ "									aria-label=\"Next\"> <span aria-hidden=\"true\">&raquo;</span>\r\n"
+					+ "										<span class=\"sr-only\">Next</span>\r\n"
+					+ "								</a></li>";
+		}
+		return pageNavi;
+	}
+	
+	public String getBoardWriterPageNavi(int currentPage,String searchContents) throws Exception { // 자유게시판 네비(작성자로 검색)
+		int recordTotalCount = this.getAllBoardWriterCount(searchContents);
+
+		int pageTotalCount = 0;
+		if(recordTotalCount%PageStatics.RECORD_COUNT_PER_PAGE==0) {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE;
+		}else {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE+1;
+		}
+
+		int startNavi = (currentPage-1)/PageStatics.NAVI_COUNT_PER_PAGE*PageStatics.NAVI_COUNT_PER_PAGE+1;
+		int endNavi = startNavi+PageStatics.NAVI_COUNT_PER_PAGE-1;
+		
+		if(endNavi > pageTotalCount) {  
+			endNavi = pageTotalCount;
+		}
+		
+		boolean needPrev = true;
+		boolean needNext = true;
+		
+		if(startNavi==1) {
+			needPrev = false;
+		}
+		if(endNavi==pageTotalCount) {
+			needNext = false;
+		}
+		
+		String pageNavi ="";
+		if(needPrev) {
+			pageNavi +="								<li class=\"page-item\"><a class=\"page-link\" href=\"/adminBoardSearch.admin?select=작성자&cpage="+(startNavi-1)+"&searchContents="+searchContents+"\r\n"
+					+ "									aria-label=\"Previous\"> <span aria-hidden=\"true\">&laquo;</span>\r\n"
+					+ "										<span class=\"sr-only\">Previous</span>\r\n"
+					+ "								</a></li>";
+		}
+		for(int i=startNavi; i<=endNavi; i++) {
+			pageNavi+="<li class=\"page-item\"><a class=\"page-link\" href=/adminBoardSearch.admin?select=작성자&cpage="+i+"&searchContents="+searchContents+">"+i+"</a></li>";
+		}
+		if(needNext) {
+			pageNavi += "								<li class=\"page-item\"><a class=\"page-link\" href=\"/adminBoardSearch.admin?select=작성자&cpage="+(endNavi+1)+"&searchContents="+searchContents+"\r\n"
+					+ "									aria-label=\"Next\"> <span aria-hidden=\"true\">&raquo;</span>\r\n"
+					+ "										<span class=\"sr-only\">Next</span>\r\n"
+					+ "								</a></li>";
+		}
+		return pageNavi;
+	}
+	
 	public List<BoardDTO> boardBoundary(int start, int end) throws Exception { // 자유게시판 10개씩 뽑아오는 코드.
 		String sql = "select * from (select freeboard.*, row_number() over(order by seq desc) rn from freeboard) where rn between ? and ?";
 		try(Connection con = this.getConnection();
@@ -380,9 +788,123 @@ public class AdminDAO {
 		}
 		return pageTotalCount;
 	}
+	public int getCpMemberIdPageTotalCount(String searchContents) throws Exception { // 기업회원 페이지(아이디로 검색시)
+		int recordTotalCount = this.getCpMemberIdCount(searchContents);
+		
+		// 총 페이지 개수
+		int pageTotalCount = 0;
+		if(recordTotalCount%PageStatics.RECORD_COUNT_PER_PAGE==0) {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE;
+		}else {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE+1;
+		}
+		return pageTotalCount;
+	}
+	public int getCpMemberNamePageTotalCount(String searchContents) throws Exception { // 기업회원 페이지(기업이름으로 검색시)
+		int recordTotalCount = this.getCpMemberNameCount(searchContents);
+		
+		// 총 페이지 개수
+		int pageTotalCount = 0;
+		if(recordTotalCount%PageStatics.RECORD_COUNT_PER_PAGE==0) {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE;
+		}else {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE+1;
+		}
+		return pageTotalCount;
+	}
 	
 	public String getCpMemberPageNavi(int currentPage) throws Exception { // 기업회원 네비
 		int recordTotalCount = this.getCpMemberCount();
+
+		int pageTotalCount = 0;
+		if(recordTotalCount%PageStatics.RECORD_COUNT_PER_PAGE==0) {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE;
+		}else {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE+1;
+		}
+
+		int startNavi = (currentPage-1)/PageStatics.NAVI_COUNT_PER_PAGE*PageStatics.NAVI_COUNT_PER_PAGE+1;
+		int endNavi = startNavi+PageStatics.NAVI_COUNT_PER_PAGE-1;
+		
+		if(endNavi > pageTotalCount) {  
+			endNavi = pageTotalCount;
+		}
+		
+		boolean needPrev = true;
+		boolean needNext = true;
+		
+		if(startNavi==1) {
+			needPrev = false;
+		}
+		if(endNavi==pageTotalCount) {
+			needNext = false;
+		}
+		
+		String pageNavi ="";
+		if(needPrev) {
+			pageNavi +="								<li class=\"page-item\"><a class=\"page-link\" href=\"/adminCpMember.admin?cpage="+(startNavi-1)+"\"\r\n"
+					+ "									aria-label=\"Previous\"> <span aria-hidden=\"true\">&laquo;</span>\r\n"
+					+ "										<span class=\"sr-only\">Previous</span>\r\n"
+					+ "								</a></li>";
+		}
+		for(int i=startNavi; i<=endNavi; i++) {
+			pageNavi+="<li class=\"page-item\"><a class=\"page-link\" href=/adminCpMember.admin?cpage="+i+">"+i+"</a></li>";
+		}
+		if(needNext) {
+			pageNavi += "								<li class=\"page-item\"><a class=\"page-link\" href=\"/adminCpMember.admin?cpage="+(endNavi+1)+"\"\r\n"
+					+ "									aria-label=\"Next\"> <span aria-hidden=\"true\">&raquo;</span>\r\n"
+					+ "										<span class=\"sr-only\">Next</span>\r\n"
+					+ "								</a></li>";
+		}
+		return pageNavi;
+	}
+	public String getCpMemberIdPageNavi(int currentPage,String searchContents) throws Exception { // 기업회원 네비(아이디로 검색시)
+		int recordTotalCount = this.getCpMemberIdCount(searchContents);
+
+		int pageTotalCount = 0;
+		if(recordTotalCount%PageStatics.RECORD_COUNT_PER_PAGE==0) {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE;
+		}else {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE+1;
+		}
+
+		int startNavi = (currentPage-1)/PageStatics.NAVI_COUNT_PER_PAGE*PageStatics.NAVI_COUNT_PER_PAGE+1;
+		int endNavi = startNavi+PageStatics.NAVI_COUNT_PER_PAGE-1;
+		
+		if(endNavi > pageTotalCount) {  
+			endNavi = pageTotalCount;
+		}
+		
+		boolean needPrev = true;
+		boolean needNext = true;
+		
+		if(startNavi==1) {
+			needPrev = false;
+		}
+		if(endNavi==pageTotalCount) {
+			needNext = false;
+		}
+		
+		String pageNavi ="";
+		if(needPrev) {
+			pageNavi +="								<li class=\"page-item\"><a class=\"page-link\" href=\"/adminCpMemberSearch.admin?select=아이디&cpage="+(startNavi-1)+"&searchContents="+searchContents+"\"\r\n"
+					+ "									aria-label=\"Previous\"> <span aria-hidden=\"true\">&laquo;</span>\r\n"
+					+ "										<span class=\"sr-only\">Previous</span>\r\n"
+					+ "								</a></li>";
+		}
+		for(int i=startNavi; i<=endNavi; i++) {
+			pageNavi+="<li class=\"page-item\"><a class=\"page-link\" href=/adminCpMemberSearch.admin?select=아이디&cpage="+i+"&searchContents="+searchContents+">"+i+"</a></li>";
+		}
+		if(needNext) {
+			pageNavi += "								<li class=\"page-item\"><a class=\"page-link\" href=\"/adminCpMemberSearch.admin?select=아이디&cpage="+(endNavi+1)+"&searchContents="+searchContents+"\"\r\n"
+					+ "									aria-label=\"Next\"> <span aria-hidden=\"true\">&raquo;</span>\r\n"
+					+ "										<span class=\"sr-only\">Next</span>\r\n"
+					+ "								</a></li>";
+		}
+		return pageNavi;
+	}
+	public String getCpMemberNamePageNavi(int currentPage,String searchContents) throws Exception { // 기업회원 네비(기업이름으로 검색시)
+		int recordTotalCount = this.getCpMemberNameCount(searchContents);
 
 		int pageTotalCount = 0;
 		if(recordTotalCount%PageStatics.RECORD_COUNT_PER_PAGE==0) {
@@ -470,6 +992,42 @@ public class AdminDAO {
 		}
 		return pageTotalCount;
 	}
+	public int getIfMemberIdPageTotalCount(String searchContents) throws Exception { // 인플루언서 회원 페이지(아이디로 검색시)
+		int recordTotalCount = this.getIfMemberIdCount(searchContents);
+		
+		// 총 페이지 개수
+		int pageTotalCount = 0;
+		if(recordTotalCount%PageStatics.RECORD_COUNT_PER_PAGE==0) {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE;
+		}else {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE+1;
+		}
+		return pageTotalCount;
+	}
+	public int getIfMemberNamePageTotalCount(String searchContents) throws Exception { // 인플루언서 회원 페이지(이름으로 검색시)
+		int recordTotalCount = this.getIfMemberNameCount(searchContents);
+		
+		// 총 페이지 개수
+		int pageTotalCount = 0;
+		if(recordTotalCount%PageStatics.RECORD_COUNT_PER_PAGE==0) {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE;
+		}else {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE+1;
+		}
+		return pageTotalCount;
+	}
+	public int getIfMemberNNPageTotalCount(String searchContents) throws Exception { // 인플루언서 회원 페이지(닉네임으로 검색시)
+		int recordTotalCount = this.getIfMemberNNCount(searchContents);
+		
+		// 총 페이지 개수
+		int pageTotalCount = 0;
+		if(recordTotalCount%PageStatics.RECORD_COUNT_PER_PAGE==0) {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE;
+		}else {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE+1;
+		}
+		return pageTotalCount;
+	}
 	
 	public String getIfMemberPageNavi(int currentPage) throws Exception { // 인플루언서 회원 네비
 		int recordTotalCount = this.getIfMemberCount();
@@ -510,6 +1068,141 @@ public class AdminDAO {
 		}
 		if(needNext) {
 			pageNavi += "								<li class=\"page-item\"><a class=\"page-link\" href=\"/adminIfMember.admin?cpage="+(endNavi+1)+"\"\r\n"
+					+ "									aria-label=\"Next\"> <span aria-hidden=\"true\">&raquo;</span>\r\n"
+					+ "										<span class=\"sr-only\">Next</span>\r\n"
+					+ "								</a></li>";
+		}
+		return pageNavi;
+	}
+	public String getIfMemberIdPageNavi(int currentPage,String searchContents) throws Exception { // 인플루언서 회원 네비(아이디로 검색시)
+		int recordTotalCount = this.getIfMemberIdCount(searchContents);
+
+		int pageTotalCount = 0;
+		if(recordTotalCount%PageStatics.RECORD_COUNT_PER_PAGE==0) {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE;
+		}else {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE+1;
+		}
+
+		int startNavi = (currentPage-1)/PageStatics.NAVI_COUNT_PER_PAGE*PageStatics.NAVI_COUNT_PER_PAGE+1;
+		int endNavi = startNavi+PageStatics.NAVI_COUNT_PER_PAGE-1;
+		
+		if(endNavi > pageTotalCount) {  
+			endNavi = pageTotalCount;
+		}
+		
+		boolean needPrev = true;
+		boolean needNext = true;
+		
+		if(startNavi==1) {
+			needPrev = false;
+		}
+		if(endNavi==pageTotalCount) {
+			needNext = false;
+		}
+		
+		String pageNavi ="";
+		if(needPrev) {
+			pageNavi +="								<li class=\"page-item\"><a class=\"page-link\" href=\"/adminIfMemberSearch.admin?select=아이디&cpage="+(startNavi-1)+"&searchContents="+searchContents+"\"\r\n"
+					+ "									aria-label=\"Previous\"> <span aria-hidden=\"true\">&laquo;</span>\r\n"
+					+ "										<span class=\"sr-only\">Previous</span>\r\n"
+					+ "								</a></li>";
+		}
+		for(int i=startNavi; i<=endNavi; i++) {
+			pageNavi+="<li class=\"page-item\"><a class=\"page-link\" href=/adminIfMemberSearch.admin?select=아이디&cpage="+i+"&searchContents="+searchContents+">"+i+"</a></li>";
+		}
+		if(needNext) {
+			pageNavi += "								<li class=\"page-item\"><a class=\"page-link\" href=\"/adminIfMemberSearch.admin?select=아이디&cpage="+(endNavi+1)+"&searchContents="+searchContents+"\"\r\n"
+					+ "									aria-label=\"Next\"> <span aria-hidden=\"true\">&raquo;</span>\r\n"
+					+ "										<span class=\"sr-only\">Next</span>\r\n"
+					+ "								</a></li>";
+		}
+		return pageNavi;
+	}
+	public String getIfMemberNamePageNavi(int currentPage,String searchContents) throws Exception { // 인플루언서 회원 네비(이름으로 검색시)
+		int recordTotalCount = this.getIfMemberNameCount(searchContents);
+
+		int pageTotalCount = 0;
+		if(recordTotalCount%PageStatics.RECORD_COUNT_PER_PAGE==0) {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE;
+		}else {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE+1;
+		}
+
+		int startNavi = (currentPage-1)/PageStatics.NAVI_COUNT_PER_PAGE*PageStatics.NAVI_COUNT_PER_PAGE+1;
+		int endNavi = startNavi+PageStatics.NAVI_COUNT_PER_PAGE-1;
+		
+		if(endNavi > pageTotalCount) {  
+			endNavi = pageTotalCount;
+		}
+		
+		boolean needPrev = true;
+		boolean needNext = true;
+		
+		if(startNavi==1) {
+			needPrev = false;
+		}
+		if(endNavi==pageTotalCount) {
+			needNext = false;
+		}
+		
+		String pageNavi ="";
+		if(needPrev) {
+			pageNavi +="								<li class=\"page-item\"><a class=\"page-link\" href=\"/adminIfMemberSearch.admin?select=이름&cpage="+(startNavi-1)+"&searchContents="+searchContents+"\"\r\n"
+					+ "									aria-label=\"Previous\"> <span aria-hidden=\"true\">&laquo;</span>\r\n"
+					+ "										<span class=\"sr-only\">Previous</span>\r\n"
+					+ "								</a></li>";
+		}
+		for(int i=startNavi; i<=endNavi; i++) {
+			pageNavi+="<li class=\"page-item\"><a class=\"page-link\" href=/adminIfMemberSearch.admin?select=이름&cpage="+i+"&searchContents="+searchContents+">"+i+"</a></li>";
+		}
+		if(needNext) {
+			pageNavi += "								<li class=\"page-item\"><a class=\"page-link\" href=\"/adminIfMemberSearch.admin?select=이름&cpage="+(endNavi+1)+"&searchContents="+searchContents+"\"\r\n"
+					+ "									aria-label=\"Next\"> <span aria-hidden=\"true\">&raquo;</span>\r\n"
+					+ "										<span class=\"sr-only\">Next</span>\r\n"
+					+ "								</a></li>";
+		}
+		return pageNavi;
+	}
+	public String getIfMemberNNPageNavi(int currentPage,String searchContents) throws Exception { // 인플루언서 회원 네비(닉네임으로 검색시)
+		int recordTotalCount = this.getIfMemberNNCount(searchContents);
+
+		int pageTotalCount = 0;
+		if(recordTotalCount%PageStatics.RECORD_COUNT_PER_PAGE==0) {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE;
+		}else {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE+1;
+		}
+
+		int startNavi = (currentPage-1)/PageStatics.NAVI_COUNT_PER_PAGE*PageStatics.NAVI_COUNT_PER_PAGE+1;
+		int endNavi = startNavi+PageStatics.NAVI_COUNT_PER_PAGE-1;
+		
+		if(endNavi > pageTotalCount) {  
+			endNavi = pageTotalCount;
+		}
+		
+		boolean needPrev = true;
+		boolean needNext = true;
+		
+		if(startNavi==1) {
+			needPrev = false;
+		}
+		if(endNavi==pageTotalCount) {
+			needNext = false;
+		}
+		
+		String pageNavi ="";
+		if(needPrev) {
+			pageNavi +="								<li class=\"page-item\"><a class=\"page-link\" href=\"/adminIfMemberSearch.admin?select=닉네임&cpage="+(startNavi-1)+"&searchContents="+searchContents+"\"\r\n"
+					+ "									aria-label=\"Previous\"> <span aria-hidden=\"true\">&laquo;</span>\r\n"
+					+ "										<span class=\"sr-only\">Previous</span>\r\n"
+					+ "								</a></li>";
+		}
+		for(int i=startNavi; i<=endNavi; i++) {
+			pageNavi+="<li class=\"page-item\"><a class=\"page-link\" href=/adminIfMemberSearch.admin?select=닉네임&cpage="+i+"&searchContents="+searchContents+">"+i+"</a></li>";
+		}
+		if(needNext) {
+			pageNavi += "								<li class=\"page-item\"><a class=\"page-link\" href=\"/adminIfMemberSearch.admin?select=닉네임&cpage="+(endNavi+1)+"&searchContents="+searchContents+"\"\r\n"
 					+ "									aria-label=\"Next\"> <span aria-hidden=\"true\">&raquo;</span>\r\n"
 					+ "										<span class=\"sr-only\">Next</span>\r\n"
 					+ "								</a></li>";

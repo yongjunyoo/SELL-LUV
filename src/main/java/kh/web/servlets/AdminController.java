@@ -166,8 +166,8 @@ public class AdminController extends HttpServlet {
 
 					if(currentPage < 1) { 
 						currentPage = 1;
-					}else if(currentPage > dao.getBoardPageTotalCount()) {
-						currentPage = dao.getBoardPageTotalCount();
+					}else if(currentPage > dao.getBoardTitlePageTotalCount(searchContents)) {
+						currentPage = dao.getBoardTitlePageTotalCount(searchContents);
 					}
 
 					int start = currentPage * PageStatics.RECORD_COUNT_PER_PAGE - (PageStatics.RECORD_COUNT_PER_PAGE-1);
@@ -175,11 +175,11 @@ public class AdminController extends HttpServlet {
 
 					List<BoardDTO> list = dao.boardSearchByTitle(searchContents, start, end);
 
-					String navi = dao.getBoardPageNavi(currentPage); 
+					String navi = dao.getBoardTitlePageNavi(currentPage,searchContents); 
 					request.setAttribute("navi", navi);
 					request.setAttribute("list", list); 
 
-					int board = dao.getAllBoardCount();
+					int board = dao.getAllBoardTitleCount(searchContents);
 					request.setAttribute("board", board);
 					request.getRequestDispatcher("/resources/admin/adminBoard.jsp").forward(request, response);
 					
@@ -188,8 +188,8 @@ public class AdminController extends HttpServlet {
 
 					if(currentPage < 1) { 
 						currentPage = 1;
-					}else if(currentPage > dao.getBoardPageTotalCount()) {
-						currentPage = dao.getBoardPageTotalCount();
+					}else if(currentPage > dao.getBoardWriterPageTotalCount(searchContents)) {
+						currentPage = dao.getBoardWriterPageTotalCount(searchContents);
 					}
 
 					int start = currentPage * PageStatics.RECORD_COUNT_PER_PAGE - (PageStatics.RECORD_COUNT_PER_PAGE-1);
@@ -197,11 +197,11 @@ public class AdminController extends HttpServlet {
 
 					List<BoardDTO> list = dao.boardSearchByWriter(searchContents, start, end);
 
-					String navi = dao.getBoardPageNavi(currentPage); 
+					String navi = dao.getBoardWriterPageNavi(currentPage,searchContents); 
 					request.setAttribute("navi", navi);
 					request.setAttribute("list", list); 
 
-					int board = dao.getAllBoardCount();
+					int board = dao.getAllBoardWriterCount(searchContents);
 					request.setAttribute("board", board);
 					request.getRequestDispatcher("/resources/admin/adminBoard.jsp").forward(request, response);
 				}
@@ -215,8 +215,8 @@ public class AdminController extends HttpServlet {
 
 					if(currentPage < 1) { 
 						currentPage = 1;
-					}else if(currentPage > dao.getCpCardPageTotalCount()) {
-						currentPage = dao.getCpCardPageTotalCount();
+					}else if(currentPage > dao.getCpCardTitlePageTotalCount(searchContents)) {
+						currentPage = dao.getCpCardTitlePageTotalCount(searchContents);
 					}
 
 					int start = currentPage * PageStatics.RECORD_COUNT_PER_PAGE - (PageStatics.RECORD_COUNT_PER_PAGE-1);
@@ -224,11 +224,11 @@ public class AdminController extends HttpServlet {
 
 					List<Board_CpDTO> list = dao.cpCardSearchByTitle(searchContents,start, end);
 
-					String navi = dao.getCpCardPageNavi(currentPage); 
+					String navi = dao.getCpCardTitlePageNavi(currentPage,searchContents); 
 					request.setAttribute("navi", navi);
 					request.setAttribute("list", list); 
 
-					int cpCard = dao.getCpCardCount();
+					int cpCard = dao.getCpCardTitleCount(searchContents);
 					request.setAttribute("cpCard", cpCard);
 					request.getRequestDispatcher("/resources/admin/adminCpCard.jsp").forward(request, response);
 
@@ -237,8 +237,8 @@ public class AdminController extends HttpServlet {
 
 					if(currentPage < 1) { 
 						currentPage = 1;
-					}else if(currentPage > dao.getCpCardPageTotalCount()) {
-						currentPage = dao.getCpCardPageTotalCount();
+					}else if(currentPage > dao.getCpCardWriterPageTotalCount(searchContents)) {
+						currentPage = dao.getCpCardWriterPageTotalCount(searchContents);
 					}
 
 					int start = currentPage * PageStatics.RECORD_COUNT_PER_PAGE - (PageStatics.RECORD_COUNT_PER_PAGE-1);
@@ -246,11 +246,11 @@ public class AdminController extends HttpServlet {
 
 					List<Board_CpDTO> list = dao.cpCardSearchByWriter(searchContents,start, end);
 
-					String navi = dao.getCpCardPageNavi(currentPage); 
+					String navi = dao.getCpCardWriterPageNavi(currentPage,searchContents); 
 					request.setAttribute("navi", navi);
 					request.setAttribute("list", list); 
 
-					int cpCard = dao.getCpCardCount();
+					int cpCard = dao.getCpCardWriterCount(searchContents);
 					request.setAttribute("cpCard", cpCard);
 					request.getRequestDispatcher("/resources/admin/adminCpCard.jsp").forward(request, response);
 				}
@@ -264,8 +264,8 @@ public class AdminController extends HttpServlet {
 
 					if(currentPage < 1) { 
 						currentPage = 1;
-					}else if(currentPage > dao.getCpMemberPageTotalCount()) {
-						currentPage = dao.getCpMemberPageTotalCount();
+					}else if(currentPage > dao.getCpMemberIdPageTotalCount(searchContents)) {
+						currentPage = dao.getCpMemberIdPageTotalCount(searchContents);
 					}
 
 					int start = currentPage * PageStatics.RECORD_COUNT_PER_PAGE - (PageStatics.RECORD_COUNT_PER_PAGE-1);
@@ -273,11 +273,11 @@ public class AdminController extends HttpServlet {
 
 					List<CompanyDTO> list = dao.cpMemberSearchById(searchContents,start, end);
 
-					String navi = dao.getCpMemberPageNavi(currentPage); 
+					String navi = dao.getCpMemberIdPageNavi(currentPage,searchContents); 
 					request.setAttribute("navi", navi);
 					request.setAttribute("list", list); 
 
-					int member = dao.getCpMemberCount();
+					int member = dao.getCpMemberIdCount(searchContents);
 					request.setAttribute("member", member);
 					request.getRequestDispatcher("/resources/admin/adminCpMember.jsp").forward(request, response);
 				}else { // 기업이름으로 찾기.
@@ -285,8 +285,8 @@ public class AdminController extends HttpServlet {
 
 					if(currentPage < 1) { 
 						currentPage = 1;
-					}else if(currentPage > dao.getCpMemberPageTotalCount()) {
-						currentPage = dao.getCpMemberPageTotalCount();
+					}else if(currentPage > dao.getCpMemberNamePageTotalCount(searchContents)) {
+						currentPage = dao.getCpMemberNamePageTotalCount(searchContents);
 					}
 
 					int start = currentPage * PageStatics.RECORD_COUNT_PER_PAGE - (PageStatics.RECORD_COUNT_PER_PAGE-1);
@@ -294,11 +294,11 @@ public class AdminController extends HttpServlet {
 
 					List<CompanyDTO> list = dao.cpMemberSearchByName(searchContents,start, end);
 
-					String navi = dao.getCpMemberPageNavi(currentPage); 
+					String navi = dao.getCpMemberNamePageNavi(currentPage,searchContents); 
 					request.setAttribute("navi", navi);
 					request.setAttribute("list", list); 
 
-					int member = dao.getCpMemberCount();
+					int member = dao.getCpMemberNameCount(searchContents);
 					request.setAttribute("member", member);
 					request.getRequestDispatcher("/resources/admin/adminCpMember.jsp").forward(request, response);
 				}
@@ -312,8 +312,8 @@ public class AdminController extends HttpServlet {
 
 					if(currentPage < 1) { 
 						currentPage = 1;
-					}else if(currentPage > dao.getifCardPageTotalCount()) {
-						currentPage = dao.getifCardPageTotalCount();
+					}else if(currentPage > dao.getifCardWriterPageTotalCount(searchContents)) {
+						currentPage = dao.getifCardWriterPageTotalCount(searchContents);
 					}
 
 					int start = currentPage * PageStatics.RECORD_COUNT_PER_PAGE - (PageStatics.RECORD_COUNT_PER_PAGE-1);
@@ -321,11 +321,11 @@ public class AdminController extends HttpServlet {
 
 					List<Profile_IfDTO> list = dao.ifCardSearchByWriter(searchContents,start, end);
 
-					String navi = dao.getifCardPageNavi(currentPage); 
+					String navi = dao.getifCardWriterPageNavi(currentPage,searchContents); 
 					request.setAttribute("navi", navi);
 					request.setAttribute("list", list); 
 
-					int ifCard = dao.getIfCardCount();
+					int ifCard = dao.getIfCardWriterCount(searchContents);
 					request.setAttribute("ifCard", ifCard);
 					request.getRequestDispatcher("/resources/admin/adminIfCard.jsp").forward(request, response);
 				}
@@ -339,8 +339,8 @@ public class AdminController extends HttpServlet {
 
 					if(currentPage < 1) { 
 						currentPage = 1;
-					}else if(currentPage > dao.getIfMemberPageTotalCount()) {
-						currentPage = dao.getIfMemberPageTotalCount();
+					}else if(currentPage > dao.getIfMemberIdPageTotalCount(searchContents)) {
+						currentPage = dao.getIfMemberIdPageTotalCount(searchContents);
 					}
 
 					int start = currentPage * PageStatics.RECORD_COUNT_PER_PAGE - (PageStatics.RECORD_COUNT_PER_PAGE-1);
@@ -348,11 +348,11 @@ public class AdminController extends HttpServlet {
 
 					List<InfluencerDTO> list = dao.ifMemberSearchById(searchContents,start, end);
 
-					String navi = dao.getIfMemberPageNavi(currentPage); 
+					String navi = dao.getIfMemberIdPageNavi(currentPage,searchContents); 
 					request.setAttribute("navi", navi);
 					request.setAttribute("list", list); 
 
-					int member = dao.getIfMemberCount();
+					int member = dao.getIfMemberIdCount(searchContents);
 					request.setAttribute("member", member);
 					request.getRequestDispatcher("/resources/admin/adminIfMember.jsp").forward(request, response);
 				}else if(select.equals("이름")) { // 이름으로 찾기.
@@ -360,8 +360,8 @@ public class AdminController extends HttpServlet {
 
 					if(currentPage < 1) { 
 						currentPage = 1;
-					}else if(currentPage > dao.getIfMemberPageTotalCount()) {
-						currentPage = dao.getIfMemberPageTotalCount();
+					}else if(currentPage > dao.getIfMemberNamePageTotalCount(searchContents)) {
+						currentPage = dao.getIfMemberNamePageTotalCount(searchContents);
 					}
 
 					int start = currentPage * PageStatics.RECORD_COUNT_PER_PAGE - (PageStatics.RECORD_COUNT_PER_PAGE-1);
@@ -369,11 +369,11 @@ public class AdminController extends HttpServlet {
 
 					List<InfluencerDTO> list = dao.ifMemberSearchByName(searchContents,start, end);
 
-					String navi = dao.getIfMemberPageNavi(currentPage); 
+					String navi = dao.getIfMemberNamePageNavi(currentPage,searchContents); 
 					request.setAttribute("navi", navi);
 					request.setAttribute("list", list); 
 
-					int member = dao.getIfMemberCount();
+					int member = dao.getIfMemberNameCount(searchContents);
 					request.setAttribute("member", member);
 					request.getRequestDispatcher("/resources/admin/adminIfMember.jsp").forward(request, response);
 				}else { // 닉네임으로 찾기.
@@ -381,8 +381,8 @@ public class AdminController extends HttpServlet {
 
 					if(currentPage < 1) { 
 						currentPage = 1;
-					}else if(currentPage > dao.getIfMemberPageTotalCount()) {
-						currentPage = dao.getIfMemberPageTotalCount();
+					}else if(currentPage > dao.getIfMemberNNPageTotalCount(searchContents)) {
+						currentPage = dao.getIfMemberNNPageTotalCount(searchContents);
 					}
 
 					int start = currentPage * PageStatics.RECORD_COUNT_PER_PAGE - (PageStatics.RECORD_COUNT_PER_PAGE-1);
@@ -390,11 +390,11 @@ public class AdminController extends HttpServlet {
 
 					List<InfluencerDTO> list = dao.ifMemberSearchByNickname(searchContents,start, end);
 
-					String navi = dao.getIfMemberPageNavi(currentPage); 
+					String navi = dao.getIfMemberNNPageNavi(currentPage,searchContents); 
 					request.setAttribute("navi", navi);
 					request.setAttribute("list", list); 
 
-					int member = dao.getIfMemberCount();
+					int member = dao.getIfMemberNNCount(searchContents);
 					request.setAttribute("member", member);
 					request.getRequestDispatcher("/resources/admin/adminIfMember.jsp").forward(request, response);
 				}
