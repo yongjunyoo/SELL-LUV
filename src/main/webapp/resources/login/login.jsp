@@ -7,11 +7,11 @@
    <head>
       <meta charset="utf-8">
       <title>Login and Registration Form in HTML | CodingNepal</title>
-   <!-- <link rel="stylesheet" href="style.css">  -->
+ <!--  <link rel="stylesheet" href="style.css">   -->
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
       <style>
-          /*  @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');  */
+          /*  @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');  */ */
          *{
   margin: 0;
   padding: 0;
@@ -204,7 +204,7 @@ form .btn input[type="submit"]{
       </style>
    </head>
    <body>
-   
+
   <jsp:include page="/header.jsp" flush="false"/>
       <div class="wrapper">
          <div class="title-text">
@@ -229,7 +229,7 @@ form .btn input[type="submit"]{
                   <div class="field">
                      <input type="password" name="pw_cp" placeholder="비밀번호" required>
                   </div>
-                
+                 
                   <div class="pass-link" >
                      <a href="#" class="idCheckSpan">비밀번호를 잊으셨습니까..?</a>
                   </div>
@@ -242,6 +242,7 @@ form .btn input[type="submit"]{
                      회원이 아니세요? <a href="">회원가입</a>
                   </div>
                </form>
+               
                <form action="/influencerLogin.mem" class="signup" method="post">
                   <div class="field">
                      <input type="text" name="id_if" placeholder="아이디" required>
@@ -252,7 +253,8 @@ form .btn input[type="submit"]{
                   <div class="pass-link">
                     <a href="#" class="idCheckSpan">비밀번호를 잊으셨습니까..?</a>
                  </div>
-                  
+                
+                 
                   <div class="field btn">
                      <div class="btn-layer"></div>
                      <input type="submit" value="로그인" id="if_login" class="loginCheck">
@@ -266,8 +268,10 @@ form .btn input[type="submit"]{
       <div id="footer">
        	<jsp:include page="/footer.jsp" flush="false" />
       </div>
+      <div id="errorMessage" style="display:hidden">${errorMessage}</div>
       
       <script>
+      console.log('${result}'); 
          const loginText = document.querySelector(".title-text .login");
          const loginForm = document.querySelector("form.login");
          const loginBtn = document.querySelector("label.login");
@@ -281,32 +285,16 @@ form .btn input[type="submit"]{
            loginForm.style.marginLeft = "0%";
            loginText.style.marginLeft = "0%";
          });
-        /*  signupLink.onclick = (()=>{
-           signupBtn.click();
-           return false;
-         }); */
+        
          
          // 로그인 유효성 검사..
-        
-   	    $("#cp_login").on("click",function(){
-        	
-        	 let result = "${result}"
-        	 if(result==false){
-        			alert("올바른 정보를 입력하세요..");
-        		
-        	 }
-         })
+       
+         $('#errorMessage')[0].innerText && alert($('#errorMessage')[0].innerText);
          
- 		
-         
-           $("#if_login").on("click",function(){
-        	 
-        	 let result = "${result}"
-        	 if(result==false){
-        			alert("올바른 정보를 입력하세요..");
-        		
-        	 }
-         })
+        /*  const errorMessage = $('#errorMessage').value;
+      	if (errorMessage){
+      		alert(errorMessage);
+      	} */
          
          
       </script>
