@@ -49,15 +49,21 @@ public class MemberController extends HttpServlet {
 				if(result) {
 					HttpSession session = request.getSession();
 					session.setAttribute("loginID", id);
+					
 					System.out.println("logged in!");
+					 response.getWriter().append(String.valueOf(result));
+					
 					response.sendRedirect("/index.jsp");
+					
 				}else if(!result) {
 					System.out.println( id+ "로그인실패..");
-//					String idResult = String.valueOf(result);
-//					request.setAttribute("result", idResult);
+					String idResult = String.valueOf(result);
+					request.setAttribute("result", idResult);
 					
-					 response.getWriter().append(String.valueOf(result));
-					 response.sendRedirect("resources/login/login.jsp");
+					request.setAttribute("result", idResult);
+					RequestDispatcher rd =request.getRequestDispatcher("resources/login/login.jsp");  
+					rd.forward(request, response);
+				
 				}
 				
 				
@@ -72,22 +78,25 @@ public class MemberController extends HttpServlet {
 				boolean result = companyDAO.login(id, pw);
 				
 				System.out.println(id + " " + pw + result);
+				String idResult = String.valueOf(result);
+				
 				
 				if(result) {
 					HttpSession session = request.getSession();
 					session.setAttribute("loginID", id);
 					System.out.println( id+ "logged in!");
 					
+					
+					response.sendRedirect("/index.jsp");
+
 				}else if(!result) {
 					System.out.println( id+ "로그인실패..");
-//					String idResult = String.valueOf(result);
+					String errorMessage = "정확한 정보를 입력하세요..";
 					
-//					request.setAttribute("result", idResult);
-//					RequestDispatcher rd =request.getRequestDispatcher("resources/login/login.jsp");  
-//					rd.include(request, response);
-					
-					 response.getWriter().append(String.valueOf(result));
-					 response.sendRedirect("resources/login/login.jsp");
+					request.setAttribute("errorMessage", errorMessage);
+					RequestDispatcher rd =request.getRequestDispatcher("/resources/login/login.jsp");  
+					rd.forward(request, response);
+
 
 				}
 				
