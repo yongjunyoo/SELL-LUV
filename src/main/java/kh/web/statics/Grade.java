@@ -4,5 +4,5 @@ public class Grade {
 
 	public static final String BRONZE = "bronze";
 	public static final String SILVER = "silver";
-	public static final String GOLD = "GOLD";
+	public static final String GOLD = "gold";
 }
