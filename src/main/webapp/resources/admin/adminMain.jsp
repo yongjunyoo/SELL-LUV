@@ -252,7 +252,7 @@ body {
 													labels : [ '골드', '실버','브론즈' ],
 													datasets : [ {
 														label : '# of Votes',
-														data : [ ${grade[0].goldcount}, ${grade[0].silvercount}, ${grade[0].bronzecount} ],
+														data : [ ${grade[0]}, ${grade[1]}, ${grade[2]} ],
 														backgroundColor : [
 																'rgba(255, 217, 0, 0.5)',
 																'rgba(192, 192, 192, 0.5)',

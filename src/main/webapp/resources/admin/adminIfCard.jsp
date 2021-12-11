@@ -148,6 +148,24 @@ body {
 	background-color: black;
 	color: white;
 }
+
+#delBtn{
+	background-color:transparent;
+	border:1px solid black;
+	border-radius:3px;
+}
+#delBtn:hover{
+	background-color:black;
+	color:white;
+	border:1px solid black;
+	border-radius:3px;
+}
+
+#search{
+	background-color:transparent;
+	border:1px solid transparent;
+	border-radius:3px;
+}
 </style>
 <script type="text/javascript">
 	
@@ -218,25 +236,26 @@ body {
 							</div>
 						</div>
 						<!-- 게시글 목록-->
+					<form action="adminIfCardSearch.admin">
 						<div class="table-responsive mt-3">
 							<table class="table table-striped table-hover table-sm mb-0">
 								<thead>
 									<tr>
+										<th></th>
 										<th>번호</th>
-										<th>제목</th>
 										<th>작성자</th>
-										<th>날짜</th>
-										<th>조회수</th>
+										<th>받은 좋아요</th>
+										<th>보낸 좋아요</th>
 									</tr>
 								</thead>
 								<tbody>
 								<c:forEach var="list" items="${list}">
 									<tr>
+										<td><input type="checkbox" name="checkbox" value="${list.seq_if}"></td>
 										<td>${list.seq_if}</td>
-										<td>여기는 제목</td>
 										<td>${list.writer_if}</td>
-										<td>${list.condition_if}</td>
-										<td>${list.career_if}</td>
+										<td>${list.sLike_if}</td>
+										<td>${list.rLike_if}</td>
 									</tr>
 									</c:forEach>
 								</tbody>
@@ -253,18 +272,22 @@ body {
 						</nav>
 						<table class="table-sm mb-0" align=right>
 							<tr>
-								<td><select class="selectpicker">
-										<option>제목</option>
-										<option>제목+내용</option>
+								<td><select class="selectpicker" id="select" name="select">
 										<option>작성자</option>
 								</select></td>
-								<td><input type="search" class="form-control rounded"
-									placeholder="내용을 입력하세요" id="searchContents" /></td>
-								<td><span class="input-group-text border-0"
-									id="search-addon"> <i class="fas fa-search"></i>
-								</span></td>
+								<td>
+								<input type="hidden" value="1" name="cpage">
+								<input type="search" class="form-control rounded" placeholder="내용을 입력하세요" id="searchContents" name="searchContents"/>
+								</td>
+								<td>
+								<button id="search" name="search"><i class="fas fa-search"></i></button>
+								</td>
+								<td>
+								<button id="delBtn" name="delBtn" onclick="return submit2(this.form)">삭제하기</button>
+								</td>
 							</tr>
 						</table>
+						</form>
 						<!-- 버튼 페이징 끝 -->
 					</div>
 				</div>
@@ -273,5 +296,29 @@ body {
 	</div>
 	<!-- 풋터 -->
 	<jsp:include page="/footer.jsp" flush="false" />
+			<script>
+		$("#delBtn").on("click",function(){
+			if($("input:checkbox[name='checkbox']:checked").length==0){
+				alert("삭제할 항목을 선택해주세요.");
+				return;
+			}
+			if(confirm("정말 삭제하시겠습니까?")){
+
+			}
+		})
+		$("#search").on("click",function(){
+			if($("#searchContents").val()==""){
+				alert("내용을 입력하세요.");
+				return false;
+			}
+		})
+	</script>
+	<script> 
+	  function submit2(frm) { 
+	    frm.action="/adminIfCardDelete.admin"; 
+	    frm.submit(); 
+	    return true; 
+  		} 
+	</script> 
 </body>
 </html>
