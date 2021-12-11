@@ -169,7 +169,7 @@ a {
 	                <div class="col-2 d-none d-md-block pl-3"> ${dto.seq } </div>
 	                <%-- 웹버전 title --%>
 	                <div class="col-6 d-none d-md-block"> <a href="/detail.board?cpage=${cpage }&seq=${dto.seq}" class="text-big" data-abc="true">${dto.title }</a>
-	                    <div class="text-muted small mt-1 d-md-none">${dto.write_date } &nbsp;·&nbsp; <a href="javascript:void(0)" class="text-muted" data-abc="true">by E${dto.writer }</a></div>
+	                    <div class="text-muted small mt-1 d-md-none">${dto.write_date } &nbsp;·&nbsp; <a href="javascript:void(0)" class="text-muted" data-abc="true">by ${dto.writer }</a></div>
 	                </div>
 	               	<%-- 웹버전 조회수, 작성자, 날짜 --%>
 	                <div class="d-none d-md-block col-4">
@@ -186,7 +186,7 @@ a {
 	                <%-- 모바일버전 seq --%>
 	                <div class="col-2 d-md-none pl-2"> ${dto.seq } </div>
 	                <%-- 모바일버전 title,작성자,날짜 --%>
-	                <div class="col-8 d-md-none pl-2"> <a href="javascript:void(0)" class="text-big" data-abc="true">${dto.title }</a>
+	                <div class="col-8 d-md-none pl-2"> <a href="/detail.board?cpage=${cpage }&seq=${dto.seq}" class="text-big" data-abc="true">${dto.title }</a>
 	                    <div class="text-muted small mt-1 d-md-none">${dto.write_date } &nbsp;·&nbsp; <a href="javascript:void(0)" class="text-muted" data-abc="true">by ${dto.writer }</a></div>
 	                </div>
             	

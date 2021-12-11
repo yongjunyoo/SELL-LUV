@@ -36,6 +36,9 @@ public class BoardController extends HttpServlet {
 		
 		System.out.println("cpage : " + request.getParameter("cpage"));
 		System.out.println("세션 cpage : " + cpage);
+		
+		// 임시 로그인
+		System.out.println("로그인 ID : " + session.getAttribute("loginID"));
 		if(cpage == null) {cpage="1";}
 		
 		try {
@@ -59,13 +62,13 @@ public class BoardController extends HttpServlet {
 				response.sendRedirect("/resources/board/boardwrite.jsp");
 			// 글 작성 완료
 			}else if(cmd.equals("/done.board")) {
-				// String writer = (String)session.getAttribute("loginID");
-				String writer = "test";
+				String writer = (String)session.getAttribute("loginID");
+				// String writer = "test";
 				String title = request.getParameter("title");
 				String contents = request.getParameter("contents");
 				int result = bdao.insert(new BoardDTO(0,writer,title,contents,null,0));
 				System.out.println("게시글 insert 결과 : " + result);
-				response.sendRedirect("/boardList.board");
+				response.sendRedirect("/boardList.board?cpage="+cpage);
 			// 게시글 페이지로 이동
 			}else if(cmd.equals("/detail.board")) {
 				String seq = request.getParameter("seq");

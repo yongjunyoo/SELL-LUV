@@ -45,6 +45,17 @@ private static BoardDAO instance = null;
 		}
 	}
 	
+	// 조회수 올리기
+	public int addViewCount(int seq) throws Exception {
+		String sql = "UPDATE freeboard SET view_count = view_count + 1 WHERE seq = ?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setInt(1, seq);
+			int result = pstat.executeUpdate();
+			return result;
+		}
+	}
+	
 	public List<BoardDTO> selectAll() throws Exception {
 		String sql = "SELECT * FROM freeboard ORDER BY 1 DESC";
 		try(Connection con = this.getConnection();

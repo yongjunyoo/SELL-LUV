@@ -239,7 +239,7 @@ form .btn input[type="submit"]{
                      <input type="submit" value="로그인" id="cp_login" class="loginCheck">
                   </div>
                   <div class="signup-link">
-                     회원이 아니세요? <a href="">회원가입</a>
+                     회원이 아니세요? <a href="/resources/signup/selectSignup.jsp">회원가입</a>
                   </div>
                </form>
                
