@@ -203,34 +203,6 @@ body {
         
     </div>   
     
-     <!-- 글쓰기 & 검색 라인 -->
-    <div class="row search-bar" style="justify-content: space-around;">
-    	<div class="col-xl-8 col-md-12 d-none d-md-block"> 
-    		<div class="row">
-		    	<div class="col-2" style="text-align:right;"> 
-		        <button type="button" class="btn-write btn btn-shadow btn-wide btn-primary" style="background-color:rgb(255, 111, 97); border-color:rgb(255, 111, 97);"> 
-		         글 쓰기 </button> 
-		        </div> 	
-    		</div>
-    	</div> 
-        
-        <div class="d-md-none">
-        	<div class="row">
-         		<div class="col-3" style="text-align:right;"> 
-	        		<button type="button" class="btn btn-shadow btn-wide btn-primary btn-write" style="background-color:rgb(255, 111, 97); border-color:rgb(255, 111, 97);"> 
-	         		글쓰기 </button> 
-	         		<script>
-	         			$(".btn-write").on("click",function(){
-	         				location.href="/write.board?cpage=${cpage}";
-	         			})
-	         		</script>
-        		</div> 
-        	</div>
-        </div>
-        
-         
-    </div>
-    
     <br>
     
     <!-- 푸터 -->
