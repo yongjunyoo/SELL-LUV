@@ -180,12 +180,16 @@ body {
 						</div>
 						<div class="fm-menu">
 							<div class="list-group list-group-flush">
-								<a href="/adminCard.admin" class="list-group-item py-1"><i
-									class="bx bx-folder me-2"></i><span>카드 관리</span></a> <a
-									href="/adminBoard.admin" class="list-group-item py-1"><i
-									class="bx bx-devices me-2"></i><span>자유게시판 관리</span></a> <a
-									href="/adminMember.admin" class="list-group-item py-1"><i
-									class="bx bx-file me-2"></i><span>회원관리</span></a>
+									<a href="/adminIfMember.admin?cpage=1" class="list-group-item py-1"><i
+									class="bx bx-file me-2"></i><span>인플루언서 회원 관리</span></a>
+									<a href="/adminIfCard.admin?cpage=1" class="list-group-item py-1"><i
+									class="bx bx-folder me-2"></i><span>인플루언서 카드 관리</span></a>
+									<a href="/adminCpMember.admin?cpage=1" class="list-group-item py-1"><i
+									class="bx bx-file me-2"></i><span>기업 회원 관리</span></a>
+									<a href="/adminCpCard.admin?cpage=1" class="list-group-item py-1"><i
+									class="bx bx-folder me-2"></i><span>기업 카드 관리</span></a> 
+									<a href="/adminBoard.admin?cpage=1" class="list-group-item py-1"><i
+									class="bx bx-devices me-2"></i><span>자유게시판 관리</span></a> 
 							</div>
 						</div>
 					</div>
@@ -206,7 +210,7 @@ body {
 										</div>
 										<h6 class="mt-3 mb-0">총 자유게시판 글 수</h6>
 										<p class="mb-1 mt-4">
-											<span>3333건</span>
+											<span>${board}건</span>
 										</p>
 									</div>
 								</div>
@@ -225,13 +229,15 @@ body {
 									</tr>
 								</thead>
 								<tbody>
+								<c:forEach var="list" items="${list}">
 									<tr>
-										<td>여기는 번호</td>
-										<td>여기는 제목</td>
-										<td>여기는 작성자</td>
-										<td>여기는 날짜</td>
-										<td>여기는 조회수</td>
+										<td>${list.seq}</td>
+										<td>${list.title}</td>
+										<td>${list.writer}</td>
+										<td>${list.write_date}</td>
+										<td>${list.view_count}</td>
 									</tr>
+									</c:forEach>
 								</tbody>
 							</table>
 						</div>
@@ -240,17 +246,7 @@ body {
 						<!-- 버튼 페이징 -->
 						<nav aria-label="Page navigation example">
 							<ul class="pagination justify-content-center">
-								<li class="page-item"><a class="page-link" href="#"
-									aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-										<span class="sr-only">Previous</span>
-								</a></li>
-								<li class="page-item"><a class="page-link" href="#">1</a></li>
-								<li class="page-item"><a class="page-link" href="#">2</a></li>
-								<li class="page-item"><a class="page-link" href="#">3</a></li>
-								<li class="page-item"><a class="page-link" href="#"
-									aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-										<span class="sr-only">Next</span>
-								</a></li>
+								${navi}
 							</ul>
 						</nav>
 						<table class="table-sm mb-0" align=right>

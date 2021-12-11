@@ -16,7 +16,7 @@ public class CompanyDTO {
 	String email_cp;
 	Long sales_cp;
 	
-	CompanyDTO(){}
+	public CompanyDTO(){}
 
 	public CompanyDTO(int seq_cp, String id_cp, String pw_cp, String photo_cp, String name_cp, String crnumber_cp,
 			String zipcode_cp, String address1_cp, String address2_cp, String rpt_cp, String phone_cp, String email_cp,

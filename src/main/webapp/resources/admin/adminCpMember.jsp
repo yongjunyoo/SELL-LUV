@@ -180,12 +180,16 @@ body {
 						</div>
 						<div class="fm-menu">
 							<div class="list-group list-group-flush">
-								<a href="/adminCard.admin" class="list-group-item py-1"><i
-									class="bx bx-folder me-2"></i><span>카드 관리</span></a> <a
-									href="/adminBoard.admin" class="list-group-item py-1"><i
-									class="bx bx-devices me-2"></i><span>자유게시판 관리</span></a> <a
-									href="/adminMember.admin" class="list-group-item py-1"><i
-									class="bx bx-file me-2"></i><span>회원관리</span></a>
+									<a href="/adminIfMember.admin?cpage=1" class="list-group-item py-1"><i
+									class="bx bx-file me-2"></i><span>인플루언서 회원 관리</span></a>
+									<a href="/adminIfCard.admin?cpage=1" class="list-group-item py-1"><i
+									class="bx bx-folder me-2"></i><span>인플루언서 카드 관리</span></a>
+									<a href="/adminCpMember.admin?cpage=1" class="list-group-item py-1"><i
+									class="bx bx-file me-2"></i><span>기업 회원 관리</span></a>
+									<a href="/adminCpCard.admin?cpage=1" class="list-group-item py-1"><i
+									class="bx bx-folder me-2"></i><span>기업 카드 관리</span></a> 
+									<a href="/adminBoard.admin?cpage=1" class="list-group-item py-1"><i
+									class="bx bx-devices me-2"></i><span>자유게시판 관리</span></a> 
 							</div>
 						</div>
 					</div>
@@ -195,7 +199,7 @@ body {
 				<div class="card">
 					<div class="card-body">
 						<div class="row mt-3">
-							<h5>회원 관리</h5>
+							<h5>기업 회원 관리</h5>
 							<div class="col-12 col-lg-4">
 								<div class="card shadow-none border radius-15">
 									<div class="card-body">
@@ -207,48 +211,38 @@ body {
 										</div>
 										<h6 class="mt-3 mb-0">총 회원수</h6>
 										<p class="mb-1 mt-4">
-											<span>3333명</span>
+											<span>${member}명</span>
 										</p>
 									</div>
 								</div>
 							</div>
 						</div>
 						<div class="table-responsive mt-3">
-							<table class="table table-striped table-hover table-sm mb-0">
+							<table class="table table-striped table-hover table-sm mb-0"	>
 								<thead>
 									<tr>
 										<th>번호</th>
-										<th>제목</th>
-										<th>작성자</th>
-										<th>날짜</th>
-										<th>조회수</th>
+										<th>아이디</th>
+										<th>기업이름</th>
+										<th>삭제하기</th>
 									</tr>
 								</thead>
 								<tbody>
+								<c:forEach var="list" items="${list}">
 									<tr>
-										<td>여기는 번호</td>
-										<td>여기는 제목</td>
-										<td>여기는 작성자</td>
-										<td>여기는 날짜</td>
-										<td>여기는 조회수</td>
+										<td>${list.seq_cp}</td>
+										<td>${list.id_cp}</td>
+										<td>${list.name_cp}</td>
+										<td><button type="button" class="btn btn-outline-dark btn-sm" id="del" name ="del">삭제</button></td>
 									</tr>
+									</c:forEach>
 								</tbody>
 							</table>
 						</div>
 						<!-- 버튼 페이징 -->
 						<nav aria-label="Page navigation example">
 							<ul class="pagination justify-content-center">
-								<li class="page-item"><a class="page-link" href="#"
-									aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-										<span class="sr-only">Previous</span>
-								</a></li>
-								<li class="page-item"><a class="page-link" href="#">1</a></li>
-								<li class="page-item"><a class="page-link" href="#">2</a></li>
-								<li class="page-item"><a class="page-link" href="#">3</a></li>
-								<li class="page-item"><a class="page-link" href="#"
-									aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-										<span class="sr-only">Next</span>
-								</a></li>
+								${navi}
 							</ul>
 						</nav>
 						<table class="table-sm mb-0" align=right>
@@ -273,5 +267,12 @@ body {
 	</div>
 	<!-- 풋터 -->
 	<jsp:include page="/footer.jsp" flush="false" />
+	<script>
+		$("#del").on("click",function(){
+			if(confirm("삭제하시겠습니까?")){
+				location.href="";
+			};
+		})
+	</script>
 </body>
 </html>

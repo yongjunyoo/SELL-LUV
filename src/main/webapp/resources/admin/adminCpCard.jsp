@@ -135,6 +135,19 @@ body {
 #header {
 	margin-bottom: 100px;
 }
+
+.pagination.justify-content-center>li {
+	color: black;
+}
+
+.pagination.justify-content-center>li>a {
+	color: black;
+}
+
+.pagination.justify-content-center>li>a:hover {
+	background-color: black;
+	color: white;
+}
 </style>
 <script type="text/javascript">
 	
@@ -186,7 +199,7 @@ body {
 				<div class="card">
 					<div class="card-body">
 						<div class="row mt-3">
-							<h5>DashBoard</h5>
+							<h5>기업 카드 관리</h5>
 							<div class="col-12 col-lg-4">
 								<div class="card shadow-none border radius-15">
 									<div class="card-body">
@@ -198,84 +211,60 @@ body {
 										</div>
 										<h6 class="mt-3 mb-0">총 카드 수</h6>
 										<p class="mb-1 mt-4">
-											<span>${card}건</span>
-										</p>
-									</div>
-								</div>
-							</div>
-							<div class="col-12 col-lg-4">
-								<div class="card shadow-none border radius-15">
-									<div class="card-body">
-										<div class="d-flex align-items-center">
-											<div class="fm-icon-box radius-15 bg-danger text-white">
-												<i class="far fa-edit"></i>
-											</div>
-										</div>
-										<h6 class="mt-3 mb-0">총 자유게시판 글 수</h6>
-										<p class="mb-1 mt-4">
-											<span>${board}건</span>
-										</p>
-									</div>
-								</div>
-							</div>
-							<div class="col-12 col-lg-4">
-								<div class="card shadow-none border radius-15">
-									<div class="card-body">
-										<div class="d-flex align-items-center">
-											<div class="fm-icon-box radius-15 bg-warning text-dark">
-												<i class="fas fa-user-friends"></i>
-											</div>
-											<div class="ms-auto font-24"></div>
-										</div>
-										<h6 class="mt-3 mb-0">총 회원수</h6>
-										<p class="mb-1 mt-4">
-											<span>${member}명</span>
+											<span>${cpCard}건</span>
 										</p>
 									</div>
 								</div>
 							</div>
 						</div>
+						<!-- 게시글 목록-->
 						<div class="table-responsive mt-3">
 							<table class="table table-striped table-hover table-sm mb-0">
-								<h6 class="mt-3 mb-0">등급 별 회원</h6>
-								<br>
-								<canvas id="myChart" width="400vw" height="300vh"></canvas>
-								<br>
-								<script>
-									const ctx = document.getElementById(
-											'myChart').getContext('2d');
-									const myChart = new Chart(
-											ctx,
-											{
-												type : 'doughnut',
-												data : {
-													labels : [ '골드', '실버','브론즈' ],
-													datasets : [ {
-														label : '# of Votes',
-														data : [ ${grade[0].goldcount}, ${grade[0].silvercount}, ${grade[0].bronzecount} ],
-														backgroundColor : [
-																'rgba(255, 217, 0, 0.5)',
-																'rgba(192, 192, 192, 0.5)',
-																'rgba(168, 128, 74, 0.5)', ],
-														borderColor : [
-																'rgba(255, 217, 0)',
-																'rgba(192, 192, 192)',
-																'rgba(168, 128, 74)', ],
-														borderWidth : 1
-													} ]
-												},
-												options : {
-													responsive : false,
-													scales : {
-														y : {
-															beginAtZero : true
-														}
-													}
-												}
-											});
-								</script>
+								<thead>
+									<tr>
+										<th>번호</th>
+										<th>제목</th>
+										<th>작성자</th>
+										<th>날짜</th>
+										<th>조회수</th>
+									</tr>
+								</thead>
+								<tbody>
+								<c:forEach var="list" items="${list}">
+									<tr>
+										<td>${list.seq_cp}</td>
+										<td>${list.title_cp}</td>
+										<td>${list.writer_cp}</td>
+										<td>${list.write_date_cp}</td>
+										<td>${list.view_count_cp}</td>
+									</tr>
+									</c:forEach>
+								</tbody>
 							</table>
 						</div>
+						<!-- 게시글 목록 끝-->
+
+						<!-- 버튼 페이징 -->
+						<nav aria-label="Page navigation example">
+							<ul class="pagination justify-content-center">
+								${navi}
+							</ul>
+						</nav>
+						<table class="table-sm mb-0" align=right>
+							<tr>
+								<td><select class="selectpicker">
+										<option>제목</option>
+										<option>제목+내용</option>
+										<option>작성자</option>
+								</select></td>
+								<td><input type="search" class="form-control rounded"
+									placeholder="내용을 입력하세요" id="searchContents" /></td>
+								<td><span class="input-group-text border-0"
+									id="search-addon"> <i class="fas fa-search"></i>
+								</span></td>
+							</tr>
+						</table>
+						<!-- 버튼 페이징 끝 -->
 					</div>
 				</div>
 			</div>
