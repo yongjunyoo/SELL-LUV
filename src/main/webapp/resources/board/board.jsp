@@ -164,39 +164,42 @@ a {
         	
         	<div class="card-body py-3 " style="justify-content: space-around;">
             	<div class="row no-gutters align-items-center" style="justify-content: space-around">
-                <div class="col-2 d-none d-md-block pl-3"> ${dto.seq } </div>
-                <div class="col-2 d-md-none pl-2"> ${dto.seq } </div>
-                <div class="col-6 d-none d-md-block"> <a href="javascript:void(0)" class="text-big" data-abc="true">111${dto.title }</a>
-                    <div class="text-muted small mt-1 d-md-none">${dto.write_date } &nbsp;·&nbsp; <a href="javascript:void(0)" class="text-muted" data-abc="true">by ${dto.writer }</a></div>
-                </div>
-                <div class="col-8 d-md-none pl-2"> <a href="javascript:void(0)" class="text-big" data-abc="true">${dto.title }</a>
-                    <div class="text-muted small mt-1 d-md-none">${dto.write_date } &nbsp;·&nbsp; <a href="javascript:void(0)" class="text-muted" data-abc="true">by ${dto.writer }</a></div>
-                </div>
-                <div class="d-none d-md-block col-4">
-                    <div class="row no-gutters align-items-center"  >
-                        <div class="col-4" style="text-align:center;">${dto.view_count }</div>
-                        <div class="media pl-4 col-8 align-items-center"> <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1574583246/AAA/2.jpg" alt="" class="d-block ui-w-30 rounded-circle">
-                            <div class="media-body flex-truncate ml-2">
-                                <div class="line-height-1 text-truncate">${dto.write_date }</div> <a href="javascript:void(0)" class="text-muted small text-truncate" data-abc="true">by ${dto.writer }</a>
-                            </div>
-                       	</div>
-                    </div>
-                </div>
+            	
+	            	<%-- 웹버전 seq --%>
+	                <div class="col-2 d-none d-md-block pl-3"> ${dto.seq } </div>
+	                <%-- 웹버전 title --%>
+	                <div class="col-6 d-none d-md-block"> <a href="/detail.board?cpage=${cpage }&seq=${dto.seq}" class="text-big" data-abc="true">${dto.title }</a>
+	                    <div class="text-muted small mt-1 d-md-none">${dto.write_date } &nbsp;·&nbsp; <a href="javascript:void(0)" class="text-muted" data-abc="true">by E${dto.writer }</a></div>
+	                </div>
+	               	<%-- 웹버전 조회수, 작성자, 날짜 --%>
+	                <div class="d-none d-md-block col-4">
+	                    <div class="row no-gutters align-items-center"  >
+	                        <div class="col-4" style="text-align:center;">${dto.view_count }</div>
+	                        <div class="media pl-4 col-8 align-items-center"> <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1574583246/AAA/2.jpg" alt="" class="d-block ui-w-30 rounded-circle">
+	                            <div class="media-body flex-truncate ml-2">
+	                                <div class="line-height-1 text-truncate">${dto.write_date }</div> <a href="javascript:void(0)" class="text-muted small text-truncate" data-abc="true">by ${dto.writer }</a>
+	                            </div>
+	                       	</div>
+	                    </div>
+	                </div>
+	                
+	                <%-- 모바일버전 seq --%>
+	                <div class="col-2 d-md-none pl-2"> ${dto.seq } </div>
+	                <%-- 모바일버전 title,작성자,날짜 --%>
+	                <div class="col-8 d-md-none pl-2"> <a href="javascript:void(0)" class="text-big" data-abc="true">${dto.title }</a>
+	                    <div class="text-muted small mt-1 d-md-none">${dto.write_date } &nbsp;·&nbsp; <a href="javascript:void(0)" class="text-muted" data-abc="true">by ${dto.writer }</a></div>
+	                </div>
+            	
 	            </div>
 	        </div>
 	        
 	        <hr class="m-0">
         </c:forEach>
+     </div>   
         
         
         
-        
-        
-        
-        
-        
-        
-        
+        <%-- 
         <!-- 게시판 내용들 -->
         <div class="card-body py-3">
             <div class="row no-gutters align-items-center">
@@ -217,110 +220,7 @@ a {
         </div>
         
         <hr class="m-0">
-        <%-- 
-        
-        <div class="card-body py-3">
-            <div class="row no-gutters align-items-center">
-                <div class="col"> <a href="javascript:void(0)" class="text-big" data-abc="true">How to change the theme to dark mode?</a> <span class="badge badge-success align-text-bottom ml-1">Solved</span>
-                    <div class="text-muted small mt-1">Started 5 days ago &nbsp;·&nbsp; <a href="javascript:void(0)" class="text-muted" data-abc="true">Allize Rome</a></div>
-                </div>
-                <div class="d-none d-md-block col-4">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col-4">43</div>
-                        <div class="media col-8 align-items-center"> <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1574583319/AAA/3.jpg" alt="" class="d-block ui-w-30 rounded-circle">
-                            <div class="media-body flex-truncate ml-2">
-                                <div class="line-height-1 text-truncate">1 day ago</div> <a href="javascript:void(0)" class="text-muted small text-truncate" data-abc="true">by Steve smith</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <hr class="m-0">
-        
-        <div class="card-body py-3">
-            <div class="row no-gutters align-items-center">
-                <div class="col"> <a href="javascript:void(0)" class="text-big" data-abc="true">Is it possible to get the refund of the product i purhcased today?</a> <span class="badge badge-default align-text-bottom ml-1">Locked</span>
-                    <div class="text-muted small mt-1">Started 21 days ago &nbsp;·&nbsp; <a href="javascript:void(0)" class="text-muted" data-abc="true">Kane William</a></div>
-                </div>
-                <div class="d-none d-md-block col-4">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col-4">42</div>
-                        <div class="media col-8 align-items-center"> <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1574583336/AAA/4.jpg" alt="" class="d-block ui-w-30 rounded-circle">
-                            <div class="media-body flex-truncate ml-2">
-                                <div class="line-height-1 text-truncate">2 day ago</div> <a href="javascript:void(0)" class="text-muted small text-truncate" data-abc="true">by Brethwett sonm</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <hr class="m-0">
-        
-        <div class="card-body py-3">
-            <div class="row no-gutters align-items-center">
-                <div class="col"> <a href="javascript:void(0)" class="text-big" data-abc="true">Do you have android application for this tool?</a>
-                    <div class="text-muted small mt-1">Started 56 days ago &nbsp;·&nbsp; <a href="javascript:void(0)" class="text-muted" data-abc="true">Glen Maxwell</a></div>
-                </div>
-                <div class="d-none d-md-block col-4">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col-4">632</div>
-                        <div class="media col-8 align-items-center"> <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1574583246/AAA/2.jpg" alt="" class="d-block ui-w-30 rounded-circle">
-                            <div class="media-body flex-truncate ml-2">
-                                <div class="line-height-1 text-truncate">11 day ago</div> <a href="javascript:void(0)" class="text-muted small text-truncate" data-abc="true">by Neil patels</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <hr class="m-0">
-        
-        <div class="card-body py-3">
-            <div class="row no-gutters align-items-center">
-                <div class="col"> <a href="javascript:void(0)" class="text-big" data-abc="true">How can i transfer my fund to my friend</a> <span class="badge badge-secondary align-text-bottom ml-1">Closed</span>
-                    <div class="text-muted small mt-1">Started 25 days ago &nbsp;·&nbsp; <a href="javascript:void(0)" class="text-muted" data-abc="true">Marry Tom</a></div>
-                </div>
-                <div class="d-none d-md-block col-4">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col-4">53</div>
-                        <div class="media col-8 align-items-center"> <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1574583336/AAA/4.jpg" alt="" class="d-block ui-w-30 rounded-circle">
-                            <div class="media-body flex-truncate ml-2">
-                                <div class="line-height-1 text-truncate">1 day ago</div> <a href="javascript:void(0)" class="text-muted small text-truncate" data-abc="true">by Tibok tom</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <hr class="m-0">
-        
-        <div class="card-body py-3">
-            <div class="row no-gutters align-items-center">
-                <div class="col"> 
-                <a href="javascript:void(0)" class="text-big" data-abc="true">How can i delete my account?</a> 
-                <span class="badge badge-danger align-text-bottom ml-1">Hot!</span>
-                    <div class="text-muted small mt-1">Started 25 days ago &nbsp;·&nbsp; <a href="javascript:void(0)" class="text-muted" data-abc="true">Bob bulmer</a></div>
-                </div>
-                <div class="d-none d-md-block col-4">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col-4">12</div>
-                        <div class="media col-8 align-items-center"> <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1574583246/AAA/2.jpg" alt="" class="d-block ui-w-30 rounded-circle">
-                            <div class="media-body flex-truncate ml-2">
-                                <div class="line-height-1 text-truncate">1 day ago</div> <a href="javascript:void(0)" class="text-muted small text-truncate" data-abc="true">by Ross taylor</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        --%>
-        
-    </div>
+    	--%>
     
      <!-- 글쓰기 & 검색 라인 -->
     <div class="row search-bar" style="justify-content: space-around;">
@@ -350,7 +250,7 @@ a {
          		</div>
          		<div class="col-3" style="text-align:right;"> 
 	         		
-	        		<button type="button" class="btn btn-shadow btn-wide btn-primary btn-write" style="background-color:rgb(255, 111, 97); border-color:rgb(255, 111, 97);"> 
+	        		<button type="button" id="done" class="btn btn-shadow btn-wide btn-primary btn-write" style="background-color:rgb(255, 111, 97); border-color:rgb(255, 111, 97);"> 
 	         		글쓰기 </button> 
 	         		<script>
 	         			$(".btn-write").on("click",function(){
@@ -365,6 +265,9 @@ a {
     </div>
     
     <br>
+        ${navi }
+    
+    <%-- 
     <!-- 페이지 네비 -->
     <nav>
         <ul class="pagination mb-5 justify-content-center">
@@ -375,10 +278,11 @@ a {
             <li class="page-item"><a class="page-link" href="javascript:void(0)" data-abc="true">»</a></li>
         </ul>
     </nav>
-    
+    --%>
     <!-- 푸터 -->
 	<jsp:include page="/footer.jsp" flush="false"/>
-</div>                            
-<script type="text/javascript"></script>
+</div> 
+                           
+
 </body>
 </html>
