@@ -118,8 +118,10 @@ public class MemberController extends HttpServlet {
 				String email = request.getParameter("email");
 				String sales = request.getParameter("sales");
 				String grade = request.getParameter("grade");
+				String pwAsk = request.getParameter("pwAsk");
+				String pwAnswer = request.getParameter("pwAnswer");
 
-				int result = companyDAO.insert(id, sha512.generate(pw), photo, name, crunumber, zipcode, address1, address2, rpt_cp, phone, email, sales, grade);
+				int result = companyDAO.insert(id, sha512.generate(pw), photo, name, crunumber, zipcode, address1, address2, rpt_cp, phone, email, sales, grade, pwAsk, pwAnswer);
 
 				response.sendRedirect("/resources/login/login.jsp");
 				

@@ -148,9 +148,10 @@ public class CompanyDAO {
 				String email= rs.getString("email_cp");
 				Long sales = rs.getLong("sales_cp");
 				String grade = rs.getString("grade");
+				String pwAsk = rs.getString("pwAsk");
+				String pwAnswer = rs.getString("pwAnswer");
 				
-				
-				CompanyDTO companyDTO = new CompanyDTO(seq,id,pw,photo,name,crnumber,zipcode,address1,address2,rpt,phone,email,sales,grade);
+				CompanyDTO companyDTO = new CompanyDTO(seq,id,pw,photo,name,crnumber,zipcode,address1,address2,rpt,phone,email,sales,grade,pwAsk,pwAnswer);
 				
 				list.add(companyDTO);
 			}
@@ -166,9 +167,9 @@ public class CompanyDAO {
 	
 	// 회원가입 method
 	public int insert(String id, String pw, String photo, String name, String crunumber, String zipcode, String address1, 
-			String address2, String rpt_cp, String phone, String email, String sales, String grade ) throws Exception {
+			String address2, String rpt_cp, String phone, String email, String sales, String grade, String pwAsk, String pwAnswer ) throws Exception {
 		
-		String sql = "insert into company values(seq_cp.nextval,?,?,?,?,?,?,?,?,?,?,?,?,'bronze')";
+		String sql = "insert into company values(company_seq_cp.nextval,?,?,?,?,?,?,?,?,?,?,?,?,default,?,?)";
 		
 			
 		try(Connection con = this.getConnection();
@@ -186,6 +187,8 @@ public class CompanyDAO {
 			pstat.setString(10, phone);
 			pstat.setString(11, email);
 			pstat.setString(12, sales);
+			pstat.setString(13, pwAsk);
+			pstat.setString(14, pwAnswer);
 			int result  = pstat.executeUpdate();
 			
 			return result;
