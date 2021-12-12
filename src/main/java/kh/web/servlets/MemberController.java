@@ -3,7 +3,6 @@ package kh.web.servlets;
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,37 +24,33 @@ public class MemberController extends HttpServlet {
 		String uri = request.getRequestURI();
 		String ctx = request.getContextPath();
 		String cmd = uri.substring(ctx.length());
-		System.out.println("사용자가 요청한 기능 : " + cmd);
-
+		System.out.println("사용자가 요청한 기능 : " + cmd);		
 
 		InfluencerDAO influencerDAO = new InfluencerDAO();
 		CompanyDAO companyDAO = new CompanyDAO();
-
+		
 		SHA512 sha512 = new SHA512();
-
+		
 		try {
 			if(cmd.equals("/influencerLogin.mem")) { //인플루언서 로그인 부분...
-
+				
 				String id = request.getParameter("id_if");
 				String pw = sha512.generate(request.getParameter("pw_if"));
-
+				
 				boolean result = influencerDAO.login(id, pw);
 				System.out.println(id+pw);
-
+				
 				if(result) {
 					HttpSession session = request.getSession();
 					session.setAttribute("loginID", id);
-
+					
 					System.out.println("logged in!");
-					response.getWriter().append(String.valueOf(result));
-
+		
 					response.sendRedirect("/index.jsp");
-
+					
 				}else if(!result) {
 					System.out.println( id+ "로그인실패..");
 					String idResult = String.valueOf(result);
-					request.setAttribute("result", idResult);
-
 					request.setAttribute("result", idResult);
 					RequestDispatcher rd =request.getRequestDispatcher("resources/login/login.jsp");  
 					rd.forward(request, response);
@@ -76,13 +71,10 @@ public class MemberController extends HttpServlet {
 				System.out.println(id + " " + pw + result);
 				String idResult = String.valueOf(result);
 
-
 				if(result) {
 					HttpSession session = request.getSession();
 					session.setAttribute("loginID", id);
 					System.out.println( id+ "logged in!");
-
-
 					response.sendRedirect("/index.jsp");
 
 				}else if(!result) {
@@ -128,9 +120,7 @@ public class MemberController extends HttpServlet {
 				String id = request.getParameter("id");
 				boolean result = companyDAO.isIdExist(id);
 				response.getWriter().append(String.valueOf(result));
-				
 			}
-			
 		}catch(Exception e) {
 			e.printStackTrace();
 			response.sendRedirect("error.jsp");
