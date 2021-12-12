@@ -49,12 +49,11 @@ public class MemberController extends HttpServlet {
 					response.sendRedirect("/index.jsp");
 					
 				}else if(!result) {
-					System.out.println( id+ "로그인실패..");
-					String idResult = String.valueOf(result);
-					request.setAttribute("result", idResult);
-					RequestDispatcher rd =request.getRequestDispatcher("resources/login/login.jsp");  
-					rd.forward(request, response);
+					String errorMessage = "정확한 정보를 입력하세요..";
 
+					request.setAttribute("errorMessage", errorMessage);
+					RequestDispatcher rd =request.getRequestDispatcher("/resources/login/login.jsp");  
+					rd.forward(request, response);
 				}
 
 
@@ -84,6 +83,9 @@ public class MemberController extends HttpServlet {
 					request.setAttribute("errorMessage", errorMessage);
 					RequestDispatcher rd =request.getRequestDispatcher("/resources/login/login.jsp");  
 					rd.forward(request, response);
+					
+
+					
 
 				}
 
