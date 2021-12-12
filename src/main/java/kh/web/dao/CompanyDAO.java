@@ -161,4 +161,49 @@ public class CompanyDAO {
 	
 	//페이징 목록 출력 끝..
 	//====================================================================================================================================
-}	
+
+	
+	// Company 회원가입 -이준협
+	
+	// 회원가입 method
+	public int insert(String id, String pw, String photo, String name, String crunumber, String zipcode, String address1, 
+			String address2, String rpt_cp, String phone, String email, String sales, String grade ) throws Exception {
+		
+		String sql = "insert into company values(seq_cp.nextval,?,?,?,?,?,?,?,?,?,?,?,?,'bronze')";
+		
+			
+		try(Connection con = this.getConnection();
+			PreparedStatement pstat = con.prepareStatement(sql);){
+			
+			pstat.setString(1, id);
+			pstat.setString(2, pw);			
+			pstat.setString(3, photo);
+			pstat.setString(4, name);
+			pstat.setString(5, crunumber);
+			pstat.setString(6, zipcode);
+			pstat.setString(7, address1);
+			pstat.setString(8, address2);
+			pstat.setString(9, rpt_cp);
+			pstat.setString(10, phone);
+			pstat.setString(11, email);
+			pstat.setString(12, sales);
+			int result  = pstat.executeUpdate();
+			
+			return result;
+		}
+	}
+	
+	// 회원가입 중복 ID 체크 method
+	public boolean isIdExist(String id) throws Exception{
+
+		String sql = "select * from company where id_cp = ?";
+
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1,id);
+			try(ResultSet rs = pstat.executeQuery()){
+				return rs.next();
+			}		
+		}
+	}
+}

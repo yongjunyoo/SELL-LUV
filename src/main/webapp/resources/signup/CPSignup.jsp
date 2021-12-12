@@ -12,21 +12,6 @@
 	<meta name="description" content="Your description">
     <meta name="author" content="Your name">
     
-    <!-- OG Meta Tags to improve the way the post looks when you share the page on Facebook, Twitter, LinkedIn -->
-	<meta property="og:site_name" content="" /> <!-- website name -->
-	<meta property="og:site" content="" /> <!-- website link -->
-	<meta property="og:title" content=""/> <!-- title shown in the actual shared post -->
-	<meta property="og:description" content="" /> <!-- description shown in the actual shared post -->
-	<meta property="og:image" content="" /> <!-- image link, make sure it's jpg -->
-	<meta property="og:url" content="" /> <!-- where do you want your post to link to -->
-	<meta name="twitter:card" content="summary_large_image"> <!-- to have large image post format in Twitter -->
-
-    <!-- Styles -->
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/fontawesome-all.min.css"> 
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/swiper.css"> 
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/styles.css"> 
 	 <style>* {
     margin: 0;
     padding: 0
@@ -245,6 +230,30 @@ p {
     object-fit: cover
 }</style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+	crossorigin="anonymous"></script>
+<script
+	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+    	   	
+    	$(function(){
+    		$("#id").on("input",function(){
+
+    			$.ajax({
+    				url:"/CPidCheck.mem",
+    				data:{id:$("#id").val()}
+    			}).done(function(resp){
+    				if(resp == "true"){
+    					$("#checkResult").text("이미 사용중인 ID입니다.");
+    				}else{
+    					$("#checkResult").text("사용 가능한 ID 입니다.");
+    				}
+    			});
+    	})
+    	})
+    </script>
 </head>
 <body oncontextmenu='return false' class='snippet-body'>
 	
@@ -277,31 +286,51 @@ p {
                                     <h2 class="steps">단계 1 - 4</h2>
                                 </div>
                             </div> <label class="fieldlabels">이메일: *</label> 
-                            <input type="email" name="email" placeholder="Email" /> 
-                            <label class="fieldlabels">아이디: *</label> <input type="text" name="guestId" placeholder="Id" /> 
-                            <label class="fieldlabels">비밀번호: *</label> <input type="password" name="pwd" placeholder="Password" /> 
-                            <label class="fieldlabels">비밀번호 확인: *</label> <input type="password" name="cpwd" placeholder="Confirm Password" />
-                        </div> <input type="button" name="next" class="next action-button" value="다음" />
+                            <input type="email" id="email" name="email" placeholder="Email" /> 
+                            <label class="fieldlabels">아이디: * (최소 6글자 이상 최대 12글자, 소문자와 숫자 조합으로만 가능)</label> <span id= "checkResult"></span><input type="text" id="id" name="id" placeholder="Id" /> 
+                            <label class="fieldlabels">비밀번호: * (최소 8글자 이상 최대 16글자)</label> <input type="password" id="pw" name="pw" placeholder="Password" /> 
+                            <label class="fieldlabels">비밀번호 확인: *</label> <span id= "pwCheckResult"></span> <input type="password" id="pwd" name="pwd" placeholder="Confirm Password" />
+                        </div> <input type="button" id="step1" name="next" class="next action-button" value="다음" />
                     </fieldset>
                     <fieldset>
                         <div class="form-card">
                             <div class="row">
                                 <div class="col-7">
-                                    <h2 class="fs-title">인적 정보:</h2>
+                                    <h2 class="fs-title">기업 정보:</h2>
                                 </div>
                                 <div class="col-5">
                                     <h2 class="steps">단계 2 - 4</h2>
                                 </div>
-                            </div> <label class="fieldlabels">기업명: *</label> <input type="text" name="cName" placeholder="Company Name" />
-                            <label class="fieldlabels">사업자번호: *</label> <input type="text" name="coRegNum" placeholder="Corporate Registration Number" /> 
-                            <label class="fieldlabels">연락처: *</label> <input type="text" name="cPhone" placeholder="Contact No." /> 
-                            <label class="fieldlabels">주소1: * <button type="button" class="btn btn-dark" style="background-color:rgb(255, 111, 97);">주소 검색</button></label> <input type="text" name="cAddress1" placeholder="Address." />
-                            <label class="fieldlabels">주소2: *</label> <input type="text" name="cAddress2" placeholder="Detail Address." />
+                            </div> 
+                            <label class="fieldlabels">기업상호: *</label> <input type="text" id="name" name="name" placeholder="Company Name" />
+                            <label class="fieldlabels">대표자명: *</label> <input type="text" id="rpt_cp" name="rpt_cp" placeholder="Representative Name" />
+                            <label class="fieldlabels">사업자번호: * ('-'제외 10자리 숫자입력)</label> <input type="text" id="crunumber" name="crunumber" placeholder="Corporate Registration Number" /> 
+                            <label class="fieldlabels">매출액: (단위 만원)</label> <input type="text" id="sales" name="sales" placeholder="Total sales" />
+                            <label class="fieldlabels">연락처: * ('-'제외 입력)</label> <input type="text" id="phone" name="phone" placeholder="Contact No." /> 
+                            <label class="fieldlabels">우편번호: * <button type="button" class="btn btn-dark" id="search" style="background-color:rgb(255, 111, 97);">주소 검색</button></label> <input type="text" id="postcode" name="zipcode" placeholder="Zipcode."  readonly/>
+                            <label class="fieldlabels">주소1: * </label> <input type="text" id="roadAddress" name="address1" placeholder="Address." readonly />
+                            <label class="fieldlabels">주소2: *</label> <input type="text" id="address2" name="address2" placeholder="Detail Address." />
                           
-  
+                          	<label class="fieldlabels">분야: (선택사항)</label> <br>
+  							<div class="form-check form-check-inline">
+							<input type="checkbox" id="jb-checkbox1" class="custom-control-input">
+							<label class="custom-control-label" for="jb-checkbox1">의류</label>
+							</div>
+							<div class="form-check form-check-inline">
+							<input type="checkbox" id="jb-checkbox2" class="custom-control-input">
+							<label class="custom-control-label" for="jb-checkbox2">IT,가전</label>
+							</div>
+							<div class="form-check form-check-inline">
+							<input type="checkbox" id="jb-checkbox3" class="custom-control-input">
+							<label class="custom-control-label" for="jb-checkbox3">서비스</label>
+							</div>
+							<div class="form-check form-check-inline">
+							<input type="checkbox" id="jb-checkbox4" class="custom-control-input">
+							<label class="custom-control-label" for="jb-checkbox4">기타</label>
+							</div>
 
  
-                        </div> <input type="button" name="next" class="next action-button" value="다음" /> <input type="button" name="previous" class="previous action-button-previous" value="이전" />
+                        </div> <input type="button" id="step2" name="next" class="next action-button" value="다음" /> <input type="button" name="previous" class="previous action-button-previous" value="이전" />
                     </fieldset>
                     <fieldset>
                         <div class="form-card">
@@ -313,11 +342,11 @@ p {
                                     <h2 class="steps">단계 3 - 4</h2>
                                 </div>
                             </div> 
-                            <label class="fieldlabels">Upload Your Photo:</label> <input type="file" name="pic" accept="image/*"> 
-                            <label class="fieldlabels">Upload Signature Photo:</label> <input type="file" name="pic" accept="image/*">
+                            <label class="fieldlabels">Upload Signature Photo:</label> <input type="file" id="photo" name="photo" accept="image/*">
                         </div> 
-                        <input type="submit" name="next" class="next action-button" value="제출" /> <input type="button" name="이전" class="previous action-button-previous" value="이전" />
+                        <input type="button" id="step3" name="next" class="next action-button" value="제출" /> <input type="button" name="이전" class="previous action-button-previous" value="이전" />                        
                     </fieldset>
+                    
                     <fieldset>
                         <div class="form-card">
                             <div class="row">
@@ -334,11 +363,11 @@ p {
                             </div> <br><br>
                             <div class="row justify-content-center">
                                 <div class="col-7 text-center">
-                                    <h5 class="black-text text-center">성공적으로 계정이 생성되었습니다.</h5>
+                                    <h5 class="black-text text-center">확인을 누르시면 계정이 생성되며 <br> 로그인 페이지로 이동합니다.</h5>
                                 </div>
                             </div>
                             <div class="row justify-content-center">
-                            	<button type="button" class="btn btn-dark" style="background-color:rgb(255, 111, 97); width:20%;" id="goLogin">로그인 하기</button>
+                            	<button type="submit" class="btn btn-dark" style="background-color:rgb(255, 111, 97); width:20%;" id="goLogin">확인</button>
                             </div>
                         </div>
                     </fieldset>
@@ -350,9 +379,8 @@ p {
 </div>
 
 <script type='text/javascript' src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js'></script>
-<script type='text/javascript' src=''></script>
-<script type='text/javascript' src=''></script>
-<script type='text/Javascript'>$(document).ready(function(){
+<script type='text/Javascript'>
+$(document).ready(function(){
 
 var current_fs, next_fs, previous_fs; //fieldsets
 var opacity;
@@ -361,16 +389,54 @@ var steps = $("fieldset").length;
 
 setProgressBar(current);
 
-$(".next").click(function(){
+$("#step1").click(function(){
 
 current_fs = $(this).parent();
 next_fs = $(this).parent().next();
+
+
+let regexMail = /^[a-zA-Z\d]{1,}@[a-z]{1,}.com$/;
+let resultMail = regexMail.test($("#email").val());
+if(resultMail == false){
+    alert("이메일을 다시 확인해주세요")
+    return false;
+}
+
+
+let regexId = /^[a-z]{1}[a-z\d]{5,13}$/;
+let resultId = regexId.test($("#id").val());
+if(resultId == false){
+    alert("아이디 형식이 올바르지 않습니다. 다시 확인해주세요")
+    return false;
+}
+
+if($("#checkResult").text() == "이미 사용중인 ID입니다."){
+	
+	alert("이미 사용중인 ID입니다.")
+    return false;	
+	
+}
+
+let regexPw = /^[a-zA-Z\d]{8,16}$/;
+let resultPw = regexPw.test($("#pw").val());
+if(resultPw == false){
+    alert("비밀번호 형식이 올바르지않습니다.")
+    return false;
+}
+
+
+if($("#pw").val() != $("#pwd").val()){
+	 alert("비밀번호를 다시 확인 해주세요")
+     return false;
+}
 
 //Add Class Active
 $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
 
 //show the next fieldset
 next_fs.show();
+
+
 //hide the current fieldset with style
 current_fs.animate({opacity: 0}, {
 step: function(now) {
@@ -388,6 +454,113 @@ duration: 500
 setProgressBar(++current);
 });
 
+$("#step2").click(function(){
+
+	current_fs = $(this).parent();
+	next_fs = $(this).parent().next();
+
+	let regexName = /^[a-zA-Z가-힣\d]{1,}$/;
+	let resultName = regexName.test($("#name").val());
+	if(resultName == false){
+	    alert("기업상호 형식이 올바르지 않습니다.")
+	    return false;
+	}
+	 
+     let regexRpt = /^[가-힣]{1,5}$/
+     let resultRpt = regexRpt.test($("#rpt_cp").val());
+     if(resultRpt == false){
+         alert("대표자명을 다시 확인 해주세요")
+         return false;
+     }
+     
+     let regexCru = /^[\d]{10}$/
+     let resultCru = regexCru.test($("#crunumber").val());
+     if(resultCru == false){
+    	 alert("사업자 번호 형식이 올바르지 않습니다.")
+    	 return false;
+     }
+     
+     let regexSales = /^[\d]{0,}$/
+         let resultSales = regexSales.test($("#sales").val());
+         if(resultSales == false){
+        	 alert("매출액은 숫자로만 입력이 가능합니다.")
+        	 return false;
+         }
+     
+     let regexPhone = /^010-?\d{4}-?\d{4}$/;
+     let resultPhone = regexPhone.test($("#phone").val());
+     if(resultPhone == false){
+         alert("휴대폰 번호가 올바르지않은 형식입니다.")
+         return false;
+     }
+     
+     let regexAddress1 = /^[가-힣\d]{1,}/;
+     let resultAddress1 = regexAddress1.test($("#roadAddress").val());
+     if(resultAddress1 == false){
+         alert("주소를 입력해주세요.")
+         return false;
+     }
+     
+     let regexAddress2 = /^[가-힣\d]{1,}/;
+     let resultAddress2 = regexAddress2.test($("#address2").val());
+     if(resultAddress2 == false){
+         alert("상세주소를 입력해주세요.")
+         return false;
+     }
+     
+	//Add Class Active
+	$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+
+	//show the next fieldset
+	next_fs.show();
+
+
+	//hide the current fieldset with style
+	current_fs.animate({opacity: 0}, {
+	step: function(now) {
+	// for making fielset appear animation
+	opacity = 1 - now;
+
+	current_fs.css({
+	'display': 'none',
+	'position': 'relative'
+	});
+	next_fs.css({'opacity': opacity});
+	},
+	duration: 500
+	});
+	setProgressBar(++current);
+	});
+	
+$("#step3").click(function(){
+
+	current_fs = $(this).parent();
+	next_fs = $(this).parent().next();
+	     
+	//Add Class Active
+	$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+
+	//show the next fieldset
+	next_fs.show();
+
+
+	//hide the current fieldset with style
+	current_fs.animate({opacity: 0}, {
+	step: function(now) {
+	// for making fielset appear animation
+	opacity = 1 - now;
+
+	current_fs.css({
+	'display': 'none',
+	'position': 'relative'
+	});
+	next_fs.css({'opacity': opacity});
+	},
+	duration: 500
+	});
+	setProgressBar(++current);
+	});
+	
 $(".previous").click(function(){
 
 current_fs = $(this).parent();
@@ -423,16 +596,41 @@ $(".progress-bar")
 .css("width",percent+"%")
 }
 
-$(".submit").click(function(){
-return false;
-})
+});
 
-$("#goLogin").on("click",function(){
-	
-	location.href="/login.mem";
-	
-})
 
-});</script>
-                                </body>
-                            </html>
+
+
+
+</script>
+
+<script>
+	let result = document.getElementById("pwCheckResult");
+
+	document.getElementById("pwd").oninput = function(){
+    let pw1 = $("#pw").val();
+    let pw2 = $("#pwd").val();
+    if(pw1 != pw2){
+        result.innerHTML = "패스워드가 일치하지않습니다"
+       
+    }else{
+        result.innerHTML = "패스워드가 일치합니다."
+    }
+}
+	document.getElementById("search").onclick = function(){
+        new daum.Postcode({
+            oncomplete: function(data) {                                 
+                document.getElementById('postcode').value = data.zonecode;
+                document.getElementById("roadAddress").value = data.roadAddress;                   
+            }            
+        }).open();
+    }
+	
+	if($("#photo").val() == ""){
+		$("#photo").val() == "default";
+	}
+</script>
+
+
+ 	</body>
+</html>
