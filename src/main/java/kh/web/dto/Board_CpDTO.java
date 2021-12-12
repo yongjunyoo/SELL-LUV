@@ -7,6 +7,7 @@ public class Board_CpDTO {
 	private String writer_cp;
 	private String title_cp;
 	private String condition_cp;
+	private String intro_cp;
 	private Timestamp write_date_cp;
 	private int view_count_cp;
 	private int sLike_cp;
@@ -17,12 +18,14 @@ public class Board_CpDTO {
 
 	}
 
-	public Board_CpDTO(int seq_cp, String writer_cp, String title_cp, String condition_cp, Timestamp write_date_cp,
-			int view_count_cp, int sLike_cp, int rLike_cp, String review_cp) {
+	public Board_CpDTO(int seq_cp, String writer_cp, String title_cp, String condition_cp, String intro_cp,
+			Timestamp write_date_cp, int view_count_cp, int sLike_cp, int rLike_cp, String review_cp) {
+		super();
 		this.seq_cp = seq_cp;
 		this.writer_cp = writer_cp;
 		this.title_cp = title_cp;
 		this.condition_cp = condition_cp;
+		this.intro_cp = intro_cp;
 		this.write_date_cp = write_date_cp;
 		this.view_count_cp = view_count_cp;
 		this.sLike_cp = sLike_cp;
@@ -60,6 +63,14 @@ public class Board_CpDTO {
 
 	public void setCondition_cp(String condition_cp) {
 		this.condition_cp = condition_cp;
+	}
+
+	public String getIntro_cp() {
+		return intro_cp;
+	}
+
+	public void setIntro_cp(String intro_cp) {
+		this.intro_cp = intro_cp;
 	}
 
 	public Timestamp getWrite_date_cp() {
@@ -101,4 +112,5 @@ public class Board_CpDTO {
 	public void setReview_cp(String review_cp) {
 		this.review_cp = review_cp;
 	}
+
 }

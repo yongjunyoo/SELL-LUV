@@ -101,7 +101,7 @@
                                 <img id= "img" class="card-img rounded-0 img-fluid" src=${dto.photo } >
                             </div>
                             <div class="card-body">
-                                <a href="shop-single.html" class="h3 text-decoration-none">${dto.name}</a>
+                                <a href="/searchDetail.ifcp?seq=${dto.seq}&object=${list[1]}" class="h3 text-decoration-none">${dto.name}</a>
                                 <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
                                     <li>${dto.grade }</li>
                                     <li class="pt-2">
