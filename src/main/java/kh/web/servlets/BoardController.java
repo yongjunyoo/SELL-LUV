@@ -1,11 +1,17 @@
 package kh.web.servlets;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import kh.web.dao.BoardDAO;
+import kh.web.dto.BoardDTO;
+
 
 
 @WebServlet("*.board")
@@ -19,12 +25,38 @@ public class BoardController extends HttpServlet {
 		String cmd = uri.substring(ctx.length());
 		System.out.println("사용자가 요청한 기능 : " + cmd);
 		
+		HttpSession session = request.getSession();
+		BoardDAO bdao = BoardDAO.getInstance();
+		
+		
 		try {
+			// 게시판 목록
 			if(cmd.equals("/boardList.board")) {
+				String cpage = request.getParameter("cpage");
 				
-				response.sendRedirect("/resources/board/board.jsp");
-			}else if(cmd.equals("")) {
 				
+				if(cpage == null) {
+					cpage = "1";
+				}
+				
+				session.setAttribute("cpage", cpage);
+				System.out.println("cpage : " + cpage);
+				System.out.println("세션 cpage : " + session.getAttribute("cpage"));
+				response.sendRedirect("/resources/board/board.jsp?cpage="+cpage);
+			// 글쓰기 기능
+			}else if(cmd.equals("/write.board")) {
+				// session.removeAttribute("cpage");
+				// String cpage = request.getParameter("cpage");
+				// session.setAttribute("cpage", cpage);
+				// System.out.println("cpage : " + cpage);
+				// System.out.println("세션 cpage : " + session.getAttribute("cpage"));
+				response.sendRedirect("/resources/board/boardwrite.jsp");
+			}else if(cmd.equals("/done.board")) {
+				String writer = (String)session.getAttribute("loginID");
+				String title = request.getParameter("title");
+				String contents = request.getParameter("contents");
+				int result = bdao.insert(new BoardDTO(0,writer,title,contents,null,0));
+				System.out.println(result);
 			}
 		}catch(Exception e) {
 			e.printStackTrace();

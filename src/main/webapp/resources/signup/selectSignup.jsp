@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="css/custom.css">
 	<script src="js/modernizr.js"></script> <!-- Modernizr -->
 
+
 </head>
 <body id="page-top" class="politics_version">   
 	
@@ -43,8 +44,9 @@
 					
 				</span>
 				<div class="btn-ber">
-					<a class="get_btn hvr-bounce-to-top" href="/CPSignup.mem">기업 회원가입</a>
-					<a class="get_btn hvr-bounce-to-top" href="/IFSignup.mem">인플루언서 회원가입</a>
+					<a class="get_btn hvr-bounce-to-top" href="/resources/signup/CPSignup.jsp">기업 회원가입</a>
+					<div style="padding-bottom:10px;"></div>
+					<a class="get_btn hvr-bounce-to-top" href="/resources/signup/IFSignup.jsp">인플루언서 회원가입</a>
 				</div>
 			</h3>
 		</div>
@@ -56,16 +58,8 @@
 
     <!-- ALL JS FILES -->
     <script src="js/all.js"></script>
-	<!-- Camera Slider -->
-	
-	<script src="js/jquery.easing.1.3.js"></script> 
-	<script src="js/parallaxie.js"></script>
 	<script src="js/headline.js"></script>
-	<!-- Contact form JavaScript -->
-
-    <!-- ALL PLUGINS -->
-    <script src="js/custom.js"></script>
-    
+	<script src="js/jquery.vide.js"></script>
 
 </body>
 </html>

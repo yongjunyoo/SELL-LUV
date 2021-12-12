@@ -6,6 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>커뮤니티 게시판</title>
+	<link
+		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+		rel="stylesheet" />
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
 
@@ -21,17 +24,18 @@ body {
     font-weight: 400;
     line-height: 1.5;
     color: #495057;    
-    background-color: #eef1f3
+    background-color: #eef1f3;
 }
 
 .mt-100 {
-    margin-top: 80px
+    margin-top: 80px;
 }
 
 .card {
     box-shadow: 0 0.46875rem 2.1875rem rgba(4, 9, 20, 0.03), 0 0.9375rem 1.40625rem rgba(4, 9, 20, 0.03), 0 0.25rem 0.53125rem rgba(4, 9, 20, 0.05), 0 0.125rem 0.1875rem rgba(4, 9, 20, 0.03);
     border-width: 0;
-    transition: all .2s
+    transition: all .2s;
+    margin:auto;
 }
 
 .card-header:first-child {
@@ -47,24 +51,24 @@ body {
     padding-right: .625rem;
     height: 3.5rem;
     background-color: #fff;
-    border-bottom: 1px solid rgba(26, 54, 126, 0.125)
+    border-bottom: 1px solid rgba(26, 54, 126, 0.125);
 }
 
 .btn-primary.btn-shadow {
-    box-shadow: 0 0.125rem 0.625rem rgba(63, 106, 216, 0.4), 0 0.0625rem 0.125rem rgba(63, 106, 216, 0.5)
+    box-shadow: 0 0.125rem 0.625rem rgba(63, 106, 216, 0.4), 0 0.0625rem 0.125rem rgba(63, 106, 216, 0.5);
 }
 
 .btn.btn-wide {
     padding: .375rem 1.5rem;
     font-size: .8rem;
     line-height: 1.5;
-    border-radius: .25rem
+    border-radius: .25rem;
 }
 
 .btn-primary {
     color: #fff;
     background-color: #3f6ad8;
-    border-color: #3f6ad8
+    border-color: #3f6ad8;
 }
 
 .form-control {
@@ -80,7 +84,7 @@ body {
     background-clip: padding-box;
     border: 1px solid #ced4da;
     border-radius: .25rem;
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
 .card-body {
@@ -105,7 +109,22 @@ a {
 .media img {
     width: 40px;
     height: auto
-}</style>
+}
+#board-title {
+	text-align:center; 
+	height:100px; 
+	line-height:100px;
+	padding: 100px 0;
+	
+}
+#title{
+	width:50px;
+	height:50px;
+}
+.search-bar {
+	margin:auto;
+}
+</style>
 </head>
 <body>
 	<!-- 메인 네비바 -->
@@ -113,13 +132,14 @@ a {
 	
 	<!-- 타이틀  -->
 	<div class="container-fluid mt-100">
-    <div style="text-align:center; height:50px; line-height:50px">
+    <div id="board-title">
+    <img id="title" src="/resources/board/image/title.png">
     <span>커뮤니티 게시판</span>
     </div>       
     <br>
 	
 	<!-- 게시판 박스 -->
-    <div class="card mb-3">
+    <div class="card mb-3 col-xl-8 col-md-12">
     
       <!-- 분류 네비 -->  
         <div class="card-header pl-0 pr-0">
@@ -254,20 +274,50 @@ a {
                 </div>
             </div>
         </div>
-        
+        <%= (String)session.getAttribute("cpage") %>
+        <%= request.getParameter("cpage") %>
     </div>
     
      <!-- 글쓰기 & 검색 라인 -->
-    <div class="row">
-    	<div class="col-8"> 
-        <input type="text" placeholder="Search..." style="width:30%; height:100%;">
-        <button type="button" class="btn btn-shadow btn-wide btn-primary" style="background-color:rgb(255, 111, 97); border-color:rgb(255, 111, 97);"> 
-         검색하기 </button>     
-        </div> 
-        <div class="col-4" style="text-align:right;"> 
-        <button type="button" class="btn btn-shadow btn-wide btn-primary" style="background-color:rgb(255, 111, 97); border-color:rgb(255, 111, 97);"> 
-         글 쓰기 </button> 
-        </div>      
+    <div class="row search-bar" style="justify-content: space-around;">
+    	<div class="col-xl-8 col-md-12 d-none d-md-block"> 
+    		<div class="row">
+		        <div class="col-6"><input type="text" placeholder="Search..." style="width:100%; height:100%;">
+		        </div>
+		        <div class="col-4">
+		        <button type="button" class="btn btn-shadow btn-wide btn-primary" style="background-color:rgb(255, 111, 97); border-color:rgb(255, 111, 97);"> 
+         		검색하기 </button>     
+         		</div>
+		    	<div class="col-2" style="text-align:right;"> 
+		        <button type="button" class="btn-write btn btn-shadow btn-wide btn-primary" style="background-color:rgb(255, 111, 97); border-color:rgb(255, 111, 97);"> 
+		         글 쓰기 </button> 
+		        </div> 	
+    		</div>
+    	</div> 
+        
+        <div class="d-md-none">
+        	<div class="row">
+        		<div class="col-5">
+        			<input type="text" placeholder="Search..." style="width:100%; height:100%;">
+		        </div>
+		        <div class="col-4">
+		        	<button type="button" class="btn btn-shadow btn-wide btn-primary" style="background-color:rgb(255, 111, 97); border-color:rgb(255, 111, 97);"> 
+         		검색하기 </button>     
+         		</div>
+         		<div class="col-3" style="text-align:right;"> 
+	         		
+	        		<button type="button" class="btn btn-shadow btn-wide btn-primary btn-write" style="background-color:rgb(255, 111, 97); border-color:rgb(255, 111, 97);"> 
+	         		글쓰기 </button> 
+	         		<script>
+	         			$(".btn-write").on("click",function(){
+	         				location.href="/write.board?cpage=${cpage}";
+	         			})
+	         		</script>
+        		</div> 
+        	</div>
+        </div>
+        
+         
     </div>
     
     <br>

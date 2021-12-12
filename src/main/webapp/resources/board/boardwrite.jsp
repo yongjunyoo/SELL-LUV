@@ -35,32 +35,28 @@
 <body>
 	<jsp:include page="/header.jsp" flush="false"/>
 	
-	<form>
+	<form action="/done.board" method="post">
     <div class="container">
         <div class="row">
             <div class="col-sm-12" style="text-align:center; height:200px; line-height:250px; font-family:BlackHanSans;">커뮤니티 게시판 글쓰기</div>
         </div>
         <div class="row" style="padding-bottom:5px;">
-            <div class="col-sm-2" style="text-align:center">
-            <select name= boardTag style="width:100%; text-align:center;">
-						<option>잡담</option>
-						<option>정보</option>
-					</select>
-            </div>
-            <div class="col-sm-10"><input type=text id=title name=title placeholder="제목을 작성하세요" style="width:100%;"></div>
+            <div class="col-sm-12"><input type=text id=title name=title placeholder="제목을 작성하세요" style="width:100%;"></div>
         </div>
         <div class="row">
             <div class="col-sm-12">
-                <textarea cols=170 rows=25>
-
-                </textarea>
+                <textarea cols=170 rows=25 name="contents"></textarea>
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-8"><input type=file id=bFile name=bFile></div>
-            <div class="col-sm-4" style="text-align:right">
-                <button type="button" class="btn btn-dark" style="background-color:rgb(255, 111, 97);">목록으로</button>
-                <button class="btn btn-dark" style="background-color:rgb(255, 111, 97);">작성하기</button>
+            <div class="col-sm-12" style="text-align:right">
+                <button type="button" id="boardList" class="btn btn-dark" style="background-color:rgb(255, 111, 97);">목록으로</button>
+                <button class="btn btn-dark" id="write" style="background-color:rgb(255, 111, 97);">작성하기</button>
+                <script>
+					$("#boardList").on("click",function(){
+						location.href="/boardList.board?cpage=1";
+					})
+				</script>
             </div>
         </div>
     </div>
@@ -68,5 +64,6 @@
     <!-- 푸터 -->
 	<jsp:include page="/footer.jsp" flush="false"/>
 </form>
+
 </body>
 </html>

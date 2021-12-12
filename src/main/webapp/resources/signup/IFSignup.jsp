@@ -279,7 +279,8 @@ p {
                             </div> <label class="fieldlabels">이름: *</label> <input type="text" name="fname" placeholder="Name" />
                             <label class="fieldlabels">닉네임: *</label> <input type="text" name="nickName" placeholder="Nick Name" /> 
                             <label class="fieldlabels">연락처: *</label> <input type="text" name="phone" placeholder="Contact No." /> 
-                            <label class="fieldlabels">주소1: * <button type="button" class="btn btn-dark" style="background-color:rgb(255, 111, 97);">주소 검색</button></label> <input type="text" name="address1" placeholder="Your Address" />
+                            <label class="fieldlabels">우편번호: * <button type="button" class="btn btn-dark" style="background-color:rgb(255, 111, 97);">주소 검색</button></label> <input type="text" name="cZipcode" placeholder="Zipcode." />
+                            <label class="fieldlabels">주소1: * </label> <input type="text" name="address1" placeholder="Address." />
                             <label class="fieldlabels">주소2: *</label> <input type="text" name="address2" placeholder="Your Detail Address" />
                             <label class="fieldlabels">SNS 링크1: </label> <input type="text" name="sns1" placeholder="SNS Link1(선택사항)" />
                             <label class="fieldlabels">SNS 링크2: </label> <input type="text" name="sns2" placeholder="SNS Link2(선택사항)" />
