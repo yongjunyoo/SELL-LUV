@@ -17,7 +17,7 @@ public class CompanyDTO {
 	Long sales;
 	String grade;
 	
-	CompanyDTO(){}
+	public CompanyDTO(){}
 
 	public CompanyDTO(int seq, String id, String pw, String photo, String name, String crnumber, String zipcode,
 			String address1, String address2, String rpt, String phone, String email, Long sales, String grade) {
