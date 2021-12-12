@@ -296,7 +296,9 @@ form .btn input[type="submit"]{
       		alert(errorMessage);
       	} */
          
-         
+      	if ( window.history.replaceState ) {
+            window.history.replaceState( null, null, '/resources/login/login.jsp' );
+        } 
       </script>
     
    </body>
