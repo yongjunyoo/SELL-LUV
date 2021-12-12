@@ -3,49 +3,69 @@
    	 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
+    <!-- Basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">   
+   
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+ 
+     <!-- Site Metas -->
+    <title>회원가입 페이지</title>  
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-    <style>
-        #select{ padding-bottom:10px;}
-        #select>button[type=button]{width:250px; height:250px; background-color:rgb(255, 111, 97); border-radius:8px;}
-        #goCP{left:250px; top:250px;}
-        #goIF{right:250px; top:250px;}
-        #empty{height:200px;}
-    </style>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- Site CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/custom.css">
+	<script src="js/modernizr.js"></script> <!-- Modernizr -->
 
 </head>
-<body>
+<body id="page-top" class="politics_version">   
+	
 	<jsp:include page="/header.jsp" flush="false"/>
+	
+	<section id="home" class="main-banner parallaxie" style="background: url('uploads/banner-01.jpg')">
+		<div class="heading">
+			<h1>SELL LUV 에 오신걸 환영합니다</h1>			
+			<h3 class="cd-headline clip is-full-width">
+				<span>기업과 인플루언서의 연결고리</span>
+				<span class="cd-words-wrapper">
+					<b class="is-visible">제품 홍보</b>
+					<b>홍보 모델</b>
+					
+				</span>
+				<div class="btn-ber">
+					<a class="get_btn hvr-bounce-to-top" href="/CPSignup.mem">기업 회원가입</a>
+					<a class="get_btn hvr-bounce-to-top" href="/IFSignup.mem">인플루언서 회원가입</a>
+				</div>
+			</h3>
+		</div>
+	</section>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12" id=empty></div>
-        </div>
-        
-        <div class="row">
-            <div class="col-sm-12" style="text-align:center; padding-bottom:50px;">
-            Sell Luv을 가입해서 지금 바로 다양한 기업의 제품 홍보 그리고 개성넘치는 인플루언서를 만나보세요!
-            </div>
-        </div>
-                 
-        <div class="row">
-            <div class="col-sm-6" style="text-align:center;" id="select">
-        <button type="button" class="btn btn-dark" id="goCP">기업 회원가입</button>
-    </div>
-            <div class="col-sm-6" style="text-align:center;" id="select">
-        <button type="button" class="btn btn-dark" id="goIF">인플루언서 회원가입</button>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12">푸터</div>
-        </div>
-    </div>
+   <jsp:include page="/footer.jsp" flush="false"/>
+
+   
+
+    <!-- ALL JS FILES -->
+    <script src="js/all.js"></script>
+	<!-- Camera Slider -->
+	
+	<script src="js/jquery.easing.1.3.js"></script> 
+	<script src="js/parallaxie.js"></script>
+	<script src="js/headline.js"></script>
+	<!-- Contact form JavaScript -->
+
+    <!-- ALL PLUGINS -->
+    <script src="js/custom.js"></script>
+    
+
 </body>
 </html>

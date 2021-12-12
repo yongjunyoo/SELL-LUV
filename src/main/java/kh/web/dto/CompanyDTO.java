@@ -2,145 +2,157 @@ package kh.web.dto;
 
 public class CompanyDTO {
 
-	int seq_cp;
-	String id_cp;
-	String pw_cp;
-	String photo_cp;
-	String name_cp;
-	String crnumber_cp;
-	String zipcode_cp;
-	String address1_cp;
-	String address2_cp;
-	String rpt_cp;
-	String phone_cp;
-	String email_cp;
-	Long sales_cp;
+	int seq;
+	String id;
+	String pw;
+	String photo;
+	String name;
+	String crnumber;
+	String zipcode;
+	String address1;
+	String address2;
+	String rpt;
+	String phone;
+	String email;
+	Long sales;
+	String grade;
 	
 	public CompanyDTO(){}
 
-	public CompanyDTO(int seq_cp, String id_cp, String pw_cp, String photo_cp, String name_cp, String crnumber_cp,
-			String zipcode_cp, String address1_cp, String address2_cp, String rpt_cp, String phone_cp, String email_cp,
-			Long sales_cp) {
+	public CompanyDTO(int seq, String id, String pw, String photo, String name, String crnumber, String zipcode,
+			String address1, String address2, String rpt, String phone, String email, Long sales, String grade) {
 		super();
-		this.seq_cp = seq_cp;
-		this.id_cp = id_cp;
-		this.pw_cp = pw_cp;
-		this.photo_cp = photo_cp;
-		this.name_cp = name_cp;
-		this.crnumber_cp = crnumber_cp;
-		this.zipcode_cp = zipcode_cp;
-		this.address1_cp = address1_cp;
-		this.address2_cp = address2_cp;
-		this.rpt_cp = rpt_cp;
-		this.phone_cp = phone_cp;
-		this.email_cp = email_cp;
-		this.sales_cp = sales_cp;
+		this.seq = seq;
+		this.id = id;
+		this.pw = pw;
+		this.photo = photo;
+		this.name = name;
+		this.crnumber = crnumber;
+		this.zipcode = zipcode;
+		this.address1 = address1;
+		this.address2 = address2;
+		this.rpt = rpt;
+		this.phone = phone;
+		this.email = email;
+		this.sales = sales;
+		this.grade = grade;
 	}
 
-	public int getSeq_cp() {
-		return seq_cp;
+	public int getSeq() {
+		return seq;
 	}
 
-	public void setSeq_cp(int seq_cp) {
-		this.seq_cp = seq_cp;
+	public void setSeq(int seq) {
+		this.seq = seq;
 	}
 
-	public String getId_cp() {
-		return id_cp;
+	public String getId() {
+		return id;
 	}
 
-	public void setId_cp(String id_cp) {
-		this.id_cp = id_cp;
+	public void setId(String id) {
+		this.id = id;
 	}
 
-	public String getPw_cp() {
-		return pw_cp;
+	public String getPw() {
+		return pw;
 	}
 
-	public void setPw_cp(String pw_cp) {
-		this.pw_cp = pw_cp;
+	public void setPw(String pw) {
+		this.pw = pw;
 	}
 
-	public String getPhoto_cp() {
-		return photo_cp;
+	public String getPhoto() {
+		return photo;
 	}
 
-	public void setPhoto_cp(String photo_cp) {
-		this.photo_cp = photo_cp;
+	public void setPhoto(String photo) {
+		this.photo = photo;
 	}
 
-	public String getName_cp() {
-		return name_cp;
+	public String getName() {
+		return name;
 	}
 
-	public void setName_cp(String name_cp) {
-		this.name_cp = name_cp;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getCrnumber_cp() {
-		return crnumber_cp;
+	public String getCrnumber() {
+		return crnumber;
 	}
 
-	public void setCrnumber_cp(String crnumber_cp) {
-		this.crnumber_cp = crnumber_cp;
+	public void setCrnumber(String crnumber) {
+		this.crnumber = crnumber;
 	}
 
-	public String getZipcode_cp() {
-		return zipcode_cp;
+	public String getZipcode() {
+		return zipcode;
 	}
 
-	public void setZipcode_cp(String zipcode_cp) {
-		this.zipcode_cp = zipcode_cp;
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode;
 	}
 
-	public String getAddress1_cp() {
-		return address1_cp;
+	public String getAddress1() {
+		return address1;
 	}
 
-	public void setAddress1_cp(String address1_cp) {
-		this.address1_cp = address1_cp;
+	public void setAddress1(String address1) {
+		this.address1 = address1;
 	}
 
-	public String getAddress2_cp() {
-		return address2_cp;
+	public String getAddress2() {
+		return address2;
 	}
 
-	public void setAddress2_cp(String address2_cp) {
-		this.address2_cp = address2_cp;
+	public void setAddress2(String address2) {
+		this.address2 = address2;
 	}
 
-	public String getRpt_cp() {
-		return rpt_cp;
+	public String getRpt() {
+		return rpt;
 	}
 
-	public void setRpt_cp(String rpt_cp) {
-		this.rpt_cp = rpt_cp;
+	public void setRpt(String rpt) {
+		this.rpt = rpt;
 	}
 
-	public String getPhone_cp() {
-		return phone_cp;
+	public String getPhone() {
+		return phone;
 	}
 
-	public void setPhone_cp(String phone_cp) {
-		this.phone_cp = phone_cp;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
-	public String getEmail_cp() {
-		return email_cp;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setEmail_cp(String email_cp) {
-		this.email_cp = email_cp;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	public Long getSales_cp() {
-		return sales_cp;
+	public Long getSales() {
+		return sales;
 	}
 
-	public void setSales_cp(Long sales_cp) {
-		this.sales_cp = sales_cp;
+	public void setSales(Long sales) {
+		this.sales = sales;
 	}
+
+	public String getGrade() {
+		return grade;
+	}
+
+	public void setGrade(String grade) {
+		this.grade = grade;
+	}
+
 	
+	
+
 	
 	
 	

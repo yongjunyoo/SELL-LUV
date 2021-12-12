@@ -2,134 +2,145 @@ package kh.web.dto;
 
 public class InfluencerDTO {
 
-	int seq_if;
-	String id_if;
-	String pw_if;
-	String photo_if;
-	String name_if;
-	String nickname_if;
-	String zipcode_if;
-	String address1_if;
-	String address2_if;
-	String sns_if;
-	String phone_if;
-	String email_if;
+	int seq;
+	String id;
+	String pw;
+	String photo;
+	String name;
+	String nickname;
+	String zipcode;
+	String address1;
+	String address2;
+	String sns;
+	String phone;
+	String email;
+	String grade;
 	
 	public InfluencerDTO() {}
-	
-	public InfluencerDTO(int seq_if, String id_if, String pw_if, String photo_if, String name_if, String nickname_if,
-			String zipcode_if, String address1_if, String address2_if, String sns_if, String phone_if,
-			String email_if) {
+
+	public InfluencerDTO(int seq, String id, String pw, String photo, String name, String nickname, String zipcode,
+			String address1, String address2, String sns, String phone, String email, String grade) {
 		super();
-		this.seq_if = seq_if;
-		this.id_if = id_if;
-		this.pw_if = pw_if;
-		this.photo_if = photo_if;
-		this.name_if = name_if;
-		this.nickname_if = nickname_if;
-		this.zipcode_if = zipcode_if;
-		this.address1_if = address1_if;
-		this.address2_if = address2_if;
-		this.sns_if = sns_if;
-		this.phone_if = phone_if;
-		this.email_if = email_if;
+		this.seq = seq;
+		this.id = id;
+		this.pw = pw;
+		this.photo = photo;
+		this.name = name;
+		this.nickname = nickname;
+		this.zipcode = zipcode;
+		this.address1 = address1;
+		this.address2 = address2;
+		this.sns = sns;
+		this.phone = phone;
+		this.email = email;
+		this.grade = grade;
 	}
 
-	public int getSeq_if() {
-		return seq_if;
+	public int getSeq() {
+		return seq;
 	}
 
-	public void setSeq_if(int seq_if) {
-		this.seq_if = seq_if;
+	public void setSeq(int seq) {
+		this.seq = seq;
 	}
 
-	public String getId_if() {
-		return id_if;
+	public String getId() {
+		return id;
 	}
 
-	public void setId_if(String id_if) {
-		this.id_if = id_if;
+	public void setId(String id) {
+		this.id = id;
 	}
 
-	public String getPw_if() {
-		return pw_if;
+	public String getPw() {
+		return pw;
 	}
 
-	public void setPw_if(String pw_if) {
-		this.pw_if = pw_if;
+	public void setPw(String pw) {
+		this.pw = pw;
 	}
 
-	public String getPhoto_if() {
-		return photo_if;
+	public String getPhoto() {
+		return photo;
 	}
 
-	public void setPhoto_if(String photo_if) {
-		this.photo_if = photo_if;
+	public void setPhoto(String photo) {
+		this.photo = photo;
 	}
 
-	public String getName_if() {
-		return name_if;
+	public String getName() {
+		return name;
 	}
 
-	public void setName_if(String name_if) {
-		this.name_if = name_if;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getNickname_if() {
-		return nickname_if;
+	public String getNickname() {
+		return nickname;
 	}
 
-	public void setNickname_if(String nickname_if) {
-		this.nickname_if = nickname_if;
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
-	public String getZipcode_if() {
-		return zipcode_if;
+	public String getZipcode() {
+		return zipcode;
 	}
 
-	public void setZipcode_if(String zipcode_if) {
-		this.zipcode_if = zipcode_if;
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode;
 	}
 
-	public String getAddress1_if() {
-		return address1_if;
+	public String getAddress1() {
+		return address1;
 	}
 
-	public void setAddress1_if(String address1_if) {
-		this.address1_if = address1_if;
+	public void setAddress1(String address1) {
+		this.address1 = address1;
 	}
 
-	public String getAddress2_if() {
-		return address2_if;
+	public String getAddress2() {
+		return address2;
 	}
 
-	public void setAddress2_if(String address2_if) {
-		this.address2_if = address2_if;
+	public void setAddress2(String address2) {
+		this.address2 = address2;
 	}
 
-	public String getSns_if() {
-		return sns_if;
+	public String getSns() {
+		return sns;
 	}
 
-	public void setSns_if(String sns_if) {
-		this.sns_if = sns_if;
+	public void setSns(String sns) {
+		this.sns = sns;
 	}
 
-	public String getPhone_if() {
-		return phone_if;
+	public String getPhone() {
+		return phone;
 	}
 
-	public void setPhone_if(String phone_if) {
-		this.phone_if = phone_if;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
-	public String getEmail_if() {
-		return email_if;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setEmail_if(String email_if) {
-		this.email_if = email_if;
+	public void setEmail(String email) {
+		this.email = email;
 	}
+
+	public String getGrade() {
+		return grade;
+	}
+
+	public void setGrade(String grade) {
+		this.grade = grade;
+	}
+
+	
 	
 	
 	

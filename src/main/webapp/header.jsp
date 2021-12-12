@@ -40,7 +40,7 @@
         <div class="container">
 
             <!-- Image Logo -->   <!-- SELL LUV LOGO -->
-            <a class="navbar-brand logo-image" href="index.html"><img src="/resources/mainpage/images/SELL_LUV_NEW1.png" alt="alternative"></a> 
+            <a class="navbar-brand logo-image" href="/index.jsp"><img src="/resources/mainpage/images/SELL_LUV_NEW1.png" alt="alternative"></a> 
 	
             <!-- Text Logo - Use this if you don't have a graphic logo -->
             <!-- <a class="navbar-brand logo-text" href="index.html">Nubis</a> -->
@@ -55,23 +55,29 @@
                         <a class="nav-link active" aria-current="page	" href="#header"></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/ifList.ifcp">기업</a>
+                        <a class="nav-link" href="/companyList.ifcp?cpage=1">기업</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/cpList.ifcp">인플루언서</a>
+                        <a class="nav-link" href="/influencerList.ifcp?cpage=1">인플루언서</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/boardList.board">커뮤니티</a>
+                        <a class="nav-link" href="/boardList.board?cpage=1">커뮤니티</a>
                     </li>
                     <li class="nav-item">
-                    	<a class="nav-link" href="/search.ifcp">검색</a>
+                    	<a class="nav-link" href="/msearch.search">검색</a>
                 </ul>
+                
                 <span class="nav-item">
-                    <a class="btn-solid-sm" href="/login.mem">로그인</a>
+                   
+
+                    <a class="btn-solid-sm" href="/resources/login/login.jsp" style="background-color: #000000;border:none;">로그인</a>
+
                 </span>
             </div> <!-- end of navbar-collapse -->
         </div> <!-- end of container -->
     </nav> <!-- end of navbar -->
     <!-- end of navigation -->
+    <script type="text/javascript">
+    </script>
 </body>
 </html>

@@ -2,22 +2,22 @@
     pageEncoding="UTF-8"%>
      <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<!-- Created By CodingNepal -->
+
 <html lang="en" dir="ltr">
    <head>
       <meta charset="utf-8">
       <title>Login and Registration Form in HTML | CodingNepal</title>
-      <link rel="stylesheet" href="style.css">
+ <!--  <link rel="stylesheet" href="style.css">   -->
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
       <style>
-         @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
-        *{
+          /*  @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');  */ */
+         *{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
-}
+} 
 html,body{
   display: grid;
   height: 100%;
@@ -36,6 +36,8 @@ html,body{
   padding: 30px;
   border-radius: 5px;
   box-shadow: 0px 15px 20px rgba(0,0,0,0.1);
+  margin-top: 120px;
+  margin-bottom: 100px;
 }
 .wrapper .title-text{
   display: flex;
@@ -193,9 +195,16 @@ form .btn input[type="submit"]{
   font-weight: 500;
   cursor: pointer;
 }
+
+#footer{
+	width: 100%;
+}
+
+
       </style>
    </head>
    <body>
+
   <jsp:include page="/header.jsp" flush="false"/>
       <div class="wrapper">
          <div class="title-text">
@@ -203,56 +212,66 @@ form .btn input[type="submit"]{
                기업로그인
             </div>
             <div class="title signup">
-               로그인
+               개인 로그인
             </div>
          </div>
          <div class="form-container">
             <div class="slide-controls">
-               <input type="radio" name="slide" id="login" checked>
-               <input type="radio" name="slide" id="signup">
                <label for="login" class="slide login">기업로그인</label>
                <label for="signup" class="slide signup">개인로그인</label>
                <div class="slider-tab"></div>
             </div>
             <div class="form-inner">
-               <form action="#" class="login">
+               <form action="/companyLogin.mem" method="post" class="login" >
                   <div class="field">
-                     <input type="text" placeholder="아이디" required>
+                     <input type="text" name="id_cp" placeholder="아이디" required>
                   </div>
                   <div class="field">
-                     <input type="password" placeholder="비밀번호" required>
+                     <input type="password" name="pw_cp" placeholder="비밀번호" required>
                   </div>
-                  <div class="pass-link">
-                     <a href="#">비밀번호를 잊으셨습니까..?</a>
+                 
+                  <div class="pass-link" >
+                     <a href="#" class="idCheckSpan">비밀번호를 잊으셨습니까..?</a>
                   </div>
+                
                   <div class="field btn">
                      <div class="btn-layer"></div>
-                     <input type="submit" value="로그인">
+                     <input type="submit" value="로그인" id="cp_login" class="loginCheck">
                   </div>
                   <div class="signup-link">
                      회원이 아니세요? <a href="">회원가입</a>
                   </div>
                </form>
-               <form action="#" class="signup">
+               
+               <form action="/influencerLogin.mem" class="signup" method="post">
                   <div class="field">
-                     <input type="text" placeholder="아이디" required>
+                     <input type="text" name="id_if" placeholder="아이디" required>
                   </div>
                   <div class="field">
-                     <input type="password" placeholder="비밀번호" required>
+                     <input type="password" name="pw_if" placeholder="비밀번호" required>
                   </div>
                   <div class="pass-link">
-                    <a href="#">비밀번호를 잊으셨습니까..?</a>
+                    <a href="#" class="idCheckSpan">비밀번호를 잊으셨습니까..?</a>
                  </div>
-                  
+                
+                 
                   <div class="field btn">
                      <div class="btn-layer"></div>
-                     <input type="submit" value="로그인">
+                     <input type="submit" value="로그인" id="if_login" class="loginCheck">
                   </div>
                </form>
             </div>
          </div>
+          
       </div>
+     
+      <div id="footer">
+       	<jsp:include page="/footer.jsp" flush="false" />
+      </div>
+      <div id="errorMessage" style="display:hidden">${errorMessage}</div>
+      
       <script>
+      console.log('${result}'); 
          const loginText = document.querySelector(".title-text .login");
          const loginForm = document.querySelector("form.login");
          const loginBtn = document.querySelector("label.login");
@@ -266,11 +285,19 @@ form .btn input[type="submit"]{
            loginForm.style.marginLeft = "0%";
            loginText.style.marginLeft = "0%";
          });
-         signupLink.onclick = (()=>{
-           signupBtn.click();
-           return false;
-         });
+        
+         
+         // 로그인 유효성 검사..
+       
+         $('#errorMessage')[0].innerText && alert($('#errorMessage')[0].innerText);
+         
+        /*  const errorMessage = $('#errorMessage').value;
+      	if (errorMessage){
+      		alert(errorMessage);
+      	} */
+         
+         
       </script>
-      <jsp:include page="/footer.jsp" flush="false" />
+    
    </body>
 </html>

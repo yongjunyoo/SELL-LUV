@@ -250,11 +250,11 @@ body {
 								<tbody>
 								<c:forEach var="list" items="${list}">
 									<tr>
-										<td><input type="checkbox" name="checkbox" value="${list.seq_if}"></td>
-										<td>${list.seq_if}</td>
-										<td>${list.id_if}</td>
-										<td>${list.name_if}</td>
-										<td>${list.nickname_if}</td>
+										<td><input type="checkbox" name="checkbox" value="${list.seq}"></td>
+										<td>${list.seq}</td>
+										<td>${list.id}</td>
+										<td>${list.name}</td>
+										<td>${list.nickname}</td>
 									</tr>
 									</c:forEach>
 								</tbody>

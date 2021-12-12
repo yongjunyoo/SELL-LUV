@@ -240,7 +240,7 @@ p {
             <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
                 <h2 id="heading" style="padding-top:50px;">인플루언서 계정생성</h2>
                 <p>모든 칸은 작성되어야 합니다.</p>
-                <form id="msform">
+                <form id="msform" action="/IFSubmit.mem" method="post">
                     <!-- progressbar -->
                     <ul id="progressbar">
                         <li class="active" id="account"><strong>계정</strong></li>
@@ -321,7 +321,7 @@ p {
                                 </div>                                
                             </div>
                             <div class="row justify-content-center">
-                            	<button type="button" class="btn btn-dark" style="background-color:rgb(255, 111, 97); width:20%;">로그인 하기</button>
+                            	<button type="button" class="btn btn-dark" style="background-color:rgb(255, 111, 97); width:20%;" id="goLogin">로그인 하기</button>
                             </div>
                         </div>
                     </fieldset>
@@ -407,6 +407,12 @@ $(".progress-bar")
 
 $(".submit").click(function(){
 return false;
+})
+
+$("#goLogin").on("click",function(){
+	
+	location.href="/login.mem";
+	
 })
 
 });</script>
