@@ -6,12 +6,12 @@
 <html lang="en" dir="ltr">
    <head>
       <meta charset="utf-8">
-      <title>Login and Registration Form in HTML | CodingNepal</title>
+      <title>비밀번호 찾기</title>
  <!--  <link rel="stylesheet" href="style.css">   -->
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
       <style>
-          /*  @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');  */ */
+           @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');  
          *{
   margin: 0;
   padding: 0;
@@ -195,12 +195,38 @@ form .btn input[type="submit"]{
   font-weight: 500;
   cursor: pointer;
 }
+form .btn input[type="button"]{
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  position: relative;
+  background: none;
+  border: none;
+  color: #fff;
+  padding-left: 0;
+  border-radius: 5px;
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
+}
 
 #footer{
 	width: 100%;
 }
-
-
+#check-text{
+	outline: none;
+	width:100%;
+	height:100%;
+	padding-left: 15px;
+	border: 1px solid lightgrey;
+    border-bottom-width: 2px;
+    font-size: 17px;
+    transition: all 0.3s ease;
+    border-radius: 5px;
+}
+.check-text-box{
+	
+}
       </style>
    </head>
    <body>
@@ -208,56 +234,89 @@ form .btn input[type="submit"]{
   <jsp:include page="/header.jsp" flush="false"/>
       <div class="wrapper">
          <div class="title-text">
-            <div class="title login">
-               기업로그인
+            <div class="title">
+               비밀번호 찾기
             </div>
-            <div class="title signup">
-               개인 로그인
+            <div class="title">
+               비밀번호 찾기
             </div>
+            <div class="login"style="display:hidden"></div>
          </div>
          <div class="form-container">
             <div class="slide-controls">
-               <label for="login" class="slide login">기업로그인</label>
-               <label for="signup" class="slide signup">개인로그인</label>
+               <label for="login" class="slide login">기업</label>
+               <label for="signup" class="slide signup">개인</label>
                <div class="slider-tab"></div>
             </div>
             <div class="form-inner">
-               <form action="/companyLogin.mem" method="post" class="login" >
+               <form action="/companyFindpw.mem" method="post" class="login" id="cp-frm">
                   <div class="field">
-                     <input type="text" name="id_cp" placeholder="아이디" required>
+                     <input type="text" name="id_cp" placeholder="아이디를 입력하세요." required>
                   </div>
                   <div class="field">
-                     <input type="password" name="pw_cp" placeholder="비밀번호" required>
+                     <input type="text" name="name_cp" placeholder="이름을 입력하세요." required>
                   </div>
-                 
+                  <div class="field check-text-box">
+                     <select id="check-text">
+                     	<option>본인 확인 문구를 선택해주세요.</option>
+                     	<option>내가 다니던 초등학교는?</option>
+                        <option>내가 좋아하는 가수는?</option>
+                        <option>내가 좋아하는 숫자는?</option>
+                        <option>내가 존경하는 인물은?</option>
+                     </select>
+                  </div>
+                 <div class="field">
+                     <input type="text" name="id_cp" placeholder="본인 확인 문구를 입력하세요." required>
+                  </div>
                   <div class="pass-link" >
-                     <a href="/findpw.mem" class="idCheckSpan">비밀번호를 잊으셨습니까..?</a>
+                     <a href="#" class="idCheckSpan">아이디를 잊으셨습니까..?</a>
                   </div>
                 
                   <div class="field btn">
                      <div class="btn-layer"></div>
-                     <input type="submit" value="로그인" id="cp_login" class="loginCheck">
+                     <input type="submit" value="비밀번호 찾기" id="cp_findpw" class="">
                   </div>
                   <div class="signup-link">
                      회원이 아니세요? <a href="/resources/signup/selectSignup.jsp">회원가입</a>
                   </div>
                </form>
                
-               <form action="/influencerLogin.mem" class="signup" method="post">
+               <form action="/influencerFindpw.mem" class="signup" method="post" id="if-frm">
                   <div class="field">
-                     <input type="text" name="id_if" placeholder="아이디" required>
+                     <input type="text" name="id_if" placeholder="아이디를 입력하세요." required>
                   </div>
                   <div class="field">
-                     <input type="password" name="pw_if" placeholder="비밀번호" required>
+                     <input type="text" name="name_if" placeholder="이름을 입력하세요." required>
+                  </div>
+                  <div class="field check-text-box">
+                     <select id="check-text" name="check-text">
+                     	<option>본인 확인 문구를 선택해주세요.</option>
+                     	<option>내가 다니던 초등학교는?</option>
+                        <option>내가 좋아하는 가수는?</option>
+                        <option>내가 좋아하는 숫자는?</option>
+                        <option>내가 존경하는 인물은?</option>
+                     </select>
+                  </div>
+                 <div class="field">
+                     <input type="text" name="id_cp" placeholder="본인 확인 문구를 입력하세요." required>
                   </div>
                   <div class="pass-link">
-                    <a href="/findpw.mem" class="idCheckSpan">비밀번호를 잊으셨습니까..?</a>
+                    <a href="#" class="idCheckSpan">아이디를 잊으셨습니까..?</a>
                  </div>
                 
                  
                   <div class="field btn">
                      <div class="btn-layer"></div>
-                     <input type="submit" value="로그인" id="if_login" class="loginCheck">
+                     <input type="button" value="비밀번호 찾기" id="if_findpw" class="">
+                     <script>
+                     	$("#if_findpw").on("click",function(){
+                     		if($("#check-text").val()== "본인 확인 문구를 선택해주세요.") {
+                     			alert("본인 확인 문구를 선택해주세요.");
+                     			return false;
+                     		}
+                     		
+                     	})
+                     </script>
                   </div>
                </form>
             </div>
@@ -291,22 +350,12 @@ form .btn input[type="submit"]{
        
          $('#errorMessage')[0].innerText && alert($('#errorMessage')[0].innerText);
          
-        
-          if ( window.history.replaceState ) {
-             window.history.replaceState( null, null, '/resources/login/login.jsp' );
-         } 
-   
-         
-        /*   window.location.href */
-          
         /*  const errorMessage = $('#errorMessage').value;
       	if (errorMessage){
       		alert(errorMessage);
       	} */
          
-      	if ( window.history.replaceState ) {
-            window.history.replaceState( null, null, '/resources/login/login.jsp' );
-        } 
+         
       </script>
     
    </body>

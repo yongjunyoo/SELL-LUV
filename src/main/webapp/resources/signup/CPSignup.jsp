@@ -310,7 +310,15 @@ p {
                             <label class="fieldlabels">우편번호: * <button type="button" class="btn btn-dark" id="search" style="background-color:rgb(255, 111, 97);">주소 검색</button></label> <input type="text" id="postcode" name="zipcode" placeholder="Zipcode."  readonly/>
                             <label class="fieldlabels">주소1: * </label> <input type="text" id="roadAddress" name="address1" placeholder="Address." readonly />
                             <label class="fieldlabels">주소2: *</label> <input type="text" id="address2" name="address2" placeholder="Detail Address." />
-                          
+                          	<label class="fieldlabels">비밀번호 찾기 힌트: * 
+                          	<select id="pwAsk" name="pwAsk"> 
+                          	<option>내가 다니던 초등학교는?</option>
+                          	<option>내가 좋아하는 가수는?</option>
+                          	<option>내가 좋아하는 숫자는?</option>
+                          	<option>내가 존경하는 인물은?</option>
+                          	</select>
+                          	</label> <input type="text" id="pwAnswer" name="pwAnswer" placeholder="" />
+                          	
                           	<label class="fieldlabels">분야: (선택사항)</label> <br>
   							<div class="form-check form-check-inline">
 							<input type="checkbox" id="jb-checkbox1" class="custom-control-input">
@@ -505,6 +513,13 @@ $("#step2").click(function(){
      let resultAddress2 = regexAddress2.test($("#address2").val());
      if(resultAddress2 == false){
          alert("상세주소를 입력해주세요.")
+         return false;
+     }
+     
+     let regexpwAnswer = /^[a-zA-Z가-힣\d]{1,}/;
+     let resultAnswer = regexpwAnswer.test($("#pwAnswer").val());
+     if(resultAnswer == false){
+         alert("비밀번호 힌트 답변을 입력해주세요.")
          return false;
      }
      

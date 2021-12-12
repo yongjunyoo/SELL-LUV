@@ -2,19 +2,19 @@ package kh.web.dto;
 
 public class InfluencerDTO {
 
-	int seq;
-	String id;
-	String pw;
-	String photo;
-	String name;
-	String nickname;
-	String zipcode;
-	String address1;
-	String address2;
-	String sns;
-	String phone;
-	String email;
-	String grade;
+	private int seq;
+	private String id;
+	private String pw;
+	private String photo;
+	private String name;
+	private String nickname;
+	private String zipcode;
+	private String address1;
+	private String address2;
+	private String sns;
+	private String phone;
+	private String email;
+	private String grade;
 	
 	public InfluencerDTO() {}
 
