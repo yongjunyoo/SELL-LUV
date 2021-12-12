@@ -11,6 +11,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import kh.web.dto.Board_CpDTO;
 import kh.web.dto.CompanyDTO;
 import kh.web.statics.IFCPStatics;
 
@@ -150,6 +151,7 @@ public class CompanyDAO {
 				String grade = rs.getString("grade");
 				
 				
+				
 				CompanyDTO companyDTO = new CompanyDTO(seq,id,pw,photo,name,crnumber,zipcode,address1,address2,rpt,phone,email,sales,grade);
 				
 				list.add(companyDTO);
@@ -161,4 +163,29 @@ public class CompanyDAO {
 	
 	//페이징 목록 출력 끝..
 	//====================================================================================================================================
+	
+	public List<Board_CpDTO> cpCardSearch(int seq) throws Exception { // 기업 10개씩 뽑아오는 코드.
+		String sql = "select * from board_cp where seq_cp=?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setInt(1, seq);
+			try(ResultSet rs = pstat.executeQuery();){
+				List<Board_CpDTO> list = new ArrayList();
+				while(rs.next()) {
+					Board_CpDTO dto = new Board_CpDTO();
+					dto.setSeq_cp(rs.getInt("seq_cp"));
+					dto.setWriter_cp(rs.getString("writer_cp"));
+					dto.setTitle_cp(rs.getString("title_cp"));
+					dto.setCondition_cp(rs.getString("condition_cp"));
+					dto.setWrite_date_cp(rs.getTimestamp("write_date_cp"));
+					dto.setView_count_cp(rs.getInt("view_count_cp"));
+					dto.setsLike_cp(rs.getInt("sLike_cp"));
+					dto.setrLike_cp(rs.getInt("rLike_cp"));
+					dto.setReview_cp(rs.getString("review_cp"));
+					list.add(dto);
+				}
+				return list;
+			}
+		}
+	}
 }	

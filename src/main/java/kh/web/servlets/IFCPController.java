@@ -12,8 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import kh.web.dao.CompanyDAO;
 import kh.web.dao.InfluencerDAO;
+import kh.web.dto.Board_CpDTO;
 import kh.web.dto.CompanyDTO;
 import kh.web.dto.InfluencerDTO;
+import kh.web.dto.Profile_IfDTO;
 import kh.web.statics.IFCPStatics;
 import kh.web.statics.Table;
 
@@ -87,17 +89,37 @@ public class IFCPController extends HttpServlet {
 					response.sendRedirect("/companyList.ifcp?cpage=1");
 				}
 				
+				//====================================================================================================================================
+				// 상세페이지 이동.
+			}else if(cmd.equals("/searchDetail.ifcp")) {
+				
+				String object = request.getParameter("object");
+				int seq = Integer.parseInt(request.getParameter("seq"));
+				System.out.println(object);
+				System.out.println(seq);
+				
+				if(object.contains("Influencer")) {
+					System.out.println("influencer");
+					
+					List<Profile_IfDTO> list = influencerDAO.ifCardSearch(seq);
+					
+					request.setAttribute("ifList", list);
+					request.getRequestDispatcher("/resources/ifcp/ifSearchDetail.jsp").forward(request, response);
+
+				}else if(object.contains("Company")) {
+					System.out.println("company");
+					
+					List<Board_CpDTO> list = companyDAO.cpCardSearch(seq);
+					
+					request.setAttribute("cpList", list);
+					request.getRequestDispatcher("/resources/ifcp/cpSearchDetail.jsp").forward(request, response);
+				}
 			}
 			
 		}catch(Exception e) {
 			e.printStackTrace();
 			response.sendRedirect("error.jsp");
 		}
-		
-		
-		
-		
-		
 	}
 	
 	
