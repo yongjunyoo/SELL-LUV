@@ -49,8 +49,8 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
-                <ul class="navbar-nav ms-auto navbar-nav-scroll">
+            <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault" style="height:31%;">
+                <ul class="navbar-nav ms-auto navbar-nav-scroll" align=center>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page	" href="#header"></a>
                     </li>
@@ -65,12 +65,16 @@
                     </li>
                     <li class="nav-item">
                     	<a class="nav-link" href="/msearch.search">검색</a>
+                    </li>
+                    <li class="nav-item">
+                    	<a class="btn-solid-sm" href="/resources/login/login.jsp" style="background-color: #000000;border:none;">로그인</a>
+                    </li>
                 </ul>
                 
                 <span class="nav-item">
                    
 
-                    <a class="btn-solid-sm" href="/resources/login/login.jsp" style="background-color: #000000;border:none;">로그인</a>
+                    
 
                 </span>
             </div> <!-- end of navbar-collapse -->
@@ -78,6 +82,19 @@
     </nav> <!-- end of navbar -->
     <!-- end of navigation -->
     <script type="text/javascript">
+	 // Navbar on mobile
+	    var elementss;
+	 	elementss = document.querySelectorAll(".nav-link:not(.dropdown-toggle)");
+	
+	    for (let i = 0; i < elementss.length; i++) {
+	    	elementss[i].addEventListener("click", () => {
+	    		document.querySelector(".offcanvas-collapse").classList.toggle("open");
+	    	});
+	    }
+	
+	    document.querySelector(".navbar-toggler").addEventListener("click", () => {
+	      	document.querySelector(".offcanvas-collapse").classList.toggle("open");
+	    });
     </script>
 </body>
 </html>

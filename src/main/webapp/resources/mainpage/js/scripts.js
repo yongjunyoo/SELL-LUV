@@ -3,18 +3,18 @@
 /* Navigation*/
 // Collapse the navbar by adding the top-nav-collapse class
 
-/* 임시 삭제
+
 window.onscroll = function () {
 	scrollFunction();
 	scrollFunctionBTT(); // back to top button
 };
-*/
-/* 임시 삭제
+
+
 window.onload = function () {
 	scrollFunction();
 };
-*/
-/* 임시 삭제
+
+
 function scrollFunction() {
 	if (document.documentElement.scrollTop > 30) {
 		document.getElementById("navbarExample").classList.add("top-nav-collapse");
@@ -22,23 +22,22 @@ function scrollFunction() {
 		document.getElementById("navbarExample").classList.remove("top-nav-collapse");
 	}
 }
-*/
+
 
 // Navbar on mobile
-let elements = document.querySelectorAll(".nav-link:not(.dropdown-toggle)");
-
+// let elements = document.querySelectorAll(".nav-link:not(.dropdown-toggle)");
+/*
 for (let i = 0; i < elements.length; i++) {
 	elements[i].addEventListener("click", () => {
 		document.querySelector(".offcanvas-collapse").classList.toggle("open");
 	});
 }
 
-/* 임시 삭제
 document.querySelector(".navbar-toggler").addEventListener("click", () => {
   	document.querySelector(".offcanvas-collapse").classList.toggle("open");
+	console.log(1);
 });
 */
-
 // Hover on desktop
 function toggleDropdown(e) {
 	const _d = e.target.closest(".dropdown");
