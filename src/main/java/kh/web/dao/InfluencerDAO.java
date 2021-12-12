@@ -180,4 +180,14 @@ public class InfluencerDAO  {
 			}
 		}
 	}
+	
+	// 비밀번호 찾기
+//	public int findIf(String id, String name, String text, String answer) {
+//		String sql = "SELECT * FROM influencer WHERE id_if =?, name_if =?, text_if =";
+//		
+//	}
+//	
+	
+	
+	
 }

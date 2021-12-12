@@ -302,7 +302,7 @@ form .btn input[type="submit"]{
         /*  const errorMessage = $('#errorMessage').value;
       	if (errorMessage){
       		alert(errorMessage);
-      	} */
+      	} */	
          
       	if ( window.history.replaceState ) {
             window.history.replaceState( null, null, '/resources/login/login.jsp' );
