@@ -75,6 +75,20 @@ public class BoardController extends HttpServlet {
 				BoardDTO dto = bdao.selectBySeq(Integer.parseInt(seq));
 				request.setAttribute("dto", dto);
 				request.getRequestDispatcher("/resources/board/boardDetail.jsp?cpage"+cpage+"&seq="+seq).forward(request, response);
+			// 게시글 수정
+			}else if(cmd.equals("/modify.board")) {
+				String seq = request.getParameter("seq");
+				String title = request.getParameter("title");
+				String contents = request.getParameter("contents");
+				int result = bdao.modify(Integer.parseInt(seq),title,contents);
+				System.out.println("수정 결과 : " + result);
+				response.sendRedirect("/boardList.board?cpage="+cpage);
+			// 게시글 삭제	
+			}else if(cmd.equals("/delete.board")) {
+				String seq = request.getParameter("seq");
+				int result = bdao.delete(Integer.parseInt(seq));
+				System.out.println("삭제 결과 : " + result);
+				response.sendRedirect("/boardList.board?cpage="+cpage);
 			}
 			
 		}catch(Exception e) {

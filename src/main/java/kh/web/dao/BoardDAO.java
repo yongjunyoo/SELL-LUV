@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +41,28 @@ private static BoardDAO instance = null;
 			pstat.setString(1, dto.getWriter());
 			pstat.setString(2, dto.getTitle());
 			pstat.setString(3, dto.getContents());
+			int result = pstat.executeUpdate();
+			return result;
+		}
+	}
+	
+	public int modify(int seq, String title, String contents) throws Exception {
+		String sql = "UPDATE freeboard SET title=?, contents=? WHERE seq = ?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, title);
+			pstat.setString(2, contents);
+			pstat.setInt(3, seq);
+			int result = pstat.executeUpdate();
+			return result;
+		}
+	}
+	
+	public int delete(int seq) throws Exception {
+		String sql = "DELETE FROM freeboard WHERE seq = ?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setInt(1, seq);
 			int result = pstat.executeUpdate();
 			return result;
 		}
@@ -186,7 +209,6 @@ private static BoardDAO instance = null;
 		
 		return navi;
 	}
-	
 	
 	
 	

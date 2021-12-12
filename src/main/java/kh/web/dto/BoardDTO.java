@@ -1,6 +1,7 @@
 package kh.web.dto;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 public class BoardDTO {
 	
@@ -60,6 +61,44 @@ public class BoardDTO {
 	public final void setView_count(int view_count) {
 		this.view_count = view_count;
 	}
+	
+	// 날짜 가공해서 출력
+	public String getFormedDate() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+		return sdf.format(write_date.getTime());
+	}
+	
+	// 24시간 안으로 몇 시간전 출력, 1시간 안으로 몇 분전 출력
+	public String getDetailDate() {
+		long current_time = System.currentTimeMillis(); // 현재 Timestamp
+		long write_time = this.write_date.getTime();  // 글이 작성된 시점의 Timestamp
+		
+		long time_gap = current_time - write_time;
+		
+		if(time_gap < 1000*60) {
+			return "방금 전"; 
+		}else if(time_gap < 1000*60*60) {
+			return time_gap/1000/60 + "분 전"; 
+		}else if(time_gap < 1000*60*60*24) {
+			return time_gap/1000/60/60 + "시간 전";
+		}else {
+			return this.getFormedDate();
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }
