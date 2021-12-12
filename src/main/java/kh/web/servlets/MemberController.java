@@ -122,6 +122,8 @@ public class MemberController extends HttpServlet {
 				String id = request.getParameter("id");
 				boolean result = companyDAO.isIdExist(id);
 				response.getWriter().append(String.valueOf(result));
+			}else if(cmd.equals("/findpw.mem")) {
+				response.sendRedirect("/resources/login/findpw.jsp");
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
