@@ -291,6 +291,14 @@ form .btn input[type="submit"]{
        
          $('#errorMessage')[0].innerText && alert($('#errorMessage')[0].innerText);
          
+        
+          if ( window.history.replaceState ) {
+             window.history.replaceState( null, null, '/resources/login/login.jsp' );
+         } 
+   
+         
+        /*   window.location.href */
+          
         /*  const errorMessage = $('#errorMessage').value;
       	if (errorMessage){
       		alert(errorMessage);
