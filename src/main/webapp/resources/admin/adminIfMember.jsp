@@ -135,6 +135,37 @@ body {
 #header {
 	margin-bottom: 100px;
 }
+
+.pagination.justify-content-center>li {
+	color: black;
+}
+
+.pagination.justify-content-center>li>a {
+	color: black;
+}
+
+.pagination.justify-content-center>li>a:hover {
+	background-color: black;
+	color: white;
+}
+
+#delBtn{
+	background-color:transparent;
+	border:1px solid black;
+	border-radius:3px;
+}
+#delBtn:hover{
+	background-color:black;
+	color:white;
+	border:1px solid black;
+	border-radius:3px;
+}
+
+#search{
+	background-color:transparent;
+	border:1px solid transparent;
+	border-radius:3px;
+}
 </style>
 <script type="text/javascript">
 	
@@ -176,7 +207,7 @@ body {
 									<a href="/adminCpCard.admin?cpage=1" class="list-group-item py-1"><i
 									class="bx bx-folder me-2"></i><span>기업 카드 관리</span></a> 
 									<a href="/adminBoard.admin?cpage=1" class="list-group-item py-1"><i
-									class="bx bx-devices me-2"></i><span>자유게시판 관리</span></a> 
+									class="bx bx-devices me-2"></i><span>자유게시판 관리</span></a>
 							</div>
 						</div>
 					</div>
@@ -186,38 +217,7 @@ body {
 				<div class="card">
 					<div class="card-body">
 						<div class="row mt-3">
-							<h5>DashBoard</h5>
-							<div class="col-12 col-lg-4">
-								<div class="card shadow-none border radius-15">
-									<div class="card-body">
-										<div class="d-flex align-items-center">
-											<div class="fm-icon-box radius-15 bg-primary text-white">
-												<i class="far fa-address-card"></i>
-											</div>
-											<div class="ms-auto font-24"></div>
-										</div>
-										<h6 class="mt-3 mb-0">총 카드 수</h6>
-										<p class="mb-1 mt-4">
-											<span>${card}건</span>
-										</p>
-									</div>
-								</div>
-							</div>
-							<div class="col-12 col-lg-4">
-								<div class="card shadow-none border radius-15">
-									<div class="card-body">
-										<div class="d-flex align-items-center">
-											<div class="fm-icon-box radius-15 bg-danger text-white">
-												<i class="far fa-edit"></i>
-											</div>
-										</div>
-										<h6 class="mt-3 mb-0">총 자유게시판 글 수</h6>
-										<p class="mb-1 mt-4">
-											<span>${board}건</span>
-										</p>
-									</div>
-								</div>
-							</div>
+							<h5>인플루언서 회원 관리</h5>
 							<div class="col-12 col-lg-4">
 								<div class="card shadow-none border radius-15">
 									<div class="card-body">
@@ -235,47 +235,58 @@ body {
 								</div>
 							</div>
 						</div>
+					<form action="adminIfMemberSearch.admin">
 						<div class="table-responsive mt-3">
 							<table class="table table-striped table-hover table-sm mb-0">
-								<h6 class="mt-3 mb-0">등급 별 회원</h6>
-								<br>
-								<canvas id="myChart" width="400vw" height="300vh"></canvas>
-								<br>
-								<script>
-									const ctx = document.getElementById(
-											'myChart').getContext('2d');
-									const myChart = new Chart(
-											ctx,
-											{
-												type : 'doughnut',
-												data : {
-													labels : [ '골드', '실버','브론즈' ],
-													datasets : [ {
-														label : '# of Votes',
-														data : [ ${grade[0]}, ${grade[1]}, ${grade[2]} ],
-														backgroundColor : [
-																'rgba(255, 217, 0, 0.5)',
-																'rgba(192, 192, 192, 0.5)',
-																'rgba(168, 128, 74, 0.5)', ],
-														borderColor : [
-																'rgba(255, 217, 0)',
-																'rgba(192, 192, 192)',
-																'rgba(168, 128, 74)', ],
-														borderWidth : 1
-													} ]
-												},
-												options : {
-													responsive : false,
-													scales : {
-														y : {
-															beginAtZero : true
-														}
-													}
-												}
-											});
-								</script>
+								<thead>
+									<tr>
+										<th></th>
+										<th>번호</th>
+										<th>아이디</th>
+										<th>이름</th>
+										<th>닉네임</th>
+									</tr>
+								</thead>
+								<tbody>
+								<c:forEach var="list" items="${list}">
+									<tr>
+										<td><input type="checkbox" name="checkbox" value="${list.seq}"></td>
+										<td>${list.seq}</td>
+										<td>${list.id}</td>
+										<td>${list.name}</td>
+										<td>${list.nickname}</td>
+									</tr>
+									</c:forEach>
+								</tbody>
 							</table>
 						</div>
+						<!-- 버튼 페이징 -->
+						<nav aria-label="Page navigation example">
+							<ul class="pagination justify-content-center">
+								${navi}
+							</ul>
+						</nav>
+						<table class="table-sm mb-0" align=right>
+							<tr>
+								<td><select class="selectpicker" id="select" name="select">
+										<option>아이디</option>
+										<option>이름</option>
+										<option>닉네임</option>
+								</select></td>
+								<td>
+								<input type="hidden" value="1" name="cpage">
+								<input type="search" class="form-control rounded" placeholder="내용을 입력하세요" id="searchContents" name="searchContents"/>
+								</td>
+								<td>
+								<button id="search" name="search"><i class="fas fa-search"></i></button>
+								</td>
+								<td>
+								<button id="delBtn" name="delBtn" onclick="return submit2(this.form)">삭제하기</button>
+								</td>
+							</tr>
+						</table>
+						</form>
+						<!-- 버튼 페이징 끝 -->
 					</div>
 				</div>
 			</div>
@@ -283,5 +294,29 @@ body {
 	</div>
 	<!-- 풋터 -->
 	<jsp:include page="/footer.jsp" flush="false" />
+				<script>
+		$("#delBtn").on("click",function(){
+			if($("input:checkbox[name='checkbox']:checked").length==0){
+				alert("삭제할 항목을 선택해주세요.");
+				return;
+			}
+			if(confirm("정말 삭제하시겠습니까?")){
+
+			}
+		})
+		$("#search").on("click",function(){
+			if($("#searchContents").val()==""){
+				alert("내용을 입력하세요.");
+				return false;
+			}
+		})
+	</script>
+		<script> 
+	  function submit2(frm) { 
+	    frm.action="/adminIfMemberDelete.admin"; 
+	    frm.submit(); 
+	    return true; 
+  		} 
+	</script> 
 </body>
 </html>
