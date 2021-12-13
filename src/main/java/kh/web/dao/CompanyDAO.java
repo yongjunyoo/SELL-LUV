@@ -13,6 +13,7 @@ import javax.sql.DataSource;
 
 import kh.web.dto.Board_CpDTO;
 import kh.web.dto.CompanyDTO;
+import kh.web.dto.Photo_ListDTO;
 import kh.web.statics.IFCPStatics;
 
 public class CompanyDAO {
@@ -149,8 +150,8 @@ public class CompanyDAO {
 						String email= rs.getString("email_cp");
 						Long sales = rs.getLong("sales_cp");
 						String grade = rs.getString("grade");
-						String pwAsk = rs.getString("pwAsk");
-						String pwAnswer = rs.getString("pwAnswer");
+						String pwAsk = rs.getString("pwAsk_cp");
+						String pwAnswer = rs.getString("pwAnswer_cp");
 
 
 						CompanyDTO companyDTO = new CompanyDTO(seq,id,pw,photo,name,crnumber,zipcode,address1,address2,rpt,phone,email,sales,grade,pwAsk,pwAnswer);
@@ -175,15 +176,14 @@ public class CompanyDAO {
 				List<Board_CpDTO> list = new ArrayList();
 				while(rs.next()) {
 					Board_CpDTO dto = new Board_CpDTO();
-					dto.setSeq_cp(rs.getInt("seq_cp"));
-					dto.setWriter_cp(rs.getString("writer_cp"));
+					dto.setSeq_cp(rs.getInt("seq_board_cp"));
+					dto.setMember_seq(rs.getInt("member_seq"));
 					dto.setTitle_cp(rs.getString("title_cp"));
 					dto.setCondition_cp(rs.getString("condition_cp"));
-					dto.setWrite_date_cp(rs.getTimestamp("write_date_cp"));
-					dto.setView_count_cp(rs.getInt("view_count_cp"));
+					dto.setIntro_cp(rs.getString("intro_cp"));
 					dto.setsLike_cp(rs.getInt("sLike_cp"));
 					dto.setrLike_cp(rs.getInt("rLike_cp"));
-					dto.setReview_cp(rs.getString("review_cp"));
+					dto.setPhoto_cp(rs.getString("photo_cp"));
 					list.add(dto);
 				}
 				return list;
@@ -237,4 +237,60 @@ public class CompanyDAO {
 			}		
 		}
 	}
+	
+	// 제품등록시 정보 불러오기
+	public ArrayList<CompanyDTO> searchById(String loginID) throws Exception {
+		String sql = "select * from company where id_cp=?";
+
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql)){;
+				pstat.setString(1, loginID);
+				try(ResultSet rs = pstat.executeQuery()){
+
+					List<CompanyDTO> list = new ArrayList<>();
+
+					while(rs.next()) {
+						int seq1 = rs.getInt("seq_cp");
+						String id = rs.getString("id_cp");
+						String pw = rs.getString("pw_cp");
+						String photo = rs.getString("photo_cp");
+						String name = rs.getString("name_cp");
+						String crnumber = rs.getString("crnumber_cp");
+						String zipcode = rs.getString("zipcode_cp");
+						String address1 = rs.getString("address1_cp");
+						String address2 = rs.getString("address2_cp");
+						String rpt = rs.getString("rpt_cp");
+						String phone = rs.getString("phone_cp");
+						String email= rs.getString("email_cp");
+						Long sales = rs.getLong("sales_cp");
+						String grade = rs.getString("grade");
+						String pwAsk = rs.getString("pwAsk_cp");
+						String pwAnswer = rs.getString("pwAnswer_cp");
+
+
+						CompanyDTO companyDTO = new CompanyDTO(seq1,id,pw,photo,name,crnumber,zipcode,address1,address2,rpt,phone,email,sales,grade,pwAsk,pwAnswer);
+
+
+						list.add(companyDTO);
+					}
+					return (ArrayList<CompanyDTO>) list;
+				}
+		}
+	}
+	
+	public int insertPhoto(Photo_ListDTO dto) throws Exception { // 사진 업로드
+		String sql = "insert into files values(files_seq.nextval,?,?,?)";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, dto.getOriName());
+			pstat.setString(2, dto.getSysName());
+			pstat.setInt(3, dto.getParentSeq());
+			int result = pstat.executeUpdate();
+			con.commit();
+			return result;
+		}
+	}
 }
+
+	
+	

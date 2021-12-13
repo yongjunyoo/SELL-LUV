@@ -2,22 +2,23 @@ package kh.web.dto;
 
 public class CompanyDTO {
 
-	int seq;
-	String id;
-	String pw;
-	String photo;
-	String name;
-	String crnumber;
-	String zipcode;
-	String address1;
-	String address2;
-	String rpt;
-	String phone;
-	String email;
-	Long sales;
-	String grade;
-	String pwAsk;
-	String pwAnswer;
+
+	private int seq;
+	private String id;
+	private String pw;
+	private String photo;
+	private String name;
+	private String crnumber;
+	private String zipcode;
+	private String address1;
+	private String address2;
+	private String rpt;
+	private String phone;
+	private String email;
+	private Long sales;
+	private String grade;
+	private String pwAsk;
+	private String pwAnswer;
 	
 	public CompanyDTO() {}
 	

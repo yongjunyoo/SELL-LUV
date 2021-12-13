@@ -35,36 +35,26 @@
 		<div class="container">
 			<div class="row align-items-start">
 				<div class="col-lg-8 m-15px-tb">
-				<article class="article">
+					<article class="article">
+					<form action="/upload.file" method="post" enctype="multipart/form-data">
 						<div class="article-img">
-							<img src="${ifList[0].photo_if}" title="" alt="">
+							<img src="${cpList[0].photo }" title="" alt="">
 						</div>
 						<div class="article-title">
-							<!--소개글-->
-							<!-- <h2>제목</h2> -->
-							<div class="media">
-								<div class="avatar"></div>
-								<div class=	"media-body">
-									<label>작성자 : </label> ${ifList[0].writer_if}
-								</div>
-								<div class="avatar"></div>
-								<div class="media-body">
-									<label>원하는 조건 : </label> ${ifList[0].condition_if}
-								</div>
-							</div>
-							<br>
 							<div class="media">
 								<div class="avatar"></div>
 								<div class="media-body">
-									<label>커리어 : </label> ${ifList[0].career_if}
-								</div>
-								<div class="avatar"></div>
-								<div class="media-body">
-									<label>SNS : </label> ${ifList[0].sns_if}
+									<label>제목 </label> <br> <input type="text"
+										style="width: 435px"><br> <br> <label>소개글</label><br>
+									<textarea rows="5" cols="50"></textarea>
+									<br> <br> <label>원하는 조건</label><br>
+									<textarea rows="5" cols="50"></textarea>
+									<input type="file">
 								</div>
 							</div>
 						</div>
 						<div class="article-content">
+						
 							<!-- <p>내용</p> -->
 
 
@@ -73,38 +63,6 @@
 						</div>
 
 					</article>
-					<div class="contact-form article-comment">
-						<h4>리뷰 작성</h4>
-						<form id="contact-form" action="/write.review" method="POST">
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-										<input name="Name" id="name" placeholder="Name *"
-											class="form-control" type="text">
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<input name="Email" id="email" placeholder="Email *"
-											class="form-control" type="email">
-									</div>
-								</div>
-								<div class="col-md-12">
-									<div class="form-group">
-										<textarea name="message" id="message" placeholder="글 남기기 *"
-											rows="4" class="form-control"></textarea>
-									</div>
-								</div>
-								<div class="col-md-12">
-									<div class="send">
-										<button class="px-btn theme">
-											<span>작성완료</span> <i class="arrow"></i>
-										</button>
-									</div>
-								</div>
-							</div>
-						</form>
-					</div>
 				</div>
 				<div class="col-lg-4 m-15px-tb blog-aside">
 					<!-- Author -->
@@ -113,31 +71,34 @@
 							<div class="media align-items-center">
 								<div class="media-body">
 									<div class="nav tag-cloud">
-										<a href="#" style="text-decoration: none;">깐부맺기</a>
+										<a href="#" style="text-decoration: none;"><button>작성완료</button></a>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+					</form>
 					<!-- End Author -->
 
 					<!-- Latest Post -->
 					<div class="widget widget-latest-post">
 						<div class="widget-title">
-							<h3>
-								받은 좋아요 <i class="fas fa-heart" id="heart"></i> ${ifList[0].rLike_if}
-							</h3>
+							<h3>사업자번호</h3> <h6>${cpList[0].crnumber}</h6>
 						</div>
 						<div class="widget-title">
-							<h3>
-								보낸 좋아요 <i class="fas fa-heart" id="heart"></i> ${ifList[0].sLike_if}
-							</h3>
+							<h3>대표자</h3><h6>${cpList[0].rpt}</h6>
 						</div>
 						<div class="widget-title">
-							<c:if test="${ifList[0].writer_if == logInId}">
-								<a href="/iFdelete.ifcp?seq=${ifList[0].writer_if}"><button
-										type="button">삭제하기</button></a>
-							</c:if>
+							<h3>이메일</h3><h6>${cpList[0].email}</h6>
+						</div>
+						<div class="widget-title">
+							<h3>연락처</h3><h6>${cpList[0].email}</h6>
+						</div>
+						<div class="widget-title">
+							<h3>매출액</h3><h6>${cpList[0].sales}</h6>
+						</div>
+						<div class="widget-title">
+							<h3>등급</h3><h6>${cpList[0].grade}</h6>
 						</div>
 					</div>
 				</div>
@@ -149,6 +110,12 @@
 		
 	</script>
 	<style type="text/css">
+button{
+	background-color:transparent;
+	border:0px;
+	color:white;
+}
+
 #heart {
 	color: red;
 }
