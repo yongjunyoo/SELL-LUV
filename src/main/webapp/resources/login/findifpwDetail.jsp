@@ -265,75 +265,47 @@ form .btn input[type="button"]{
             
             
             <div class="form-inner">
-               <form action="/resetCPpw.mem" method="post" class="login" id="cp-frm">
+               <form action="/resetIFpw.mem" method="post" class="login" id="if-frm">
              	  <div class="field">
-					<div class="form-div">ID : ${cpdto.id }</div>             	  
+					<div class="form-div">ID : ${ifdto.id }</div>             	  
                   </div>
              	  <div class="signup-link" style="margin-top:20px;">
                      비밀번호는 <br>최소 8글자 이상 최대 16글자를 <br> 만족해야합니다. 
                   </div>
                   <div class="field">
-                     <input type="password" name="pw_cp" id="pw" placeholder="새로운 비밀번호를 입력하세요." required>
-                     <input type="hidden" name="id" value="${cpdto.id }">
+                     <input type="password" name="pw_if" id="pw_if" placeholder="새로운 비밀번호를 입력하세요." required>
+                     <input type="hidden" name="id" value="${ifdto.id }">
                   </div>
                   <div class="field">
-                     <input type="password" name="" id="pwd" placeholder="비밀번호를 한번 더 입력하세요." required>
+                     <input type="password" name="" id="pwd_if" placeholder="비밀번호를 한번 더 입력하세요." required>
                   </div>
-                  <div class="signup-link " id="pwCheckResult">
+                  <div class="signup-link pwCheckResult">
                   </div>
                   <div class="field btn">
                      <div class="btn-layer"></div>
-                     <input type="submit" value="비밀번호 재설정" id="cp_findpw" class="">
+                     <input type="submit" value="비밀번호 재설정" id="if_findpw" class="">
                   </div>
                </form>
-               
-               <form action="/influencerFindpw.mem" class="signup" method="post" id="if-frm">
+               <%-- 아래쪽은 안쓰는 칸이지만 지우면 UI가 홀쭉해줘서 일단 그대로 두는중--%>
+               <form action="/resetIFpw.mem" class="signup" method="post" id="if-frm">
                   <div class="field">
-                     <input type="text" name="id_if" placeholder="아이디를 입력하세요." required>
+					<div class="form-div">ID : ${ifdto.id }</div>             	  
+                  </div>
+             	  <div class="signup-link" style="margin-top:20px;">
+                     비밀번호는 <br>최소 8글자 이상 최대 16글자를 <br> 만족해야합니다. 
                   </div>
                   <div class="field">
-                     <input type="text" name="name_if" placeholder="이름을 입력하세요." required>
+                     <input type="password" name="pw_if" id="pw_if" placeholder="새로운 비밀번호를 입력하세요." required>
+                     <input type="hidden" name="id" value="${ifdto.id }">
                   </div>
-                  <div class="field check-text-box">
-                     <select class="check-text" name="check-text-if" id="check-text-if">
-                     	<option>본인 확인 문구를 선택해주세요.</option>
-                     	<option>내가 다니던 초등학교는?</option>
-                        <option>내가 좋아하는 가수는?</option>
-                        <option>내가 좋아하는 숫자는?</option>
-                        <option>내가 존경하는 인물은?</option>
-                     </select>
+                  <div class="field">
+                     <input type="password" name="" id="pwd_if" placeholder="비밀번호를 한번 더 입력하세요." required>
                   </div>
-                 <div class="field">
-                     <input type="text" name="answer-if" placeholder="본인 확인 문구의 답을 입력하세요." required>
+                  <div class="signup-link pwCheckResult">
                   </div>
-                  <div class="pass-link">
-                    <a href="#" class="idCheckSpan">아이디를 잊으셨습니까..?</a>
-                 </div>
-                
-                 
                   <div class="field btn">
                      <div class="btn-layer"></div>
-                     <input type="button" value="비밀번호 찾기" id="if_findpw" class="">
-                     <script>
-	                     $("#cp_findpw").on("click",function(){
-	                  		if($("#check-text-cp").val()== "본인 확인 문구를 선택해주세요.") {
-	                  			alert("본인 확인 문구를 선택해주세요.");
-	                  			return false;
-	                  		}else{
-	                  			$("#cp-frm").submit();
-	                  		}
-	                  		
-	                  	})
-                     	$("#if_findpw").on("click",function(){
-                     		if($("#check-text-if").val()== "본인 확인 문구를 선택해주세요.") {
-                     			alert("본인 확인 문구를 선택해주세요.");
-                     			return false;
-                     		}else{
-                     			$("#if-frm").submit();
-                     		}
-                     		
-                     	})
-                     </script>
+                     <input type="submit" value="비밀번호 재설정" id="if_findpw" class="">
                   </div>
                </form>
             </div>
@@ -348,26 +320,26 @@ form .btn input[type="button"]{
       
 <script>
 
-$("#cp_findpw").on("click",function(){
+$("#if_findpw").on("click",function(){
 	let regexPw = /^[a-zA-Z\d]{8,16}$/;
-	let resultPw = regexPw.test($("#pw").val());
+	let resultPw = regexPw.test($("#pw_if").val());
 	if(resultPw == false){
 		alert("비밀번호 형식이 올바르지않습니다.");
 		return false;
 	}
 	
-	if($("#pw").val() != $("#pwd").val()){
+	if($("#pw_if").val() != $("#pwd_if").val()){
 		alert("비밀번호를 다시 확인 해주세요");
 		return false;
 	}
 });
    
-      
+     // 인플루언서
 	let result = document.getElementById("pwCheckResult");
 	
-	document.getElementById("pwd").oninput = function() {
-		let pw1 = $("#pw").val();
-		let pw2 = $("#pwd").val();
+	document.getElementById("pwd_if").oninput = function() {
+		let pw1 = $("#pw_if").val();
+		let pw2 = $("#pwd_if").val();
 		if (pw1 != pw2) {
 			result.innerHTML = "패스워드가 일치하지않습니다"
 
@@ -379,9 +351,9 @@ $("#cp_findpw").on("click",function(){
 			result.innerHTML = "패스워드가 일치합니다."
 		}
 	}
-	document.getElementById("pw").oninput = function() {
-		let pw1 = $("#pw").val();
-		let pw2 = $("#pwd").val();
+	document.getElementById("pw_if").oninput = function() {
+		let pw1 = $("#pw_if").val();
+		let pw2 = $("#pwd_if").val();
 		if (pw1 != pw2) {
 			result.innerHTML = "패스워드가 일치하지않습니다"
 
@@ -393,6 +365,7 @@ $("#cp_findpw").on("click",function(){
 			result.innerHTML = "패스워드가 일치합니다."
 		}
 	}
+	
 	
 	</script>
     

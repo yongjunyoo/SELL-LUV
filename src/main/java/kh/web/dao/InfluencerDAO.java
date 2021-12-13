@@ -12,6 +12,7 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 import kh.web.dto.Board_CpDTO;
+import kh.web.dto.CompanyDTO;
 import kh.web.dto.InfluencerDTO;
 import kh.web.dto.Profile_IfDTO;
 import kh.web.statics.IFCPStatics;
@@ -236,6 +237,109 @@ public class InfluencerDAO  {
 				try(ResultSet rs = pstat.executeQuery()){
 					return rs.next();
 				}		
+			}
+		}
+		
+		// 맞는 회원 정보 가져오기
+		public InfluencerDTO findMember(String id, String pname, String text, String answer) throws Exception {
+			String sql = "SELECT * FROM influencer WHERE id_if =? AND name_if =? AND pwask_if =? AND pwanswer_if=?";
+			try(Connection con = this.getConnection();
+					PreparedStatement pstat = con.prepareStatement(sql);){
+				pstat.setString(1, id);
+				pstat.setString(2, pname);
+				pstat.setString(3, text);
+				pstat.setString(4, answer);
+				try(ResultSet rs = pstat.executeQuery();){
+					
+					InfluencerDTO dto = new InfluencerDTO();
+					if(rs.next()) {
+						int seq = rs.getInt("seq_if");
+						String pw = rs.getString("pw_if");
+						String photo = rs.getString("photo_if");
+						String name = rs.getString("name_if");
+						String nickName = rs.getString("nickname_if");
+						String zipcode = rs.getString("zipcode_if");
+						String address1 = rs.getString("address1_if");
+						String address2 = rs.getString("address2_if");
+						String sns = rs.getString("sns_if");
+						String phone = rs.getString("phone_if");
+						String email= rs.getString("email_if");
+						String grade = rs.getString("grade");
+						String favorite = rs.getString("favorite_if");
+
+						dto = new InfluencerDTO(seq,id,pw,photo,name,nickName,zipcode,address1,address2,sns,phone,email,grade,text,answer,favorite);
+					}
+					return dto;
+				}
+			}
+		}
+		
+		// 맞는 회원 정보 가져오기
+		public InfluencerDTO findId(String email, String pname, String text, String answer) throws Exception {
+			String sql = "SELECT * FROM company WHERE email_if =? AND name_if =? AND pwask_if =? AND pwanswer_if=?";
+			try(Connection con = this.getConnection();
+					PreparedStatement pstat = con.prepareStatement(sql);){
+				pstat.setString(1, email);
+				pstat.setString(2, pname);
+				pstat.setString(3, text);
+				pstat.setString(4, answer);
+				try(ResultSet rs = pstat.executeQuery();){
+					
+					InfluencerDTO dto = new InfluencerDTO();
+					if(rs.next()) {
+						int seq = rs.getInt("seq_if");
+						String id = rs.getString("id_if");
+						String pw = rs.getString("pw_if");
+						String photo = rs.getString("photo_if");
+						String name = rs.getString("name_if");
+						String nickName = rs.getString("nickname_if");
+						String zipcode = rs.getString("zipcode_if");
+						String address1 = rs.getString("address1_if");
+						String address2 = rs.getString("address2_if");
+						String sns = rs.getString("sns_if");
+						String phone = rs.getString("phone_if");
+						String grade = rs.getString("grade");
+						String favorite = rs.getString("favorite_if");
+
+						dto = new InfluencerDTO(seq,id,pw,photo,name,nickName,zipcode,address1,address2,sns,phone,email,grade,text,answer,favorite);
+					}
+					return dto;
+				}
+			}
+		}
+		
+		// 멤버인지 아닌지 확인하는 메소드
+		public boolean isMember(String id, String name, String text, String answer) throws Exception {
+			String sql = "SELECT * FROM influencer WHERE id_if =? AND name_if =? AND pwask_if =? AND pwanswer_if=?";
+			try(Connection con = this.getConnection();
+					PreparedStatement pstat = con.prepareStatement(sql);){
+				pstat.setString(1, id);
+				pstat.setString(2, name);
+				pstat.setString(3, text);
+				pstat.setString(4, answer);
+				try(ResultSet rs = pstat.executeQuery();){
+					
+					InfluencerDTO dto = new InfluencerDTO();
+					if(rs.next()) {
+						return true;
+					}
+					return false;
+				}
+			}
+		}
+		
+		// 비밀번호 재설정 메소드
+		
+		public int updateNewPW(String id, String pw) throws Exception {
+			String sql = "UPDATE influencer SET pw_if=? WHERE id_if =?";
+			try(Connection con = this.getConnection();
+					PreparedStatement pstat = con.prepareStatement(sql);){
+
+				pstat.setString(1, pw);
+				pstat.setString(2, id);			
+				int result  = pstat.executeUpdate();
+
+				return result;
 			}
 		}
 }
