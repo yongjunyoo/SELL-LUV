@@ -124,6 +124,9 @@ a {
 .search-bar {
 	margin:auto;
 }
+select {
+	width:30%;height:100%;
+}
 </style>
 </head>
 <body>
@@ -226,13 +229,14 @@ a {
     <div class="row search-bar" style="justify-content: space-around;">
     	<div class="col-xl-8 col-md-12 d-none d-md-block"> 
     		<div class="row">
-		        <div class="col-6"><input type="text" placeholder="Search..." style="width:100%; height:100%;">
-		        </div>
 		        <div class="col-4">
+		        <select><option>제목</option><option>작성자</option><option>내용</option></select><input type="text" placeholder="Search..." style="width:70%; height:100%;">
+		        </div>
+		        <div class="col-4 pl-0">
 		        <button type="button" class="btn btn-shadow btn-wide btn-primary" style="background-color:rgb(255, 111, 97); border-color:rgb(255, 111, 97);"> 
-         		검색하기 </button>     
+         		검색하기 </button>
          		</div>
-		    	<div class="col-2" style="text-align:right;"> 
+		    	<div class="col-4" style="text-align:right;"> 
 		        <button type="button" class="btn-write btn btn-shadow btn-wide btn-primary" style="background-color:rgb(255, 111, 97); border-color:rgb(255, 111, 97);"> 
 		         글 쓰기 </button> 
 		        </div> 	
@@ -242,9 +246,9 @@ a {
         <div class="d-md-none">
         	<div class="row">
         		<div class="col-5">
-        			<input type="text" placeholder="Search..." style="width:100%; height:100%;">
+        			<select><option>제목</option><option>작성자</option><option>내용</option></select><input type="text" placeholder="Search..." style="width:70%; height:100%;">
 		        </div>
-		        <div class="col-4">
+		        <div class="col-4 pl-0">
 		        	<button type="button" class="btn btn-shadow btn-wide btn-primary" style="background-color:rgb(255, 111, 97); border-color:rgb(255, 111, 97);"> 
          		검색하기 </button>     
          		</div>
