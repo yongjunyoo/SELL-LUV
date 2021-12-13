@@ -31,39 +31,48 @@
 
 <body>
 	<jsp:include page="/header.jsp" flush="false" />
-	<div class="blog-single gray-bg">
-		<div class="container">
-			<div class="row align-items-start">
+	<c:forEach var="dto" items="${ifList }">
+		<div class="blog-single gray-bg">
+		
+			<div class="container">
+				<div class="row align-items-start">
 				<div class="col-lg-8 m-15px-tb">
+				
 					<article class="article">
 						<div class="article-img">
+							<img src="${dto.value.photo}" title="" alt="">
 						</div>
 						<div class="article-title">
 							<!--소개글-->
-							<div class="avatar"></div>
-							<h2>${cpList[0].title_cp}</h2>
+							<!-- <h2>제목</h2> -->
 							<div class="media">
-							<div class="avatar"></div>
+								<div class="avatar"></div>
 								<div class="media-body">
-									<label>작성자 : </label> ${cpList[0].writer_cp}
+									<label>작성자 : </label> ${dto.value.id}
 								</div>
+								<div class="avatar"></div>
 								<div class="media-body">
-									<label>작성일 : </label> ${cpList[0].write_date_cp}
-								</div>
-								<div class="media-body">
-									<label>조회수 : </label> ${cpList[0].view_count_cp}
+									<label>원하는 조건 : </label> ${dto.key.condition_if}
 								</div>
 							</div>
 							<br>
 							<div class="media">
 								<div class="avatar"></div>
 								<div class="media-body">
-									<label>원하는 조건 : </label> ${cpList[0].condition_cp}
+									<label>커리어 : </label> ${dto.key.career_if}
+								</div>
+								<div class="avatar"></div>
+								<div class="media-body">
+									<label>SNS : </label> ${dto.value.sns}
 								</div>
 							</div>
 						</div>
 						<div class="article-content">
-							<p>${cpList[0].intro_cp}</p>
+							<!-- <p>내용</p> -->
+				
+
+
+
 						</div>
 
 					</article>
@@ -113,34 +122,36 @@
 							</div>
 						</div>
 					</div>
+					
 					<!-- End Author -->
 
 					<!-- Latest Post -->
 					<div class="widget widget-latest-post">
 						<div class="widget-title">
 							<h3>
-								받은 좋아요 <i class="fas fa-heart" id="heart"></i>
-								${cpList[0].rLike_cp}
+								받은 좋아요 <i class="fas fa-heart" id="heart"></i> ${dto.value.rLike_if}
 							</h3>
 						</div>
 						<div class="widget-title">
 							<h3>
-								보낸 좋아요 <i class="fas fa-heart" id="heart"></i>
-								${cpList[0].sLike_cp}
+								보낸 좋아요 <i class="fas fa-heart" id="heart"></i> ${dto.value.sLike_if}
 							</h3>
 						</div>
+				</c:forEach>
 						<div class="widget-title">
-							<c:if test="${cpList[0].writer_cp == logInId}">
-								<a href="/iFdelete.ifcp?seq=${cpList[0].seq_cp}"><button
+							<c:if test="${ifList[0].value.id == loginID}">
+								<a href="/iFdelete.ifcp?seq=${ifList[0].writer_if}"><button
 										type="button">삭제하기</button></a>
 							</c:if>
 						</div>
 					</div>
 				</div>
 			</div>
+			
 			<!-- End Latest Post -->
 		</div>
 	</div>
+	
 	<script>
 		
 	</script>
