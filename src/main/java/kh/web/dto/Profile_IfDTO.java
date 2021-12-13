@@ -15,8 +15,8 @@ public class Profile_IfDTO {
 	}
 
 
-	public Profile_IfDTO(int seq_if, int member_seq, String condition_if, String career_if,
-			String intro_if, int sLike_if, int rLike_if) {
+	public Profile_IfDTO(int seq_if, int member_seq, String condition_if, String career_if, String intro_if,
+			int sLike_if, int rLike_if) {
 		super();
 		this.seq_if = seq_if;
 		this.member_seq = member_seq;
@@ -96,5 +96,6 @@ public class Profile_IfDTO {
 	public void setrLike_if(int rLike_if) {
 		this.rLike_if = rLike_if;
 	}
+
 	
 }

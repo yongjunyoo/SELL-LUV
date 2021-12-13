@@ -159,6 +159,7 @@ public class InfluencerDAO  {
 						String email= rs.getString("email_if");
 						String grade = rs.getString("grade");
 						String pwAsk = rs.getString("pwAsk_if");
+
 						String pwAnswer= rs.getString("pwAnswer_if");
 						String favorite = rs.getString("favorite_if");
 						
@@ -176,6 +177,7 @@ public class InfluencerDAO  {
 						Profile_IfDTO profile_IfDTO = new Profile_IfDTO(seq_if,member_seq,condition_if,career_if,intro_if,sLike_if,rLike_if);
 
 						list.put(profile_IfDTO,influencerDTO);
+
 					}
 					return list;
 				}
@@ -192,6 +194,7 @@ public class InfluencerDAO  {
 				PreparedStatement pstat = con.prepareStatement(sql);){
 			pstat.setInt(1, seq);
 			try(ResultSet rs = pstat.executeQuery();){
+
 				LinkedHashMap<Profile_IfDTO, InfluencerDTO> list = new LinkedHashMap<Profile_IfDTO, InfluencerDTO>();
 
 				while(rs.next()) {
@@ -226,9 +229,68 @@ public class InfluencerDAO  {
 					Profile_IfDTO profile_IfDTO = new Profile_IfDTO(seq_if,member_seq,condition_if,career_if,intro_if,sLike_if,rLike_if);
 					
 					list.put(profile_IfDTO,influencerDTO);
+				
 				}
 				return list;
 			}
 		}
 	}
+	
+	// 회원가입 method
+		public int insert(String id, String pw, String photo, String name, String nickName, String zipcode, String address1, 
+				String address2, String sns, String phone, String email, String grade, String pwAsk, String pwAnswer, String favorite ) throws Exception {
+
+			String sql = "insert into influencer values(seq_if.nextval,?,?,?,?,?,?,?,?,?,?,?,default,?,?,?)";
+
+
+			try(Connection con = this.getConnection();
+					PreparedStatement pstat = con.prepareStatement(sql);){
+
+				pstat.setString(1, id);
+				pstat.setString(2, pw);			
+				pstat.setString(3, photo);
+				pstat.setString(4, name);
+				pstat.setString(5, nickName);
+				pstat.setString(6, zipcode);
+				pstat.setString(7, address1);
+				pstat.setString(8, address2);
+				pstat.setString(9, sns);
+				pstat.setString(10, phone);
+				pstat.setString(11, email);
+				pstat.setString(12, pwAsk);
+				pstat.setString(13, pwAnswer);
+				pstat.setString(14, favorite);
+				int result  = pstat.executeUpdate();
+
+				return result;
+			}
+		}
+		
+		// 회원가입 중복 ID 체크 method
+		public boolean isIdExist(String id) throws Exception{
+
+			String sql = "select * from(select id_if from influencer union select id_cp from company) where id_if = ?";
+
+			try(Connection con = this.getConnection();
+					PreparedStatement pstat = con.prepareStatement(sql);){
+				pstat.setString(1,id);
+				try(ResultSet rs = pstat.executeQuery()){
+					return rs.next();
+				}		
+			}
+		}
+		
+		// 닉네임 중복 체크 method
+		public boolean nickNameExist(String nickName) throws Exception{
+
+			String sql = "select * from influencer where nickname_if = ?";
+
+			try(Connection con = this.getConnection();
+					PreparedStatement pstat = con.prepareStatement(sql);){
+				pstat.setString(1,nickName);
+				try(ResultSet rs = pstat.executeQuery()){
+					return rs.next();
+				}		
+			}
+		}
 }

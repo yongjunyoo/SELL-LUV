@@ -2,6 +2,7 @@ package kh.web.dto;
 
 public class InfluencerDTO {
 
+
    private int seq;
    private String id;
    private String pw;
@@ -143,34 +144,5 @@ public class InfluencerDTO {
       return grade;
    }
 
-   public void setGrade(String grade) {
-      this.grade = grade;
-   }
 
-   public String getPwAsk() {
-      return pwAsk;
-   }
-
-   public void setPwAsk(String pwAsk) {
-      this.pwAsk = pwAsk;
-   }
-
-   public String getPwAnswer() {
-      return pwAnswer;
-   }
-
-   public void setPwAnswer(String pwAnswer) {
-      this.pwAnswer = pwAnswer;
-   }
-
-   public String getFavorite() {
-      return favorite;
-   }
-
-   public void setFavorite(String favorite) {
-      this.favorite = favorite;
-   }
-   
-
-   
 }

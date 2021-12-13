@@ -244,9 +244,8 @@ body {
 										<th></th>
 										<th>번호</th>
 										<th>제목</th>
-										<th>작성자</th>
-										<th>날짜</th>
-										<th>조회수</th>
+										<th>원하는조건</th>
+										<th>소개글</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -255,9 +254,8 @@ body {
 										<td><input type="checkbox" name="checkbox" value="${list.seq_cp}"></td>
 										<td>${list.seq_cp}</td>
 										<td>${list.title_cp}</td>
-										<td>${list.writer_cp}</td>
-										<td>${list.write_date_cp}</td>
-										<td>${list.view_count_cp}</td>
+										<td>${list.condition_cp}</td>
+										<td>${list.intro_cp}</td>
 									</tr>
 									</c:forEach>
 								</tbody>
@@ -275,7 +273,8 @@ body {
 							<tr>
 								<td><select class="selectpicker" id="select" name="select">
 										<option>제목</option>
-										<option>작성자</option>
+										<option>원하는조건</option>
+										<option>소개글</option>
 								</select></td>
 								<td>
 								<input type="hidden" value="1" name="cpage">

@@ -1,5 +1,6 @@
 package kh.web.servlets;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,14 +16,19 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
+
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
+
 import kh.web.dao.CompanyDAO;
 import kh.web.dao.InfluencerDAO;
 import kh.web.dto.Board_CpDTO;
 import kh.web.dto.CompanyDTO;
 import kh.web.dto.InfluencerDTO;
+import kh.web.dto.Photo_ListDTO;
 import kh.web.dto.Profile_IfDTO;
 import kh.web.statics.IFCPStatics;
-import kh.web.statics.Table;
 
 
 @WebServlet("*.ifcp")
@@ -78,6 +84,7 @@ public class IFCPController extends HttpServlet {
 			
 				String navi = companyDAO.getPageNavi(currentPage);
 				
+
 				for (java.util.Map.Entry<Board_CpDTO, CompanyDTO> entrySet : list.entrySet()) {
 					System.out.println(entrySet.getKey() + " : " + entrySet.getValue());
 				}
@@ -94,12 +101,13 @@ public class IFCPController extends HttpServlet {
 				
 				//====================================================================================================================================
 				// 상세페이지 이동.
+
 			}else if(cmd.equals("/companyBoard.ifcp")) {
-				
+
 				int seq = Integer.parseInt(request.getParameter("seq"));
 				
 				System.out.println(seq);
-				
+			
 				LinkedHashMap<Board_CpDTO,CompanyDTO> list = companyDAO.getCompanyBoardDetail(seq);
 				
 				
@@ -122,11 +130,38 @@ public class IFCPController extends HttpServlet {
 
 					request.setAttribute("ifList", list);
 					request.getRequestDispatcher("/resources/ifcp/ifProfileDetail.jsp").forward(request, response);
-					
-					
 			
+		
+				
+				//====================================================================================================================================
+				// 작성페이지 이동.
 			}else if(cmd.equals("/write.ifcp")) {
-				response.sendRedirect("resources/ifcp/writeCompanyDetail.jsp");
+				HttpSession session = request.getSession();
+				String loginId = (String) session.getAttribute("loginID");
+				List<CompanyDTO> list = companyDAO.searchById(loginId);
+				System.out.print(list);
+				request.setAttribute("cpList", list);
+				request.getRequestDispatcher("/resources/ifcp/writeCompanyDetail.jsp").forward(request, response);
+
+				//====================================================================================================================================
+				// 작성시 파일첨부하여 글작성.			
+			}else if(cmd.equals("/upload.ifcp")) {
+				int maxSize = 1024*1024*10;
+				String savePath = request.getServletContext().getRealPath("files");
+				File filePath = new File(savePath);
+				if(!filePath.exists()) {
+					filePath.mkdir();
+				}
+
+				System.out.println(savePath);
+				MultipartRequest multi = new MultipartRequest(request, savePath, maxSize, "UTF8", new DefaultFileRenamePolicy());
+
+				String oriName = multi.getOriginalFileName("file");
+				String sysName = multi.getFilesystemName("file"); 
+
+				companyDAO.insertPhoto(new Photo_ListDTO(0,oriName,sysName,0));
+				
+				response.sendRedirect("index.jsp");
 			}
 			
 		}catch(Exception e) {

@@ -37,8 +37,12 @@
 			<div class="container">
 				<div class="row align-items-start">
 				<div class="col-lg-8 m-15px-tb">
+<<<<<<< HEAD:src/main/webapp/resources/ifcp/ifProfileDetail.jsp
 				
 					<article class="article">
+=======
+				<article class="article">
+>>>>>>> 9ec5e83a1700e348e89f72e5a7a948c0edcfb0d2:src/main/webapp/resources/ifcp/ifSearchDetail.jsp
 						<div class="article-img">
 							<img src="${dto.value.photo}" title="" alt="">
 						</div>
@@ -47,8 +51,13 @@
 							<!-- <h2>제목</h2> -->
 							<div class="media">
 								<div class="avatar"></div>
+<<<<<<< HEAD:src/main/webapp/resources/ifcp/ifProfileDetail.jsp
 								<div class="media-body">
 									<label>작성자 : </label> ${dto.value.id}
+=======
+								<div class=	"media-body">
+									<label>작성자 : </label> ${ifList[0].writer_if}
+>>>>>>> 9ec5e83a1700e348e89f72e5a7a948c0edcfb0d2:src/main/webapp/resources/ifcp/ifSearchDetail.jsp
 								</div>
 								<div class="avatar"></div>
 								<div class="media-body">
