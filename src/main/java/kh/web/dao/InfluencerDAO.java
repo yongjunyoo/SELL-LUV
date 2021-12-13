@@ -145,9 +145,11 @@ public class InfluencerDAO  {
 						String phone = rs.getString("phone_if");
 						String email= rs.getString("email_if");
 						String grade = rs.getString("grade");
+						String pwAsk = rs.getString("pwAsk_if");
+						String pwAnswer = rs.getString("pwAnswer_if");
+						String favorite = rs.getString("favorite_if");
 
-
-						InfluencerDTO influencerDTO = new InfluencerDTO(seq,id,pw,photo,name,nickname,zipcode,address1,address2,sns,phone,email,grade);
+						InfluencerDTO influencerDTO = new InfluencerDTO(seq,id,pw,photo,name,nickname,zipcode,address1,address2,sns,phone,email,grade,pwAsk,pwAnswer,favorite);
 
 						list.add(influencerDTO);
 					}
@@ -166,14 +168,12 @@ public class InfluencerDAO  {
 				if(rs.next()) {
 					Profile_IfDTO dto = new Profile_IfDTO();
 					dto.setSeq_if(rs.getInt("seq_if"));
-					dto.setWriter_if(rs.getString("writer_if"));
-					dto.setPhoto_if(rs.getString("photo_if"));
+					dto.setMember_seq(rs.getInt("member_seq"));
 					dto.setCondition_if(rs.getString("condition_if"));
 					dto.setCareer_if(rs.getString("career_if"));
-					dto.setSns_if(rs.getString("sns_if"));
+					dto.setIntro_if(rs.getString("intro_if"));
 					dto.setsLike_if(rs.getInt("sLike_if"));
 					dto.setrLike_if(rs.getInt("rLike_if"));
-					dto.setReview_if(rs.getString("review_if"));
 					list.add(dto);
 				}
 				return list;
