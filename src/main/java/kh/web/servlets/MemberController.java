@@ -99,6 +99,9 @@ public class MemberController extends HttpServlet {
 
 				response.sendRedirect("/index.jsp");
 
+			// 로그인 페이지로 이동	
+			}else if(cmd.equals("/login.mem")) {
+				response.sendRedirect("/resources/login/login.jsp");
 			}else if(cmd.equals("/CPSubmit.mem")) {
 
 				String id = request.getParameter("id");
@@ -129,8 +132,8 @@ public class MemberController extends HttpServlet {
 			// 비밀번호 찾기 이동
 			}else if(cmd.equals("/findpw.mem")) {
 				response.sendRedirect("/resources/login/findpw.jsp");
-			// 멤버 맞는지 확인 
-			}else if(cmd.equals("/isMember.mem")) {
+			// 기업멤버 맞는지 확인
+			}else if(cmd.equals("/isCPMember.mem")) {
 				String id = request.getParameter("id");
 				String name = request.getParameter("name");
 				String text = request.getParameter("text");
@@ -161,6 +164,18 @@ public class MemberController extends HttpServlet {
 				int result = companyDAO.updateNewPW(id, pw);
 				System.out.println("비밀번호 재설정 결과 : "+result);
 				response.sendRedirect("/resources/login/login.jsp");
+			// 아이디 찾기 이동
+			}else if(cmd.equals("/findid.mem")) {
+				response.sendRedirect("/resources/login/findid.jsp");
+			// 기업 아이디 맞는지 확인	
+			}else if(cmd.equals("/isCPidExist.mem")) {
+				String email = request.getParameter("email");
+				String name = request.getParameter("name");
+				String text = request.getParameter("text");
+				String answer = request.getParameter("answer");
+				CompanyDTO dto = companyDAO.findId(email, name, text, answer);
+				System.out.println("기업 아이디는 : " + dto.getId());
+				response.getWriter().append(dto.getId());
 			}
 		}catch(Exception e) {
 			e.printStackTrace();

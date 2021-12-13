@@ -269,7 +269,7 @@ form .btn input[type="button"]{
                      <input type="text" name="answer-cp" placeholder="본인 확인 문구의 답을 입력하세요." id="check-answer-cp" required>
                   </div>
                   <div class="pass-link" >
-                     <a href="#" class="idCheckSpan">아이디를 잊으셨습니까..?</a>
+                     <a href="/findid.mem" class="idCheckSpan">아이디를 잊으셨습니까..?</a>
                   </div>
                 
                   <div class="field btn">
@@ -301,7 +301,7 @@ form .btn input[type="button"]{
                      <input type="text" name="answer-if" placeholder="본인 확인 문구의 답을 입력하세요." required>
                   </div>
                   <div class="pass-link">
-                    <a href="#" class="idCheckSpan">아이디를 잊으셨습니까..?</a>
+                    <a href="/findid.mem" class="idCheckSpan">아이디를 잊으셨습니까..?</a>
                  </div>
                 
                  
@@ -310,13 +310,13 @@ form .btn input[type="button"]{
                      <input type="button" value="비밀번호 찾기" id="if_findpw" class="">
                      <script>
                      
-	                  	let isMember = function() {
+	                  	let isCPMember = function() {
 	                     	let id = $("#id_cp").val();
 	                     	let name = $("#name_cp").val();
 	                     	let text = $("#check-text-cp").val();
 	                     	let answer = $("#check-answer-cp").val();
 		                  	$.ajax({
-	               				url:"/isMember.mem",
+	               				url:"/isCPMember.mem",
 	               				type:"post",
 	               				data:{
 	               					id:id,
@@ -343,7 +343,7 @@ form .btn input[type="button"]{
 	               				}
 	               			});
 	                    }
-                     	 $("#cp_findpw").on("click",isMember);
+                     	 $("#cp_findpw").on("click",isCPMember);
 	                     
                      	$("#if_findpw").on("click",function(){
                      		if($("#check-text-if").val()== "본인 확인 문구를 선택해주세요.") {
