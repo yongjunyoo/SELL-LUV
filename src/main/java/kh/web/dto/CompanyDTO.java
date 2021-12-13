@@ -17,8 +17,13 @@ public class CompanyDTO {
 	private String email;
 	private Long sales;
 	private String grade;
+<<<<<<< HEAD
 	private String pwAsk;
 	private String pwAnswer;
+=======
+	String pwAsk;
+	String pwAnswer;
+>>>>>>> bb3179ac64606006d7020bbb0a048782be54baab
 	
 	public CompanyDTO() {}
 	

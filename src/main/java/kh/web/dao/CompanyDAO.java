@@ -196,7 +196,7 @@ public class CompanyDAO {
 
 	// 회원가입 method
 	public int insert(String id, String pw, String photo, String name, String crunumber, String zipcode, String address1, 
-			String address2, String rpt_cp, String phone, String email, String sales, String grade, String pwAsk, String pwAnswer ) throws Exception {
+			String address2, String rpt_cp, String phone, String email, String sales, String grade, String pwAsk, String pwAnswer) throws Exception {
 
 		String sql = "insert into company values(company_seq_cp.nextval,?,?,?,?,?,?,?,?,?,?,?,?,default,?,?)";
 
@@ -227,7 +227,7 @@ public class CompanyDAO {
 	// 회원가입 중복 ID 체크 method
 	public boolean isIdExist(String id) throws Exception{
 
-		String sql = "select * from company where id_cp = ?";
+		String sql = "select * from(select id_cp from company union select id_if from influencer) where id_cp = = ?";
 
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
