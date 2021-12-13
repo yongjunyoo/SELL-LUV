@@ -302,6 +302,117 @@ public class CompanyDAO {
 	}
 	
 
+	// 맞는 회원 정보 가져오기
+	public CompanyDTO findMember(String id, String name, String text, String answer) throws Exception {
+		String sql = "SELECT * FROM company WHERE id_cp =? AND name_cp =? AND pwask_cp =? AND pwanswer_cp=?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, id);
+			pstat.setString(2, name);
+			pstat.setString(3, text);
+			pstat.setString(4, answer);
+			try(ResultSet rs = pstat.executeQuery();){
+				
+				CompanyDTO dto = new CompanyDTO();
+				if(rs.next()) {
+					int seq = rs.getInt("seq_cp");
+					String pw = rs.getString("pw_cp");
+					String photo = rs.getString("photo_cp");
+					String crnumber = rs.getString("crnumber_cp");
+					String zipcode = rs.getString("zipcode_cp");
+					String address1 = rs.getString("address1_cp");
+					String address2 = rs.getString("address2_cp");
+					String rpt = rs.getString("rpt_cp");
+					String phone = rs.getString("phone_cp");
+					String email= rs.getString("email_cp");
+					Long sales = rs.getLong("sales_cp");
+					String grade = rs.getString("grade");
+
+					dto = new CompanyDTO(seq,id,pw,photo,name,crnumber,zipcode,address1,address2,rpt,phone,email,sales,grade,text,answer);
+				}
+				return dto;
+			}
+		}
+	}
+	
+	// 맞는 회원 정보 가져오기
+	public CompanyDTO findId(String email, String name, String text, String answer) throws Exception {
+		String sql = "SELECT * FROM company WHERE email_cp =? AND name_cp =? AND pwask_cp =? AND pwanswer_cp=?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, email);
+			pstat.setString(2, name);
+			pstat.setString(3, text);
+			pstat.setString(4, answer);
+			try(ResultSet rs = pstat.executeQuery();){
+				
+				CompanyDTO dto = new CompanyDTO();
+				if(rs.next()) {
+					int seq = rs.getInt("seq_cp");
+					String pw = rs.getString("pw_cp");
+					String id = rs.getString("id_cp");
+					String photo = rs.getString("photo_cp");
+					String crnumber = rs.getString("crnumber_cp");
+					String zipcode = rs.getString("zipcode_cp");
+					String address1 = rs.getString("address1_cp");
+					String address2 = rs.getString("address2_cp");
+					String rpt = rs.getString("rpt_cp");
+					String phone = rs.getString("phone_cp");
+					Long sales = rs.getLong("sales_cp");
+					String grade = rs.getString("grade");
+
+					dto = new CompanyDTO(seq,id,pw,photo,name,crnumber,zipcode,address1,address2,rpt,phone,email,sales,grade,text,answer);
+				}
+				return dto;
+			}
+		}
+	}
+	
+	// 멤버인지 아닌지 확인하는 메소드
+	public boolean isMember(String id, String name, String text, String answer) throws Exception {
+		String sql = "SELECT * FROM company WHERE id_cp =? AND name_cp =? AND pwask_cp =? AND pwanswer_cp=?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, id);
+			pstat.setString(2, name);
+			pstat.setString(3, text);
+			pstat.setString(4, answer);
+			try(ResultSet rs = pstat.executeQuery();){
+				
+				CompanyDTO dto = new CompanyDTO();
+				if(rs.next()) {
+					return true;
+				}
+				return false;
+			}
+		}
+	}
+	
+	// 비밀번호 재설정 메소드
+	
+	public int updateNewPW(String id, String pw) throws Exception {
+		String sql = "UPDATE company SET pw_cp=? WHERE id_cp =?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+
+			pstat.setString(1, pw);
+			pstat.setString(2, id);			
+			int result  = pstat.executeUpdate();
+
+			return result;
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
 	// 제품등록시 정보 불러오기
 	public ArrayList<CompanyDTO> searchById(String loginID) throws Exception {
 		String sql = "select * from company where id_cp=?";
