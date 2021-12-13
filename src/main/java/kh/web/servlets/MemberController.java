@@ -126,7 +126,46 @@ public class MemberController extends HttpServlet {
 				response.getWriter().append(String.valueOf(result));
 			}else if(cmd.equals("/findpw.mem")) {
 				response.sendRedirect("/resources/login/findpw.jsp");
+			}else if(cmd.equals("/IFSubmit.mem")) {
+
+				String id = request.getParameter("id");
+				String pw = request.getParameter("pw");
+				String photo = request.getParameter("photo");
+				String name = request.getParameter("name");
+				String nickName = request.getParameter("nickName");
+				String zipcode = request.getParameter("zipcode");
+				String address1 = request.getParameter("address1");
+				String address2 = request.getParameter("address2");
+				String sns = request.getParameter("sns");
+				String phone = request.getParameter("phone");
+				String email = request.getParameter("email");
+				String grade = request.getParameter("grade");
+				String pwAsk = request.getParameter("pwAsk");
+				String pwAnswer = request.getParameter("pwAnswer");
+				
+				String favorite1 = request.getParameter("favorite1");
+				String favorite2 = request.getParameter("favorite2");
+				String favorite3 = request.getParameter("favorite3");
+				String favorite4 = request.getParameter("favorite4");
+
+				int result = influencerDAO.insert(id, sha512.generate(pw), photo, name, nickName, zipcode, address1, address2, sns, phone, email, grade, pwAsk, pwAnswer, favorite1 +":"+ favorite2 +":"+ favorite3 +":"+ favorite4);
+
+				response.sendRedirect("/resources/login/login.jsp");
+				
+			}else if(cmd.equals("/IFidCheck.mem")) {
+
+				String id = request.getParameter("id");
+				boolean result = influencerDAO.isIdExist(id);
+				response.getWriter().append(String.valueOf(result));
+			
+			}else if(cmd.equals("/IFnickCheck.mem")) {
+
+				String nickName = request.getParameter("nickName");
+				boolean result = influencerDAO.nickNameExist(nickName);
+				response.getWriter().append(String.valueOf(result));
+			
 			}
+			
 		}catch(Exception e) {
 			e.printStackTrace();
 			response.sendRedirect("error.jsp");
