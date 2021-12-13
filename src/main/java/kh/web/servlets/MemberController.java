@@ -197,6 +197,16 @@ public class MemberController extends HttpServlet {
 				CompanyDTO dto = companyDAO.findId(email, name, text, answer);
 				System.out.println("기업 아이디는 : " + dto.getId());
 				response.getWriter().append(dto.getId());
+			// 인플루언서 아이디 맞는지 확인
+			}else if(cmd.equals("/isIFidExist.mem")) {
+				String email = request.getParameter("email");
+				String name = request.getParameter("name");
+				String text = request.getParameter("text");
+				String answer = request.getParameter("answer");
+				System.out.println(email+":"+name+":"+text+":"+answer);
+				InfluencerDTO dto = influencerDAO.findId(email, name, text, answer);
+				System.out.println("인플루언서 아이디는 : " + dto.getId());
+				response.getWriter().append(dto.getId());
 			}else if(cmd.equals("/IFSubmit.mem")) {
 
 				String id = request.getParameter("id");

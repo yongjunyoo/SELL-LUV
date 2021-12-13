@@ -276,7 +276,7 @@ public class InfluencerDAO  {
 		
 		// 맞는 회원 정보 가져오기
 		public InfluencerDTO findId(String email, String pname, String text, String answer) throws Exception {
-			String sql = "SELECT * FROM company WHERE email_if =? AND name_if =? AND pwask_if =? AND pwanswer_if=?";
+			String sql = "SELECT * FROM influencer WHERE email_if =? AND name_if =? AND pwask_if =? AND pwanswer_if=?";
 			try(Connection con = this.getConnection();
 					PreparedStatement pstat = con.prepareStatement(sql);){
 				pstat.setString(1, email);
