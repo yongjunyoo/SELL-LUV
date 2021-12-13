@@ -319,24 +319,6 @@ p {
                           	</select>
                           	</label> <input type="text" id="pwAnswer" name="pwAnswer" placeholder="" />
                           	
-                          	<label class="fieldlabels">분야: (선택사항)</label> <br>
-  							<div class="form-check form-check-inline">
-							<input type="checkbox" id="jb-checkbox1" class="custom-control-input">
-							<label class="custom-control-label" for="jb-checkbox1">의류</label>
-							</div>
-							<div class="form-check form-check-inline">
-							<input type="checkbox" id="jb-checkbox2" class="custom-control-input">
-							<label class="custom-control-label" for="jb-checkbox2">IT,가전</label>
-							</div>
-							<div class="form-check form-check-inline">
-							<input type="checkbox" id="jb-checkbox3" class="custom-control-input">
-							<label class="custom-control-label" for="jb-checkbox3">서비스</label>
-							</div>
-							<div class="form-check form-check-inline">
-							<input type="checkbox" id="jb-checkbox4" class="custom-control-input">
-							<label class="custom-control-label" for="jb-checkbox4">기타</label>
-							</div>
-
  
                         </div> <input type="button" id="step2" name="next" class="next action-button" value="다음" /> <input type="button" name="previous" class="previous action-button-previous" value="이전" />
                     </fieldset>
@@ -622,16 +604,36 @@ $(".progress-bar")
 <script>
 	let result = document.getElementById("pwCheckResult");
 
-	document.getElementById("pwd").oninput = function(){
-    let pw1 = $("#pw").val();
-    let pw2 = $("#pwd").val();
-    if(pw1 != pw2){
-        result.innerHTML = "패스워드가 일치하지않습니다"
-       
-    }else{
-        result.innerHTML = "패스워드가 일치합니다."
-    }
-}
+	document.getElementById("pwd").oninput = function() {
+      let pw1 = $("#pw").val();
+      let pw2 = $("#pwd").val();
+      if (pw1 != pw2) {
+         result.innerHTML = "패스워드가 일치하지않습니다"
+
+      }else if (pw1 ==""){
+         result.innerHTML = ""
+      } else if (pw2 ==""){
+         result.innerHTML = ""
+      }else {
+         result.innerHTML = "패스워드가 일치합니다."
+      }
+   }
+   document.getElementById("pw").oninput = function() {
+      let pw1 = $("#pw").val();
+      let pw2 = $("#pwd").val();
+      if (pw1 != pw2) {
+         result.innerHTML = "패스워드가 일치하지않습니다"
+
+      } else if (pw1 ==""){
+         result.innerHTML = ""
+      } else if (pw2 ==""){
+         result.innerHTML = ""
+      }else  {
+         result.innerHTML = "패스워드가 일치합니다."
+      }
+   }
+	
+	
 	document.getElementById("search").onclick = function(){
         new daum.Postcode({
             oncomplete: function(data) {                                 

@@ -17,8 +17,9 @@ public class CompanyDTO {
 	private String email;
 	private Long sales;
 	private String grade;
-	String pwAsk;
-	String pwAnswer;
+	private String pwAsk;
+	private String pwAnswer;
+
 	
 	public CompanyDTO() {}
 	

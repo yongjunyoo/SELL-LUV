@@ -232,7 +232,7 @@ public class AdminController extends HttpServlet {
 					request.setAttribute("cpCard", cpCard);
 					request.getRequestDispatcher("/resources/admin/adminCpCard.jsp").forward(request, response);
 
-				}else { // 작성자로 찾기.
+				}else if(select.equals("원하는 조건")) { // 원하는 조건으로 찾기.
 					int currentPage = Integer.parseInt(request.getParameter("cpage"));
 
 					if(currentPage < 1) { 
@@ -251,6 +251,27 @@ public class AdminController extends HttpServlet {
 					request.setAttribute("list", list); 
 
 					int cpCard = dao.getCpCardWriterCount(searchContents);
+					request.setAttribute("cpCard", cpCard);
+					request.getRequestDispatcher("/resources/admin/adminCpCard.jsp").forward(request, response);
+				}else {
+					int currentPage = Integer.parseInt(request.getParameter("cpage"));
+
+					if(currentPage < 1) { 
+						currentPage = 1;
+					}else if(currentPage > dao.getCpCardIntroPageTotalCount(searchContents)) {
+						currentPage = dao.getCpCardIntroPageTotalCount(searchContents);
+					}
+
+					int start = currentPage * PageStatics.RECORD_COUNT_PER_PAGE - (PageStatics.RECORD_COUNT_PER_PAGE-1);
+					int end = currentPage * PageStatics.RECORD_COUNT_PER_PAGE;
+
+					List<Board_CpDTO> list = dao.cpCardSearchByIntro(searchContents,start, end);
+
+					String navi = dao.getCpCardIntroPageNavi(currentPage,searchContents); 
+					request.setAttribute("navi", navi);
+					request.setAttribute("list", list); 
+
+					int cpCard = dao.getCpCardIntroCount(searchContents);
 					request.setAttribute("cpCard", cpCard);
 					request.getRequestDispatcher("/resources/admin/adminCpCard.jsp").forward(request, response);
 				}
@@ -307,7 +328,7 @@ public class AdminController extends HttpServlet {
 				String searchContents = request.getParameter("searchContents");
 				String select = request.getParameter("select");
 				
-				if(select.equals("작성자")) { // 작성자로 찾기.					
+				if(select.equals("소개글")) { // 소개글로 찾기.					
 					int currentPage = Integer.parseInt(request.getParameter("cpage"));
 
 					if(currentPage < 1) { 
@@ -326,6 +347,50 @@ public class AdminController extends HttpServlet {
 					request.setAttribute("list", list); 
 
 					int ifCard = dao.getIfCardWriterCount(searchContents);
+					request.setAttribute("ifCard", ifCard);
+					request.getRequestDispatcher("/resources/admin/adminIfCard.jsp").forward(request, response);
+					
+				}else if(cmd.equals("원하는조건")) { // 원하는 조건으로 찾기.
+					int currentPage = Integer.parseInt(request.getParameter("cpage"));
+
+					if(currentPage < 1) { 
+						currentPage = 1;
+					}else if(currentPage > dao.getifCardConditionPageTotalCount(searchContents)) {
+						currentPage = dao.getifCardConditionPageTotalCount(searchContents);
+					}
+
+					int start = currentPage * PageStatics.RECORD_COUNT_PER_PAGE - (PageStatics.RECORD_COUNT_PER_PAGE-1);
+					int end = currentPage * PageStatics.RECORD_COUNT_PER_PAGE;
+
+					List<Profile_IfDTO> list = dao.ifCardSearchByCondition(searchContents,start, end);
+
+					String navi = dao.getifCardConditionPageNavi(currentPage,searchContents); 
+					request.setAttribute("navi", navi);
+					request.setAttribute("list", list); 
+
+					int ifCard = dao.getIfCardConditionCount(searchContents);
+					request.setAttribute("ifCard", ifCard);
+					request.getRequestDispatcher("/resources/admin/adminIfCard.jsp").forward(request, response);
+					
+				}else {// 커리어로 찾기.
+					int currentPage = Integer.parseInt(request.getParameter("cpage"));
+
+					if(currentPage < 1) { 
+						currentPage = 1;
+					}else if(currentPage > dao.getifCardCareerPageTotalCount(searchContents)) {
+						currentPage = dao.getifCardCareerPageTotalCount(searchContents);
+					}
+
+					int start = currentPage * PageStatics.RECORD_COUNT_PER_PAGE - (PageStatics.RECORD_COUNT_PER_PAGE-1);
+					int end = currentPage * PageStatics.RECORD_COUNT_PER_PAGE;
+
+					List<Profile_IfDTO> list = dao.ifCardSearchByCareer(searchContents,start, end);
+
+					String navi = dao.getifCardCareerPageNavi(currentPage,searchContents); 
+					request.setAttribute("navi", navi);
+					request.setAttribute("list", list); 
+
+					int ifCard = dao.getIfCardCareerCount(searchContents);
 					request.setAttribute("ifCard", ifCard);
 					request.getRequestDispatcher("/resources/admin/adminIfCard.jsp").forward(request, response);
 				}

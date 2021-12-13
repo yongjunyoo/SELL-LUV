@@ -243,9 +243,9 @@ body {
 									<tr>
 										<th></th>
 										<th>번호</th>
-										<th>작성자</th>
-										<th>받은 좋아요</th>
-										<th>보낸 좋아요</th>
+										<th>소개글</th>
+										<th>원하는조건</th>
+										<th>커리어</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -253,9 +253,9 @@ body {
 									<tr>
 										<td><input type="checkbox" name="checkbox" value="${list.seq_if}"></td>
 										<td>${list.seq_if}</td>
-										<td>${list.writer_if}</td>
-										<td>${list.sLike_if}</td>
-										<td>${list.rLike_if}</td>
+										<td>${list.intro_if}</td>
+										<td>${list.condition_if}</td>
+										<td>${list.career_if}</td>
 									</tr>
 									</c:forEach>
 								</tbody>
@@ -273,7 +273,9 @@ body {
 						<table class="table-sm mb-0" align=right>
 							<tr>
 								<td><select class="selectpicker" id="select" name="select">
-										<option>작성자</option>
+										<option>소개글</option>
+										<option>원하는조건</option>
+										<option>커리어</option>
 								</select></td>
 								<td>
 								<input type="hidden" value="1" name="cpage">

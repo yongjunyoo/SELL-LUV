@@ -43,8 +43,30 @@ public class AdminDAO {
 			return rs.getInt(1);	
 		}
 	}
-	public int getIfCardWriterCount(String searchContents) throws Exception { // 총 인플루언서 카드 수 출력.(작성자로 검색시)
-		String sql = "select count(seq_if) from profile_if where writer_if like ?";
+	public int getIfCardWriterCount(String searchContents) throws Exception { // 총 인플루언서 카드 수 출력.(소개글로 검색시)
+		String sql = "select count(seq_if) from profile_if where intro_if like ?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, "%"+searchContents+"%");
+			try(ResultSet rs = pstat.executeQuery();) {
+				rs.next();
+				return rs.getInt(1);	
+			}	
+		}
+	}
+	public int getIfCardConditionCount(String searchContents) throws Exception { // 총 인플루언서 카드 수 출력.(원하는 조건으로 검색시)
+		String sql = "select count(seq_if) from profile_if where condition_if like ?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, "%"+searchContents+"%");
+			try(ResultSet rs = pstat.executeQuery();) {
+				rs.next();
+				return rs.getInt(1);	
+			}	
+		}
+	}
+	public int getIfCardCareerCount(String searchContents) throws Exception { // 총 인플루언서 카드 수 출력.(커리어로 검색시)
+		String sql = "select count(seq_if) from profile_if where career_if like ?";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
 			pstat.setString(1, "%"+searchContents+"%");
@@ -56,7 +78,7 @@ public class AdminDAO {
 	}
 	
 	public int getCpCardCount() throws Exception { // 총 기업 카드 수 출력.
-		String sql = "select count(seq_cp) from board_cp";
+		String sql = "select count(seq_board_cp) from board_cp";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
 				ResultSet rs = pstat.executeQuery();){
@@ -66,7 +88,7 @@ public class AdminDAO {
 	}
 	
 	public int getCpCardTitleCount(String searchContents) throws Exception { // 총 기업 카드 수 출력.(제목으로 검색시)
-		String sql = "select count(seq_cp) from board_cp where title_cp like ?";
+		String sql = "select count(seq_board_cp) from board_cp where title_cp like ?";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
 			pstat.setString(1, "%"+searchContents+"%");
@@ -77,8 +99,19 @@ public class AdminDAO {
 		}
 	}
 	
-	public int getCpCardWriterCount(String searchContents) throws Exception { // 총 기업 카드 수 출력.(작성자로 검색시)
-		String sql = "select count(seq_cp) from board_cp where writer_cp like ?";
+	public int getCpCardWriterCount(String searchContents) throws Exception { // 총 기업 카드 수 출력.(원하는 조건으로 검색시)
+		String sql = "select count(seq_board_cp) from board_cp where condition_cp like ?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, "%"+searchContents+"%");
+			try(ResultSet rs = pstat.executeQuery();) {
+				rs.next();
+				return rs.getInt(1);	
+			}	
+		}
+	}
+	public int getCpCardIntroCount(String searchContents) throws Exception { // 총 기업 카드 수 출력.(소개글로 검색시)
+		String sql = "select count(seq_board_cp) from board_cp where intro_cp like ?";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
 			pstat.setString(1, "%"+searchContents+"%");
@@ -239,8 +272,32 @@ public class AdminDAO {
 		}
 		return pageTotalCount;
 	}
-	public int getifCardWriterPageTotalCount(String searchContents) throws Exception { // 인플루언서 카드 페이지(작성자로 검색시)
+	public int getifCardWriterPageTotalCount(String searchContents) throws Exception { // 인플루언서 카드 페이지(소개글로 검색시)
 		int recordTotalCount = this.getIfCardWriterCount(searchContents);
+		
+		// 총 페이지 개수
+		int pageTotalCount = 0;
+		if(recordTotalCount%PageStatics.RECORD_COUNT_PER_PAGE==0) {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE;
+		}else {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE+1;
+		}
+		return pageTotalCount;
+	}
+	public int getifCardConditionPageTotalCount(String searchContents) throws Exception { // 인플루언서 카드 페이지(원하는조건으로 검색시)
+		int recordTotalCount = this.getIfCardConditionCount(searchContents);
+		
+		// 총 페이지 개수
+		int pageTotalCount = 0;
+		if(recordTotalCount%PageStatics.RECORD_COUNT_PER_PAGE==0) {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE;
+		}else {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE+1;
+		}
+		return pageTotalCount;
+	}
+	public int getifCardCareerPageTotalCount(String searchContents) throws Exception { // 인플루언서 카드 페이지(커리어로 검색시)
+		int recordTotalCount = this.getIfCardCareerCount(searchContents);
 		
 		// 총 페이지 개수
 		int pageTotalCount = 0;
@@ -299,7 +356,7 @@ public class AdminDAO {
 		return pageNavi;
 	}
 	
-	public String getifCardWriterPageNavi(int currentPage,String searchContents) throws Exception { // 인플루언서 카드 네비(작성자로 검색시)
+	public String getifCardWriterPageNavi(int currentPage,String searchContents) throws Exception { // 인플루언서 카드 네비(소개글로 검색시)
 		int recordTotalCount = this.getIfCardWriterCount(searchContents);
 
 		int pageTotalCount = 0;
@@ -328,16 +385,108 @@ public class AdminDAO {
 		
 		String pageNavi ="";
 		if(needPrev) {
-			pageNavi +="								<li class=\"page-item\"><a class=\"page-link\" href=\"/adminIfCardSearch.admin?select=작성자&cpage="+(startNavi-1)+"&searchContents="+searchContents+"\"\r\n"
+			pageNavi +="								<li class=\"page-item\"><a class=\"page-link\" href=\"/adminIfCardSearch.admin?select=소개글&cpage="+(startNavi-1)+"&searchContents="+searchContents+"\"\r\n"
 					+ "									aria-label=\"Previous\"> <span aria-hidden=\"true\">&laquo;</span>\r\n"
 					+ "										<span class=\"sr-only\">Previous</span>\r\n"
 					+ "								</a></li>";
 		}
 		for(int i=startNavi; i<=endNavi; i++) {
-			pageNavi+="<li class=\"page-item\"><a class=\"page-link\" href=/adminIfCardSearch.admin?select=작성자&cpage="+i+"&searchContents="+searchContents+">"+i+"</a></li>";
+			pageNavi+="<li class=\"page-item\"><a class=\"page-link\" href=/adminIfCardSearch.admin?select=소개글&cpage="+i+"&searchContents="+searchContents+">"+i+"</a></li>";
 		}
 		if(needNext) {
-			pageNavi += "								<li class=\"page-item\"><a class=\"page-link\" href=\"/adminIfCardSearch.admin?select=작성자&cpage="+(endNavi+1)+"&searchContents="+searchContents+"\"\r\n"
+			pageNavi += "								<li class=\"page-item\"><a class=\"page-link\" href=\"/adminIfCardSearch.admin?select=소개글&cpage="+(endNavi+1)+"&searchContents="+searchContents+"\"\r\n"
+					+ "									aria-label=\"Next\"> <span aria-hidden=\"true\">&raquo;</span>\r\n"
+					+ "										<span class=\"sr-only\">Next</span>\r\n"
+					+ "								</a></li>";
+		}
+		
+		return pageNavi;
+	}
+	public String getifCardConditionPageNavi(int currentPage,String searchContents) throws Exception { // 인플루언서 카드 네비(원하는 조건으로 검색시)
+		int recordTotalCount = this.getIfCardConditionCount(searchContents);
+
+		int pageTotalCount = 0;
+		if(recordTotalCount%PageStatics.RECORD_COUNT_PER_PAGE==0) {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE;
+		}else {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE+1;
+		}
+
+		int startNavi = (currentPage-1)/PageStatics.NAVI_COUNT_PER_PAGE*PageStatics.NAVI_COUNT_PER_PAGE+1;
+		int endNavi = startNavi+PageStatics.NAVI_COUNT_PER_PAGE-1;
+		
+		if(endNavi > pageTotalCount) {  
+			endNavi = pageTotalCount;
+		}
+		
+		boolean needPrev = true;
+		boolean needNext = true;
+		
+		if(startNavi==1) {
+			needPrev = false;
+		}
+		if(endNavi==pageTotalCount) {
+			needNext = false;
+		}
+		
+		String pageNavi ="";
+		if(needPrev) {
+			pageNavi +="								<li class=\"page-item\"><a class=\"page-link\" href=\"/adminIfCardSearch.admin?select=원하는조건&cpage="+(startNavi-1)+"&searchContents="+searchContents+"\"\r\n"
+					+ "									aria-label=\"Previous\"> <span aria-hidden=\"true\">&laquo;</span>\r\n"
+					+ "										<span class=\"sr-only\">Previous</span>\r\n"
+					+ "								</a></li>";
+		}
+		for(int i=startNavi; i<=endNavi; i++) {
+			pageNavi+="<li class=\"page-item\"><a class=\"page-link\" href=/adminIfCardSearch.admin?select=원하는조건&cpage="+i+"&searchContents="+searchContents+">"+i+"</a></li>";
+		}
+		if(needNext) {
+			pageNavi += "								<li class=\"page-item\"><a class=\"page-link\" href=\"/adminIfCardSearch.admin?select=원하는조건&cpage="+(endNavi+1)+"&searchContents="+searchContents+"\"\r\n"
+					+ "									aria-label=\"Next\"> <span aria-hidden=\"true\">&raquo;</span>\r\n"
+					+ "										<span class=\"sr-only\">Next</span>\r\n"
+					+ "								</a></li>";
+		}
+		
+		return pageNavi;
+	}
+	public String getifCardCareerPageNavi(int currentPage,String searchContents) throws Exception { // 인플루언서 카드 네비(커리어로 검색시)
+		int recordTotalCount = this.getIfCardCareerCount(searchContents);
+
+		int pageTotalCount = 0;
+		if(recordTotalCount%PageStatics.RECORD_COUNT_PER_PAGE==0) {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE;
+		}else {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE+1;
+		}
+
+		int startNavi = (currentPage-1)/PageStatics.NAVI_COUNT_PER_PAGE*PageStatics.NAVI_COUNT_PER_PAGE+1;
+		int endNavi = startNavi+PageStatics.NAVI_COUNT_PER_PAGE-1;
+		
+		if(endNavi > pageTotalCount) {  
+			endNavi = pageTotalCount;
+		}
+		
+		boolean needPrev = true;
+		boolean needNext = true;
+		
+		if(startNavi==1) {
+			needPrev = false;
+		}
+		if(endNavi==pageTotalCount) {
+			needNext = false;
+		}
+		
+		String pageNavi ="";
+		if(needPrev) {
+			pageNavi +="								<li class=\"page-item\"><a class=\"page-link\" href=\"/adminIfCardSearch.admin?select=커리어&cpage="+(startNavi-1)+"&searchContents="+searchContents+"\"\r\n"
+					+ "									aria-label=\"Previous\"> <span aria-hidden=\"true\">&laquo;</span>\r\n"
+					+ "										<span class=\"sr-only\">Previous</span>\r\n"
+					+ "								</a></li>";
+		}
+		for(int i=startNavi; i<=endNavi; i++) {
+			pageNavi+="<li class=\"page-item\"><a class=\"page-link\" href=/adminIfCardSearch.admin?select=커리어&cpage="+i+"&searchContents="+searchContents+">"+i+"</a></li>";
+		}
+		if(needNext) {
+			pageNavi += "								<li class=\"page-item\"><a class=\"page-link\" href=\"/adminIfCardSearch.admin?select=커리어&cpage="+(endNavi+1)+"&searchContents="+searchContents+"\"\r\n"
 					+ "									aria-label=\"Next\"> <span aria-hidden=\"true\">&raquo;</span>\r\n"
 					+ "										<span class=\"sr-only\">Next</span>\r\n"
 					+ "								</a></li>";
@@ -358,14 +507,12 @@ public class AdminDAO {
 				while(rs.next()) {
 					Profile_IfDTO dto = new Profile_IfDTO();
 					dto.setSeq_if(rs.getInt("seq_if"));
-					dto.setWriter_if(rs.getString("writer_if"));
-					dto.setPhoto_if(rs.getString("photo_if"));
+					dto.setMember_seq(rs.getInt("member_seq"));
 					dto.setCondition_if(rs.getString("condition_if"));
 					dto.setCareer_if(rs.getString("career_if"));
-					dto.setSns_if(rs.getString("sns_if"));
+					dto.setIntro_if(rs.getString("intro_if"));
 					dto.setsLike_if(rs.getInt("sLike_if"));
 					dto.setrLike_if(rs.getInt("rLike_if"));
-					dto.setReview_if(rs.getString("review_if"));
 					list.add(dto);
 				}
 				return list;
@@ -385,8 +532,20 @@ public class AdminDAO {
 		}
 		return pageTotalCount;
 	}
-	public int getCpCardWriterPageTotalCount(String searchContents) throws Exception { // 기업 카드 페이지(작성자로 검색시)
+	public int getCpCardWriterPageTotalCount(String searchContents) throws Exception { // 기업 카드 페이지(원하는 조건으로 검색시)
 		int recordTotalCount = this.getCpCardWriterCount(searchContents);
+		
+		// 총 페이지 개수
+		int pageTotalCount = 0;
+		if(recordTotalCount%PageStatics.RECORD_COUNT_PER_PAGE==0) {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE;
+		}else {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE+1;
+		}
+		return pageTotalCount;
+	}
+	public int getCpCardIntroPageTotalCount(String searchContents) throws Exception { // 기업 카드 페이지(소개글로 검색시)
+		int recordTotalCount = this.getCpCardIntroCount(searchContents);
 		
 		// 총 페이지 개수
 		int pageTotalCount = 0;
@@ -502,7 +661,7 @@ public class AdminDAO {
 		return pageNavi;
 	}
 	
-	public String getCpCardWriterPageNavi(int currentPage, String searchContents) throws Exception { // 기업 카드 네비(작성자로 검색시)
+	public String getCpCardWriterPageNavi(int currentPage, String searchContents) throws Exception { // 기업 카드 네비(원하는 조건으로 검색시)
 		int recordTotalCount = this.getCpCardWriterCount(searchContents);
 
 		int pageTotalCount = 0;
@@ -531,16 +690,61 @@ public class AdminDAO {
 		
 		String pageNavi ="";
 		if(needPrev) {
-			pageNavi +="								<li class=\"page-item\"><a class=\"page-link\" href=\"/adminCpCardSearch.admin?select=작성자&cpage="+(startNavi-1)+"&searchContents="+searchContents+"\"\r\n"
+			pageNavi +="								<li class=\"page-item\"><a class=\"page-link\" href=\"/adminCpCardSearch.admin?select=원하는조건&cpage="+(startNavi-1)+"&searchContents="+searchContents+"\"\r\n"
 					+ "									aria-label=\"Previous\"> <span aria-hidden=\"true\">&laquo;</span>\r\n"
 					+ "										<span class=\"sr-only\">Previous</span>\r\n"
 					+ "								</a></li>";
 		}
 		for(int i=startNavi; i<=endNavi; i++) {
-			pageNavi+="<li class=\"page-item\"><a class=\"page-link\" href=/adminCpCardSearch.admin?select=작성자&cpage="+i+"&searchContents="+searchContents+">"+i+"</a></li>";
+			pageNavi+="<li class=\"page-item\"><a class=\"page-link\" href=/adminCpCardSearch.admin?select=원하는조건&cpage="+i+"&searchContents="+searchContents+">"+i+"</a></li>";
 		}
 		if(needNext) {
-			pageNavi += "								<li class=\"page-item\"><a class=\"page-link\" href=\"/adminCpCardSearch.admin?select=작성자&cpage="+(endNavi+1)+"&searchContents="+searchContents+"\"\r\n"
+			pageNavi += "								<li class=\"page-item\"><a class=\"page-link\" href=\"/adminCpCardSearch.admin?select=원하는조건&cpage="+(endNavi+1)+"&searchContents="+searchContents+"\"\r\n"
+					+ "									aria-label=\"Next\"> <span aria-hidden=\"true\">&raquo;</span>\r\n"
+					+ "										<span class=\"sr-only\">Next</span>\r\n"
+					+ "								</a></li>";
+		}
+		return pageNavi;
+	}
+	public String getCpCardIntroPageNavi(int currentPage, String searchContents) throws Exception { // 기업 카드 네비(소개글로 검색시)
+		int recordTotalCount = this.getCpCardIntroCount(searchContents);
+
+		int pageTotalCount = 0;
+		if(recordTotalCount%PageStatics.RECORD_COUNT_PER_PAGE==0) {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE;
+		}else {
+			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE+1;
+		}
+
+		int startNavi = (currentPage-1)/PageStatics.NAVI_COUNT_PER_PAGE*PageStatics.NAVI_COUNT_PER_PAGE+1;
+		int endNavi = startNavi+PageStatics.NAVI_COUNT_PER_PAGE-1;
+		
+		if(endNavi > pageTotalCount) {  
+			endNavi = pageTotalCount;
+		}
+		
+		boolean needPrev = true;
+		boolean needNext = true;
+		
+		if(startNavi==1) {
+			needPrev = false;
+		}
+		if(endNavi==pageTotalCount) {
+			needNext = false;
+		}
+		
+		String pageNavi ="";
+		if(needPrev) {
+			pageNavi +="								<li class=\"page-item\"><a class=\"page-link\" href=\"/adminCpCardSearch.admin?select=소개글&cpage="+(startNavi-1)+"&searchContents="+searchContents+"\"\r\n"
+					+ "									aria-label=\"Previous\"> <span aria-hidden=\"true\">&laquo;</span>\r\n"
+					+ "										<span class=\"sr-only\">Previous</span>\r\n"
+					+ "								</a></li>";
+		}
+		for(int i=startNavi; i<=endNavi; i++) {
+			pageNavi+="<li class=\"page-item\"><a class=\"page-link\" href=/adminCpCardSearch.admin?select=소개글&cpage="+i+"&searchContents="+searchContents+">"+i+"</a></li>";
+		}
+		if(needNext) {
+			pageNavi += "								<li class=\"page-item\"><a class=\"page-link\" href=\"/adminCpCardSearch.admin?select=소개글&cpage="+(endNavi+1)+"&searchContents="+searchContents+"\"\r\n"
 					+ "									aria-label=\"Next\"> <span aria-hidden=\"true\">&raquo;</span>\r\n"
 					+ "										<span class=\"sr-only\">Next</span>\r\n"
 					+ "								</a></li>";
@@ -549,7 +753,7 @@ public class AdminDAO {
 	}
 	
 	public List<Board_CpDTO> cpCardBoundary(int start, int end) throws Exception { // 기업 10개씩 뽑아오는 코드.
-		String sql = "select * from (select board_cp.*, row_number() over(order by seq_cp desc) rn from board_cp) where rn between ? and ?";
+		String sql = "select * from (select board_cp.*, row_number() over(order by seq_board_cp desc) rn from board_cp) where rn between ? and ?";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
 			pstat.setInt(1, start);
@@ -559,15 +763,14 @@ public class AdminDAO {
 				List<Board_CpDTO> list = new ArrayList();
 				while(rs.next()) {
 					Board_CpDTO dto = new Board_CpDTO();
-					dto.setSeq_cp(rs.getInt("seq_cp"));
-					dto.setWriter_cp(rs.getString("writer_cp"));
+					dto.setSeq_cp(rs.getInt("seq_board_cp"));
+					dto.setMember_seq(rs.getInt("member_seq"));
 					dto.setTitle_cp(rs.getString("title_cp"));
 					dto.setCondition_cp(rs.getString("condition_cp"));
-					dto.setWrite_date_cp(rs.getTimestamp("write_date_cp"));
-					dto.setView_count_cp(rs.getInt("view_count_cp"));
+					dto.setIntro_cp(rs.getString("intro_cp"));
 					dto.setsLike_cp(rs.getInt("sLike_cp"));
 					dto.setrLike_cp(rs.getInt("rLike_cp"));
-					dto.setReview_cp(rs.getString("review_cp"));
+					dto.setPhoto_cp(rs.getString("photo_cp"));
 					list.add(dto);
 				}
 				return list;
@@ -1302,7 +1505,7 @@ public class AdminDAO {
 	}
 	
 	public List<Board_CpDTO> cpCardSearchByTitle(String searchContents, int start, int end) throws Exception { // 기업카드 제목으로 검색
-		String sql = "select * from (select board_cp.*, row_number() over(order by seq_cp desc) rn from board_cp where title_cp like ?) where rn between ? and ?";
+		String sql = "select * from (select board_cp.*, row_number() over(order by seq_board_cp desc) rn from board_cp where title_cp like ?) where rn between ? and ?";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
 			pstat.setString(1, "%"+searchContents+"%");
@@ -1313,15 +1516,14 @@ public class AdminDAO {
 				List<Board_CpDTO> list = new ArrayList();
 				while(rs.next()) {
 					Board_CpDTO dto = new Board_CpDTO();
-					dto.setSeq_cp(rs.getInt("seq_cp"));
-					dto.setWriter_cp(rs.getString("writer_cp"));
+					dto.setSeq_cp(rs.getInt("seq_board_cp"));
+					dto.setMember_seq(rs.getInt("member_seq"));
 					dto.setTitle_cp(rs.getString("title_cp"));
 					dto.setCondition_cp(rs.getString("condition_cp"));
-					dto.setWrite_date_cp(rs.getTimestamp("write_date_cp"));
-					dto.setView_count_cp(rs.getInt("view_count_cp"));
+					dto.setIntro_cp(rs.getString("intro_cp"));
 					dto.setsLike_cp(rs.getInt("sLike_cp"));
 					dto.setrLike_cp(rs.getInt("rLike_cp"));
-					dto.setReview_cp(rs.getString("review_cp"));
+					dto.setPhoto_cp(rs.getString("photo_cp"));
 					list.add(dto);
 				}
 				return list;
@@ -1329,8 +1531,8 @@ public class AdminDAO {
 		}
 	}
 	
-	public List<Board_CpDTO> cpCardSearchByWriter(String searchContents, int start, int end) throws Exception { // 기업카드 작성자로 검색
-		String sql = "select * from (select board_cp.*, row_number() over(order by seq_cp desc) rn from board_cp where writer_cp like ?) where rn between ? and ?";
+	public List<Board_CpDTO> cpCardSearchByWriter(String searchContents, int start, int end) throws Exception { // 기업카드 원하는 조건으로 검색
+		String sql = "select * from (select board_cp.*, row_number() over(order by seq_board_cp desc) rn from board_cp where condition_cp like ?) where rn between ? and ?";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
 			pstat.setString(1, "%"+searchContents+"%");
@@ -1341,15 +1543,40 @@ public class AdminDAO {
 				List<Board_CpDTO> list = new ArrayList();
 				while(rs.next()) {
 					Board_CpDTO dto = new Board_CpDTO();
-					dto.setSeq_cp(rs.getInt("seq_cp"));
-					dto.setWriter_cp(rs.getString("writer_cp"));
+					dto.setSeq_cp(rs.getInt("seq_board_cp"));
+					dto.setMember_seq(rs.getInt("member_seq"));
 					dto.setTitle_cp(rs.getString("title_cp"));
 					dto.setCondition_cp(rs.getString("condition_cp"));
-					dto.setWrite_date_cp(rs.getTimestamp("write_date_cp"));
-					dto.setView_count_cp(rs.getInt("view_count_cp"));
+					dto.setIntro_cp(rs.getString("intro_cp"));
 					dto.setsLike_cp(rs.getInt("sLike_cp"));
 					dto.setrLike_cp(rs.getInt("rLike_cp"));
-					dto.setReview_cp(rs.getString("review_cp"));
+					dto.setPhoto_cp(rs.getString("photo_cp"));
+					list.add(dto);
+				}
+				return list;
+			}
+		}
+	}
+	public List<Board_CpDTO> cpCardSearchByIntro(String searchContents, int start, int end) throws Exception { // 기업카드 소개글로 검색
+		String sql = "select * from (select board_cp.*, row_number() over(order by seq_board_cp desc) rn from board_cp where intro_cp like ?) where rn between ? and ?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, "%"+searchContents+"%");
+			pstat.setInt(2, start);
+			pstat.setInt(3, end);
+			
+			try(ResultSet rs = pstat.executeQuery();){
+				List<Board_CpDTO> list = new ArrayList();
+				while(rs.next()) {
+					Board_CpDTO dto = new Board_CpDTO();
+					dto.setSeq_cp(rs.getInt("seq_board_cp"));
+					dto.setMember_seq(rs.getInt("member_seq"));
+					dto.setTitle_cp(rs.getString("title_cp"));
+					dto.setCondition_cp(rs.getString("condition_cp"));
+					dto.setIntro_cp(rs.getString("intro_cp"));
+					dto.setsLike_cp(rs.getInt("sLike_cp"));
+					dto.setrLike_cp(rs.getInt("rLike_cp"));
+					dto.setPhoto_cp(rs.getString("photo_cp"));
 					list.add(dto);
 				}
 				return list;
@@ -1358,7 +1585,7 @@ public class AdminDAO {
 	}
 	
 	public int deleteCpCard(int seq) throws Exception { // 기업카드 글 삭제
-		String sql = "delete from board_cp where seq_cp=?";
+		String sql = "delete from board_cp where seq_board_cp=?";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
 			pstat.setInt(1, seq);
@@ -1445,8 +1672,8 @@ public class AdminDAO {
 		}
 	}
 	
-	public List<Profile_IfDTO> ifCardSearchByWriter(String searchContents,int start, int end) throws Exception { // 인플루언서 카드 작성자로 검색
-		String sql = "select * from (select profile_if.*, row_number() over(order by seq_if desc) rn from profile_if where writer_if like ?) where rn between ? and ?";
+	public List<Profile_IfDTO> ifCardSearchByWriter(String searchContents,int start, int end) throws Exception { // 인플루언서 카드 소개글로 검색
+		String sql = "select * from (select profile_if.*, row_number() over(order by seq_if desc) rn from profile_if where intro_if like ?) where rn between ? and ?";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
 			pstat.setString(1, "%"+searchContents+"%");
@@ -1458,14 +1685,62 @@ public class AdminDAO {
 				while(rs.next()) {
 					Profile_IfDTO dto = new Profile_IfDTO();
 					dto.setSeq_if(rs.getInt("seq_if"));
-					dto.setWriter_if(rs.getString("writer_if"));
-					dto.setPhoto_if(rs.getString("photo_if"));
+					dto.setMember_seq(rs.getInt("member_seq"));
 					dto.setCondition_if(rs.getString("condition_if"));
 					dto.setCareer_if(rs.getString("career_if"));
-					dto.setSns_if(rs.getString("sns_if"));
+					dto.setIntro_if(rs.getString("intro_if"));
 					dto.setsLike_if(rs.getInt("sLike_if"));
 					dto.setrLike_if(rs.getInt("rLike_if"));
-					dto.setReview_if(rs.getString("review_if"));
+					list.add(dto);
+				}
+				return list;
+			}
+		}
+	}
+	public List<Profile_IfDTO> ifCardSearchByCondition(String searchContents,int start, int end) throws Exception { // 인플루언서 카드 원하는조건으로 검색
+		String sql = "select * from (select profile_if.*, row_number() over(order by seq_if desc) rn from profile_if where condition_if like ?) where rn between ? and ?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, "%"+searchContents+"%");
+			pstat.setInt(2, start);
+			pstat.setInt(3, end);
+			
+			try(ResultSet rs = pstat.executeQuery();){
+				List<Profile_IfDTO> list = new ArrayList();
+				while(rs.next()) {
+					Profile_IfDTO dto = new Profile_IfDTO();
+					dto.setSeq_if(rs.getInt("seq_if"));
+					dto.setMember_seq(rs.getInt("member_seq"));
+					dto.setCondition_if(rs.getString("condition_if"));
+					dto.setCareer_if(rs.getString("career_if"));
+					dto.setIntro_if(rs.getString("intro_if"));
+					dto.setsLike_if(rs.getInt("sLike_if"));
+					dto.setrLike_if(rs.getInt("rLike_if"));
+					list.add(dto);
+				}
+				return list;
+			}
+		}
+	}
+	public List<Profile_IfDTO> ifCardSearchByCareer(String searchContents,int start, int end) throws Exception { // 인플루언서 카드 커리어로 검색
+		String sql = "select * from (select profile_if.*, row_number() over(order by seq_if desc) rn from profile_if where career_if like ?) where rn between ? and ?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, "%"+searchContents+"%");
+			pstat.setInt(2, start);
+			pstat.setInt(3, end);
+			
+			try(ResultSet rs = pstat.executeQuery();){
+				List<Profile_IfDTO> list = new ArrayList();
+				while(rs.next()) {
+					Profile_IfDTO dto = new Profile_IfDTO();
+					dto.setSeq_if(rs.getInt("seq_if"));
+					dto.setMember_seq(rs.getInt("member_seq"));
+					dto.setCondition_if(rs.getString("condition_if"));
+					dto.setCareer_if(rs.getString("career_if"));
+					dto.setIntro_if(rs.getString("intro_if"));
+					dto.setsLike_if(rs.getInt("sLike_if"));
+					dto.setrLike_if(rs.getInt("rLike_if"));
 					list.add(dto);
 				}
 				return list;

@@ -145,9 +145,11 @@ public class InfluencerDAO  {
 						String phone = rs.getString("phone_if");
 						String email= rs.getString("email_if");
 						String grade = rs.getString("grade");
+						String pwAsk = rs.getString("pwAsk_if");
+						String pwAnswer = rs.getString("pwAnswer_if");
+						String favorite = rs.getString("favorite_if");
 
-
-						InfluencerDTO influencerDTO = new InfluencerDTO(seq,id,pw,photo,name,nickname,zipcode,address1,address2,sns,phone,email,grade);
+						InfluencerDTO influencerDTO = new InfluencerDTO(seq,id,pw,photo,name,nickname,zipcode,address1,address2,sns,phone,email,grade,pwAsk,pwAnswer,favorite);
 
 						list.add(influencerDTO);
 					}
@@ -166,14 +168,12 @@ public class InfluencerDAO  {
 				if(rs.next()) {
 					Profile_IfDTO dto = new Profile_IfDTO();
 					dto.setSeq_if(rs.getInt("seq_if"));
-					dto.setWriter_if(rs.getString("writer_if"));
-					dto.setPhoto_if(rs.getString("photo_if"));
+					dto.setMember_seq(rs.getInt("member_seq"));
 					dto.setCondition_if(rs.getString("condition_if"));
 					dto.setCareer_if(rs.getString("career_if"));
-					dto.setSns_if(rs.getString("sns_if"));
+					dto.setIntro_if(rs.getString("intro_if"));
 					dto.setsLike_if(rs.getInt("sLike_if"));
 					dto.setrLike_if(rs.getInt("rLike_if"));
-					dto.setReview_if(rs.getString("review_if"));
 					list.add(dto);
 				}
 				return list;
@@ -181,13 +181,61 @@ public class InfluencerDAO  {
 		}
 	}
 	
-	// 비밀번호 찾기
-//	public int findIf(String id, String name, String text, String answer) {
-//		String sql = "SELECT * FROM influencer WHERE id_if =?, name_if =?, text_if =";
-//		
-//	}
-//	
-	
-	
-	
+	// 회원가입 method
+		public int insert(String id, String pw, String photo, String name, String nickName, String zipcode, String address1, 
+				String address2, String sns, String phone, String email, String grade, String pwAsk, String pwAnswer, String favorite ) throws Exception {
+
+			String sql = "insert into influencer values(seq_if.nextval,?,?,?,?,?,?,?,?,?,?,?,default,?,?,?)";
+
+
+			try(Connection con = this.getConnection();
+					PreparedStatement pstat = con.prepareStatement(sql);){
+
+				pstat.setString(1, id);
+				pstat.setString(2, pw);			
+				pstat.setString(3, photo);
+				pstat.setString(4, name);
+				pstat.setString(5, nickName);
+				pstat.setString(6, zipcode);
+				pstat.setString(7, address1);
+				pstat.setString(8, address2);
+				pstat.setString(9, sns);
+				pstat.setString(10, phone);
+				pstat.setString(11, email);
+				pstat.setString(12, pwAsk);
+				pstat.setString(13, pwAnswer);
+				pstat.setString(14, favorite);
+				int result  = pstat.executeUpdate();
+
+				return result;
+			}
+		}
+		
+		// 회원가입 중복 ID 체크 method
+		public boolean isIdExist(String id) throws Exception{
+
+			String sql = "select * from(select id_if from influencer union select id_cp from company) where id_if = ?";
+
+			try(Connection con = this.getConnection();
+					PreparedStatement pstat = con.prepareStatement(sql);){
+				pstat.setString(1,id);
+				try(ResultSet rs = pstat.executeQuery()){
+					return rs.next();
+				}		
+			}
+		}
+		
+		// 닉네임 중복 체크 method
+		public boolean nickNameExist(String nickName) throws Exception{
+
+			String sql = "select * from influencer where nickname_if = ?";
+
+			try(Connection con = this.getConnection();
+					PreparedStatement pstat = con.prepareStatement(sql);){
+				pstat.setString(1,nickName);
+				try(ResultSet rs = pstat.executeQuery()){
+					return rs.next();
+				}		
+			}
+		}
 }
