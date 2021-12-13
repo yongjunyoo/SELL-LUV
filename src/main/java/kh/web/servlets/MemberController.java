@@ -94,6 +94,7 @@ public class MemberController extends HttpServlet {
 			}else if(cmd.equals("/logout.mem")) {
 				request.getSession().removeAttribute("loginID");
 				response.sendRedirect("/index.jsp");
+				
 			}else if(cmd.equals("/loginCheck.mem")) {
 
 				response.sendRedirect("/index.jsp");

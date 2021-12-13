@@ -66,9 +66,29 @@
                     <li class="nav-item">
                     	<a class="nav-link" href="/msearch.search">검색</a>
                     </li>
-                    <li class="nav-item">
-                    	<a class="btn-solid-sm" href="/resources/login/login.jsp" style="background-color: #000000;border:none;">로그인</a>
-                    </li>
+                    <c:choose>
+                    	<c:when test="${loginID == null }">
+                    	 <li class="nav-item">
+                    		<a class="btn-solid-sm" href="/resources/login/login.jsp" style="background-color: #000000;border:none;">로그인</a>
+                    	</li>
+                    	</c:when>
+                    	<c:when test="${loginID eq 'kkanbu' }">
+                   			<li class="nav-item">
+                    			<a class="nav-link" href="/adminMain.admin">관리자페이지 </a>
+                   			</li>
+                   			<li class="nav-item">
+                    			<a class="btn-solid-sm" href="/logout.mem" style="background-color: #000000;border:none;">로그아웃 </a>
+                    		</li>
+                   		</c:when>
+                   		<c:otherwise>
+                   			<li class="nav-item">
+                    			<a class="nav-link" href="/resources/mypage/mypageMain.jsp">마이페이지 </a>
+                   			</li>
+                   			<li class="nav-item">
+                    			<a class="btn-solid-sm" href="/logout.mem" style="background-color: #000000;border:none;">로그아웃 </a>
+                    		</li>
+                   		</c:otherwise>
+                    </c:choose>
                 </ul>
                 
                 <span class="nav-item">
