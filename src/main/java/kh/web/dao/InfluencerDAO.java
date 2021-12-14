@@ -423,4 +423,22 @@ public class InfluencerDAO  {
 				return result;
 			}
 		}
+		
+		//시퀀스찾기....
+		public int findSeq(String id, String pw) throws Exception{
+			String sql = "SELECT seq_if FROM influencer WHERE id_if =? AND pw_if =?";
+			try(Connection con = this.getConnection();
+					PreparedStatement pstat = con.prepareStatement(sql);){
+				pstat.setString(1, id);
+				pstat.setString(2, pw);
+				int result = 0;
+				try(ResultSet rs = pstat.executeQuery();){
+					if(rs.next()) {
+					result = rs.getInt("seq_if");
+					
+					}
+				}
+				return result;
+				}
+		}
 }

@@ -66,7 +66,7 @@
 							</div>
 						</div>
 						<div class="article-content">
-							<p>${dto.key.intro_cp}</p>
+							<p>${dto.key.intro_cp} </p>
 						</div>
 				
 					</article>
@@ -110,7 +110,7 @@
 							<div class="media align-items-center">
 								<div class="media-body">
 									<div class="nav tag-cloud">
-										<a href="#" style="text-decoration: none;">깐부맺기</a>
+										<a href="/kkanbuRequestToCompany.kkanbu?kkanbuReceiveSeq=${dto.key.member_seq }&kkanbuSendSeq=${IDseq}" style="text-decoration: none;">깐부맺기</a>
 									</div>
 								</div>
 							</div>
