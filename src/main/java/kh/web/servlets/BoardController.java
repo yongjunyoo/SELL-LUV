@@ -73,6 +73,9 @@ public class BoardController extends HttpServlet {
 			}else if(cmd.equals("/detail.board")) {
 				BoardDTO dto = bdao.selectBySeq(Integer.parseInt(seq));
 				request.setAttribute("dto", dto);
+				// 댓글 가져가기
+				List<CommentDTO> cList = cdao.selectAll();
+				request.setAttribute("cList", cList);
 				request.getRequestDispatcher("/resources/board/boardDetail.jsp?cpage"+cpage+"&seq="+seq).forward(request, response);
 			// 게시글 수정
 			}else if(cmd.equals("/modify.board")) {

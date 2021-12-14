@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
    	 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+   	 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -337,13 +338,99 @@ rel="stylesheet" />
     </div>	
     </form>
     <hr>
+    <!-- 댓글 보여주기 -->
+    <c:if test="${fn:length(cList)!=0}">
+    	<c:forEach var="cdto" items="${cList }">
+	 		<form action='/doneCmt.board?cpage=${cpage }&seq=${seq}' method="post" id="frm-cmt" >
+			    <div class="container mb-4">
+			    	<div class="row" style="padding-bottom:5px;">
+			            <div class="col-sm-12">
+			            	<div class="row profile-detail">
+								<div class="col profile-box">
+									<div class="img-box" style="height:100%;display:inline-block">
+										<img id="profile" class="img-profile" style="width:50px;height:50px;"
+											src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="">
+									</div>	
+									<ul class="meta list list-unstyled profile-detail d-flex mb-0 ml-2">
+										<li class="name mt-0">${cdto.writer}</li>
+										<li class="label" style="margin: 0; padding: 0">인플루언서</li>
+									</ul>
+									<ul class="meta list list-unstyled profile-detail d-flex mb-0" style="margin-left: auto;justify-content: flex-end;">
+										<li class="label" style="margin: 0; padding: 0">${cdto.detailDate}</li>
+									</ul>
+								</div>
+							</div>
+			            </div>
+			        </div>
+			        <div class="row">
+			            <div class="col-sm-12">
+			                <textarea id="contents" cols=170 rows=4 name="contents-cmt"  readonly>${cdto.contents }</textarea>
+			            </div>
+			        </div>
+			        <div class="row">
+			            <div class="col-sm-12" style="text-align:right">
+			            <c:if test="${loginID==cdto.writer }">
+			            	<button class="btn btn-dark" id="modCmt" style="background-color:rgb(255, 111, 97);display:none;">수정</button>
+			            	<button class="btn btn-dark" id="delCmt" style="background-color:rgb(255, 111, 97);display:none;">삭제</button>
+			            	<button class="btn btn-dark" id="modCmtOk" style="background-color:rgb(255, 111, 97);display:none;">취소</button>
+			            	<button class="btn btn-dark" id="modCmtCancle" style="background-color:rgb(255, 111, 97);display:none;">완료</button>
+				    	</c:if>
+						    	<script>
+								$("#boardList").on("click",function(){
+									location.href="/boardList.board?cpage=1";
+								});
+								
+								// 기존 내용 백업
+								let bkTitle = $("#input-title").val();					
+								let bkContents = $("#contents").val();					
+								$("#mod").on("click", function(){
+			                		$("#del").css("display","none");
+			                		$("#mod").css("display","none");
+			                		$("#boardList").css("display","none");
+			                		$("#modDone").css("display","inline-block");
+			                		$("#cancle").css("display","inline-block");
+			                		$("#frm").removeAttr("action");
+			                		$("#input-title").removeAttr("readonly");
+			                		$("#contents").removeAttr("readonly");
+			                		$("#contents").focus();
+			                		
+			                		$("#frm").attr("action","/modify.board?cpage=${cpage}&seq=${dto.seq}");
+			                		
+			                	});
+			                	$("#del").on("click", function(){
+			                		if(confirm("정말 삭제하시겠습니까? \r\n되돌릴 수 없습니다.")) {
+				                		location.href="/delete.board?cpage=${cpage}&seq=${dto.seq}";
+			                		}
+			                	});
+			                	$("#modDone").on("click",function(){
+			                		$("#frm").submit();
+			                	})
+			                	$("#cancle").on("click",function(){
+			                		$("#input-title").val(bkTitle);
+			                		$("#contents").val(bkContents);
+			                		$("#input-title").attr("readonly","");
+			                		$("#contents").attr("readonly","");
+			                		$("#mod").css("display","inline-block");
+			                		$("#del").css("display","inline-block");
+			                		$("#modDone").css("display","none");
+			                		$("#cancle").css("display","none");
+			                		$("#boardList").css("display","inline-block");
+			                	})
+							</script>
+			            </div>
+			        </div>
+			    </div>	
+	    	</form>
+    	</c:forEach>
+    </c:if>
     <!-- 댓글 칸 -->
+    <hr>
     	<form action='/doneCmt.board?cpage=${cpage }&seq=${seq}' method="post" id="frm-cmt" >
     <div class="container mb-4">
     	<div class="row" style="padding-bottom:5px;">
             <div class="col-sm-12">
             	<div class="row profile-detail">
-								<div class="col profile-box mt-4 mb-2 ">
+								<div class="col profile-box mb-2 ">
 								<div class="img-box" style="height:100%;display:inline-block">
 								<img id="profile" class="img-profile" style="width:50px;height:50px;"
 									src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="">

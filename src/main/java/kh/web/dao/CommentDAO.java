@@ -67,21 +67,21 @@ private static CommentDAO instance = null;
 		}
 	}
 	
-	public List<BoardDTO> selectAll() throws Exception {
-		String sql = "SELECT * FROM freeboard ORDER BY 1 DESC";
+	public List<CommentDTO> selectAll() throws Exception {
+		String sql = "SELECT * FROM board_comment ORDER BY 1";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
 				ResultSet rs = pstat.executeQuery();
 				){
-			List<BoardDTO> list = new ArrayList<>();
+			List<CommentDTO> list = new ArrayList<>();
 			while(rs.next()) {
-				int seq = rs.getInt("seq");
-				String writer = rs.getString("writer");
-				String title = rs.getString("title");
-				String contents = rs.getString("contents");
-				Timestamp write_date = rs.getTimestamp("write_date");
-				int view_count = rs.getInt("view_count");
-				list.add(new BoardDTO(seq,writer,title,contents,write_date,view_count));
+				int seq = rs.getInt("comment_seq");
+				int board = rs.getInt("comment_board");
+				String writer = rs.getString("comment_writer");
+				Timestamp write_date = rs.getTimestamp("comment_date");
+				int parent = rs.getInt("comment_parent");
+				String contents = rs.getString("comment_content");
+				list.add(new CommentDTO(seq,board,writer,write_date,parent,contents));
 			}
 			return list;
 			}
