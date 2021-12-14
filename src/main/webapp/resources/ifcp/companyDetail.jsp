@@ -110,7 +110,7 @@
 							<div class="media align-items-center">
 								<div class="media-body">
 									<div class="nav tag-cloud">
-										<a href="/kkanbuRequestToCompany.kkanbu?kkanbuReceiveSeq=${dto.key.member_seq }&kkanbuSendSeq=${IDseq}" style="text-decoration: none;">깐부맺기</a>
+										<a href="/kkanbuRequestToCompany.kkanbu?kkanbuSeqTo=${dto.key.member_seq }&kkanbuSeqFrom=${IDseq}" style="text-decoration: none;">깐부맺기</a>
 									</div>
 								</div>
 							</div>

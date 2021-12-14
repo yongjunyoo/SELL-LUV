@@ -483,6 +483,20 @@ public class CompanyDAO {
 			return result;
 			}
 	}
+	public String getName(int kkanbuSeqFrom) throws SQLException, Exception {
+		String sql = "SELECT name_cp FROM company WHERE seq_cp =?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setInt(1, kkanbuSeqFrom);
+			String result = "";
+			try(ResultSet rs = pstat.executeQuery();){
+				if(rs.next()) {
+				result = rs.getString("name_cp");
+				}
+			}
+			return result;
+			}
+	}
 }
 
 	

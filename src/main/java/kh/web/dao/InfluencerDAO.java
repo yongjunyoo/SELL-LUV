@@ -441,4 +441,18 @@ public class InfluencerDAO  {
 				return result;
 				}
 		}
+		public String getNickname(int kkanbuSeqTo) throws Exception {
+			String sql = "SELECT nickname_if FROM influencer WHERE seq_if =?";
+			try(Connection con = this.getConnection();
+					PreparedStatement pstat = con.prepareStatement(sql);){
+				pstat.setInt(1, kkanbuSeqTo);
+				String result = "";
+				try(ResultSet rs = pstat.executeQuery();){
+					if(rs.next()) {
+					result = rs.getString("nickname_if");
+					}
+				}
+				return result;
+				}
+		}
 }

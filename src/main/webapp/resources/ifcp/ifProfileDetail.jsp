@@ -122,13 +122,12 @@
 							<div class="media align-items-center">
 								<div class="media-body">
 									<div class="nav tag-cloud">
-										<a href="#" style="text-decoration: none;">깐부맺기</a>
+										<a href="/kkanbuRequestToInfluencer.kkanbu?kkanbuSeqTo=${dto.key.member_seq }&kkanbuSeqFrom=${IDseq}" id = "kkanbuRequest" style="text-decoration: none;">깐부맺기</a>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					
 					<!-- End Author -->
 
 					<!-- Latest Post -->
@@ -160,9 +159,7 @@
 		</div>
 	</div>
 	
-	<script>
-		
-	</script>
+	
 	<style type="text/css">
 #heart {
 	color: red;

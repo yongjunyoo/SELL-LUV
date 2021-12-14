@@ -222,7 +222,7 @@ body {
 							</div>
 						</div>
 						<ul class="meta list list-unstyled profile-detail">
-							<li class="name">박주영</li>
+							<li class="name">${loginID }</li>
 							<li class="label" style="margin: 0; padding: 0">인플루언서</li>
 							<li class="email">Rebecca.S@website.com</li>
 							<li class="activity">Last logged in: Today at 2:18pm</li>
