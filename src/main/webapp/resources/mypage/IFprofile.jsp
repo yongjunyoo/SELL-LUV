@@ -40,7 +40,7 @@
 				<div class="col-lg-8 m-15px-tb">
 					<article class="article">
 					
-						<form action="/upload.mem" method="post" enctype="multipart/form-data">
+						<form action="/upload.mem" method="post">
 							<div class="article-img">
 								<img src="/resources/ifcp/img/표지.jpeg" title="" alt=""
 									id="cpPhoto" style="display: block; margin: 0 auto;">
@@ -85,7 +85,7 @@
 							<div class="media align-items-center">
 								<div class="media-body">
 									<div class="nav tag-cloud">
-										<a href="#" style="text-decoration: none;"><button
+										<a><button type="submit"
 												id="complete">작성완료</button></a>
 									</div>
 								</div>

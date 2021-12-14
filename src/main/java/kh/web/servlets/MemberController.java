@@ -343,7 +343,11 @@ public class MemberController extends HttpServlet {
 
 			}else if(cmd.equals("/upload.mem")) {
 				
+				String id = (String)request.getSession().getAttribute("loginID");
+				InfluencerDTO idto = influencerDAO.selectById(id);
+				request.setAttribute("dto", idto);
 				
+				request.getRequestDispatcher("/resources/mypage/IFprofile.jsp").forward(request, response);
 				
 			}else if(cmd.equals("/IFKkanbuList.mem")) {
 				
