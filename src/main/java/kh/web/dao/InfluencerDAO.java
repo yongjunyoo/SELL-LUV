@@ -188,7 +188,7 @@ public class InfluencerDAO  {
 
 
 
-				//		InfluencerDTO influencerDTO = new InfluencerDTO(seq,id,pw,photo,name,nickname,zipcode,address1,address2,sns,phone,email,grade);
+						//		InfluencerDTO influencerDTO = new InfluencerDTO(seq,id,pw,photo,name,nickname,zipcode,address1,address2,sns,phone,email,grade);
 
 						//						String pwAsk = rs.getString("pwAsk_if");
 						//
@@ -327,7 +327,7 @@ public class InfluencerDAO  {
 		}
 	}
 
-	
+
 	// 아이디 정보 전달 method
 	public InfluencerDTO selectById(String paramID) throws Exception {
 
@@ -362,7 +362,7 @@ public class InfluencerDAO  {
 			}
 		}
 	}
-	
+
 	// 맞는 회원 정보 가져오기
 	public InfluencerDTO findMember(String id, String pname, String text, String answer) throws Exception {
 		String sql = "SELECT * FROM influencer WHERE id_if =? AND name_if =? AND pwask_if =? AND pwanswer_if=?";
@@ -396,8 +396,8 @@ public class InfluencerDAO  {
 			}
 		}
 	}
-	
-	
+
+
 	// 마이페이지 인플루언서 회원정보 수정
 	public int update(String pw, String photo, String name, String nickname, String zipcode, String address1, 
 			String address2, String sns, String phone, String email, String pwAsk, String pwAnswer, String favorite, String id) throws Exception {
@@ -477,6 +477,7 @@ public class InfluencerDAO  {
 				return false;
 			}
 		}
+
 	}
 
 	// 비밀번호 재설정 메소드
@@ -485,13 +486,48 @@ public class InfluencerDAO  {
 		String sql = "UPDATE influencer SET pw_if=? WHERE id_if =?";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
-			
+
 			pstat.setString(1, pw);
 			pstat.setString(2, id);			
 			int result  = pstat.executeUpdate();
 			return result;
 		}
 	}
-	
-	
+
+
+	//시퀀스찾기....
+	public int findSeq(String id, String pw) throws Exception{
+		String sql = "SELECT seq_if FROM influencer WHERE id_if =? AND pw_if =?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, id);
+			pstat.setString(2, pw);
+			int result = 0;
+			try(ResultSet rs = pstat.executeQuery();){
+				if(rs.next()) {
+					result = rs.getInt("seq_if");
+
+				}
+			}
+			return result;
+		}
+	}
+
+	public int insertProfile(String seq, String condition, String career, String intro) throws Exception{
+		
+		String sql = "insert into profile_if values(profile_if_seq_if.nextval,?,?,?,?,null,null)";
+		
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			
+			pstat.setString(1, seq);
+			pstat.setString(2, condition);
+			pstat.setString(3, career);
+			pstat.setString(4, intro);
+			int result = pstat.executeUpdate();
+			
+			return result;
+			
+		}
+	}
 }

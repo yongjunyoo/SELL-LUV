@@ -50,16 +50,16 @@
 									<div class="avatar"></div>
 									<div class="media-body">
 										<label>커리어 </label> <br> 
-										<textarea rows="5" cols="50" name="intro" id="intro" placeholder="본인의 모델 경력이나 홍보관련 커리어를 작성해주세요"></textarea>
+										<textarea rows="5" cols="50" id="career" name="career" id="intro" placeholder="본인의 모델 경력이나 홍보관련 커리어를 작성해주세요"></textarea>
 										<br>
 										<br> 
 										<label>소개글</label>
 										<br>
-										<textarea rows="5" cols="50" name="intro" id="intro" placeholder="기업에 본인을 소개할 내용을 작성해주세요"></textarea>
+										<textarea rows="5" cols="50" id="intro" name="intro" id="intro" placeholder="기업에 본인을 소개할 내용을 작성해주세요"></textarea>
 										<br> 
 										<label>원하는 조건</label>
 										<br>
-										<textarea rows="5" cols="50" name="condition" id="condition"></textarea>
+										<textarea rows="5" cols="50" id="condition" name="condition" id="condition"></textarea>
 										<br>
 										<br>
 										<label id="fileUpload"> 사진선택<input type="file" name="file"

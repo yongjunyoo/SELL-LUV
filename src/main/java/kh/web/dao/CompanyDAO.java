@@ -522,6 +522,22 @@ public class CompanyDAO {
 		}
 	}
 
+	public int findSeq(String id, String pw) throws Exception{
+		String sql = "SELECT seq_cp FROM company WHERE id_cp =? AND pw_cp =?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, id);
+			pstat.setString(2, pw);
+			int result = 0;
+			try(ResultSet rs = pstat.executeQuery();){
+				if(rs.next()) {
+				result = rs.getInt("seq_cp");
+				
+				}
+			}
+			return result;
+			}
+	}
 }
 
 

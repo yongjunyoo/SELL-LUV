@@ -306,9 +306,9 @@ body {
 										<thead>
 											<tr>
 												<th class="type"></th>
-												<th class="name truncate">Name</th>
-												<th class="date">Uploaded</th>
-												<th class="size">Size</th>
+												<th class="name truncate">기업이름</th>
+												<th class="date">조건</th>
+												<th class="size" style="text-align:center;">깐부맺기</th>
 											</tr>
 										</thead>
 										

@@ -162,7 +162,7 @@ public class IFCPController extends HttpServlet {
 
 				companyDAO.insertPhoto(new Photo_ListDTO(0,oriName,sysName,0));
 				
-				response.sendRedirect("index.jsp");
+				response.sendRedirect("index.jsp");R
 			}
 			
 		}catch(Exception e) {
