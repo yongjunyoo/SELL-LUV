@@ -63,7 +63,7 @@ public class IFCPController extends HttpServlet {
 					System.out.println(entrySet.getKey() + " : " + entrySet.getValue());
 				}
 				
-				String navi = companyDAO.getPageNavi(currentPage);
+				String navi = influencerDAO.getPageNavi(currentPage);
 				request.setAttribute("list", list);
 				request.setAttribute("navi", navi);
 				request.getRequestDispatcher("/resources/ifcp/influencerList.jsp").forward(request, response);
