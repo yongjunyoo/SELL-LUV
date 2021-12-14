@@ -227,7 +227,7 @@ public class CompanyDAO {
 	// 회원가입 중복 ID 체크 method
 	public boolean isIdExist(String id) throws Exception{
 
-		String sql = "select * from(select id_cp from company union select id_if from influencer) where id_cp = = ?";
+		String sql = "select * from(select id_cp from company union select id_if from influencer) where id_cp = ?";
 
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
@@ -235,6 +235,68 @@ public class CompanyDAO {
 			try(ResultSet rs = pstat.executeQuery()){
 				return rs.next();
 			}		
+		}
+	}
+
+	// 아이디 정보 전달 method
+	public CompanyDTO selectById(String paramID) throws Exception {
+
+		String sql = "select * from company where id_cp = ?";
+
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, paramID);
+			try(ResultSet rs = pstat.executeQuery()){
+
+				CompanyDTO dto = new CompanyDTO();
+				if(rs.next()) {
+					dto.setSeq(rs.getInt("seq_cp"));
+					dto.setId(rs.getString("id_cp"));
+					dto.setPw(rs.getString("pw_cp"));
+					dto.setPhoto(rs.getString("photo_cp"));
+					dto.setName(rs.getString("name_cp"));
+					dto.setCrnumber(rs.getString("crnumber_cp"));
+					dto.setZipcode(rs.getString("zipcode_cp"));
+					dto.setAddress1(rs.getString("address1_cp"));
+					dto.setAddress2(rs.getString("address2_cp"));
+					dto.setRpt(rs.getString("rpt_cp"));
+					dto.setPhone(rs.getString("phone_cp"));
+					dto.setEmail(rs.getString("email_cp"));
+					dto.setSales(rs.getLong("sales_cp"));
+					dto.setGrade(rs.getString("grade"));
+					dto.setPwAsk(rs.getString("pwAsk_cp"));
+					dto.setPwAnswer(rs.getString("pwAnswer_cp"));
+					return dto;					
+				}
+				return null;
+			}
+		}
+	}
+
+	public int update(String pw, String photo, String name, String crunumber, String zipcode, String address1, 
+			String address2, String rpt_cp, String phone, String email, Long sales, String pwAsk, String pwAnswer, String id) throws Exception {
+		String sql = "update company set pw_cp = ?, photo_cp = ?, name_cp = ?, crnumber_cp = ?, zipcode_cp = ?, address1_cp = ?, "
+				+ "address2_cp = ?, rpt_cp = ?, phone_cp = ?, email_cp = ?, sales_cp = ?, pwAsk_cp = ?, pwAnswer_cp =? where id_cp = ?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			
+			pstat.setString(1, pw);			
+			pstat.setString(2, photo);
+			pstat.setString(3, name);
+			pstat.setString(4, crunumber);
+			pstat.setString(5, zipcode);
+			pstat.setString(6, address1);
+			pstat.setString(7, address2);
+			pstat.setString(8, rpt_cp);
+			pstat.setString(9, phone);
+			pstat.setString(10, email);
+			pstat.setLong(11, sales);
+			pstat.setString(12, pwAsk);
+			pstat.setString(13, pwAnswer);
+			pstat.setString(14, id);
+			int result  = pstat.executeUpdate();
+			
+			return result;
 		}
 	}
 }

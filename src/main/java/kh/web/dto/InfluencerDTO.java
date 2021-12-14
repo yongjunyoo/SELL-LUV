@@ -15,11 +15,15 @@ public class InfluencerDTO {
 	private String phone;
 	private String email;
 	private String grade;
+	private String pwAsk;
+	private String pwAnswer;
+	private String favorite;
 	
 	public InfluencerDTO() {}
-
+		
 	public InfluencerDTO(int seq, String id, String pw, String photo, String name, String nickname, String zipcode,
-			String address1, String address2, String sns, String phone, String email, String grade) {
+			String address1, String address2, String sns, String phone, String email, String grade, String pwAsk,
+			String pwAnswer, String favorite) {
 		super();
 		this.seq = seq;
 		this.id = id;
@@ -34,6 +38,9 @@ public class InfluencerDTO {
 		this.phone = phone;
 		this.email = email;
 		this.grade = grade;
+		this.pwAsk = pwAsk;
+		this.pwAnswer = pwAnswer;
+		this.favorite = favorite;
 	}
 
 	public int getSeq() {
@@ -140,8 +147,30 @@ public class InfluencerDTO {
 		this.grade = grade;
 	}
 
+	public String getPwAsk() {
+		return pwAsk;
+	}
+
+	public void setPwAsk(String pwAsk) {
+		this.pwAsk = pwAsk;
+	}
+
+	public String getPwAnswer() {
+		return pwAnswer;
+	}
+
+	public void setPwAnswer(String pwAnswer) {
+		this.pwAnswer = pwAnswer;
+	}
+
+	public String getFavorite() {
+		return favorite;
+	}
+
+	public void setFavorite(String favorite) {
+		this.favorite = favorite;
+	}
 	
-	
-	
+
 	
 }

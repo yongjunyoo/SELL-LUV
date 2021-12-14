@@ -215,16 +215,16 @@ body {
 				<div class="card">
 					<div class="card-body">
 						<div class="row">
-							<div class="grade">등급</div>
+							<div class="grade">${dto.grade }</div>
 							<div class="col" id="profile-box">
 								<img id="profile" class="img-profile"
 									src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="">
 							</div>
 						</div>
 						<ul class="meta list list-unstyled profile-detail">
-							<li class="name">박주영</li>
+							<li class="name">${dto.name }</li>
 							<li class="label" style="margin: 0; padding: 0">인플루언서</li>
-							<li class="email">Rebecca.S@website.com</li>
+							<li class="email">${dto.email }</li>
 							<li class="activity">Last logged in: Today at 2:18pm</li>
 						</ul>
 					</div>
@@ -235,11 +235,12 @@ body {
 						<h5 class="my-3">My Page</h5>
 						<div class="fm-menu">
 							<div class="list-group list-group-flush">
-								<a href="" class="list-group-item py-1"><i class="bx bx-cool me-2"></i><span>개인 정보 수정</span></a> 
-								<a href=""	class="list-group-item py-1"><i class="bx bx-face me-2"></i><span>프로필 수정</span></a> 
+								<a href="/modify.mem" class="list-group-item py-1"><i class="bx bx-cool me-2"></i><span>개인 정보 수정</span></a> 							
+								<a href="" class="list-group-item py-1"><i class="bx bx-face me-2"></i><span>프로필 수정</span></a> 
 								<a href="" class="list-group-item py-1"><i class="bx bx-heart me-2"></i><span>깐부 관리</span></a>
 								<a href="" class="list-group-item py-1"><i class="bx bx-like me-2"></i><span>리뷰 관리</span></a>
 								<a href="" class="list-group-item py-1"><i class="bx bx-highlight me-2"></i><span>커뮤니티 관리</span></a>
+								<a href="" class="list-group-item py-1"></i><span>회원탈퇴</span></a>
 							</div>
 						</div>
 					</div>
@@ -260,7 +261,7 @@ body {
 											</div>
 											<div class="detail">
 												<h6 class="detail-title">GRADE</h6>
-												<p class="detail-detail"><span>GOLD</span></p>
+												<p class="detail-detail"><span>${dto.grade }</span></p>
 											</div>
 										</div>
 									</div>
@@ -415,9 +416,7 @@ body {
 				</div>
 			</div>
 		</div>
-		<div class="row" id="footer">
-			<div class="col">풋터</div>
-		</div>
+		<jsp:include page="/footer.jsp" flush="false"/>
 	</div>
 </body>
 </html>

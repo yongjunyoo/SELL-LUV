@@ -12,6 +12,8 @@ import javax.servlet.http.HttpSession;
 
 import kh.web.dao.CompanyDAO;
 import kh.web.dao.InfluencerDAO;
+import kh.web.dto.CompanyDTO;
+import kh.web.dto.InfluencerDTO;
 import kh.web.web.SHA512;
 
 
@@ -28,26 +30,26 @@ public class MemberController extends HttpServlet {
 
 		InfluencerDAO influencerDAO = new InfluencerDAO();
 		CompanyDAO companyDAO = new CompanyDAO();
-		
+
 		SHA512 sha512 = new SHA512();
-		
+
 		try {
 			if(cmd.equals("/influencerLogin.mem")) { //인플루언서 로그인 부분...
-				
+
 				String id = request.getParameter("id_if");
 				String pw = sha512.generate(request.getParameter("pw_if"));
-				
+
 				boolean result = influencerDAO.login(id, pw);
 				System.out.println(id+pw);
-				
+
 				if(result) {
 					HttpSession session = request.getSession();
 					session.setAttribute("loginID", id);
-					
+
 					System.out.println("logged in!");
-		
+
 					response.sendRedirect("/index.jsp");
-					
+
 				}else if(!result) {
 					String errorMessage = "정확한 정보를 입력하세요..";
 
@@ -83,9 +85,9 @@ public class MemberController extends HttpServlet {
 					request.setAttribute("errorMessage", errorMessage);
 					RequestDispatcher rd =request.getRequestDispatcher("/resources/login/login.jsp");  
 					rd.forward(request, response);
-					
 
-					
+
+
 
 				}
 
@@ -93,7 +95,7 @@ public class MemberController extends HttpServlet {
 			}else if(cmd.equals("/logout.mem")) {
 				request.getSession().removeAttribute("loginID");
 				response.sendRedirect("/index.jsp");
-				
+
 			}else if(cmd.equals("/loginCheck.mem")) {
 
 				response.sendRedirect("/index.jsp");
@@ -119,7 +121,7 @@ public class MemberController extends HttpServlet {
 				int result = companyDAO.insert(id, sha512.generate(pw), photo, name, crunumber, zipcode, address1, address2, rpt_cp, phone, email, sales, grade, pwAsk, pwAnswer);
 
 				response.sendRedirect("/resources/login/login.jsp");
-				
+
 			}else if(cmd.equals("/CPidCheck.mem")) {
 
 				String id = request.getParameter("id");
@@ -143,7 +145,7 @@ public class MemberController extends HttpServlet {
 				String grade = request.getParameter("grade");
 				String pwAsk = request.getParameter("pwAsk");
 				String pwAnswer = request.getParameter("pwAnswer");
-				
+
 				String favorite1 = request.getParameter("favorite1");
 				String favorite2 = request.getParameter("favorite2");
 				String favorite3 = request.getParameter("favorite3");
@@ -152,21 +154,96 @@ public class MemberController extends HttpServlet {
 				int result = influencerDAO.insert(id, sha512.generate(pw), photo, name, nickName, zipcode, address1, address2, sns, phone, email, grade, pwAsk, pwAnswer, favorite1 +":"+ favorite2 +":"+ favorite3 +":"+ favorite4);
 
 				response.sendRedirect("/resources/login/login.jsp");
-				
+
 			}else if(cmd.equals("/IFidCheck.mem")) {
 
 				String id = request.getParameter("id");
 				boolean result = influencerDAO.isIdExist(id);
 				response.getWriter().append(String.valueOf(result));
-			
+
 			}else if(cmd.equals("/IFnickCheck.mem")) {
 
 				String nickName = request.getParameter("nickName");
 				boolean result = influencerDAO.nickNameExist(nickName);
 				response.getWriter().append(String.valueOf(result));
-			
+
+			}else if(cmd.equals("/mypage.mem")) {
+
+				String id = (String)request.getSession().getAttribute("loginID");
+				CompanyDTO cdto = companyDAO.selectById(id);
+				InfluencerDTO idto = influencerDAO.selectById(id);
+
+				if(cdto != null ) {
+					request.setAttribute("dto", cdto);
+					request.getRequestDispatcher("/resources/mypage/CPmypageMain.jsp").forward(request, response);
+
+				}else {
+					request.setAttribute("dto", idto);
+					request.getRequestDispatcher("/resources/mypage/IFmypageMain.jsp").forward(request, response);
+				}
+
+			}else if(cmd.equals("/modify.mem")) {
+
+				String id = (String)request.getSession().getAttribute("loginID");
+				CompanyDTO cdto = companyDAO.selectById(id);
+				InfluencerDTO idto = influencerDAO.selectById(id);
+
+				if(cdto != null ) {
+					request.setAttribute("dto", cdto);
+					request.getRequestDispatcher("/resources/mypage/CPModify.jsp").forward(request, response);
+
+				}else {
+					request.setAttribute("dto", idto);
+					request.getRequestDispatcher("/resources/mypage/IFModify.jsp").forward(request, response);
+				}
+
+
+			}else if(cmd.equals("/CPmodify.mem")) {
+
+				CompanyDTO dto = new CompanyDTO();
+				String id = request.getParameter("id");
+				String pw = request.getParameter("pw");
+				String photo = request.getParameter("photo");
+				String name = request.getParameter("name");
+				String crunumber = request.getParameter("crunumber");
+				String zipcode = request.getParameter("zipcode");
+				String address1 = request.getParameter("address1");
+				String address2 = request.getParameter("address2");
+				String rpt_cp = request.getParameter("rpt_cp");
+				String phone = request.getParameter("phone");
+				String email = request.getParameter("email");
+				Long sales = Long.parseLong(request.getParameter("sales"));
+				String pwAsk = request.getParameter("pwAsk");
+				String pwAnswer = request.getParameter("pwAnswer");
+
+				int result = companyDAO.update(sha512.generate(pw), photo, name, crunumber, zipcode, address1, address2, rpt_cp, phone, email, sales, pwAsk, pwAnswer, id);
+				response.sendRedirect("/resources/mypage/CPmypageMain.jsp");
+
+			}else if(cmd.equals("/IFmodify.mem")) {
+
+				InfluencerDTO dto = new InfluencerDTO();
+				String id = request.getParameter("id");
+				String pw = request.getParameter("pw");
+				String photo = request.getParameter("photo");
+				String name = request.getParameter("name");
+				String nickname = request.getParameter("nickName");
+				String zipcode = request.getParameter("zipcode");
+				String address1 = request.getParameter("address1");
+				String address2 = request.getParameter("address2");
+				String sns = request.getParameter("sns");
+				String phone = request.getParameter("phone");
+				String email = request.getParameter("email");
+				String pwAsk = request.getParameter("pwAsk");
+				String pwAnswer = request.getParameter("pwAnswer");
+				String favorite1 = request.getParameter("favorite1");
+				String favorite2 = request.getParameter("favorite2");
+				String favorite3 = request.getParameter("favorite3");
+				String favorite4 = request.getParameter("favorite4");
+
+				int result = influencerDAO.update(sha512.generate(pw), photo, name, nickname, zipcode, address1, address2, sns, phone, email, pwAsk, pwAnswer, favorite1 +":"+ favorite2 +":"+ favorite3 +":"+ favorite4, id);
+				response.sendRedirect("/resources/mypage/IFmypageMain.jsp");
 			}
-			
+
 		}catch(Exception e) {
 			e.printStackTrace();
 			response.sendRedirect("error.jsp");

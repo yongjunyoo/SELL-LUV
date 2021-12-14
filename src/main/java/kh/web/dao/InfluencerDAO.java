@@ -145,8 +145,8 @@ public class InfluencerDAO  {
 						String phone = rs.getString("phone_if");
 						String email= rs.getString("email_if");
 						String grade = rs.getString("grade");
-
-
+							
+						
 						InfluencerDTO influencerDTO = new InfluencerDTO(seq,id,pw,photo,name,nickname,zipcode,address1,address2,sns,phone,email,grade);
 
 						list.add(influencerDTO);
@@ -236,6 +236,67 @@ public class InfluencerDAO  {
 				try(ResultSet rs = pstat.executeQuery()){
 					return rs.next();
 				}		
+			}
+		}
+		
+		public InfluencerDTO selectById(String paramID) throws Exception {
+
+			String sql = "select * from influencer where id_if = ?";
+
+			try(Connection con = this.getConnection();
+					PreparedStatement pstat = con.prepareStatement(sql);){
+				pstat.setString(1, paramID);
+				try(ResultSet rs = pstat.executeQuery()){
+
+					InfluencerDTO dto = new InfluencerDTO();
+					if(rs.next()) {
+						dto.setSeq(rs.getInt("seq_if"));
+						dto.setId(rs.getString("id_if"));
+						dto.setPw(rs.getString("pw_if"));
+						dto.setPhoto(rs.getString("photo_if"));
+						dto.setName(rs.getString("name_if"));
+						dto.setNickname(rs.getString("nickname_if"));
+						dto.setZipcode(rs.getString("zipcode_if"));
+						dto.setAddress1(rs.getString("address1_if"));
+						dto.setAddress2(rs.getString("address2_if"));
+						dto.setSns(rs.getString("sns_if"));
+						dto.setPhone(rs.getString("phone_if"));
+						dto.setEmail(rs.getString("email_if"));
+						dto.setGrade(rs.getString("grade"));
+						dto.setPwAsk(rs.getString("pwAsk_if"));
+						dto.setPwAnswer(rs.getString("pwAnswer_if"));
+						dto.setFavorite(rs.getString("favorite_if"));
+						return dto;					
+					}
+					return null;
+				}
+			}
+		}
+		
+		public int update(String pw, String photo, String name, String nickname, String zipcode, String address1, 
+				String address2, String sns, String phone, String email, String pwAsk, String pwAnswer, String favorite, String id) throws Exception {
+			String sql = "update influencer set pw_if = ?, photo_if = ?, name_if = ?, nickname_if = ?, zipcode_if = ?, address1_if = ?, "
+					+ "address2_if = ?, sns_if = ?, phone_if = ?, email_if = ?, pwAsk_if = ?, pwAnswer_if = ?, favorite_if = ? where id_if = ?";
+			try(Connection con = this.getConnection();
+					PreparedStatement pstat = con.prepareStatement(sql);){
+				
+				pstat.setString(1, pw);			
+				pstat.setString(2, photo);
+				pstat.setString(3, name);
+				pstat.setString(4, nickname);
+				pstat.setString(5, zipcode);
+				pstat.setString(6, address1);
+				pstat.setString(7, address2);
+				pstat.setString(8, sns);
+				pstat.setString(9, phone);
+				pstat.setString(10, email);
+				pstat.setString(11, pwAsk);
+				pstat.setString(12, pwAnswer);
+				pstat.setString(13, favorite);				
+				pstat.setString(14, id);
+				int result  = pstat.executeUpdate();
+				
+				return result;
 			}
 		}
 }

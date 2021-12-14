@@ -80,10 +80,10 @@
                     			<a class="btn-solid-sm" href="/logout.mem" style="background-color: #000000;border:none;">로그아웃 </a>
                     		</li>
                    		</c:when>
-                   		<c:otherwise>
+                   		<c:otherwise>                  			                   			
                    			<li class="nav-item">
-                    			<a class="nav-link" href="/resources/mypage/mypageMain.jsp">마이페이지 </a>
-                   			</li>
+                    			<a class="nav-link" href="/mypage.mem">마이페이지 </a>
+                   			</li>                  					
                    			<li class="nav-item">
                     			<a class="btn-solid-sm" href="/logout.mem" style="background-color: #000000;border:none;">로그아웃 </a>
                     		</li>
