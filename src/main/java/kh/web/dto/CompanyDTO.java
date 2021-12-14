@@ -19,6 +19,7 @@ public class CompanyDTO {
 	private String grade;
 	private String pwAsk;
 	private String pwAnswer;
+
 	
 	public CompanyDTO() {}
 	

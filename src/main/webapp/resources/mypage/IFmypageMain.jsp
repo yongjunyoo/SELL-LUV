@@ -236,7 +236,7 @@ body {
 						<div class="fm-menu">
 							<div class="list-group list-group-flush">
 								<a href="/modify.mem" class="list-group-item py-1"><i class="bx bx-cool me-2"></i><span>개인 정보 수정</span></a> 							
-								<a href="" class="list-group-item py-1"><i class="bx bx-face me-2"></i><span>프로필 수정</span></a> 
+								<a href="/Ifprofile.mem" class="list-group-item py-1"><i class="bx bx-face me-2"></i><span>프로필 수정</span></a> 
 								<a href="" class="list-group-item py-1"><i class="bx bx-heart me-2"></i><span>깐부 관리</span></a>
 								<a href="" class="list-group-item py-1"><i class="bx bx-like me-2"></i><span>리뷰 관리</span></a>
 								<a href="" class="list-group-item py-1"><i class="bx bx-highlight me-2"></i><span>커뮤니티 관리</span></a>

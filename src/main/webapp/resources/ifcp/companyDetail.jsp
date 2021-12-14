@@ -31,41 +31,44 @@
 
 <body>
 	<jsp:include page="/header.jsp" flush="false" />
+	
 	<div class="blog-single gray-bg">
 		<div class="container">
 			<div class="row align-items-start">
 				<div class="col-lg-8 m-15px-tb">
 					<article class="article">
 						<div class="article-img">
+				<c:forEach var="dto" items="${cpList }">
+							<img src="${dto.key.photo_cp}" title="" alt="">
 						</div>
 						<div class="article-title">
 							<!--소개글-->
 							<div class="avatar"></div>
-							<h2>${cpList[0].title_cp}</h2>
+							<h2>${dto.key.title_cp}</h2>
 							<div class="media">
 							<div class="avatar"></div>
 								<div class="media-body">
-									<label>작성자 : </label> ${cpList[0].writer_cp}
+									<label>작성자 : </label> ${dto.value.id}
 								</div>
 								<div class="media-body">
-									<label>작성일 : </label> ${cpList[0].write_date_cp}
+									<label>매출 : </label> ${dto.value.sales}
 								</div>
 								<div class="media-body">
-									<label>조회수 : </label> ${cpList[0].view_count_cp}
+									<label>소개 : </label> ${dto.key.intro_cp}
 								</div>
 							</div>
 							<br>
 							<div class="media">
 								<div class="avatar"></div>
 								<div class="media-body">
-									<label>원하는 조건 : </label> ${cpList[0].condition_cp}
+									<label>원하는 조건 : </label> ${dto.key.condition_cp}
 								</div>
 							</div>
 						</div>
 						<div class="article-content">
-							<p>${cpList[0].intro_cp}</p>
+							<p>${dto.key.intro_cp}</p>
 						</div>
-
+				
 					</article>
 					<div class="contact-form article-comment">
 						<h4>리뷰 작성</h4>
@@ -119,21 +122,22 @@
 					<div class="widget widget-latest-post">
 						<div class="widget-title">
 							<h3>
-								받은 좋아요 <i class="fas fa-heart" id="heart"></i>
-								${cpList[0].rLike_cp}
+							
 							</h3>
 						</div>
 						<div class="widget-title">
 							<h3>
-								보낸 좋아요 <i class="fas fa-heart" id="heart"></i>
-								${cpList[0].sLike_cp}
+								
 							</h3>
 						</div>
+						</c:forEach>
 						<div class="widget-title">
-							<c:if test="${cpList[0].writer_cp == logInId}">
-								<a href="/iFdelete.ifcp?seq=${cpList[0].seq_cp}"><button
+							<c:forEach var="dto" items="${cpList }">
+								<c:if test="${loginID eq dto.value.id }">
+								<a href="/iFdelete.ifcp?seq=${cpList[0].writer_if}"><button
 										type="button">삭제하기</button></a>
-							</c:if>
+								</c:if>
+							</c:forEach>
 						</div>
 					</div>
 				</div>

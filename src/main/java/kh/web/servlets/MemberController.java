@@ -100,6 +100,9 @@ public class MemberController extends HttpServlet {
 
 				response.sendRedirect("/index.jsp");
 
+				// 로그인 페이지로 이동	
+			}else if(cmd.equals("/login.mem")) {
+				response.sendRedirect("/resources/login/login.jsp");
 			}else if(cmd.equals("/CPSubmit.mem")) {
 
 				String id = request.getParameter("id");
@@ -127,8 +130,83 @@ public class MemberController extends HttpServlet {
 				String id = request.getParameter("id");
 				boolean result = companyDAO.isIdExist(id);
 				response.getWriter().append(String.valueOf(result));
+				// 비밀번호 찾기 이동
 			}else if(cmd.equals("/findpw.mem")) {
 				response.sendRedirect("/resources/login/findpw.jsp");
+				// 기업멤버 맞는지 확인
+			}else if(cmd.equals("/isCPMember.mem")) {
+				String id = request.getParameter("id");
+				String name = request.getParameter("name");
+				String text = request.getParameter("text");
+				String answer = request.getParameter("answer");
+				boolean result = companyDAO.isMember(id, name, text, answer);
+				response.getWriter().append(""+result);
+				// 기업 비밀번호 찾기 
+			}else if(cmd.equals("/companyFindpw.mem")) {
+				String id = request.getParameter("id_cp");
+				String name = request.getParameter("name_cp");
+				String text = request.getParameter("check-text-cp");
+				String answer = request.getParameter("answer-cp");
+				CompanyDTO dto = companyDAO.findMember(id, name, text, answer);
+				System.out.println("회원 정보 검색 결과 : "+ dto.getId());
+				request.setAttribute("cpdto", dto);
+				request.getRequestDispatcher("/resources/login/findcppwDetail.jsp").forward(request, response);
+				// 기업 비밀번호 재설정 	
+			}else if(cmd.equals("/resetCPpw.mem")) {
+				String pw = sha512.generate(request.getParameter("pw_cp"));
+				String id = request.getParameter("id");
+				System.out.println(id + "의 재설정한 비밀번호 : "+pw);
+				int result = companyDAO.updateNewPW(id, pw);
+				System.out.println("비밀번호 재설정 결과 : "+result);
+				response.sendRedirect("/resources/login/login.jsp");
+				// 인플루언서멤버 맞는지 확인
+			}else if(cmd.equals("/isIFMember.mem")) {
+				String id = request.getParameter("id");
+				String name = request.getParameter("name");
+				String text = request.getParameter("text");
+				String answer = request.getParameter("answer");
+				boolean result = influencerDAO.isMember(id, name, text, answer);
+				response.getWriter().append(""+result);
+				// 인플루언서 비밀번호 찾기
+			}else if(cmd.equals("/influencerFindpw.mem")) {
+				String id = request.getParameter("id_if");
+				String name = request.getParameter("name_if");
+				String text = request.getParameter("check-text-if");
+				String answer = request.getParameter("answer-if");
+				InfluencerDTO dto = influencerDAO.findMember(id, name, text, answer);
+				System.out.println("회원 정보 검색 결과 : "+ dto.getId());
+				request.setAttribute("ifdto", dto);
+				request.getRequestDispatcher("/resources/login/findifpwDetail.jsp").forward(request, response);
+				// 인플루언서 비밀번호 재설정
+			}else if(cmd.equals("/resetIFpw.mem")) {
+				String pw = sha512.generate(request.getParameter("pw_if"));
+				String id = request.getParameter("id");
+				System.out.println(id + "의 재설정한 비밀번호 : "+pw);
+				int result = influencerDAO.updateNewPW(id, pw);
+				System.out.println("비밀번호 재설정 결과 : "+result);
+				response.sendRedirect("/resources/login/login.jsp");
+				// 아이디 찾기 이동
+			}else if(cmd.equals("/findid.mem")) {
+				response.sendRedirect("/resources/login/findid.jsp");
+				// 기업 아이디 맞는지 확인	
+			}else if(cmd.equals("/isCPidExist.mem")) {
+				String email = request.getParameter("email");
+				String name = request.getParameter("name");
+				String text = request.getParameter("text");
+				String answer = request.getParameter("answer");
+				CompanyDTO dto = companyDAO.findId(email, name, text, answer);
+				System.out.println("기업 아이디는 : " + dto.getId());
+				response.getWriter().append(dto.getId());
+				// 인플루언서 아이디 맞는지 확인
+			}else if(cmd.equals("/isIFidExist.mem")) {
+				String email = request.getParameter("email");
+				String name = request.getParameter("name");
+				String text = request.getParameter("text");
+				String answer = request.getParameter("answer");
+				System.out.println(email+":"+name+":"+text+":"+answer);
+				InfluencerDTO dto = influencerDAO.findId(email, name, text, answer);
+				System.out.println("인플루언서 아이디는 : " + dto.getId());
+				response.getWriter().append(dto.getId());
 			}else if(cmd.equals("/IFSubmit.mem")) {
 
 				String id = request.getParameter("id");
@@ -242,6 +320,18 @@ public class MemberController extends HttpServlet {
 
 				int result = influencerDAO.update(sha512.generate(pw), photo, name, nickname, zipcode, address1, address2, sns, phone, email, pwAsk, pwAnswer, favorite1 +":"+ favorite2 +":"+ favorite3 +":"+ favorite4, id);
 				response.sendRedirect("/resources/mypage/IFmypageMain.jsp");
+
+			}else if(cmd.equals("/Ifprofile.mem")) {
+
+				String id = (String)request.getSession().getAttribute("loginID");
+				InfluencerDTO idto = influencerDAO.selectById(id);
+				request.setAttribute("dto", idto);
+				request.getRequestDispatcher("/resources/mypage/IFprofile.jsp").forward(request, response);
+
+			}else if(cmd.equals("/upload.mem")) {
+				
+				
+				
 			}
 
 		}catch(Exception e) {
