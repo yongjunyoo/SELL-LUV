@@ -122,22 +122,22 @@
 					<div class="widget widget-latest-post">
 						<div class="widget-title">
 							<h3>
-								받은 좋아요 <i class="fas fa-heart" id="heart"></i>
-								${dto.key.rLike_cp}
+							
 							</h3>
 						</div>
 						<div class="widget-title">
 							<h3>
-								보낸 좋아요 <i class="fas fa-heart" id="heart"></i>
-								${dto.key.sLike_cp}
+								
 							</h3>
 						</div>
 						</c:forEach>
 						<div class="widget-title">
-							<c:if test="${cpList[0].value.id eq loginID}">
-								<a href="/iFdelete.ifcp?seq=${cpList[0].key.seq_cp}"><button
+							<c:forEach var="dto" items="${cpList }">
+								<c:if test="${loginID eq dto.value.id }">
+								<a href="/iFdelete.ifcp?seq=${cpList[0].writer_if}"><button
 										type="button">삭제하기</button></a>
-							</c:if>
+								</c:if>
+							</c:forEach>
 						</div>
 					</div>
 				</div>
