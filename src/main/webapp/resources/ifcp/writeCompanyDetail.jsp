@@ -36,159 +36,120 @@
 			<div class="row align-items-start">
 				<div class="col-lg-8 m-15px-tb">
 					<article class="article">
-<<<<<<< HEAD
-						<div class="article-img">
-							<img src="/resources/ifcp/img/오일남.jpeg" title="" alt="">
-						</div>
-						<div class="article-title">
-
-							<div class="widget widget-author">
-								<div class="widget-body">
-									<div class="media align-items-center">
-										<div class="media-body">
-											<div class="nav tag-cloud">
-												<a href="#" style="text-decoration: none;">사진변경 </a>
-											</div>
-										</div>
+						<form action="/upload.ifcp" method="post"
+							enctype="multipart/form-data">
+							<div class="article-img">
+								<img src="/resources/ifcp/img/표지.jpeg" title="" alt=""
+									id="cpPhoto" style="display: block; margin: 0 auto;">
+							</div>
+							<div class="article-title">
+								<div class="media">
+									<div class="avatar"></div>
+									<div class="media-body">
+										<label>제목 </label> <br> <input type="text"
+											style="width: 435px;" name="title" id="title"><br>
+										<br> <label>소개글</label><br>
+										<textarea rows="5" cols="50" name="intro" id="intro"></textarea>
+										<br> <label>원하는 조건</label><br>
+										<textarea rows="5" cols="50" name="condition" id="condition"></textarea><br><br>
+										<label id="fileUpload"> 사진선택<input type="file" name="file"
+											accept="jpg,jpeg,png" style="display:none;">
+										</label>
 									</div>
 								</div>
 							</div>
+							<div class="article-content">
 
-							<!--소개글-->
-							<div class="avatar"></div>
-							<h2>${cpList[0].title_cp}</h2>
-							<div class="media">
-							<div class="avatar"></div>
-								<div class="media-body">
-									<label>작성자 : </label> ${cpList[0].writer_cp}
-								</div>
-								<div class="media-body">
-									<label>매출액 : </label> ${cpList[0].write_date_cp}
-								</div>
-								<div class="media-body">
-									<label>등록번호 : </label> ${cpList[0].view_count_cp}
-								</div><br>
-								<div class="media-body">
-									<label>전화번호 : </label> ${cpList[0].view_count_cp}
-								</div>
-								<div class="media-body">
-									<label>이메일 : </label> ${cpList[0].view_count_cp}
-								</div>
-								<div class="media-body">
-									<label>등급 : </label> ${cpList[0].view_count_cp}
-								</div>
+								<!-- <p>내용</p> -->
+
+
+
+
 							</div>
-							<br>
-							<div class="media">
-								<div class="avatar"></div>
-								<div class="media-body">
-									<label>원하는 조건 : </label> <textarea name="condition" id="" cols="30" rows="10"></textarea>
-								</div>
-								<div class="media-body">
-									<label>소개글 : </label> <textarea name="introduction" id="" cols="30" rows="10"></textarea>
-							</div>
-							</div>
-							
-						</div>
-						
-					</article>
-				
-=======
-					<form action="/upload.file" method="post" enctype="multipart/form-data">
-						<div class="article-img">
-							<img src="${cpList[0].photo }" title="" alt="">
-						</div>
-						<div class="article-title">
-							<div class="media">
-								<div class="avatar"></div>
-								<div class="media-body">
-									<label>제목 </label> <br> <input type="text"
-										style="width: 435px"><br> <br> <label>소개글</label><br>
-									<textarea rows="5" cols="50"></textarea>
-									<br> <br> <label>원하는 조건</label><br>
-									<textarea rows="5" cols="50"></textarea>
-									<input type="file">
-								</div>
-							</div>
-						</div>
-						<div class="article-content">
-						
-							<!-- <p>내용</p> -->
-
-
-
-
-						</div>
-
 					</article>
 				</div>
 				<div class="col-lg-4 m-15px-tb blog-aside">
->>>>>>> 9ec5e83a1700e348e89f72e5a7a948c0edcfb0d2
 					<!-- Author -->
 					<div class="widget widget-author">
 						<div class="widget-body">
 							<div class="media align-items-center">
 								<div class="media-body">
 									<div class="nav tag-cloud">
-<<<<<<< HEAD
-										<a href="#" style="text-decoration: none;">등록하기 </a>
-=======
-										<a href="#" style="text-decoration: none;"><button>작성완료</button></a>
->>>>>>> 9ec5e83a1700e348e89f72e5a7a948c0edcfb0d2
+										<a href="#" style="text-decoration: none;"><button
+												id="complete">작성완료</button></a>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-<<<<<<< HEAD
-					<!-- End Author -->
-
-					<!-- Latest Post -->
-					
-=======
 					</form>
 					<!-- End Author -->
 
 					<!-- Latest Post -->
 					<div class="widget widget-latest-post">
 						<div class="widget-title">
-							<h3>사업자번호</h3> <h6>${cpList[0].crnumber}</h6>
+							<h3>사업자번호</h3>
+							<h6>${cpList[0].crnumber}</h6>
 						</div>
 						<div class="widget-title">
-							<h3>대표자</h3><h6>${cpList[0].rpt}</h6>
+							<h3>대표자</h3>
+							<h6>${cpList[0].rpt}</h6>
 						</div>
 						<div class="widget-title">
-							<h3>이메일</h3><h6>${cpList[0].email}</h6>
+							<h3>이메일</h3>
+							<h6>${cpList[0].email}</h6>
 						</div>
 						<div class="widget-title">
-							<h3>연락처</h3><h6>${cpList[0].email}</h6>
+							<h3>연락처</h3>
+							<h6>${cpList[0].email}</h6>
 						</div>
 						<div class="widget-title">
-							<h3>매출액</h3><h6>${cpList[0].sales}</h6>
+							<h3>매출액</h3>
+							<h6>${cpList[0].sales}</h6>
 						</div>
 						<div class="widget-title">
-							<h3>등급</h3><h6>${cpList[0].grade}</h6>
+							<h3>등급</h3>
+							<h6>${cpList[0].grade}</h6>
 						</div>
 					</div>
->>>>>>> 9ec5e83a1700e348e89f72e5a7a948c0edcfb0d2
 				</div>
 			</div>
 			<!-- End Latest Post -->
 		</div>
 	</div>
 	<script>
-		
+		$("#complete").on("click", function() {
+			if ($("#title").val() == "") {
+				alert("제목을 입력하세요.");
+				return false;
+			}
+			if ($("#intro").val() == "") {
+				alert("소개글을 입력하세요.");
+				return false;
+			}
+
+			if ($("#condition").val() == "") {
+				alert("원하는 조건을 입력하세요.");
+				return false;
+			}
+			alert("작성완료");
+		})
 	</script>
 	<style type="text/css">
-<<<<<<< HEAD
-=======
-button{
-	background-color:transparent;
-	border:0px;
-	color:white;
+#fileUpload{
+	border:1px solid black;
+	border-radius:5px;
+}
+#fileUpload:hover{
+	background-color:black;
+	cursor:pointer;
+}
+button {
+	background-color: transparent;
+	border: 0px;
+	color: white;
 }
 
->>>>>>> 9ec5e83a1700e348e89f72e5a7a948c0edcfb0d2
 #heart {
 	color: red;
 }
@@ -392,11 +353,7 @@ body {
 	margin-right: 4px;
 	margin-bottom: 3px;
 	margin-top: 25px;
-<<<<<<< HEAD
-	margin-left: 180px;
-=======
 	margin-left: 68px;
->>>>>>> 9ec5e83a1700e348e89f72e5a7a948c0edcfb0d2
 }
 
 .tag-cloud a:hover {
@@ -667,12 +624,6 @@ img {
 	-webkit-transform: rotate(45deg);
 	transform: rotate(45deg);
 }
-<<<<<<< HEAD
-
-
-
-=======
->>>>>>> 9ec5e83a1700e348e89f72e5a7a948c0edcfb0d2
 </style>
 
 	<script type="text/javascript">
