@@ -29,6 +29,8 @@
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
+
+
 <body>
 	<jsp:include page="/header.jsp" flush="false" />
 	
@@ -37,71 +39,44 @@
 			<div class="row align-items-start">
 				<div class="col-lg-8 m-15px-tb">
 					<article class="article">
-						<div class="article-img">
-				<c:forEach var="dto" items="${cpList }">
-							<img src="${dto.key.photo_cp}" title="" alt="">
-						</div>
-						<div class="article-title">
-							<!--소개글-->
-							<div class="avatar"></div>
-							<h2>${dto.key.title_cp}</h2>
-							<div class="media">
-							<div class="avatar"></div>
-								<div class="media-body">
-									<label>작성자 : </label> ${dto.value.id}
-								</div>
-								<div class="media-body">
-									<label>매출 : </label> ${dto.value.sales}
-								</div>
-								<div class="media-body">
-									<label>소개 : </label> ${dto.key.intro_cp}
+					
+						<form action="/upload.mem" method="post">
+							<div class="article-img">
+								<img src="/resources/ifcp/img/표지.jpeg" title="" alt=""
+									id="cpPhoto" style="display: block; margin: 0 auto;">
+							</div>
+							<div class="article-title">
+								<div class="media">
+									<div class="avatar"></div>
+									<div class="media-body">
+										<label>커리어 </label> <br> 
+										<textarea rows="5" cols="50" id="career" name="career" id="intro" placeholder="본인의 모델 경력이나 홍보관련 커리어를 작성해주세요"></textarea>
+										<br>
+										<br> 
+										<label>소개글</label>
+										<br>
+										<textarea rows="5" cols="50" id="intro" name="intro" id="intro" placeholder="기업에 본인을 소개할 내용을 작성해주세요"></textarea>
+										<br> 
+										<label>원하는 조건</label>
+										<br>
+										<textarea rows="5" cols="50" id="condition" name="condition" id="condition"></textarea>
+										<br>
+										<br>
+										<label id="fileUpload"> 사진선택<input type="file" name="file"
+											accept="jpg,jpeg,png" style="display:none;">
+										</label>
+									</div>
 								</div>
 							</div>
-							<br>
-							<div class="media">
-								<div class="avatar"></div>
-								<div class="media-body">
-									<label>원하는 조건 : </label> ${dto.key.condition_cp}
-								</div>
+							<div class="article-content">
+
+								<!-- <p>내용</p> -->
+
+
+
+
 							</div>
-						</div>
-						<div class="article-content">
-							<p>${dto.key.intro_cp} </p>
-						</div>
-				
 					</article>
-					<div class="contact-form article-comment">
-						<h4>리뷰 작성</h4>
-						<form id="contact-form" action="/write.review" method="POST">
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-										<input name="Name" id="name" placeholder="Name *"
-											class="form-control" type="text">
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<input name="Email" id="email" placeholder="Email *"
-											class="form-control" type="email">
-									</div>
-								</div>
-								<div class="col-md-12">
-									<div class="form-group">
-										<textarea name="message" id="message" placeholder="글 남기기 *"
-											rows="4" class="form-control"></textarea>
-									</div>
-								</div>
-								<div class="col-md-12">
-									<div class="send">
-										<button class="px-btn theme">
-											<span>작성완료</span> <i class="arrow"></i>
-										</button>
-									</div>
-								</div>
-							</div>
-						</form>
-					</div>
 				</div>
 				<div class="col-lg-4 m-15px-tb blog-aside">
 					<!-- Author -->
@@ -110,34 +85,41 @@
 							<div class="media align-items-center">
 								<div class="media-body">
 									<div class="nav tag-cloud">
-										<a href="/kkanbuRequestToCompany.kkanbu?kkanbuReceiveSeq=${dto.key.member_seq }&kkanbuSendSeq=${IDseq}" style="text-decoration: none;">깐부맺기</a>
+										<a><button type="submit"
+												id="complete">작성완료</button></a>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+					</form>
 					<!-- End Author -->
 
 					<!-- Latest Post -->
 					<div class="widget widget-latest-post">
 						<div class="widget-title">
-							<h3>
-							
-							</h3>
+							<h3>닉네임</h3>
+							<h6>${dto.nickname}</h6>
 						</div>
 						<div class="widget-title">
-							<h3>
-								
-							</h3>
+							<h3>이름</h3>
+							<h6>${dto.name}</h6>
 						</div>
-						</c:forEach>
 						<div class="widget-title">
-							<c:forEach var="dto" items="${cpList }">
-								<c:if test="${loginID eq dto.value.id }">
-								<a href="/iFdelete.ifcp?seq=${cpList[0].writer_if}"><button
-										type="button">삭제하기</button></a>
-								</c:if>
-							</c:forEach>
+							<h3>이메일</h3>
+							<h6>${dto.email}</h6>
+						</div>
+						<div class="widget-title">
+							<h3>연락처</h3>
+							<h6>${dto.phone}</h6>
+						</div>
+						<div class="widget-title">
+							<h3>SNS</h3>
+							<h6>${dto.sns}</h6>
+						</div>
+						<div class="widget-title">
+							<h3>등급</h3>
+							<h6>${dto.grade}</h6>
 						</div>
 					</div>
 				</div>
@@ -146,9 +128,39 @@
 		</div>
 	</div>
 	<script>
-		
+		$("#complete").on("click", function() {
+			if ($("#title").val() == "") {
+				alert("제목을 입력하세요.");
+				return false;
+			}
+			if ($("#intro").val() == "") {
+				alert("소개글을 입력하세요.");
+				return false;
+			}
+
+			if ($("#condition").val() == "") {
+				alert("원하는 조건을 입력하세요.");
+				return false;
+			}
+			alert("작성완료");
+		})
 	</script>
 	<style type="text/css">
+
+#fileUpload{
+	border:1px solid black;
+	border-radius:5px;
+}
+#fileUpload:hover{
+	background-color:black;
+	cursor:pointer;
+}
+button {
+	background-color: transparent;
+	border: 0px;
+	color: white;
+}
+
 #heart {
 	color: red;
 }
@@ -196,6 +208,10 @@ body {
 	display: block;
 	line-height: 22px;
 	font-weight: 700;
+}
+
+.blog-grid .blog-img .date textarea {
+	resize: none;
 }
 
 .blog-grid .blog-img .date label {

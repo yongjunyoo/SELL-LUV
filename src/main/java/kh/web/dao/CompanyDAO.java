@@ -142,14 +142,14 @@ public class CompanyDAO {
 				+ "        rlike_cp,\n"
 				+ "        b.photo_cp b_photo_cp from company c,board_cp b where seq_cp = member_seq) temp)\n"
 				+ "        where rn between ? and ? order by 2 desc";
-		
+
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql)){;
 				pstat.setInt(1, start);
 				pstat.setInt(2, end);
 				try(ResultSet rs = pstat.executeQuery()){
 
-//					List<CompanyDTO> list = new ArrayList<>();
+					//					List<CompanyDTO> list = new ArrayList<>();
 					LinkedHashMap<Board_CpDTO,CompanyDTO> list = new LinkedHashMap<>();
 
 					while(rs.next()) {
@@ -170,7 +170,7 @@ public class CompanyDAO {
 						String pwAsk = rs.getString("pwAsk_cp");
 						String pwAnswer = rs.getString("pwAnswer_cp");
 
-						
+
 						int seq_board_cp = rs.getInt("seq_board_cp");
 						int member_seq = rs.getInt("member_seq");
 						String title_cp = rs.getString("title_cp");
@@ -198,12 +198,12 @@ public class CompanyDAO {
 		String sql = " select c.*, b.* from company c\n"
 				+ "   join board_cp b ON c.seq_cp = b.member_seq\n"
 				+ "   where seq_board_cp = ?";
-		
+
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
 			pstat.setInt(1, seq);
 			try(ResultSet rs = pstat.executeQuery();){
-				
+
 				LinkedHashMap<Board_CpDTO,CompanyDTO> list = new LinkedHashMap<>();
 
 				while(rs.next()) {
@@ -224,7 +224,7 @@ public class CompanyDAO {
 					String grade = rs.getString("grade");
 					String pwAsk = rs.getString("pwAsk_cp");
 					String pwAnswer = rs.getString("pwAnswer_cp");
-					
+
 					int seq_board_cp = rs.getInt("seq_board_cp");
 					int member_seq = rs.getInt("member_seq");
 					String title_cp = rs.getString("title_cp");
@@ -291,7 +291,7 @@ public class CompanyDAO {
 	// 회원가입 중복 ID 체크 method
 	public boolean isIdExist(String id) throws Exception{
 
-		String sql = "select * from(select id_cp from company union select id_if from influencer) where id_cp = = ?";
+		String sql = "select * from(select id_cp from company union select id_if from influencer) where id_cp = ?";
 
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
@@ -301,7 +301,71 @@ public class CompanyDAO {
 			}		
 		}
 	}
-	
+
+	// 아이디 정보 전달 method
+	public CompanyDTO selectById(String paramID) throws Exception {
+
+		String sql = "select * from company where id_cp = ?";
+
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, paramID);
+			try(ResultSet rs = pstat.executeQuery()){
+
+				CompanyDTO dto = new CompanyDTO();
+				if(rs.next()) {
+					dto.setSeq(rs.getInt("seq_cp"));
+					dto.setId(rs.getString("id_cp"));
+					dto.setPw(rs.getString("pw_cp"));
+					dto.setPhoto(rs.getString("photo_cp"));
+					dto.setName(rs.getString("name_cp"));
+					dto.setCrnumber(rs.getString("crnumber_cp"));
+					dto.setZipcode(rs.getString("zipcode_cp"));
+					dto.setAddress1(rs.getString("address1_cp"));
+					dto.setAddress2(rs.getString("address2_cp"));
+					dto.setRpt(rs.getString("rpt_cp"));
+					dto.setPhone(rs.getString("phone_cp"));
+					dto.setEmail(rs.getString("email_cp"));
+					dto.setSales(rs.getLong("sales_cp"));
+					dto.setGrade(rs.getString("grade"));
+					dto.setPwAsk(rs.getString("pwAsk_cp"));
+					dto.setPwAnswer(rs.getString("pwAnswer_cp"));
+					return dto;					
+				}
+				return null;
+			}
+		}
+	}
+
+	public int update(String pw, String photo, String name, String crunumber, String zipcode, String address1, 
+			String address2, String rpt_cp, String phone, String email, Long sales, String pwAsk, String pwAnswer, String id) throws Exception {
+		String sql = "update company set pw_cp = ?, photo_cp = ?, name_cp = ?, crnumber_cp = ?, zipcode_cp = ?, address1_cp = ?, "
+				+ "address2_cp = ?, rpt_cp = ?, phone_cp = ?, email_cp = ?, sales_cp = ?, pwAsk_cp = ?, pwAnswer_cp =? where id_cp = ?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+
+			pstat.setString(1, pw);			
+			pstat.setString(2, photo);
+			pstat.setString(3, name);
+			pstat.setString(4, crunumber);
+			pstat.setString(5, zipcode);
+			pstat.setString(6, address1);
+			pstat.setString(7, address2);
+			pstat.setString(8, rpt_cp);
+			pstat.setString(9, phone);
+			pstat.setString(10, email);
+			pstat.setLong(11, sales);
+			pstat.setString(12, pwAsk);
+			pstat.setString(13, pwAnswer);
+			pstat.setString(14, id);
+			int result  = pstat.executeUpdate();
+
+			return result;
+		}
+	}
+
+
+
 
 	// 맞는 회원 정보 가져오기
 	public CompanyDTO findMember(String id, String name, String text, String answer) throws Exception {
@@ -313,7 +377,7 @@ public class CompanyDAO {
 			pstat.setString(3, text);
 			pstat.setString(4, answer);
 			try(ResultSet rs = pstat.executeQuery();){
-				
+
 				CompanyDTO dto = new CompanyDTO();
 				if(rs.next()) {
 					int seq = rs.getInt("seq_cp");
@@ -335,7 +399,7 @@ public class CompanyDAO {
 			}
 		}
 	}
-	
+
 	// 맞는 회원 정보 가져오기
 	public CompanyDTO findId(String email, String name, String text, String answer) throws Exception {
 		String sql = "SELECT * FROM company WHERE email_cp =? AND name_cp =? AND pwask_cp =? AND pwanswer_cp=?";
@@ -346,7 +410,7 @@ public class CompanyDAO {
 			pstat.setString(3, text);
 			pstat.setString(4, answer);
 			try(ResultSet rs = pstat.executeQuery();){
-				
+
 				CompanyDTO dto = new CompanyDTO();
 				if(rs.next()) {
 					int seq = rs.getInt("seq_cp");
@@ -368,7 +432,7 @@ public class CompanyDAO {
 			}
 		}
 	}
-	
+
 	// 멤버인지 아닌지 확인하는 메소드
 	public boolean isMember(String id, String name, String text, String answer) throws Exception {
 		String sql = "SELECT * FROM company WHERE id_cp =? AND name_cp =? AND pwask_cp =? AND pwanswer_cp=?";
@@ -379,7 +443,7 @@ public class CompanyDAO {
 			pstat.setString(3, text);
 			pstat.setString(4, answer);
 			try(ResultSet rs = pstat.executeQuery();){
-				
+
 				CompanyDTO dto = new CompanyDTO();
 				if(rs.next()) {
 					return true;
@@ -388,9 +452,9 @@ public class CompanyDAO {
 			}
 		}
 	}
-	
+
 	// 비밀번호 재설정 메소드
-	
+
 	public int updateNewPW(String id, String pw) throws Exception {
 		String sql = "UPDATE company SET pw_cp=? WHERE id_cp =?";
 		try(Connection con = this.getConnection();
@@ -403,16 +467,7 @@ public class CompanyDAO {
 			return result;
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 
 	// 제품등록시 정보 불러오기
 	public ArrayList<CompanyDTO> searchById(String loginID) throws Exception {
@@ -453,7 +508,7 @@ public class CompanyDAO {
 				}
 		}
 	}
-	
+
 	public int insertPhoto(Photo_ListDTO dto) throws Exception { // 사진 업로드
 		String sql = "insert into files values(files_seq.nextval,?,?,?)";
 		try(Connection con = this.getConnection();
@@ -467,7 +522,24 @@ public class CompanyDAO {
 		}
 	}
 
+	public int findSeq(String id, String pw) throws Exception{
+		String sql = "SELECT seq_cp FROM company WHERE id_cp =? AND pw_cp =?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, id);
+			pstat.setString(2, pw);
+			int result = 0;
+			try(ResultSet rs = pstat.executeQuery();){
+				if(rs.next()) {
+				result = rs.getInt("seq_cp");
+				
+				}
+			}
+			return result;
+			}
+	}
 }
 
-	
-	
+
+
+
