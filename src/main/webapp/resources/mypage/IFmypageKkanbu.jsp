@@ -215,16 +215,16 @@ body {
 				<div class="card">
 					<div class="card-body">
 						<div class="row">
-							<div class="grade">등급</div>
+							<div class="grade">${dto.grade }</div>
 							<div class="col" id="profile-box">
 								<img id="profile" class="img-profile"
 									src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="">
 							</div>
 						</div>
 						<ul class="meta list list-unstyled profile-detail">
-							<li class="name">박주영</li>
+							<li class="name">${dto.name }</li>
 							<li class="label" style="margin: 0; padding: 0">인플루언서</li>
-							<li class="email">Rebecca.S@website.com</li>
+							<li class="email">${dto.email }</li>
 							<li class="activity">Last logged in: Today at 2:18pm</li>
 						</ul>
 					</div>
@@ -235,11 +235,12 @@ body {
 						<h5 class="my-3">My Page</h5>
 						<div class="fm-menu">
 							<div class="list-group list-group-flush">
-								<a href="" class="list-group-item py-1"><i class="bx bx-cool me-2"></i><span>개인 정보 수정</span></a> 
-								<a href=""	class="list-group-item py-1"><i class="bx bx-face me-2"></i><span>프로필 수정</span></a> 
-								<a href="" class="list-group-item py-1"><i class="bx bx-heart me-2"></i><span>깐부 관리</span></a>
+								<a href="/modify.mem" class="list-group-item py-1"><i class="bx bx-cool me-2"></i><span>개인 정보 수정</span></a> 							
+								<a href="/Ifprofile.mem" class="list-group-item py-1"><i class="bx bx-face me-2"></i><span>프로필 수정</span></a> 
+								<a href="/IFKkanbuList.mem" class="list-group-item py-1"><i class="bx bx-heart me-2"></i><span>깐부 관리</span></a>
 								<a href="" class="list-group-item py-1"><i class="bx bx-like me-2"></i><span>리뷰 관리</span></a>
 								<a href="" class="list-group-item py-1"><i class="bx bx-highlight me-2"></i><span>커뮤니티 관리</span></a>
+								<a href="" class="list-group-item py-1"></i><span>회원탈퇴</span></a>
 							</div>
 						</div>
 					</div>
@@ -260,7 +261,7 @@ body {
 											</div>
 											<div class="detail">
 												<h6 class="detail-title">GRADE</h6>
-												<p class="detail-detail"><span>GOLD</span></p>
+												<p class="detail-detail"><span>${dto.grade }</span></p>
 											</div>
 										</div>
 									</div>
@@ -274,7 +275,7 @@ body {
 												<i class="fa fa-heart-o fa-2x"></i>
 											</div>
 										<div class="detail-title-one">
-												<h6 class="">깐부관리</h6>
+												<h6 class=""><a href="/IFKkanbuList.mem" style="text-decoration: none;">깐부관리</a></h6>
 												<%-- <p class="detail-detail"><span>이동</span></p>--%>
 											</div>
 										</div>
@@ -289,7 +290,7 @@ body {
 												<i class="fa fa-thumbs-o-up fa-2x" aria-hidden="true"></i>
 											</div>
 											<div class="detail-title-one">
-												<h6 class="">리뷰관리</h6>
+												<h6 class=""><a href="/IFReviewList.mem" style="text-decoration: none;">리뷰관리</a></h6>
 												<%-- <p class="detail-detail"><span>이동</span></p>--%>
 											</div>
 										</div>
@@ -297,6 +298,7 @@ body {
 								</div>
 							</div>
 						</div>
+						
 						<div class="table-responsive mt-3">
 							<div class="drive-wrapper drive-list-view">
 								<div class="table-responsive drive-items-table-wrapper">
@@ -304,120 +306,22 @@ body {
 										<thead>
 											<tr>
 												<th class="type"></th>
-												<th class="name truncate">깐부아이디.</th>
-												<th class="date">날짜.</th>
-												<th class="size">수락/거절./<!--  --></th>
+												<th class="name truncate">기업이름</th>
+												<th class="date">조건</th>
+												<th class="size" style="text-align:center;">깐부맺기</th>
 											</tr>
 										</thead>
-										<tbody>
-											<tr>
-												<td class="type"><i
-													class="fa fa-file-text-o text-primary"></i></td>
-												<td class="name truncate"><a href="#">Meeting
-														Notes.txt</a></td>
-												<td class="date">Sep 23, 2015</td>
-												<td class="size">18 KB</td>
-											</tr>
-										<!-- 	<tr>
-												<td class="type"><i
-													class="fa fa-file-image-o text-primary"></i></td>
-												<td class="name truncate"><a href="#">Stock Image
-														DC3214.JPG</a></td>
-												<td class="date">Sep 21, 2015</td>
-												<td class="size">235 MB</td>
-											</tr> -->
-										<!-- 	<tr>
-												<td class="type"><i
-													class="fa fa-file-powerpoint-o text-warning"></i></td>
-												<td class="name truncate"><a href="#">Deck Lorem
-														Ipsum.ppt</a></td>
-												<td class="date">Sep 20, 2015</td>
-												<td class="size">136 MB</td>
-											</tr> -->
-											<!-- <tr>
-												<td class="type"><i
-													class="fa fa-file-excel-o text-success"></i></td>
-												<td class="name truncate"><a href="#">Project
-														Tasks.csv</a></td>
-												<td class="date">Aug 16, 2015</td>
-												<td class="size">32 KB</td>
-											</tr>
-											<tr>
-												<td class="type"><i
-													class="fa fa-file-pdf-o text-warning"></i></td>
-												<td class="name truncate"><a href="#">Project
-														Brief.pdf</a></td>
-												<td class="date">Aug 15, 2015</td>
-												<td class="size">73 MB</td>
-											</tr>
-											<tr>
-												<td class="type"><i
-													class="fa fa-file-image-o text-primary"></i></td>
-												<td class="name truncate"><a href="#">Image
-														DS1341.JPG</a></td>
-												<td class="date">Aug 15, 2015</td>
-												<td class="size">171 MB</td>
-											</tr>
-											<tr>
-												<td class="type"><i
-													class="fa fa-file-image-o text-primary"></i></td>
-												<td class="name truncate"><a href="#">Image
-														DS3214.JPG</a></td>
-												<td class="date">Aug 15, 2015</td>
-												<td class="size">171 MB</td>
-											</tr>
-											<tr>
-												<td class="type"><i class="fa fa-folder text-primary"></i></td>
-												<td class="name truncate"><a href="#">UX Resource</a></td>
-												<td class="date">Feb 07, 2015</td>
-												<td class="size">--</td>
-											</tr>
-											<tr>
-												<td class="type"><i class="fa fa-folder text-primary"></i></td>
-												<td class="name truncate"><a href="#">Prototypes</a></td>
-												<td class="date">Jan 03, 2015</td>
-												<td class="size">--</td>
-											</tr>
-											<tr>
-												<td class="type"><i class="fa fa-file-word-o text-info"></i></td>
-												<td class="name truncate"><a href="#">Quisque.doc</a></td>
-												<td class="date">Oct 21, 2014</td>
-												<td class="size">27 KB</td>
-											</tr>
-											<tr>
-												<td class="type"><i class="fa fa-file-word-o text-info"></i></td>
-												<td class="name truncate"><a href="#">Aenean
-														imperdiet.doc</a></td>
-												<td class="date">Oct 16, 2014</td>
-												<td class="size">23 KB</td>
-											</tr> -->
-											<!-- <tr>
-												<td class="type"> <i
-													class="fa fa-file-code-o text-primary"> </i></td>
-												<td class="name truncate"><a href="#">demo.html</a></td>
-												<td class="date">Aug 23, 2014</td>
-												<td class="size">10 KB</td>
-											</tr> -->
-											<!-- <tr>
-												<td class="type"><i
-													class="fa fa-file-image-o text-success"></i></td>
-												<td class="name truncate"><a href="#">Image
-														DS2314.JPG</a></td>
-												<td class="date">Aug 06, 2014</td>
-												<td class="size">325 MB</td>
-											</tr> -->
-										</tbody>
+										
 									</table>
 								</div>
 							</div>
 						</div>
+						
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="row" id="footer">
-			<div class="col">풋터</div>
-		</div>
+		<jsp:include page="/footer.jsp" flush="false"/>
 	</div>
 </body>
 </html>
