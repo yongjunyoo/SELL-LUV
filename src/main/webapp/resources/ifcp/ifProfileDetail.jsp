@@ -37,12 +37,12 @@
 			<div class="container">
 				<div class="row align-items-start">
 				<div class="col-lg-8 m-15px-tb">
-<<<<<<< HEAD:src/main/webapp/resources/ifcp/ifProfileDetail.jsp
+
 				
 					<article class="article">
-=======
+
 				<article class="article">
->>>>>>> 9ec5e83a1700e348e89f72e5a7a948c0edcfb0d2:src/main/webapp/resources/ifcp/ifSearchDetail.jsp
+
 						<div class="article-img">
 							<img src="${dto.value.photo}" title="" alt="">
 						</div>
@@ -51,13 +51,10 @@
 							<!-- <h2>제목</h2> -->
 							<div class="media">
 								<div class="avatar"></div>
-<<<<<<< HEAD:src/main/webapp/resources/ifcp/ifProfileDetail.jsp
+
 								<div class="media-body">
 									<label>작성자 : </label> ${dto.value.id}
-=======
-								<div class=	"media-body">
-									<label>작성자 : </label> ${ifList[0].writer_if}
->>>>>>> 9ec5e83a1700e348e89f72e5a7a948c0edcfb0d2:src/main/webapp/resources/ifcp/ifSearchDetail.jsp
+
 								</div>
 								<div class="avatar"></div>
 								<div class="media-body">
@@ -138,20 +135,22 @@
 					<div class="widget widget-latest-post">
 						<div class="widget-title">
 							<h3>
-								받은 좋아요 <i class="fas fa-heart" id="heart"></i> ${dto.value.rLike_if}
+								<%-- 받은 좋아요 <i class="fas fa-heart" id="heart"></i> --%>
 							</h3>
 						</div>
 						<div class="widget-title">
 							<h3>
-								보낸 좋아요 <i class="fas fa-heart" id="heart"></i> ${dto.value.sLike_if}
+								<%-- 보낸 좋아요 <i class="fas fa-heart" id="heart"></i> --%>
 							</h3>
 						</div>
 				</c:forEach>
 						<div class="widget-title">
-							<c:if test="${ifList[0].value.id == loginID}">
+							<c:forEach var="dto" items="${ifList }">
+								<c:if test="${loginID eq dto.value.id }">
 								<a href="/iFdelete.ifcp?seq=${ifList[0].writer_if}"><button
 										type="button">삭제하기</button></a>
-							</c:if>
+								</c:if>
+							</c:forEach>
 						</div>
 					</div>
 				</div>

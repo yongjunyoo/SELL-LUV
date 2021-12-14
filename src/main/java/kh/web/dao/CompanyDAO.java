@@ -119,6 +119,7 @@ public class CompanyDAO {
 		if(needNext) {
 			pageNavi += "<li class='page-item'><a class='page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark' href='/companyList.ifcp?cpage="+(endNavi+1)+"'>▶</a></li>";
 		}
+		System.out.println(endNavi);
 		return pageNavi;
 	}
 

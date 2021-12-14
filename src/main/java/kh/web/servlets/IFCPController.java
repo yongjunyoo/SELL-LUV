@@ -60,10 +60,10 @@ public class IFCPController extends HttpServlet {
 				LinkedHashMap<Profile_IfDTO,InfluencerDTO> list = influencerDAO.selectByBound(start, end);
 				
 				for (Entry<Profile_IfDTO, InfluencerDTO> entrySet : list.entrySet()) {
-					System.out.println(entrySet.getKey() + " : " + entrySet.getValue());
+					System.out.println(entrySet.getKey().getSeq_if()+ " : " + entrySet.getValue());
 				}
 				
-				String navi = companyDAO.getPageNavi(currentPage);
+				String navi = influencerDAO.getPageNavi(currentPage);
 				request.setAttribute("list", list);
 				request.setAttribute("navi", navi);
 				request.getRequestDispatcher("/resources/ifcp/influencerList.jsp").forward(request, response);
@@ -121,6 +121,7 @@ public class IFCPController extends HttpServlet {
 			}else if(cmd.equals("/influencerProfile.ifcp")) {
 				
 					int seq = Integer.parseInt(request.getParameter("seq"));
+					System.out.println(seq);
 				
 					LinkedHashMap<Profile_IfDTO,InfluencerDTO> list = influencerDAO.getIfProfile(seq);
 					
