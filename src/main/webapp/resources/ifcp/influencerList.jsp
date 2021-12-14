@@ -163,7 +163,6 @@
 	        <div class="inner-form search-border " style="box-shadow:none;">
 	          <div class="input-field first-wrap input-category ">
 	              <select data-trigger="" name="choices-single-defaul" style="height:100%;">
-	                <option>기업</option>
 	                <option>인플루언서</option>
 	              </select>
 	          </div>

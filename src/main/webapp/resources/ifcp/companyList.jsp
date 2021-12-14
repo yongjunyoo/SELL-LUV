@@ -38,7 +38,12 @@
 .s003 form .inner-form .input-field {
 	height:46px;
 }
-
+.choices__list.choices__list--dropdown{
+	display:none;
+}
+.choices[data-type*="select-one"]:after {
+	display:none;
+}
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
@@ -162,9 +167,8 @@
 	      <form style="max-width:100%">
 	        <div class="inner-form search-border " style="box-shadow:none;">
 	          <div class="input-field first-wrap input-category ">
-	              <select data-trigger="" name="choices-single-defaul" style="height:100%;">
+	              <select data-trigger="" name="choices-single-defaul" style="height:100%; " id="select-box" >
 	                <option>기업</option>
-	                <option>인플루언서</option>
 	              </select>
 	          </div>
 	          <div class="input-field second-wrap">
@@ -187,7 +191,7 @@
 	        searchEnabled: false,
 	        itemSelectText: '',
 	      });
-	
+		
 	    </script>
 
 
