@@ -3,7 +3,10 @@ package kh.web.servlets;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map.Entry;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,8 +15,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+
+
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
 
 import kh.web.dao.CompanyDAO;
 import kh.web.dao.InfluencerDAO;
@@ -51,12 +57,16 @@ public class IFCPController extends HttpServlet {
 				int start = currentPage * IFCPStatics.RECORD_COUNT_PER_PAGE- (IFCPStatics.RECORD_COUNT_PER_PAGE-1);;
 				int end = currentPage * IFCPStatics.RECORD_COUNT_PER_PAGE;
 				
-				ArrayList<InfluencerDTO> list = influencerDAO.selectByBound(start,end);
+				LinkedHashMap<Profile_IfDTO,InfluencerDTO> list = influencerDAO.selectByBound(start, end);
+				
+				for (Entry<Profile_IfDTO, InfluencerDTO> entrySet : list.entrySet()) {
+					System.out.println(entrySet.getKey() + " : " + entrySet.getValue());
+				}
 				
 				String navi = companyDAO.getPageNavi(currentPage);
 				request.setAttribute("list", list);
 				request.setAttribute("navi", navi);
-				request.getRequestDispatcher("/resources/ifcp/list.jsp").forward(request, response);
+				request.getRequestDispatcher("/resources/ifcp/influencerList.jsp").forward(request, response);
 				
 				//인플루언서 목록 출력 끝..
 				//====================================================================================================================================
@@ -70,58 +80,58 @@ public class IFCPController extends HttpServlet {
 				int start = currentPage * IFCPStatics.RECORD_COUNT_PER_PAGE- (IFCPStatics.RECORD_COUNT_PER_PAGE-1);;
 				int end = currentPage * IFCPStatics.RECORD_COUNT_PER_PAGE;
 				
-				ArrayList<CompanyDTO> list = companyDAO.selectByBound(start,end);
+				LinkedHashMap<Board_CpDTO,CompanyDTO> list = companyDAO.selectByBound(start,end);
 			
 				String navi = companyDAO.getPageNavi(currentPage);
+				
+
+				for (java.util.Map.Entry<Board_CpDTO, CompanyDTO> entrySet : list.entrySet()) {
+					System.out.println(entrySet.getKey() + " : " + entrySet.getValue());
+				}
 				
 				String cp = "cp";
 				
 				request.setAttribute("cp", cp);
 				request.setAttribute("list", list);
 				request.setAttribute("navi", navi);
-				request.getRequestDispatcher("/resources/ifcp/list.jsp").forward(request, response);
+				request.getRequestDispatcher("/resources/ifcp/companyList.jsp").forward(request, response);
 				//====================================================================================================================================
 				//기업 목록 출력 끝..
 				
-				//====================================================================================================================================
-				//등급별 조회..
-			}else if(cmd.equals("/listSortByGrade.ifcp")){
-				
-				String object = request.getParameter("object");
-				System.out.println(object);
-				
-				if(object.contains("Influencer")) {
-					System.out.println("influencer");
-					response.sendRedirect("/influencerList.ifcp?cpage=1");
-				}else if(object.contains("Company")) {
-					System.out.println("company");
-					response.sendRedirect("/companyList.ifcp?cpage=1");
-				}
 				
 				//====================================================================================================================================
 				// 상세페이지 이동.
-			}else if(cmd.equals("/searchDetail.ifcp")) {
-				String object = request.getParameter("object");
+
+			}else if(cmd.equals("/companyBoard.ifcp")) {
+
 				int seq = Integer.parseInt(request.getParameter("seq"));
-				System.out.println(object);
-				System.out.println(seq);
 				
-				if(object.contains("Influencer")) {
-					System.out.println("influencer");
+				System.out.println(seq);
+			
+				LinkedHashMap<Board_CpDTO,CompanyDTO> list = companyDAO.getCompanyBoardDetail(seq);
+				
+				
+				for (java.util.Map.Entry<Board_CpDTO, CompanyDTO> entrySet : list.entrySet()) {
+					System.out.println(entrySet.getKey() + " : " + entrySet.getValue());
+				}
+				
+				request.setAttribute("cpList", list);
+				request.getRequestDispatcher("/resources/ifcp/companyDetail.jsp").forward(request, response);
+
+			}else if(cmd.equals("/influencerProfile.ifcp")) {
+				
+					int seq = Integer.parseInt(request.getParameter("seq"));
+				
+					LinkedHashMap<Profile_IfDTO,InfluencerDTO> list = influencerDAO.getIfProfile(seq);
 					
-					List<Profile_IfDTO> list = influencerDAO.ifCardSearch(seq);
+					for (Entry<Profile_IfDTO, InfluencerDTO> entrySet : list.entrySet()) {
+						System.out.println(entrySet.getKey() + " : " + entrySet.getValue());
+					}
 
 					request.setAttribute("ifList", list);
-					request.getRequestDispatcher("/resources/ifcp/ifSearchDetail.jsp").forward(request, response);
-
-				}else if(object.contains("Company")) {
-					System.out.println("company");
-					
-					List<Board_CpDTO> list = companyDAO.cpCardSearch(seq);
-					
-					request.setAttribute("cpList", list);
-					request.getRequestDispatcher("/resources/ifcp/cpSearchDetail.jsp").forward(request, response);
-				}
+					request.getRequestDispatcher("/resources/ifcp/ifProfileDetail.jsp").forward(request, response);
+			
+		
 				
 				//====================================================================================================================================
 				// 작성페이지 이동.
