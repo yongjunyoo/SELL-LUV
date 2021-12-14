@@ -281,12 +281,13 @@ form .btn input[type="button"]{
                   </div>
                </form>
                
+               <!-- 인플루언서 회원 칸 -->
                <form action="/influencerFindpw.mem" class="signup" method="post" id="if-frm">
                   <div class="field">
-                     <input type="text" name="id_if" placeholder="아이디를 입력하세요." required>
+                     <input type="text" name="id_if" id="id_if" placeholder="아이디를 입력하세요." required>
                   </div>
                   <div class="field">
-                     <input type="text" name="name_if" placeholder="이름을 입력하세요." required>
+                     <input type="text" name="name_if" id="name_if" placeholder="이름을 입력하세요." required>
                   </div>
                   <div class="field check-text-box">
                      <select class="check-text" name="check-text-if" id="check-text-if">
@@ -298,7 +299,7 @@ form .btn input[type="button"]{
                      </select>
                   </div>
                  <div class="field">
-                     <input type="text" name="answer-if" placeholder="본인 확인 문구의 답을 입력하세요." required>
+                     <input type="text" name="answer-if" placeholder="본인 확인 문구의 답을 입력하세요." id="check-answer-if" required>
                   </div>
                   <div class="pass-link">
                     <a href="/findid.mem" class="idCheckSpan">아이디를 잊으셨습니까..?</a>
@@ -309,7 +310,7 @@ form .btn input[type="button"]{
                      <div class="btn-layer"></div>
                      <input type="button" value="비밀번호 찾기" id="if_findpw" class="">
                      <script>
-                     
+                     	// 기업
 	                  	let isCPMember = function() {
 	                     	let id = $("#id_cp").val();
 	                     	let name = $("#name_cp").val();
@@ -344,6 +345,51 @@ form .btn input[type="button"]{
 	               			});
 	                    }
                      	 $("#cp_findpw").on("click",isCPMember);
+	                    // 인플루언서 
+                     	$("#if_findpw").on("click",function(){
+                     		if($("#check-text-if").val()== "본인 확인 문구를 선택해주세요.") {
+                     			alert("본인 확인 문구를 선택해주세요.");
+                     			return false;
+                     		}else{
+                     			$("#if-frm").submit();
+                     		}
+                     		
+                     	})
+                     	
+                     	let isIFMember = function() {
+	                     	let id = $("#id_if").val();
+	                     	let name = $("#name_if").val();
+	                     	let text = $("#check-text-if").val();
+	                     	let answer = $("#check-answer-if").val();
+		                  	$.ajax({
+	               				url:"/isIFMember.mem",
+	               				type:"post",
+	               				data:{
+	               					id:id,
+	               					name:name,
+	               					text:text,
+	               					answer:answer
+	               				}
+	               			})
+	               			.done(function(resp){
+	               					console.log(resp);
+	               				if(resp=="false"){
+	               					alert("일치하는 정보의 회원이 존재하지 않습니다.");
+	               					$("#id_if").val("");
+	               					$("#name_if").val("");
+	               					let answer = $("#check-answer-if").val("");
+	               					return false;
+	               				}else {
+        	                  		if($("#check-text-if").val()== "본인 확인 문구를 선택해주세요.") {
+        	                  			alert("본인 확인 문구를 선택해주세요.");
+        	                  			return false;
+        	                  		}else{
+        	                  			$("#if-frm").submit();
+        	                  		}
+	               				}
+	               			});
+	                    }
+                     	 $("#if_findpw").on("click",isIFMember);
 	                     
                      	$("#if_findpw").on("click",function(){
                      		if($("#check-text-if").val()== "본인 확인 문구를 선택해주세요.") {
