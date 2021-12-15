@@ -198,8 +198,12 @@ body {
 }
 </style>
 
-<script type="text/javascript">
-	
+<script>
+$("#leave").on("click", function(){
+	if(confirm("회원 탈퇴를 하시겠습니까?")){
+		location.href="/Ifleave.mem";
+	}
+})
 </script>
 <body>
 	
@@ -236,11 +240,18 @@ body {
 						<div class="fm-menu">
 							<div class="list-group list-group-flush">
 								<a href="/modify.mem" class="list-group-item py-1"><i class="bx bx-cool me-2"></i><span>개인 정보 수정</span></a> 							
-								<a href="/Ifprofile.mem" class="list-group-item py-1"><i class="bx bx-face me-2"></i><span>프로필 수정</span></a> 
+								<c:choose>
+									<c:when test="${pdto.member_seq == null}"> 							
+										<a href="/Ifprofile.mem" class="list-group-item py-1"><i class="bx bx-face me-2"></i><span>프로필 생성</span></a>
+									</c:when>
+									<c:otherwise>
+										<a href="/IfprofileModify.mem" class="list-group-item py-1"><i class="bx bx-face me-2"></i><span>프로필 수정</span></a>
+									</c:otherwise> 
+								</c:choose>
 								<a href="/IFKkanbuList.mem" class="list-group-item py-1"><i class="bx bx-heart me-2"></i><span>깐부 관리</span></a>
-								<a href="" class="list-group-item py-1"><i class="bx bx-like me-2"></i><span>리뷰 관리</span></a>
+								<a href="/IFReviewList.mem" class="list-group-item py-1"><i class="bx bx-like me-2"></i><span>리뷰 관리</span></a>
 								<a href="" class="list-group-item py-1"><i class="bx bx-highlight me-2"></i><span>커뮤니티 관리</span></a>
-								<a href="" class="list-group-item py-1"></i><span>회원탈퇴</span></a>
+								<a href="" class="list-group-item py-1"><span>회원탈퇴</span></a>
 							</div>
 						</div>
 					</div>
@@ -308,7 +319,7 @@ body {
 												<th class="type"></th>
 												<th class="name truncate">기업이름</th>
 												<th class="date">리뷰 내용</th>
-												<th class="size">별점</th>
+												<th class="size">작성일</th>
 											</tr>
 										</thead>
 										
