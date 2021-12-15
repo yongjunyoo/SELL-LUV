@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import kh.web.dao.BoardDAO;
+import kh.web.dao.CommentDAO;
 import kh.web.dto.BoardDTO;
+import kh.web.dto.CommentDTO;
 import kh.web.statics.BoardStatics;
 
 
@@ -19,7 +21,7 @@ import kh.web.statics.BoardStatics;
 @WebServlet("*.board")
 public class BoardController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		System.out.println("------------------------");
 		request.setCharacterEncoding("utf8");  // get방식 한글 깨짐 방지
 		
 		String uri = request.getRequestURI();
@@ -29,15 +31,19 @@ public class BoardController extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		BoardDAO bdao = BoardDAO.getInstance();
+		CommentDAO cdao = CommentDAO.getInstance();
 		
-		// cpage 세션에 저장
+		// cpage, seq 세션에 저장
 		session.setAttribute("cpage", request.getParameter("cpage"));
 		String cpage = (String)session.getAttribute("cpage");
+		session.setAttribute("seq", request.getParameter("seq"));
+		String seq = (String)session.getAttribute("seq");
 		
 		System.out.println("cpage : " + request.getParameter("cpage"));
 		System.out.println("세션 cpage : " + cpage);
+		System.out.println("seq : " + request.getParameter("seq"));
+		System.out.println("세션 seq : " + seq);
 		
-		// 임시 로그인
 		System.out.println("로그인 ID : " + session.getAttribute("loginID"));
 		if(cpage == null) {cpage="1";}
 		
@@ -54,16 +60,10 @@ public class BoardController extends HttpServlet {
 				request.getRequestDispatcher("/resources/board/board.jsp?cpage="+cpage).forward(request, response);
 			// 글쓰기 기능
 			}else if(cmd.equals("/write.board")) {
-				// session.removeAttribute("cpage");
-				// String cpage = request.getParameter("cpage");
-				// session.setAttribute("cpage", cpage);
-				// System.out.println("cpage : " + cpage);
-				// System.out.println("세션 cpage : " + session.getAttribute("cpage"));
 				response.sendRedirect("/resources/board/boardwrite.jsp");
 			// 글 작성 완료
 			}else if(cmd.equals("/done.board")) {
 				String writer = (String)session.getAttribute("loginID");
-				// String writer = "test";
 				String title = request.getParameter("title");
 				String contents = request.getParameter("contents");
 				int result = bdao.insert(new BoardDTO(0,writer,title,contents,null,0));
@@ -71,13 +71,14 @@ public class BoardController extends HttpServlet {
 				response.sendRedirect("/boardList.board?cpage="+cpage);
 			// 게시글 페이지로 이동
 			}else if(cmd.equals("/detail.board")) {
-				String seq = request.getParameter("seq");
 				BoardDTO dto = bdao.selectBySeq(Integer.parseInt(seq));
 				request.setAttribute("dto", dto);
+				// 댓글 가져가기
+				List<CommentDTO> cList = cdao.selectByBoardSeq(Integer.parseInt(seq));
+				request.setAttribute("cList", cList);
 				request.getRequestDispatcher("/resources/board/boardDetail.jsp?cpage"+cpage+"&seq="+seq).forward(request, response);
 			// 게시글 수정
 			}else if(cmd.equals("/modify.board")) {
-				String seq = request.getParameter("seq");
 				String title = request.getParameter("title");
 				String contents = request.getParameter("contents");
 				int result = bdao.modify(Integer.parseInt(seq),title,contents);
@@ -85,7 +86,6 @@ public class BoardController extends HttpServlet {
 				response.sendRedirect("/boardList.board?cpage="+cpage);
 			// 게시글 삭제	
 			}else if(cmd.equals("/delete.board")) {
-				String seq = request.getParameter("seq");
 				int result = bdao.delete(Integer.parseInt(seq));
 				System.out.println("삭제 결과 : " + result);
 				response.sendRedirect("/boardList.board?cpage="+cpage);
@@ -110,8 +110,22 @@ public class BoardController extends HttpServlet {
 					request.setAttribute("navi", navi);
 					request.getRequestDispatcher("/resources/board/boardSearch.jsp?cpage="+cpage).forward(request, response);
 				}
+				// 댓글 등록
+			}else if(cmd.equals("/doneCmt.board")){
+				System.out.println(seq);
+				int parent = Integer.parseInt(seq);
+				String writer = (String)session.getAttribute("loginID");
+				String contents = request.getParameter("contents-cmt");
+				System.out.println(writer);
+				System.out.println(parent);
+				System.out.println(contents);
+				int result = cdao.insert(new CommentDTO(0,0,writer,null,parent,contents));
+				System.out.println("댓글 insert 결과 : " + result);
+				response.sendRedirect("/detail.board?cpage="+cpage+"&seq="+seq);
+				// 댓글 삭제
+			}else if(cmd.equals("modifyCmt.board")) {
+				
 			}
-			
 		}catch(Exception e) {
 			e.printStackTrace();
 			response.sendRedirect("error.jsp");

@@ -155,6 +155,34 @@ body {
 	text-align: left;
 	background-color: #eef1f3
 }
+.profile-box{
+	display:flex;
+}
+.img-profile {
+	border-radius: 70%;
+	width: 100%;
+	height: 100%;
+}
+
+.profile-detail {
+	text-align: center;
+}
+
+.name {
+	font-weight: bold;
+}
+
+.list li {
+	margin-top: 5px;
+}
+
+.label {
+	font-size: 12px;
+}
+.profile-detail{
+	justify-content: flex-start;
+    flex-direction: column;
+}
 </style>
 </head>
 <body>
@@ -172,16 +200,16 @@ body {
     <br>
 	
 	<!-- 게시판 박스 -->
-    <div class="card mb-3 col-xl-8 col-md-12">
-    
+    <div class="card mb-3 col-xl-6 col-md-12">
+    <!-- 게시글 등록 박스 -->
       <form action="/done.board" method="post" >
-    <div class="container mt-4 mb-4">
+    <div class="container mb-4 mt-4">
         <div class="row" style="padding-bottom:5px;">
             <div class="col-sm-12"><input type=text id=title name=title placeholder="제목을 작성하세요" style="width:100%;"></div>
         </div>
         <div class="row">
             <div class="col-sm-12">
-                <textarea cols=170 rows=25 name="contents"></textarea>
+                <textarea cols=170 rows=25 name="contents" id="summernote" ></textarea>
             </div>
         </div>
         <div class="row">
