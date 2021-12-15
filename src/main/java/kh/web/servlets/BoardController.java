@@ -21,7 +21,7 @@ import kh.web.statics.BoardStatics;
 @WebServlet("*.board")
 public class BoardController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		System.out.println("------------------------");
 		request.setCharacterEncoding("utf8");  // get방식 한글 깨짐 방지
 		
 		String uri = request.getRequestURI();
@@ -74,7 +74,7 @@ public class BoardController extends HttpServlet {
 				BoardDTO dto = bdao.selectBySeq(Integer.parseInt(seq));
 				request.setAttribute("dto", dto);
 				// 댓글 가져가기
-				List<CommentDTO> cList = cdao.selectAll();
+				List<CommentDTO> cList = cdao.selectByBoardSeq(Integer.parseInt(seq));
 				request.setAttribute("cList", cList);
 				request.getRequestDispatcher("/resources/board/boardDetail.jsp?cpage"+cpage+"&seq="+seq).forward(request, response);
 			// 게시글 수정
@@ -122,6 +122,9 @@ public class BoardController extends HttpServlet {
 				int result = cdao.insert(new CommentDTO(0,0,writer,null,parent,contents));
 				System.out.println("댓글 insert 결과 : " + result);
 				response.sendRedirect("/detail.board?cpage="+cpage+"&seq="+seq);
+				// 댓글 삭제
+			}else if(cmd.equals("modifyCmt.board")) {
+				
 			}
 		}catch(Exception e) {
 			e.printStackTrace();

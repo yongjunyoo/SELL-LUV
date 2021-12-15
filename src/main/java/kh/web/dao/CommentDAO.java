@@ -87,6 +87,28 @@ private static CommentDAO instance = null;
 			}
 	}
 	
+	public List<CommentDTO> selectByBoardSeq(int pseq) throws Exception {
+		String sql = "SELECT * FROM board_comment WHERE comment_parent = ? ORDER BY 1";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			pstat.setInt(1, pseq);
+			try(ResultSet rs = pstat.executeQuery();){
+				List<CommentDTO> list = new ArrayList<>();
+				while(rs.next()) {
+					int seq = rs.getInt("comment_seq");
+					int board = rs.getInt("comment_board");
+					String writer = rs.getString("comment_writer");
+					Timestamp write_date = rs.getTimestamp("comment_date");
+					int parent = rs.getInt("comment_parent");
+					String contents = rs.getString("comment_content");
+					list.add(new CommentDTO(seq,board,writer,write_date,parent,contents));
+				}
+				return list;
+			}
+		}
+	}
+	
 	
 	public BoardDTO selectBySeq(int seq) throws Exception {
 		String sql = "SELECT * FROM freeboard WHERE seq = ?";
