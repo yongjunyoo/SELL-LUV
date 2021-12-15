@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -16,6 +17,7 @@ import kh.web.dto.Board_CpDTO;
 import kh.web.dto.CompanyDTO;
 import kh.web.dto.InfluencerDTO;
 import kh.web.dto.Profile_IfDTO;
+import kh.web.dto.Review_CpDTO;
 import kh.web.statics.IFCPStatics;
 
 public class InfluencerDAO  {
@@ -528,6 +530,30 @@ public class InfluencerDAO  {
 			
 			return result;
 			
+		}
+	}
+	
+	public List<Review_CpDTO> cpReview() throws Exception{ // 기업이 작성한 리뷰
+		String sql = "select * from review_cp";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			try(ResultSet rs = pstat.executeQuery()){
+
+				List<Review_CpDTO> list = new ArrayList<>();
+
+				while(rs.next()) {
+					int seq = rs.getInt("seq");
+					String nickname_ref = rs.getString("nickname_ref");
+					String writer = rs.getString("writer");
+					String content = rs.getString("content");
+					Timestamp timestamp = rs.getTimestamp("timestamp");
+
+					Review_CpDTO dto = new Review_CpDTO(seq,nickname_ref,writer,content,timestamp );
+
+					list.add(dto);
+				}
+				return list;
+			}
 		}
 	}
 }

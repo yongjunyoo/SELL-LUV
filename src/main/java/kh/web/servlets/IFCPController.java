@@ -28,7 +28,10 @@ import kh.web.dto.CompanyDTO;
 import kh.web.dto.InfluencerDTO;
 import kh.web.dto.Photo_ListDTO;
 import kh.web.dto.Profile_IfDTO;
+import kh.web.dto.Review_CpDTO;
+import kh.web.dto.Review_IfDTO;
 import kh.web.statics.IFCPStatics;
+import kh.web.statics.PageStatics;
 
 
 @WebServlet("*.ifcp")
@@ -73,28 +76,35 @@ public class IFCPController extends HttpServlet {
 				//기업기본 목록 출력...
 			}else if(cmd.equals("/companyList.ifcp")) {
 				int currentPage = Integer.parseInt(request.getParameter("cpage"));
-				
+
 				if(currentPage < 1) {currentPage = 1;}
 
-				
+
 				int start = currentPage * IFCPStatics.RECORD_COUNT_PER_PAGE- (IFCPStatics.RECORD_COUNT_PER_PAGE-1);;
 				int end = currentPage * IFCPStatics.RECORD_COUNT_PER_PAGE;
-				
+
 				LinkedHashMap<Board_CpDTO,CompanyDTO> list = companyDAO.selectByBound(start,end);
-			
+
 				String navi = companyDAO.getPageNavi(currentPage);
-				
+
 
 				for (java.util.Map.Entry<Board_CpDTO, CompanyDTO> entrySet : list.entrySet()) {
 					System.out.println(entrySet.getKey() + " : " + entrySet.getValue());
 				}
-				
-				String cp = "cp";
-				
-				request.setAttribute("cp", cp);
-				request.setAttribute("list", list);
-				request.setAttribute("navi", navi);
-				request.getRequestDispatcher("/resources/ifcp/companyList.jsp").forward(request, response);
+
+				String loginID = (String) request.getSession().getAttribute("loginID"); // 버튼 숨기기 구분.
+				List<CompanyDTO> hideBtn = companyDAO.searchById(loginID);
+				if(hideBtn.size()!=0) {
+					String cp = hideBtn.get(0).getId();
+					request.setAttribute("cp", cp);
+					request.setAttribute("list", list);
+					request.setAttribute("navi", navi);
+					request.getRequestDispatcher("/resources/ifcp/companyList.jsp").forward(request, response);
+				}else {
+					request.setAttribute("list", list);
+					request.setAttribute("navi", navi);
+					request.getRequestDispatcher("/resources/ifcp/companyList.jsp").forward(request, response);
+				}
 				//====================================================================================================================================
 				//기업 목록 출력 끝..
 				
@@ -102,35 +112,79 @@ public class IFCPController extends HttpServlet {
 				//====================================================================================================================================
 				// 상세페이지 이동.
 
-			}else if(cmd.equals("/companyBoard.ifcp")) {
-
+			}else if(cmd.equals("/companyBoard.ifcp")) { // 기업 페이지로 리뷰보내기.
+				int currentPage = Integer.parseInt(request.getParameter("cpage"));
 				int seq = Integer.parseInt(request.getParameter("seq"));
-				
 				System.out.println(seq);
-			
+				
+				if(currentPage < 1) { 
+					currentPage = 1;
+				}else if(currentPage > companyDAO.getifCardPageTotalCount()) {
+					currentPage = companyDAO.getifCardPageTotalCount();
+				}
+
+				int start = currentPage * PageStatics.RECORD_COUNT_PER_PAGE - (PageStatics.RECORD_COUNT_PER_PAGE-1);
+				int end = currentPage * PageStatics.RECORD_COUNT_PER_PAGE;
+
+				List<Review_IfDTO> list1 = companyDAO.ifCardBoundary(start, end);
+
+				String navi = companyDAO.getifCardPageNavi(currentPage,seq); 
+				request.setAttribute("navi", navi);
+				request.setAttribute("list", list1); 
+
+				int ifCard = companyDAO.getIfCardCount();
+				request.setAttribute("ifCard", ifCard);
+				
+
 				LinkedHashMap<Board_CpDTO,CompanyDTO> list = companyDAO.getCompanyBoardDetail(seq);
-				
-				
+
+
 				for (java.util.Map.Entry<Board_CpDTO, CompanyDTO> entrySet : list.entrySet()) {
 					System.out.println(entrySet.getKey() + " : " + entrySet.getValue());
 				}
-				
+
+				List<Review_IfDTO> ifRvList = companyDAO.ifReview();
+
 				request.setAttribute("cpList", list);
+				request.setAttribute("ifRvList", ifRvList);
 				request.getRequestDispatcher("/resources/ifcp/companyDetail.jsp").forward(request, response);
 
-			}else if(cmd.equals("/influencerProfile.ifcp")) {
+			}else if(cmd.equals("/influencerProfile.ifcp")) { // 인플루언서 페이지로 리뷰보내기.
+//				int currentPage = Integer.parseInt(request.getParameter("cpage"));
+//
+//				if(currentPage < 1) { 
+//					currentPage = 1;
+//				}else if(currentPage > influencerDAO.getifCardPageTotalCount()) {
+//					currentPage = influencerDAO.getifCardPageTotalCount();
+//				}
+//
+//				int start = currentPage * PageStatics.RECORD_COUNT_PER_PAGE - (PageStatics.RECORD_COUNT_PER_PAGE-1);
+//				int end = currentPage * PageStatics.RECORD_COUNT_PER_PAGE;
+//
+//				List<Profile_IfDTO> list1 = influencerDAO.ifCardBoundary(start, end);
+//
+//				String navi = influencerDAO.getifCardPageNavi(currentPage); 
+//				request.setAttribute("navi", navi);
+//				request.setAttribute("list", list1); 
+//
+//				int ifCard = influencerDAO.getIfCardCount();
+//				request.setAttribute("ifCard", ifCard);
+//				
 				
-					int seq = Integer.parseInt(request.getParameter("seq"));
-					System.out.println(seq);
-				
-					LinkedHashMap<Profile_IfDTO,InfluencerDTO> list = influencerDAO.getIfProfile(seq);
-					
-					for (Entry<Profile_IfDTO, InfluencerDTO> entrySet : list.entrySet()) {
-						System.out.println(entrySet.getKey() + " : " + entrySet.getValue());
-					}
+				int seq = Integer.parseInt(request.getParameter("seq"));
+				System.out.println(seq);
 
-					request.setAttribute("ifList", list);
-					request.getRequestDispatcher("/resources/ifcp/ifProfileDetail.jsp").forward(request, response);
+				LinkedHashMap<Profile_IfDTO,InfluencerDTO> list = influencerDAO.getIfProfile(seq);
+
+				for (Entry<Profile_IfDTO, InfluencerDTO> entrySet : list.entrySet()) {
+					System.out.println(entrySet.getKey() + " : " + entrySet.getValue());
+				}
+
+				List<Review_CpDTO> cpRvList = influencerDAO.cpReview();
+
+				request.setAttribute("ifList", list);
+				request.setAttribute("cpRvList", cpRvList);
+				request.getRequestDispatcher("/resources/ifcp/ifProfileDetail.jsp").forward(request, response);
 			
 		
 				
@@ -158,11 +212,31 @@ public class IFCPController extends HttpServlet {
 				MultipartRequest multi = new MultipartRequest(request, savePath, maxSize, "UTF8", new DefaultFileRenamePolicy());
 
 				String oriName = multi.getOriginalFileName("file");
-				String sysName = multi.getFilesystemName("file"); 
+				String sysName = multi.getFilesystemName("file");
 
-				companyDAO.insertPhoto(new Photo_ListDTO(0,oriName,sysName,0));
-				
-				response.sendRedirect("index.jsp");
+				if(oriName==null) { // 사진 안올릴시 작성글만 올리기.
+					String loginID = (String) request.getSession().getAttribute("loginID");
+					String title = multi.getParameter("title");
+					String intro = multi.getParameter("intro");
+					String condition = multi.getParameter("condition");
+
+					int seq = companyDAO.cpSearchById(loginID);
+
+					companyDAO.writeIntro(seq,title, intro, condition);
+					response.sendRedirect("/companyList.ifcp?cpage=1");
+				}else { // 사진까지 올리기.
+					companyDAO.insertPhoto(new Photo_ListDTO(0,oriName,sysName,0));
+
+					String loginID = (String) request.getSession().getAttribute("loginID");
+					String title = multi.getParameter("title");
+					String intro = multi.getParameter("intro");
+					String condition = multi.getParameter("condition");
+
+					int seq = companyDAO.cpSearchById(loginID);
+
+					companyDAO.writeIntro(seq, title, intro, condition);
+					response.sendRedirect("/companyList.ifcp?cpage=1");
+				}
 			}
 			
 		}catch(Exception e) {
