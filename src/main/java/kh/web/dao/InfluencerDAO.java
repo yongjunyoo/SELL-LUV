@@ -20,6 +20,7 @@ import kh.web.dto.Profile_IfDTO;
 import kh.web.dto.Review_CpDTO;
 import kh.web.statics.IFCPStatics;
 
+
 public class InfluencerDAO  {
 
 	private static InfluencerDAO instance = null;
@@ -318,7 +319,7 @@ public class InfluencerDAO  {
 	// 닉네임 중복 체크 method
 	public boolean nickNameExist(String nickName) throws Exception{
 
-		String sql = "select * from influencer where nickname_if = ?";
+		String sql = "select * from(select nickname_if from influencer union select name_cp from company) where nickname_if = ?";
 
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
@@ -515,24 +516,93 @@ public class InfluencerDAO  {
 		}
 	}
 
+	// 인플루언서 프로필 생성
 	public int insertProfile(String seq, String condition, String career, String intro) throws Exception{
-		
+
 		String sql = "insert into profile_if values(profile_if_seq_if.nextval,?,?,?,?,null,null)";
-		
+
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
-			
+
 			pstat.setString(1, seq);
 			pstat.setString(2, condition);
 			pstat.setString(3, career);
 			pstat.setString(4, intro);
 			int result = pstat.executeUpdate();
-			
+
 			return result;
-			
+
 		}
 	}
-	
+
+	// 인플루언서 회원 프로필 정보 가져오기
+	public Profile_IfDTO selectBySeq(String paramSeq) throws Exception {
+
+		String sql = "select * from profile_if where member_seq = ?";
+
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, paramSeq);
+			try(ResultSet rs = pstat.executeQuery()){
+
+				Profile_IfDTO dto = new Profile_IfDTO();
+				if(rs.next()) {
+
+					dto.setSeq_if(rs.getInt("seq_if"));
+					dto.setMember_seq(rs.getInt("member_seq"));
+					dto.setCondition_if(rs.getString("condition_if"));
+					dto.setCareer_if(rs.getString("career_if"));
+					dto.setIntro_if(rs.getString("intro_if"));
+					dto.setsLike_if(rs.getInt("slike_if"));
+					dto.setrLike_if(rs.getInt("rlike_if"));
+					return dto;
+				}
+				return null;
+			}
+		}
+	}
+
+	// 인플루언서 프로필 수정
+	public int updateProfile(String seq, String condition, String career, String intro) throws Exception{
+
+		String sql = "update profile_if set condition_if = ?, career_if = ?, intro_if = ? where member_seq = ?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+
+			pstat.setString(1, condition);
+			pstat.setString(2, career);
+			pstat.setString(3, intro);
+			pstat.setString(4, seq);
+
+			int result = pstat.executeUpdate();
+			return result;
+		}
+	}
+
+	// 인플루언서 회원 탈퇴
+	public int delete(String id) throws Exception{
+
+		String sql = "delete from influencer where id_if = ?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat =con.prepareStatement(sql);){
+			pstat.setString(1, id);
+			int result = pstat.executeUpdate();
+			return result;
+		}
+	}
+
+	// 인플루언서 프로필 삭제
+	public int deleteProfile(String id) throws Exception{
+
+		String sql = "delete from profile_if where member_seq = ?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat =con.prepareStatement(sql);){
+			pstat.setString(1, id);
+			int result = pstat.executeUpdate();
+			return result;
+		}
+	}
+		
 	public List<Review_CpDTO> cpReview() throws Exception{ // 기업이 작성한 리뷰
 		String sql = "select * from review_cp";
 		try(Connection con = this.getConnection();
