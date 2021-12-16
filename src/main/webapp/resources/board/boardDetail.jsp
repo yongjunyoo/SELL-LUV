@@ -27,7 +27,7 @@ rel="stylesheet" />
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+<script src="https://rawgit.com/jackmoore/autosize/master/dist/autosize.min.js"></script>
 <style>
 	body {
 		margin: 0;
@@ -230,9 +230,6 @@ rel="stylesheet" />
 	    cursor: pointer
 	}
 	
-	.textarea {
-	    resize: none
-	}
 </style>
 </head>
 <body>
@@ -276,9 +273,10 @@ rel="stylesheet" />
         </div>
         <div class="row">
             <div class="col-sm-12">
-                <textarea id="contents" cols=170 rows=12 name="contents" readonly></textarea>
+                <textarea id="contents" name="contents" readonly style="min-height: 200px;overflow:hidden"></textarea>
                 <script>
-                	$("#contents").text("${dto.contents}");
+                	$("#contents").text(`${dto.contents}`);
+                	autosize($("textArea"));
                 </script>
             </div>
         </div>
@@ -364,7 +362,7 @@ rel="stylesheet" />
 			        </div>
 			        <div class="row">
 			            <div class="col-sm-12">
-			                <textarea .ass="contents" cols=170 rows=4 name="contents-cmt"  readonly>${cdto.contents }</textarea>
+			                <textarea .ass="contents" cols rows name="contents-cmt"  readonly style="height:auto;">${cdto.contents }</textarea>
 			            </div>
 			        </div>
 			        <div class="row">
@@ -499,6 +497,8 @@ rel="stylesheet" />
     <!-- 푸터 -->
 	<jsp:include page="/footer.jsp" flush="false"/>
 </div>                            
-<script type="text/javascript"></script>
+<script type="text/javascript">
+
+</script>
 </body>
 </html>
