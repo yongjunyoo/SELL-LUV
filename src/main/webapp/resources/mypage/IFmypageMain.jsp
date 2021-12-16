@@ -152,8 +152,8 @@ body {
 
 .img-profile {
 	border-radius: 70%;
-	width: 90%;
-	height: 90%;
+	width: 100%;
+	height: 100%;
 }
 
 .profile-detail {
@@ -196,6 +196,9 @@ body {
 	flex:1 1;
 	justify-content: center;
 }
+#profile-box{
+	flex-wrap: wrap;
+}
 </style>
 
 <script>
@@ -207,30 +210,35 @@ body {
 </script>
 <body>
 	
-
-	<div class="container">
-		<div class="row" id="header">
+<div class="container">
+	<div class="row" id="header">
 			<div class="col">
 				<jsp:include page="/header.jsp" flush="false" />
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-12 col-lg-3">
+	<div class="row">
+			<div class="col-12 col-md-4 col-lg-3">
 				<div class="card">
 					<div class="card-body">
 						<div class="row">
 							<div class="grade">${dto.grade }</div>
-							<div class="col" id="profile-box">
-								<img id="profile" class="img-profile"
-									src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="">
+							<div class="col " id="profile-box">
+								<div class="row">
+									<div class="col-6 col-md-12">
+									<img id="profile" class="img-profile"
+										src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="">
+									</div>
+									<div class="col-6 col-md-12"> 
+									<ul class="meta list list-unstyled profile-detail">
+										<li class="name">${dto.name }</li>
+										<li class="label" style="margin: 0; padding: 0">인플루언서</li>
+										<li class="email">${dto.email }</li>
+										<li class="activity">Last logged in: Today at 2:18pm</li>
+									</ul>
+									</div>
+								</div>
 							</div>
 						</div>
-						<ul class="meta list list-unstyled profile-detail">
-							<li class="name">${dto.name }</li>
-							<li class="label" style="margin: 0; padding: 0">인플루언서</li>
-							<li class="email">${dto.email }</li>
-							<li class="activity">Last logged in: Today at 2:18pm</li>
-						</ul>
 					</div>
 				</div>
 				<div class="card">
@@ -259,7 +267,7 @@ body {
 
 			</div>
 
-			<div class="col-12 col-lg-9">
+			<div class="col-12 col-md-8 col-lg-9">
 				<div class="card">
 					<div class="card-body">
 						<div class="row mt-3">

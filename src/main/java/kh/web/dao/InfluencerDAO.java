@@ -319,7 +319,7 @@ public class InfluencerDAO  {
 	// 닉네임 중복 체크 method
 	public boolean nickNameExist(String nickName) throws Exception{
 
-		String sql = "select * from influencer where nickname_if = ?";
+		String sql = "select * from(select nickname_if from influencer union select name_cp from company) where nickname_if = ?";
 
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){

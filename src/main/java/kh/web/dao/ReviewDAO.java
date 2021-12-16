@@ -10,6 +10,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import kh.web.dto.Review_IfDTO;
 import kh.web.statics.IFCPStatics;
 
 public class ReviewDAO {
@@ -109,7 +110,7 @@ public class ReviewDAO {
 			return pageNavi;
 		}
 		
-		public List<BoardDTO> selectByBoundReview(int start, int end) throws Exception{
+		public List<Review_IfDTO> selectByBoundReview(int start, int end) throws Exception{
 
 			String sql = "select * from(select review_if.*, row_number() over(order by seq desc) rn from review_if) where rn between ? and ?";
 			try(Connection con = this.getConnection();
@@ -117,15 +118,14 @@ public class ReviewDAO {
 				pstat.setInt(1, start);
 				pstat.setInt(2, end);
 				try(ResultSet rs = pstat.executeQuery();){
-					List<BoardDTO> list = new ArrayList<>();
+					List<Review_IfDTO> list = new ArrayList<>();
 					while(rs.next()) {
-						BoardDTO dto = new BoardDTO();
+						Review_IfDTO dto = new Review_IfDTO();
 						dto.setSeq(rs.getInt("seq"));
+						dto.setName_ref(rs.getString("name_ref"));
 						dto.setWriter(rs.getString("writer"));
-						dto.setTitle(rs.getString("title"));
-						dto.setContents(rs.getString("title"));				
-						dto.setWrite_date(rs.getDate("write_date"));
-						dto.setView_count(rs.getInt("view_count"));
+						dto.setContent(rs.getString("content"));										
+						dto.setTimestamp(rs.getTimestamp("timestamp"));
 						list.add(dto);
 					}
 					return list;

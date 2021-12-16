@@ -429,6 +429,12 @@ public class MemberController extends HttpServlet {
 				request.getSession().invalidate();
 				request.getRequestDispatcher("/index.jsp").forward(request, response);
 				
+			}else if(cmd.equals("/CPnameCheck.mem")) {
+
+				String name = request.getParameter("name");
+				boolean result = companyDAO.nameExist(name);
+				response.getWriter().append(String.valueOf(result));
+
 			}
 
 		}catch(Exception e) {

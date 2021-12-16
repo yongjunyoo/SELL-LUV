@@ -10,7 +10,7 @@ public class Review_IfDTO {
 	String content;
 	Timestamp timestamp;
 	
-	Review_IfDTO(){}
+	public Review_IfDTO(){}
 
 	public Review_IfDTO(int seq, String name_ref, String writer, String content, Timestamp timestamp) {
 		super();
