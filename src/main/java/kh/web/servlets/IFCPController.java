@@ -14,8 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.SystemMenuBar;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
@@ -119,71 +118,54 @@ public class IFCPController extends HttpServlet {
 				
 				if(currentPage < 1) { 
 					currentPage = 1;
-				}else if(currentPage > companyDAO.getifCardPageTotalCount()) {
-					currentPage = companyDAO.getifCardPageTotalCount();
+				}else if(currentPage > companyDAO.getifCardPageTotalCount(seq)) {
+					currentPage = companyDAO.getifCardPageTotalCount(seq);
 				}
 
-				int start = currentPage * PageStatics.RECORD_COUNT_PER_PAGE - (PageStatics.RECORD_COUNT_PER_PAGE-1);
-				int end = currentPage * PageStatics.RECORD_COUNT_PER_PAGE;
+				int start = currentPage * IFCPStatics.RECORD_COUNT_PER_PAGE - (IFCPStatics.RECORD_COUNT_PER_PAGE-1);
+				int end = currentPage * IFCPStatics.RECORD_COUNT_PER_PAGE;
 
-				List<Review_IfDTO> list1 = companyDAO.ifCardBoundary(start, end);
+				List<Review_IfDTO> list1 = companyDAO.ifCardBoundary(seq,start, end);
 
-				String navi = companyDAO.getifCardPageNavi(currentPage,seq); 
+				String navi = companyDAO.getifCardPageNavi(currentPage,seq);
 				request.setAttribute("navi", navi);
 				request.setAttribute("list", list1); 
 
-				int ifCard = companyDAO.getIfCardCount();
-				request.setAttribute("ifCard", ifCard);
-				
-
 				LinkedHashMap<Board_CpDTO,CompanyDTO> list = companyDAO.getCompanyBoardDetail(seq);
-
 
 				for (java.util.Map.Entry<Board_CpDTO, CompanyDTO> entrySet : list.entrySet()) {
 					System.out.println(entrySet.getKey() + " : " + entrySet.getValue());
 				}
-
-				List<Review_IfDTO> ifRvList = companyDAO.ifReview();
-
+				request.setAttribute("seq", seq);
 				request.setAttribute("cpList", list);
-				request.setAttribute("ifRvList", ifRvList);
 				request.getRequestDispatcher("/resources/ifcp/companyDetail.jsp").forward(request, response);
 
 			}else if(cmd.equals("/influencerProfile.ifcp")) { // 인플루언서 페이지로 리뷰보내기.
-//				int currentPage = Integer.parseInt(request.getParameter("cpage"));
-//
-//				if(currentPage < 1) { 
-//					currentPage = 1;
-//				}else if(currentPage > influencerDAO.getifCardPageTotalCount()) {
-//					currentPage = influencerDAO.getifCardPageTotalCount();
-//				}
-//
-//				int start = currentPage * PageStatics.RECORD_COUNT_PER_PAGE - (PageStatics.RECORD_COUNT_PER_PAGE-1);
-//				int end = currentPage * PageStatics.RECORD_COUNT_PER_PAGE;
-//
-//				List<Profile_IfDTO> list1 = influencerDAO.ifCardBoundary(start, end);
-//
-//				String navi = influencerDAO.getifCardPageNavi(currentPage); 
-//				request.setAttribute("navi", navi);
-//				request.setAttribute("list", list1); 
-//
-//				int ifCard = influencerDAO.getIfCardCount();
-//				request.setAttribute("ifCard", ifCard);
-//				
-				
+				int currentPage = Integer.parseInt(request.getParameter("cpage"));
 				int seq = Integer.parseInt(request.getParameter("seq"));
-				System.out.println(seq);
+				
+				if(currentPage < 1) { 
+					currentPage = 1;
+				}else if(currentPage > influencerDAO.getifCardPageTotalCount(seq)) {
+					currentPage = influencerDAO.getifCardPageTotalCount(seq);
+				}
+
+				int start = currentPage * IFCPStatics.RECORD_COUNT_PER_PAGE - (IFCPStatics.RECORD_COUNT_PER_PAGE-1);
+				int end = currentPage * IFCPStatics.RECORD_COUNT_PER_PAGE;
+
+				List<Review_CpDTO> list1 = influencerDAO.ifCardBoundary(seq,start, end);
+				
+				String navi = influencerDAO.getifCardPageNavi(currentPage,seq); 
+				request.setAttribute("navi", navi);
+				request.setAttribute("list", list1);
 
 				LinkedHashMap<Profile_IfDTO,InfluencerDTO> list = influencerDAO.getIfProfile(seq);
-
+				
 				for (Entry<Profile_IfDTO, InfluencerDTO> entrySet : list.entrySet()) {
 					System.out.println(entrySet.getKey() + " : " + entrySet.getValue());
 				}
-
-				List<Review_CpDTO> cpRvList = influencerDAO.cpReview();
-
+				request.setAttribute("seq", seq);
 				request.setAttribute("ifList", list);
-				request.setAttribute("cpRvList", cpRvList);
 				request.getRequestDispatcher("/resources/ifcp/ifProfileDetail.jsp").forward(request, response);
 			
 		

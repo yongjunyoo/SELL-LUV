@@ -4,18 +4,18 @@ import java.sql.Timestamp;
 
 public class Review_IfDTO {
 
-	int seq;
-	String name_ref;
-	String writer;
-	String content;
-	Timestamp timestamp;
+	private int seq;
+	private int member_seq;
+	private String writer;
+	private String content;
+	private Timestamp timestamp;
 	
 	Review_IfDTO(){}
 
-	public Review_IfDTO(int seq, String name_ref, String writer, String content, Timestamp timestamp) {
+	public Review_IfDTO(int seq, int member_seq, String writer, String content, Timestamp timestamp) {
 		super();
 		this.seq = seq;
-		this.name_ref = name_ref;
+		this.member_seq = member_seq;
 		this.writer = writer;
 		this.content = content;
 		this.timestamp = timestamp;
@@ -29,12 +29,12 @@ public class Review_IfDTO {
 		this.seq = seq;
 	}
 
-	public String getName_ref() {
-		return name_ref;
+	public int getMember_seq() {
+		return member_seq;
 	}
 
-	public void setName_ref(String name_ref) {
-		this.name_ref = name_ref;
+	public void setMember_seq(int member_seq) {
+		this.member_seq = member_seq;
 	}
 
 	public String getWriter() {
@@ -60,6 +60,5 @@ public class Review_IfDTO {
 	public void setTimestamp(Timestamp timestamp) {
 		this.timestamp = timestamp;
 	}
-
 
 }
