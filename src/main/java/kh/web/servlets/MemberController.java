@@ -20,6 +20,7 @@ import kh.web.dao.InfluencerDAO;
 import kh.web.dto.CompanyDTO;
 import kh.web.dto.FileDTO;
 import kh.web.dto.InfluencerDTO;
+import kh.web.dto.Profile_IfDTO;
 import kh.web.web.SHA512;
 
 
@@ -307,23 +308,29 @@ public class MemberController extends HttpServlet {
 			}else if(cmd.equals("/mypage.mem")) {
 
 				String id = (String)request.getSession().getAttribute("loginID");
+				String seq = (String)request.getSession().getAttribute("IDseq");
 				CompanyDTO cdto = companyDAO.selectById(id);
 				InfluencerDTO idto = influencerDAO.selectById(id);
+				Profile_IfDTO pdto = influencerDAO.selectBySeq(seq);
 
+								
 				if(cdto != null ) {
 					request.setAttribute("dto", cdto);
 					request.getRequestDispatcher("/resources/mypage/CPmypageMain.jsp").forward(request, response);
 
 				}else {
 					request.setAttribute("dto", idto);
+					request.setAttribute("pdto", pdto);
 					request.getRequestDispatcher("/resources/mypage/IFmypageMain.jsp").forward(request, response);
 				}
 
 			}else if(cmd.equals("/modify.mem")) {
 
 				String id = (String)request.getSession().getAttribute("loginID");
+				String seq = (String)request.getSession().getAttribute("IDseq");
 				CompanyDTO cdto = companyDAO.selectById(id);
 				InfluencerDTO idto = influencerDAO.selectById(id);
+				Profile_IfDTO pdto = influencerDAO.selectBySeq(seq);
 
 				if(cdto != null ) {
 					request.setAttribute("dto", cdto);
@@ -331,13 +338,13 @@ public class MemberController extends HttpServlet {
 
 				}else {
 					request.setAttribute("dto", idto);
+					request.setAttribute("pdto", pdto);
 					request.getRequestDispatcher("/resources/mypage/IFModify.jsp").forward(request, response);
 				}
 
 
 			}else if(cmd.equals("/CPmodify.mem")) {
 
-				CompanyDTO dto = new CompanyDTO();
 				String id = request.getParameter("id");
 				String pw = request.getParameter("pw");
 				String photo = request.getParameter("photo");
@@ -358,7 +365,6 @@ public class MemberController extends HttpServlet {
 
 			}else if(cmd.equals("/IFmodify.mem")) {
 
-				InfluencerDTO dto = new InfluencerDTO();
 				String id = request.getParameter("id");
 				String pw = request.getParameter("pw");
 				String photo = request.getParameter("photo");
@@ -378,37 +384,103 @@ public class MemberController extends HttpServlet {
 				String favorite4 = request.getParameter("favorite4");
 
 				int result = influencerDAO.update(sha512.generate(pw), photo, name, nickname, zipcode, address1, address2, sns, phone, email, pwAsk, pwAnswer, favorite1 +":"+ favorite2 +":"+ favorite3 +":"+ favorite4, id);
-				response.sendRedirect("/resources/mypage/IFmypageMain.jsp");
-
+				
+				
+				String idf = (String)request.getSession().getAttribute("loginID");
+				String seq = (String)request.getSession().getAttribute("IDseq");
+				InfluencerDTO dto = influencerDAO.selectById(idf);
+				Profile_IfDTO pdto = influencerDAO.selectBySeq(seq);
+				request.setAttribute("dto", dto);
+				request.setAttribute("pdto", pdto);
+				request.getRequestDispatcher("/resources/mypage/IFmypageMain.jsp").forward(request, response);
+				
 			}else if(cmd.equals("/Ifprofile.mem")) {
 
 				String id = (String)request.getSession().getAttribute("loginID");
-				InfluencerDTO idto = influencerDAO.selectById(id);
-				request.setAttribute("dto", idto);
+				InfluencerDTO dto = influencerDAO.selectById(id);
+				request.setAttribute("dto", dto);
 				request.getRequestDispatcher("/resources/mypage/IFprofile.jsp").forward(request, response);
 
 			}else if(cmd.equals("/upload.mem")) {
 				
 				String id = (String)request.getSession().getAttribute("loginID");
-				InfluencerDTO idto = influencerDAO.selectById(id);
-				request.setAttribute("dto", idto);
+				String seq = (String)request.getSession().getAttribute("IDseq");
+				InfluencerDTO dto = influencerDAO.selectById(id);				
+				String career = request.getParameter("career");
+				String intro = request.getParameter("intro");
+				String condition = request.getParameter("condition");			
+				int result = influencerDAO.insertProfile(seq, condition, career, intro);
 				
-				request.getRequestDispatcher("/resources/mypage/IFprofile.jsp").forward(request, response);
+				Profile_IfDTO pdto = influencerDAO.selectBySeq(seq);
+				request.setAttribute("dto", dto);
+				request.setAttribute("pdto", pdto);
+				request.getRequestDispatcher("/resources/mypage/IFmypageMain.jsp").forward(request, response);
 				
 			}else if(cmd.equals("/IFKkanbuList.mem")) {
 				
 				String id = (String)request.getSession().getAttribute("loginID");
-				InfluencerDTO idto = influencerDAO.selectById(id);
-				request.setAttribute("dto", idto);
+				String seq = (String)request.getSession().getAttribute("IDseq");
+				InfluencerDTO dto = influencerDAO.selectById(id);
+				Profile_IfDTO pdto = influencerDAO.selectBySeq(seq);
+				request.setAttribute("dto", dto);
+				request.setAttribute("pdto", pdto);
 				request.getRequestDispatcher("/resources/mypage/IFmypageKkanbu.jsp").forward(request, response);
 				
 			}else if(cmd.equals("/IFReviewList.mem")) {
 				
 				String id = (String)request.getSession().getAttribute("loginID");
-				InfluencerDTO idto = influencerDAO.selectById(id);
-				request.setAttribute("dto", idto);
+				String seq = (String)request.getSession().getAttribute("IDseq");
+				InfluencerDTO dto = influencerDAO.selectById(id);
+				Profile_IfDTO pdto = influencerDAO.selectBySeq(seq);
+				request.setAttribute("dto", dto);
+				request.setAttribute("pdto", pdto);
 				request.getRequestDispatcher("/resources/mypage/IFmypageReview.jsp").forward(request, response);
 				
+			}else if(cmd.equals("/goIfprofileModify.mem")) {
+				
+				String idf = (String)request.getSession().getAttribute("loginID");
+				String seq = (String)request.getSession().getAttribute("IDseq");
+				InfluencerDTO dto = influencerDAO.selectById(idf);
+				Profile_IfDTO pdto = influencerDAO.selectBySeq(seq);
+				request.setAttribute("dto", dto);
+				request.setAttribute("pdto", pdto);
+				request.getRequestDispatcher("/resources/mypage/IFprofileModify.jsp").forward(request, response);
+				
+			}else if(cmd.equals("/IfprofileModify.mem")) {
+				
+				String idf = (String)request.getSession().getAttribute("loginID");
+				String seq = (String)request.getSession().getAttribute("IDseq");
+				InfluencerDTO dto = influencerDAO.selectById(idf);
+				Profile_IfDTO pdto = influencerDAO.selectBySeq(seq);
+				request.setAttribute("dto", dto);
+				request.setAttribute("pdto", pdto);
+				
+				String career = request.getParameter("career");
+				String intro = request.getParameter("intro");
+				String condition = request.getParameter("condition");
+				
+				int result = influencerDAO.updateProfile(seq, condition, career, intro);
+				request.getRequestDispatcher("/resources/mypage/IFmypageMain.jsp").forward(request, response);
+				
+			}else if(cmd.equals("/Ifleave.mem")) {
+				
+				String idf = (String)request.getSession().getAttribute("loginID");
+				String seq = (String)request.getSession().getAttribute("IDseq");
+				
+				int result = influencerDAO.delete(idf);
+				int result2 = influencerDAO.deleteProfile(seq);
+				
+				request.setAttribute("result", result);
+				request.setAttribute("result2", result2);
+				request.getSession().invalidate();
+				request.getRequestDispatcher("/index.jsp").forward(request, response);
+				
+			}else if(cmd.equals("/CPnameCheck.mem")) {
+
+				String name = request.getParameter("name");
+				boolean result = companyDAO.nameExist(name);
+				response.getWriter().append(String.valueOf(result));
+
 			}
 
 		}catch(Exception e) {

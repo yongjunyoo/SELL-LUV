@@ -731,6 +731,20 @@ public class CompanyDAO {
 			}
 		}
 	}
+	
+	// 기업상호명 중복 체크 method
+		public boolean nameExist(String name) throws Exception{
+
+			String sql = "select * from(select name_cp from company union select nickname_if from influencer) where name_cp = ?";
+
+			try(Connection con = this.getConnection();
+					PreparedStatement pstat = con.prepareStatement(sql);){
+				pstat.setString(1,name);
+				try(ResultSet rs = pstat.executeQuery()){
+					return rs.next();
+				}		
+			}
+		}
 }
 
 
