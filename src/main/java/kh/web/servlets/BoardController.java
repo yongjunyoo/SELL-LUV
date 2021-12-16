@@ -77,6 +77,9 @@ public class BoardController extends HttpServlet {
 				// 댓글 가져가기
 				List<CommentDTO> cList = cdao.selectByBoardSeq(Integer.parseInt(seq));
 				request.setAttribute("cList", cList);
+				
+				// 조회수 올리기
+				bdao.addViewCount(Integer.parseInt(seq));
 				request.getRequestDispatcher("/resources/board/boardDetail.jsp?cpage"+cpage+"&seq="+seq).forward(request, response);
 			// 게시글 수정
 			}else if(cmd.equals("/modify.board")) {

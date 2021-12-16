@@ -144,6 +144,11 @@ public class MemberController extends HttpServlet {
 				// request를 multi로 업그레이드
 				String sysName = multi.getFilesystemName("photo");
 				String oriName = multi.getOriginalFileName("photo");
+				System.out.println(sysName);
+				if(sysName==null) {
+					sysName = "blank1.png";
+					oriName = "blank.png";
+				}
 				String id = multi.getParameter("id");
 				String pw = multi.getParameter("pw");
 				String name = multi.getParameter("name");
@@ -264,6 +269,10 @@ public class MemberController extends HttpServlet {
 				
 				String sysName = multi2.getFilesystemName("photo");
 				String oriName = multi2.getOriginalFileName("photo");
+				if(sysName==null) {
+					sysName = "blank1.png";
+					oriName = "blank.png";
+				}
 				String id = multi2.getParameter("id");
 				String pw = multi2.getParameter("pw");
 				String name = multi2.getParameter("name");
