@@ -258,11 +258,11 @@ rel="stylesheet" />
 								<div class="col profile-box mt-4 mb-2 ">
 								<div class="img-box" style="height:100%;display:inline-block">
 								<img id="profile" class="img-profile" style="width:50px;height:50px;"
-									src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="">
+									src="/profile.file?writer=${dto.writer }" alt="">
 								</div>	
 								<ul class="meta list list-unstyled profile-detail d-flex mb-0 ml-2">
-									<li class="name mt-0">닉네임</li>
-									<li class="label" style="margin: 0; padding: 0">인플루언서</li>
+									<li class="name mt-0">${dto.writer }</li>
+									<li class="label" style="margin: 0; padding: 0">${member}</li>
 								</ul>
 								</div>
 							</div>
@@ -282,7 +282,7 @@ rel="stylesheet" />
         </div>
         <div class="row">
             <div class="col-sm-12" style="text-align:right">
-                <c:if test="${loginID==dto.writer }">
+                <c:if test="${loginName==dto.writer }">
 	                <button type="button" class="btn btn-dark" id="mod" style="background-color:rgb(255, 111, 97);">수정하기</button>
 	                <button type="button" class="btn btn-dark" id="del" style="background-color:rgb(255, 111, 97);">삭제하기</button>
 	                <button type="button" class="btn btn-dark" id="modDone" style="background-color:rgb(255, 111, 97);display:none;">수정완료</button>
@@ -347,11 +347,11 @@ rel="stylesheet" />
 								<div class="col profile-box">
 									<div class="img-box" style="height:100%;display:inline-block">
 										<img id="profile" class="img-profile" style="width:50px;height:50px;"
-											src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="">
+											src="/profile.file?writer=${cdto.writer }" alt="">
 									</div>	
 									<ul class="meta list list-unstyled profile-detail d-flex mb-0 ml-2">
 										<li class="name mt-0">${cdto.writer}</li>
-										<li class="label" style="margin: 0; padding: 0">인플루언서</li>
+										<li class="label" style="margin: 0; padding: 0">${cdto.member }</li>
 									</ul>
 									<ul class="meta list list-unstyled profile-detail d-flex mb-0" style="margin-left: auto;justify-content: flex-end;">
 										<li class="label" style="margin: 0; padding: 0">${cdto.detailDate}</li>
@@ -363,11 +363,15 @@ rel="stylesheet" />
 			        <div class="row">
 			            <div class="col-sm-12">
 			                <textarea .ass="contents" cols rows name="contents-cmt"  readonly style="height:auto;">${cdto.contents }</textarea>
+			                <script>
+			                $("#contents").text(`${dto.contents}`);
+                			autosize($("textArea"));
+			                </script>
 			            </div>
 			        </div>
 			        <div class="row">
 			            <div class="col-sm-12" style="text-align:right">
-			            <c:if test="${loginID==cdto.writer }">
+			            <c:if test="${loginName==cdto.writer }">
 			            	<button type="button" class="btn btn-dark modCmt" style="background-color:rgb(255, 111, 97);">수정</button>
 			            	<button type="button" class="btn btn-dark delCmt" style="background-color:rgb(255, 111, 97);">삭제</button>
 			            	<button type="button" class="btn btn-dark modCmtOk" style="background-color:rgb(255, 111, 97);display:none;">완료</button>
@@ -407,11 +411,11 @@ rel="stylesheet" />
 								<div class="col profile-box mb-2 ">
 								<div class="img-box" style="height:100%;display:inline-block">
 								<img id="profile" class="img-profile" style="width:50px;height:50px;"
-									src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="">
+									src="/profile.file?writer=${loginName }" alt="">
 								</div>	
 								<ul class="meta list list-unstyled profile-detail d-flex mb-0 ml-2">
-									<li class="name mt-0">닉네임</li>
-									<li class="label" style="margin: 0; padding: 0">인플루언서</li>
+									<li class="name mt-0">${loginName}</li>
+									<li class="label" style="margin: 0; padding: 0">${loginMember }</li>
 								</ul>
 								</div>
 							</div>
@@ -421,7 +425,7 @@ rel="stylesheet" />
             <div class="col-sm-12">
                 <textarea id="contents" cols=170 rows=4 name="contents-cmt"></textarea>
                 <script>
-                	// $("#contents").text("${dto.contents}"); 
+            	autosize($("textArea"));
                 </script>
             </div>
         </div>

@@ -60,7 +60,8 @@ public class MemberController extends HttpServlet {
 					HttpSession session = request.getSession();
 					session.setAttribute("loginID", id);
 					session.setAttribute("IDseq", seq);
-					session.setAttribute("name", name);
+					session.setAttribute("loginName", name);
+					session.setAttribute("loginMember", "인플루언서");
 					System.out.println("인플루언서 닉네임 : "+name);
 					System.out.println("logged in!");
 
@@ -98,7 +99,8 @@ public class MemberController extends HttpServlet {
 					HttpSession session = request.getSession();
 					session.setAttribute("loginID", id);
 					session.setAttribute("IDseq", seq);
-					session.setAttribute("name", name);
+					session.setAttribute("loginName", name);
+					session.setAttribute("loginMember", "기업");
 					System.out.println("기업 상호 : "+name);
 					System.out.println( id + " " + seq + "logged in!");
 					response.sendRedirect("/index.jsp");
@@ -119,6 +121,9 @@ public class MemberController extends HttpServlet {
 
 			}else if(cmd.equals("/logout.mem")) {
 				request.getSession().removeAttribute("loginID");
+				request.getSession().removeAttribute("IDseq");
+				request.getSession().removeAttribute("loginName");
+				request.getSession().removeAttribute("loginMember");
 				response.sendRedirect("/index.jsp");
 
 			}else if(cmd.equals("/loginCheck.mem")) {

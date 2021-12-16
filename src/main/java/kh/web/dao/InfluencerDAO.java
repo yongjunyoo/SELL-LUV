@@ -496,6 +496,21 @@ public class InfluencerDAO  {
 		}
 
 	}
+	
+	public boolean isMember(String name) throws Exception {
+		String sql = "SELECT * FROM influencer WHERE nickname_if =? ";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, name);
+			try(ResultSet rs = pstat.executeQuery();){
+
+				if(rs.next()) {
+					return true;
+				}
+				return false;
+			}
+		}
+	}
 
 	// 비밀번호 재설정 메소드
 

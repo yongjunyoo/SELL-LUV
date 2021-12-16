@@ -468,6 +468,21 @@ public class CompanyDAO {
 			}
 		}
 	}
+	
+	public boolean isMember(String name) throws Exception {
+		String sql = "SELECT * FROM company WHERE name_cp =? ";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, name);
+			try(ResultSet rs = pstat.executeQuery();){
+
+				if(rs.next()) {
+					return true;
+				}
+				return false;
+			}
+		}
+	}
 
 	// 비밀번호 재설정 메소드
 
