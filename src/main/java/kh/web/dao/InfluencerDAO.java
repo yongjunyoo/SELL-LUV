@@ -270,31 +270,45 @@ public class InfluencerDAO  {
 			}
 		}
 	}
-
+	
+	// influencer_seq 생성 메소드 
+		public int createNewseq() throws Exception {
+			String sql = "SELECT seq_if.nextval FROM dual";
+			try(Connection con = this.getConnection();
+					PreparedStatement pstat = con.prepareStatement(sql);
+					ResultSet rs = pstat.executeQuery();
+					){
+				rs.next();
+				return rs.getInt(1);
+			}
+		}
+	
+	
 	// 회원가입 method
-	public int insert(String id, String pw, String photo, String name, String nickName, String zipcode, String address1, 
+	public int insert(int seq, String id, String pw, String photo, String name, String nickName, String zipcode, String address1, 
 			String address2, String sns, String phone, String email, String grade, String pwAsk, String pwAnswer, String favorite ) throws Exception {
 
-		String sql = "insert into influencer values(seq_if.nextval,?,?,?,?,?,?,?,?,?,?,?,default,?,?,?)";
+		String sql = "insert into influencer values(?,?,?,?,?,?,?,?,?,?,?,?,default,?,?,?)";
 
 
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
 
-			pstat.setString(1, id);
-			pstat.setString(2, pw);			
-			pstat.setString(3, photo);
-			pstat.setString(4, name);
-			pstat.setString(5, nickName);
-			pstat.setString(6, zipcode);
-			pstat.setString(7, address1);
-			pstat.setString(8, address2);
-			pstat.setString(9, sns);
-			pstat.setString(10, phone);
-			pstat.setString(11, email);
-			pstat.setString(12, pwAsk);
-			pstat.setString(13, pwAnswer);
-			pstat.setString(14, favorite);
+			pstat.setInt(1, seq);
+			pstat.setString(2, id);
+			pstat.setString(3, pw);			
+			pstat.setString(4, photo);
+			pstat.setString(5, name);
+			pstat.setString(6, nickName);
+			pstat.setString(7, zipcode);
+			pstat.setString(8, address1);
+			pstat.setString(9, address2);
+			pstat.setString(10, sns);
+			pstat.setString(11, phone);
+			pstat.setString(12, email);
+			pstat.setString(13, pwAsk);
+			pstat.setString(14, pwAnswer);
+			pstat.setString(15, favorite);
 			int result  = pstat.executeUpdate();
 
 			return result;
@@ -513,6 +527,40 @@ public class InfluencerDAO  {
 			}
 			return result;
 		}
+	}
+	
+	// 닉네임 찾기
+	public String findName(String id, String pw) throws Exception{
+		String sql = "SELECT nickname_if FROM influencer WHERE id_if =? AND pw_if =?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, id);
+			pstat.setString(2, pw);
+			String result = "";
+			try(ResultSet rs = pstat.executeQuery();){
+				if(rs.next()) {
+					result = rs.getString("nickname_if");
+
+				}
+			}
+			return result;
+		}
+	}
+	
+	public String findProfile(String name) throws Exception{
+		String sql = "SELECT photo_if FROM influencer WHERE nickname_if = ?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, name);
+			String result = "";
+			try(ResultSet rs = pstat.executeQuery();){
+				if(rs.next()) {
+				result = rs.getString("photo_if");
+				
+				}
+			}
+			return result;
+			}
 	}
 
 	public int insertProfile(String seq, String condition, String career, String intro) throws Exception{

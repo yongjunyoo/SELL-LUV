@@ -183,7 +183,7 @@ select {
 	                <div class="d-none d-md-block col-4">
 	                    <div class="row no-gutters align-items-center"  >
 	                        <div class="col-4" style="text-align:center;">${dto.view_count }</div>
-	                        <div class="media pl-4 col-8 align-items-center"> <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1574583246/AAA/2.jpg" alt="" class="d-block ui-w-30 rounded-circle">
+	                        <div class="media pl-4 col-8 align-items-center"> <img src="/profile.file?writer=${dto.writer }" alt="" class="d-block ui-w-30 rounded-circle">
 	                            <div class="media-body flex-truncate ml-2">
 	                                <div class="line-height-1 text-truncate">${dto.detailDate }</div> <a href="javascript:void(0)" class="text-muted small text-truncate" data-abc="true">by ${dto.writer }</a>
 	                            </div>

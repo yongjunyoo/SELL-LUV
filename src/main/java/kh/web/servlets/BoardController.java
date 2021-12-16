@@ -1,5 +1,6 @@
 package kh.web.servlets;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -58,12 +59,12 @@ public class BoardController extends HttpServlet {
 				request.setAttribute("navi", navi);
 				request.setAttribute("boardList", boardList);
 				request.getRequestDispatcher("/resources/board/board.jsp?cpage="+cpage).forward(request, response);
-			// 글쓰기 기능
+			// 프로필 사진 읽기
 			}else if(cmd.equals("/write.board")) {
 				response.sendRedirect("/resources/board/boardwrite.jsp");
 			// 글 작성 완료
 			}else if(cmd.equals("/done.board")) {
-				String writer = (String)session.getAttribute("loginID");
+				String writer = (String)session.getAttribute("name");
 				String title = request.getParameter("title");
 				String contents = request.getParameter("contents");
 				int result = bdao.insert(new BoardDTO(0,writer,title,contents,null,0));

@@ -258,33 +258,46 @@ public class CompanyDAO {
 		}
 	}	
 
-
+	// company_seq 생성 메소드 
+	public int createNewseq() throws Exception {
+		String sql = "SELECT company_seq_cp.NEXTVAL FROM dual";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				ResultSet rs = pstat.executeQuery();
+				){
+			rs.next();
+			return rs.getInt(1);
+		}
+	}
+	
+	
 	// Company 회원가입 -이준협
 
 	// 회원가입 method
-	public int insert(String id, String pw, String photo, String name, String crunumber, String zipcode, String address1, 
+	public int insert(int seq, String id, String pw, String photo, String name, String crunumber, String zipcode, String address1, 
 			String address2, String rpt_cp, String phone, String email, String sales, String grade, String pwAsk, String pwAnswer) throws Exception {
 
-		String sql = "insert into company values(company_seq_cp.nextval,?,?,?,?,?,?,?,?,?,?,?,?,default,?,?)";
+		String sql = "insert into company values(?,?,?,?,?,?,?,?,?,?,?,?,?,default,?,?)";
 
 
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
 
-			pstat.setString(1, id);
-			pstat.setString(2, pw);			
-			pstat.setString(3, photo);
-			pstat.setString(4, name);
-			pstat.setString(5, crunumber);
-			pstat.setString(6, zipcode);
-			pstat.setString(7, address1);
-			pstat.setString(8, address2);
-			pstat.setString(9, rpt_cp);
-			pstat.setString(10, phone);
-			pstat.setString(11, email);
-			pstat.setString(12, sales);
-			pstat.setString(13, pwAsk);
-			pstat.setString(14, pwAnswer);
+			pstat.setInt(1, seq);
+			pstat.setString(2, id);
+			pstat.setString(3, pw);			
+			pstat.setString(4, photo);
+			pstat.setString(5, name);
+			pstat.setString(6, crunumber);
+			pstat.setString(7, zipcode);
+			pstat.setString(8, address1);
+			pstat.setString(9, address2);
+			pstat.setString(10, rpt_cp);
+			pstat.setString(11, phone);
+			pstat.setString(12, email);
+			pstat.setString(13, sales);
+			pstat.setString(14, pwAsk);
+			pstat.setString(15, pwAnswer);
 			int result  = pstat.executeUpdate();
 
 			return result;
@@ -566,6 +579,39 @@ public class CompanyDAO {
 			try(ResultSet rs = pstat.executeQuery();){
 				if(rs.next()) {
 				result = rs.getInt("seq_cp");
+				
+				}
+			}
+			return result;
+			}
+	}
+	
+	public String findName(String id, String pw) throws Exception{
+		String sql = "SELECT name_cp FROM company WHERE id_cp =? AND pw_cp =?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, id);
+			pstat.setString(2, pw);
+			String result = "";
+			try(ResultSet rs = pstat.executeQuery();){
+				if(rs.next()) {
+				result = rs.getString("name_cp");
+				
+				}
+			}
+			return result;
+			}
+	}
+	
+	public String findProfile(String name) throws Exception{
+		String sql = "SELECT photo_cp FROM company WHERE name_cp = ?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, name);
+			String result = "";
+			try(ResultSet rs = pstat.executeQuery();){
+				if(rs.next()) {
+				result = rs.getString("photo_cp");
 				
 				}
 			}
