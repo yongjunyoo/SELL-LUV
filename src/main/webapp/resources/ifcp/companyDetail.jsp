@@ -119,14 +119,11 @@
 										</div>	
 										</c:when>
 										<c:otherwise>
-											<a href="/kkanbuRequestToCompany.kkanbu?kkanbuSeqTo=${dto.key.member_seq }&kkanbuSeqFrom=${IDseq}&kkanbuCardSeq=${dto.key.seq_cp}" style="text-decoration: none;">깐부맺기</a>
+											<a href="/kkanbuRequestToCompany.kkanbu?kkanbuSeqTo=${dto.key.member_seq }&kkanbuSeqFrom=${IDseq}&kkanbuCardSeq=${dto.key.seq_cp}&cpage=1" style="text-decoration: none;">깐부맺기</a>
 										</c:otherwise>
 									</c:choose>
 
 									<div class="nav tag-cloud">
-										<a
-											href="/kkanbuRequestToCompany.kkanbu?kkanbuReceiveSeq=${dto.key.member_seq }&kkanbuSendSeq=${IDseq}"
-											style="text-decoration: none;">깐부맺기</a>
 
 									</div>
 								</div>

@@ -345,7 +345,7 @@ body {
 												<td class="date">${kkanbu.if_requestedTime}</td>
 										
 													<td id="kkanbuCheckbox" class="size"><a id="kkanbuCheck" href="/approveInfKkanbuRequest.kkanbu?kkanbuFrom=${kkanbu.if_kkanbuSeqFrom }&kkanbuTo=${kkanbu.if_kkanbuSeqTo}" style="text-decoration: none"> 수락 </a>
-													<a href="/deleteInfKkanbuRequest.kkanbu?kkanbuSeq="${kkanbu. if_kkanbu_seq } style="text-decoration: none">거절 </a></td>
+													<a href="/deleteInfKkanbuRequest.kkanbu?kkanbuSeq="${kkanbu.if_kkanbu_seq }kkanbuTo=${kkanbu.if_kkanbuSeqTo} style="text-decoration: none">거절 </a></td>
 												
 											</tr>
 										</tbody>

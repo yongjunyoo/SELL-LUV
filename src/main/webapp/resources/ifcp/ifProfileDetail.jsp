@@ -107,7 +107,7 @@
 							<div class="media align-items-center">
 								<div class="media-body">
 									<div class="nav tag-cloud">
-<<<<<<< HEAD
+
 									<c:choose>
 										<c:when test="${kkanbuCardSeq !=null }">
 										<div class="nav tag-cloud">
@@ -115,13 +115,9 @@
 										</div>	
 										</c:when>
 										<c:otherwise>
-											<a href="/kkanbuRequestToInfluencer.kkanbu?kkanbuSeqTo=${dto.key.member_seq }&kkanbuSeqFrom=${IDseq}&kkanbuCardSeq=${dto.key.seq_if}" id = "kkanbuRequest" style="text-decoration: none;">깐부맺기</a>
+											<a href="/kkanbuRequestToInfluencer.kkanbu?kkanbuSeqTo=${dto.key.member_seq }&kkanbuSeqFrom=${IDseq}&kkanbuCardSeq=${dto.key.seq_if}&cpage=1" id = "kkanbuRequest" style="text-decoration: none;">깐부맺기</a>
 										</c:otherwise>
 									</c:choose>
-
-										<a
-											href="/kkanbuRequestToCompany.kkanbu?kkanbuReceiveSeq=${dto.key.member_seq }&kkanbuSendSeq=${IDseq}"
-											style="text-decoration: none;">깐부맺기</a>
 
 									</div>
 								</div>
