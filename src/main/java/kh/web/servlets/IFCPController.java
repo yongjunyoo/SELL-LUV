@@ -114,7 +114,12 @@ public class IFCPController extends HttpServlet {
 			}else if(cmd.equals("/companyBoard.ifcp")) { // 기업 페이지로 리뷰보내기.
 				int currentPage = Integer.parseInt(request.getParameter("cpage"));
 				int seq = Integer.parseInt(request.getParameter("seq"));
-				System.out.println(seq);
+				String loginID = request.getParameter("loginID");
+				
+				String loggedInID = influencerDAO.whatIsLoggedInID(loginID);
+				
+				
+				System.out.println("loginID: " + loginID + " loggedInID: " + loggedInID);
 				
 				if(currentPage < 1) { 
 					currentPage = 1;
@@ -136,6 +141,7 @@ public class IFCPController extends HttpServlet {
 				for (java.util.Map.Entry<Board_CpDTO, CompanyDTO> entrySet : list.entrySet()) {
 					System.out.println(entrySet.getKey() + " : " + entrySet.getValue());
 				}
+				request.setAttribute("loggedInID", loggedInID);
 				request.setAttribute("seq", seq);
 				request.setAttribute("cpList", list);
 				request.getRequestDispatcher("/resources/ifcp/companyDetail.jsp").forward(request, response);
@@ -143,6 +149,10 @@ public class IFCPController extends HttpServlet {
 			}else if(cmd.equals("/influencerProfile.ifcp")) { // 인플루언서 페이지로 리뷰보내기.
 	            int currentPage = Integer.parseInt(request.getParameter("cpage"));
 	            int seq = Integer.parseInt(request.getParameter("seq"));
+	            String loginID = request.getParameter("loginID");
+				
+				String loggedInID = influencerDAO.whatIsLoggedInID(loginID);	
+	          
 	            
 	            if(currentPage < 1) { 
 	               currentPage = 1;
@@ -164,6 +174,7 @@ public class IFCPController extends HttpServlet {
 	            for (Entry<Profile_IfDTO, InfluencerDTO> entrySet : list.entrySet()) {
 	               System.out.println(entrySet.getKey() + " : " + entrySet.getValue());
 	            }
+	            request.setAttribute("loggedInID", loggedInID);
 	            request.setAttribute("seq", seq);
 	            request.setAttribute("ifList", list);
 	            request.getRequestDispatcher("/resources/ifcp/ifProfileDetail.jsp").forward(request, response);

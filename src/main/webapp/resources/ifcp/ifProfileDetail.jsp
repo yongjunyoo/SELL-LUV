@@ -109,6 +109,14 @@
 									<div class="nav tag-cloud">
 
 									<c:choose>
+										<c:when test="${loginID == null}">
+										</c:when>
+										<c:when test="${loggedInID eq 'influencer'}">
+										</c:when>
+										
+										<c:when test="${kkanbuMessage != null}">
+			 									${kkanbuMessage}
+										</c:when>
 										<c:when test="${kkanbuCardSeq !=null }">
 										<div class="nav tag-cloud">
 											<span>깐부요청이미함..</span>

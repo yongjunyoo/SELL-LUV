@@ -590,11 +590,11 @@ public class InfluencerDAO  {
 	}
 
 
-		public String getNickname(int kkanbuSeqTo) throws Exception {
+		public String getNickname(int kkanbuSeqFrom) throws Exception {
 			String sql = "SELECT nickname_if FROM influencer WHERE seq_if =?";
 			try(Connection con = this.getConnection();
 					PreparedStatement pstat = con.prepareStatement(sql);){
-				pstat.setInt(1, kkanbuSeqTo);
+				pstat.setInt(1, kkanbuSeqFrom);
 				String result = "";
 				try(ResultSet rs = pstat.executeQuery();){
 					if(rs.next()) {
@@ -788,6 +788,22 @@ public class InfluencerDAO  {
 			}
 		}
 	}
+	public String whatIsLoggedInID(String loginID) throws Exception{
+		String sql = "select * from influencer where id_if = ?";
+		
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, loginID);
+			try(ResultSet rs = pstat.executeQuery();){
+				
+				if(rs.next()) {
 
+					return  "influencer";
+				
+				}
+				return "company";
+			}
+		}
 
+	}
 }

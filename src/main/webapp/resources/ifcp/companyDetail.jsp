@@ -112,7 +112,15 @@
 							<div class="media align-items-center">
 								<div class="media-body">
 
-									<div class="nav tag-cloud"><c:choose>
+									<div class="nav tag-cloud">
+									<c:choose>
+										<c:when test="${loggedInID eq 'company'}">
+										</c:when>
+										<c:when test="${loggedInID == null}">
+										</c:when>
+										<c:when test="${kkanbuMessage != null}">
+			 									${kkanbuMessage}
+										</c:when>
 										<c:when test="${kkanbuCardSeq !=null }">
 										<div class="nav tag-cloud">
 											<span>깐부요청보냄</span>
