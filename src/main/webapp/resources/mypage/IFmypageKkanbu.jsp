@@ -199,6 +199,7 @@ body {
 #profile-box{
 	flex-wrap: wrap;
 }
+
 </style>
 
 <script>
@@ -294,7 +295,7 @@ body {
 												<i class="fa fa-heart-o fa-2x"></i>
 											</div>
 										<div class="detail-title-one">
-												<h6 class=""><a href="/IFKkanbuList.mem" style="text-decoration: none;">깐부관리</a></h6>
+												<h6 class=""><a href="/showKkanbuRequest.kkanbu?=${IDseq}" style="text-decoration: none;">깐부관리</a></h6>
 												<%-- <p class="detail-detail"><span>이동</span></p>--%>
 											</div>
 										</div>
@@ -321,17 +322,36 @@ body {
 						<div class="table-responsive mt-3">
 							<div class="drive-wrapper drive-list-view">
 								<div class="table-responsive drive-items-table-wrapper">
+								
 									<table class="table">
 										<thead>
 											<tr>
 												<th class="type"></th>
 												<th class="name truncate">기업이름</th>
-												<th class="date">조건</th>
-												<th class="size">깐부맺기</th>
+
+												<th class="date">시각 </th>
+												<th class="size" style="text-align:center;">깐부맺기</th>
+
 											</tr>
 										</thead>
+						
+								<c:forEach var="kkanbu" items="${kkanbuRequest }">
+										<tbody>
+											<tr>
+												<td class="type"><i
+													class="fa fa-file-text-o text-primary"></i></td>
+												<td class="name truncate"><a href="#"> ${kkanbu.if_kkanbuNameFrom}
+													</a></td>
+												<td class="date">${kkanbu.if_requestedTime}</td>
 										
+													<td id="kkanbuCheckbox" class="size"><a id="kkanbuCheck" href="/approveInfKkanbuRequest.kkanbu?kkanbuFrom=${kkanbu.if_kkanbuSeqFrom }&kkanbuTo=${kkanbu.if_kkanbuSeqTo}" style="text-decoration: none"> 수락 </a>
+													<a href="/deleteInfKkanbuRequest.kkanbu?kkanbuSeq="${kkanbu.if_kkanbu_seq }kkanbuTo=${kkanbu.if_kkanbuSeqTo} style="text-decoration: none">거절 </a></td>
+												
+											</tr>
+										</tbody>
+								</c:forEach>
 									</table>
+					
 								</div>
 							</div>
 						</div>

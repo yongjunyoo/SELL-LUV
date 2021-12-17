@@ -222,23 +222,22 @@ body {
 							</div>
 						</div>
 						<ul class="meta list list-unstyled profile-detail">
-							<li class="name">${loginID }</li>
 							<li class="name">${dto.name }</li>
-							<li class="label" style="margin: 0; padding: 0">기업</li>
+							<li class="label" style="margin: 0; padding: 0">기업 </li>
 							<li class="email">${dto.email }</li>
 							<li class="activity">Last logged in: Today at 2:18pm</li>
 						</ul>
 					</div>
 				</div>
-				
 				<div class="card">
 					<div class="card-body">
 						<div class="d-grid"></div>
 						<h5 class="my-3">My Page</h5>
 						<div class="fm-menu">
 							<div class="list-group list-group-flush">
-								<a href="/modify.mem" class="list-group-item py-1"><i class="bx bx-cool me-2"></i><span>기업 정보 수정</span></a> 													
-								<a href="/showCompanyKkanbuRequest.kkanbu?IDseq=${IDseq}" class="list-group-item py-1"><i class="bx bx-heart me-2"></i><span>깐부 관리</span></a>
+								<a href="/modify.mem" class="list-group-item py-1"><i class="bx bx-cool me-2"></i><span>개인 정보 수정</span></a> 							
+								<a href="/Ifprofile.mem" class="list-group-item py-1"><i class="bx bx-face me-2"></i><span>프로필 수정</span></a> 
+								<a href="/IFKkanbuList.mem" class="list-group-item py-1"><i class="bx bx-heart me-2"></i><span>깐부 관리</span></a>
 								<a href="" class="list-group-item py-1"><i class="bx bx-like me-2"></i><span>리뷰 관리</span></a>
 								<a href="" class="list-group-item py-1"><i class="bx bx-highlight me-2"></i><span>커뮤니티 관리</span></a>
 								<a href="" class="list-group-item py-1"></i><span>회원탈퇴</span></a>
@@ -276,8 +275,8 @@ body {
 												<i class="fa fa-heart-o fa-2x"></i>
 											</div>
 										<div class="detail-title-one">
-												<h6 class="">깐부관리</h6>
-												
+												<h6 class=""><a href="/showKkanbuRequest.kkanbu?=${IDseq}" style="text-decoration: none;">깐부관리</a></h6>
+												<%-- <p class="detail-detail"><span>이동</span></p>--%>
 											</div>
 										</div>
 									</div>
@@ -291,31 +290,47 @@ body {
 												<i class="fa fa-thumbs-o-up fa-2x" aria-hidden="true"></i>
 											</div>
 											<div class="detail-title-one">
-												<h6 class="">리뷰관리</h6>
-											
+												<h6 class=""><a href="/IFReviewList.mem" style="text-decoration: none;">리뷰관리</a></h6>
+												<%-- <p class="detail-detail"><span>이동</span></p>--%>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
+						
 						<div class="table-responsive mt-3">
 							<div class="drive-wrapper drive-list-view">
 								<div class="table-responsive drive-items-table-wrapper">
+								
 									<table class="table">
 										<thead>
 											<tr>
 												<th class="type"></th>
-												<th class="name truncate">기업이름 </th>
-												<th class="date">날짜</th>
-												<th class="size">수락/거절</th>
+												<th class="name truncate">인플루언서 이름</th>
+												<th class="date">시각 </th>
+												<th class="size" style="text-align:center;">깐부맺기</th>
 											</tr>
 										</thead>
-										
+								<c:forEach var="kkanbu" items="${kkanbuRequest }">
+										<tbody>
+											<tr>
+												<td class="type"><i
+													class="fa fa-file-text-o text-primary"></i></td>
+												<td class="name truncate"><a href="#"> ${kkanbu.cp_kkanbuNameFrom}
+													</a></td>
+												<td class="date">${kkanbu.cp_requestedTime}</td>
+												<td class="size"><a href="/approveCompanyKkanbuRequest.kkanbu?kkanbuFrom=${kkanbu.cp_kkanbuSeqFrom }&kkanbuTo=${kkanbu.cp_kkanbuSeqTo}&loggedInSeq=${IDseq}&kkanbu_seq${kkanbu.cp_kkanbu_seq}" style="text-decoration: none">수락 </a>
+												<a href="/deleteCompanyKkanbuRequest.kkanbu?kkanbuSeq=${kkanbu.cp_kkanbu_seq }&kkanbuTo=${kkanbu.cp_kkanbuSeqTo}" style="text-decoration: none">거절 </a></td>
+											</tr>
+										</tbody>
+								</c:forEach>
 									</table>
+									
 								</div>
 							</div>
 						</div>
+						
 					</div>
 				</div>
 			</div>

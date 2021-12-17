@@ -125,22 +125,6 @@ public class InfluencerDAO  {
 	}
 
 	public LinkedHashMap<Profile_IfDTO, InfluencerDTO> selectByBound(int start, int end) throws Exception {
-		//			String sql ="select * from (select influencer.*, row_number() over(order by seq_if desc) rn from influencer) where rn between ? and ?";
-		//		String sql = "select * from (\n"
-		//				+ " select \n"
-		//				+ "    row_number() over(order by decode(grade,'gold','A','silver','B','bronze','C')) rn, \n"
-		//				+ "    temp.*\n"
-		//				+ "from \n"
-		//				+ "    (select \n"
-		//				+ "        i.*,\n"
-		//				+ "        p.seq_if p_seq_if,\n"
-		//				+ "        member_seq,\n"
-		//				+ "        condition_if,\n"
-		//				+ "        career_if,\n"
-		//				+ "        intro_if,\n"
-		//				+ "        slike_if,\n"
-		//				+ "        rlike_if from influencer i, profile_if p where i.seq_if = member_seq) temp)\n"
-		//				+ "        where rn between ? and ? order by 2 desc";
 
 		String sql = "select * from (\n"
 				+ " select \n"
@@ -222,10 +206,27 @@ public class InfluencerDAO  {
 	}
 	//====================================================================================================================================
 
-	public LinkedHashMap<Profile_IfDTO, InfluencerDTO> getIfProfile(int seq) throws Exception { // 인플루언서 카드 작성자로 검색
-		String sql = "select i.*, p.* from influencer i\n"
-				+ "				   join profile_if p ON i.seq_if = p.member_seq\n"
-				+ "				   where p.seq_if = ?";
+	public LinkedHashMap<Profile_IfDTO, InfluencerDTO> getIfProfile(int seq) throws Exception { // 인플루언서 카드 작성자로 검색..
+		
+		String sql = "select\n"
+				+ " i.id_if,\n"
+				+ " i.grade,\n"
+				+ "        i.favorite_if,\n"
+				+ "        i.sns_if,\n"
+				+ "        i.name_if,\n"
+				+ "        i.nickname_if,\n"
+				+ "        i.phone_if,\n"
+				+ "        i.email_if,\n"
+				+ "        i.photo_if,\n"
+				+ "        p.seq_if,\n"
+				+ "        p.member_seq,\n"
+				+ "        p.condition_if,\n"
+				+ "        p.career_if,\n"
+				+ "        p.intro_if,\n"
+				+ "        p.slike_if,\n"
+				+ "        p.rlike_if  from influencer i\n"
+				+ "							   join profile_if p ON i.seq_if = p.member_seq\n"
+				+ "						   where p.seq_if = ?";
 
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
@@ -235,21 +236,27 @@ public class InfluencerDAO  {
 				LinkedHashMap<Profile_IfDTO, InfluencerDTO> list = new LinkedHashMap<Profile_IfDTO, InfluencerDTO>();
 
 				while(rs.next()) {
-					seq = rs.getInt("seq_if");
+
 					String id = rs.getString("id_if");
-					String pw = rs.getString("pw_if");
+					//						String pw = rs.getString("pw_if");
 					String photo = rs.getString("photo_if");
 					String name = rs.getString("name_if");
 					String nickname = rs.getString("nickname_if");
-					String zipcode = rs.getString("zipcode_if");
-					String address1 = rs.getString("address1_if");
-					String address2 = rs.getString("address2_if");
+					//						String zipcode = rs.getString("zipcode_if");
+					//						String address1 = rs.getString("address1_if");
+					//						String address2 = rs.getString("address2_if");
 					String sns = rs.getString("sns_if");
 					String phone = rs.getString("phone_if");
 					String email= rs.getString("email_if");
 					String grade = rs.getString("grade");
-					String pwAsk = rs.getString("pwAsk_if");
-					String pwAnswer= rs.getString("pwAnswer_if");
+
+
+
+					//		InfluencerDTO influencerDTO = new InfluencerDTO(seq,id,pw,photo,name,nickname,zipcode,address1,address2,sns,phone,email,grade);
+
+					//						String pwAsk = rs.getString("pwAsk_if");
+					//
+					//						String pwAnswer= rs.getString("pwAnswer_if");
 					String favorite = rs.getString("favorite_if");
 
 					int seq_if = rs.getInt("seq_if");
@@ -262,7 +269,9 @@ public class InfluencerDAO  {
 
 
 
-					InfluencerDTO influencerDTO = new InfluencerDTO(seq,id,pw,photo,name,nickname,zipcode,address1,address2,sns,phone,email,grade,pwAsk,pwAnswer,favorite);
+//					InfluencerDTO influencerDTO = new InfluencerDTO(0,id,pw,photo,name,nickname,zipcode,address1,address2,sns,phone,email,grade,pwAsk,pwAnswer,favorite);
+//					Profile_IfDTO profile_IfDTO = new Profile_IfDTO(seq_if,member_seq,condition_if,career_if,intro_if,sLike_if,rLike_if);
+					InfluencerDTO influencerDTO = new InfluencerDTO(0,id,"",photo,name,nickname,"","","",sns,phone,email,grade,"","",favorite);
 					Profile_IfDTO profile_IfDTO = new Profile_IfDTO(seq_if,member_seq,condition_if,career_if,intro_if,sLike_if,rLike_if);
 
 					list.put(profile_IfDTO,influencerDTO);
@@ -580,7 +589,27 @@ public class InfluencerDAO  {
 			}
 	}
 
+
+		public String getNickname(int kkanbuSeqTo) throws Exception {
+			String sql = "SELECT nickname_if FROM influencer WHERE seq_if =?";
+			try(Connection con = this.getConnection();
+					PreparedStatement pstat = con.prepareStatement(sql);){
+				pstat.setInt(1, kkanbuSeqTo);
+				String result = "";
+				try(ResultSet rs = pstat.executeQuery();){
+					if(rs.next()) {
+					result = rs.getString("nickname_if");
+					}
+				}
+				return result;
+				}
+		}
+
+	
+
+
 	// 인플루언서 프로필 생성
+
 	public int insertProfile(String seq, String condition, String career, String intro) throws Exception{
 
 		String sql = "insert into profile_if values(profile_if_seq_if.nextval,?,?,?,?,null,null)";
@@ -759,4 +788,6 @@ public class InfluencerDAO  {
 			}
 		}
 	}
+
+
 }
