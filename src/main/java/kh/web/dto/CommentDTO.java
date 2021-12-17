@@ -10,57 +10,82 @@ public class CommentDTO {
 	private Timestamp write_date;
 	private int parent;
 	private String contents;
+	private String member;
 	
+	
+	public CommentDTO(int seq, int board, String writer, Timestamp write_date, int parent, String contents,
+			String member) {
+		super();
+		this.seq = seq;
+		this.board = board;
+		this.writer = writer;
+		this.write_date = write_date;
+		this.parent = parent;
+		this.contents = contents;
+		this.member = member;
+	}
+
 	public CommentDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public CommentDTO(int seq, int board, String writer, Timestamp write_date, int parent, String contents) {
-		super();
-		this.seq = seq;
-		this.board = board;
-		this.writer = writer;
-		this.write_date = write_date;
-		this.parent = parent;
-		this.contents = contents;
-	}
+	
 	public final int getSeq() {
 		return seq;
 	}
+
 	public final void setSeq(int seq) {
 		this.seq = seq;
 	}
+
 	public final int getBoard() {
 		return board;
 	}
+
 	public final void setBoard(int board) {
 		this.board = board;
 	}
+
 	public final String getWriter() {
 		return writer;
 	}
+
 	public final void setWriter(String writer) {
 		this.writer = writer;
 	}
+
 	public final Timestamp getWrite_date() {
 		return write_date;
 	}
+
 	public final void setWrite_date(Timestamp write_date) {
 		this.write_date = write_date;
 	}
+
 	public final int getParent() {
 		return parent;
 	}
+
 	public final void setParent(int parent) {
 		this.parent = parent;
 	}
+
 	public final String getContents() {
 		return contents;
 	}
+
 	public final void setContents(String contents) {
 		this.contents = contents;
 	}
-	
+
+	public final String getMember() {
+		return member;
+	}
+
+	public final void setMember(String member) {
+		this.member = member;
+	}
+
 	// 날짜 가공해서 출력
 	public String getFormedDate() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");

@@ -12,6 +12,8 @@ import javax.servlet.http.HttpSession;
 
 import kh.web.dao.BoardDAO;
 import kh.web.dao.CommentDAO;
+import kh.web.dao.CompanyDAO;
+import kh.web.dao.InfluencerDAO;
 import kh.web.dto.BoardDTO;
 import kh.web.dto.CommentDTO;
 import kh.web.statics.BoardStatics;
@@ -32,6 +34,8 @@ public class BoardController extends HttpServlet {
 		HttpSession session = request.getSession();
 		BoardDAO bdao = BoardDAO.getInstance();
 		CommentDAO cdao = CommentDAO.getInstance();
+		CompanyDAO companyDAO = new CompanyDAO();
+		InfluencerDAO influencerDAO = new InfluencerDAO();
 		
 		// cpage, seq 세션에 저장
 		session.setAttribute("cpage", request.getParameter("cpage"));
@@ -58,12 +62,12 @@ public class BoardController extends HttpServlet {
 				request.setAttribute("navi", navi);
 				request.setAttribute("boardList", boardList);
 				request.getRequestDispatcher("/resources/board/board.jsp?cpage="+cpage).forward(request, response);
-			// 글쓰기 기능
+			// 프로필 사진 읽기
 			}else if(cmd.equals("/write.board")) {
 				response.sendRedirect("/resources/board/boardwrite.jsp");
 			// 글 작성 완료
 			}else if(cmd.equals("/done.board")) {
-				String writer = (String)session.getAttribute("loginID");
+				String writer = (String)session.getAttribute("name");
 				String title = request.getParameter("title");
 				String contents = request.getParameter("contents");
 				int result = bdao.insert(new BoardDTO(0,writer,title,contents,null,0));
@@ -73,9 +77,18 @@ public class BoardController extends HttpServlet {
 			}else if(cmd.equals("/detail.board")) {
 				BoardDTO dto = bdao.selectBySeq(Integer.parseInt(seq));
 				request.setAttribute("dto", dto);
+				// 인플루언서인지 기업인지 (게시글)
+				boolean isCompanyMem = companyDAO.isMember(dto.getWriter());
+				if (isCompanyMem) {
+					request.setAttribute("member", "기업");
+				}else {
+					request.setAttribute("member", "인플루언서");
+				}
 				// 댓글 가져가기
 				List<CommentDTO> cList = cdao.selectByBoardSeq(Integer.parseInt(seq));
 				request.setAttribute("cList", cList);
+				// 조회수 올리기
+				bdao.addViewCount(Integer.parseInt(seq));
 				request.getRequestDispatcher("/resources/board/boardDetail.jsp?cpage"+cpage+"&seq="+seq).forward(request, response);
 			// 게시글 수정
 			}else if(cmd.equals("/modify.board")) {
@@ -114,12 +127,20 @@ public class BoardController extends HttpServlet {
 			}else if(cmd.equals("/doneCmt.board")){
 				System.out.println(seq);
 				int parent = Integer.parseInt(seq);
-				String writer = (String)session.getAttribute("loginID");
+				String writer = (String)session.getAttribute("loginName");
 				String contents = request.getParameter("contents-cmt");
 				System.out.println(writer);
 				System.out.println(parent);
 				System.out.println(contents);
-				int result = cdao.insert(new CommentDTO(0,0,writer,null,parent,contents));
+				// 인플루언서인지 기업인지
+				boolean isCompanyMem = companyDAO.isMember(writer);
+				String member = "";
+				if (isCompanyMem) {
+					member = "기업";
+				}else {
+					member = "인플루언서";
+				}
+				int result = cdao.insert(new CommentDTO(0,0,writer,null,parent,contents,member));
 				System.out.println("댓글 insert 결과 : " + result);
 				response.sendRedirect("/detail.board?cpage="+cpage+"&seq="+seq);
 				// 댓글 삭제

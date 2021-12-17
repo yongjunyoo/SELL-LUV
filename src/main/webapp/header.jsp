@@ -49,7 +49,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault" style="height:31%;">
+            <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault" style="height:38%;">
                 <ul class="navbar-nav ms-auto navbar-nav-scroll" align=center>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page	" href="#header"></a>

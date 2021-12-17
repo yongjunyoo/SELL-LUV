@@ -86,15 +86,13 @@
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="list" items="${ifRvList}">
-											<c:if test="${dto.value.id==list.name_ref }">
+										<c:forEach var="list" items="${list}">
 												<tr style="color: black;">
 													<td>${list.seq }</td>
 													<td>${list.writer }</td>
 													<td>${list.content }</td>
 													<td>${list.timestamp }</td>
 												</tr>
-											</c:if>
 										</c:forEach>
 									</tbody>
 								</table>
@@ -102,7 +100,7 @@
 						</div>
 					<div div="row">
 						<ul class="pagination pagination-lg justify-content-end">
-							${navi }
+							${navi}
 						</ul>
 					</div>
 					</div>

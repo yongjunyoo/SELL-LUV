@@ -34,12 +34,13 @@ private static CommentDAO instance = null;
 	}
 	
 	public int insert(CommentDTO dto) throws Exception {
-		String sql = "INSERT INTO board_comment VALUES (board_comment_seq.nextval,DEFAULT,?,DEFAULT,?,?)";
+		String sql = "INSERT INTO board_comment VALUES (board_comment_seq.nextval,DEFAULT,?,DEFAULT,?,?,?)";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
 			pstat.setString(1, dto.getWriter());
 			pstat.setInt(2, dto.getParent());
 			pstat.setString(3, dto.getContents());
+			pstat.setString(4, dto.getMember());
 			int result = pstat.executeUpdate();
 			return result;
 		}
@@ -81,7 +82,8 @@ private static CommentDAO instance = null;
 				Timestamp write_date = rs.getTimestamp("comment_date");
 				int parent = rs.getInt("comment_parent");
 				String contents = rs.getString("comment_content");
-				list.add(new CommentDTO(seq,board,writer,write_date,parent,contents));
+				String member = rs.getString("comment_member");
+				list.add(new CommentDTO(seq,board,writer,write_date,parent,contents,member));
 			}
 			return list;
 			}
@@ -102,7 +104,8 @@ private static CommentDAO instance = null;
 					Timestamp write_date = rs.getTimestamp("comment_date");
 					int parent = rs.getInt("comment_parent");
 					String contents = rs.getString("comment_content");
-					list.add(new CommentDTO(seq,board,writer,write_date,parent,contents));
+					String member = rs.getString("comment_member");
+					list.add(new CommentDTO(seq,board,writer,write_date,parent,contents,member));
 				}
 				return list;
 			}
@@ -110,26 +113,6 @@ private static CommentDAO instance = null;
 	}
 	
 	
-	public BoardDTO selectBySeq(int seq) throws Exception {
-		String sql = "SELECT * FROM freeboard WHERE seq = ?";
-		try(Connection con = this.getConnection();
-				PreparedStatement pstat = con.prepareStatement(sql);
-				){
-			pstat.setInt(1, seq);
-			try(ResultSet rs = pstat.executeQuery();){
-				BoardDTO dto = null;
-				while(rs.next()) {
-					String writer = rs.getString("writer");
-					String title = rs.getString("title");
-					String contents = rs.getString("contents");
-					Timestamp write_date = rs.getTimestamp("write_date");
-					int view_count = rs.getInt("view_count");
-					dto = new BoardDTO(seq,writer,title,contents,write_date,view_count);
-				}
-				return dto;
-				}
-			}
-	}
 	
 	
 	

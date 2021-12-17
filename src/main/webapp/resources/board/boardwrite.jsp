@@ -15,7 +15,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
+<script src="https://rawgit.com/jackmoore/autosize/master/dist/autosize.min.js"></script>
 <style>
 body {
 	margin: 0;
@@ -141,7 +141,6 @@ a {
 }
 
 textarea {
-	resize: none;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
@@ -209,7 +208,10 @@ body {
         </div>
         <div class="row">
             <div class="col-sm-12">
-                <textarea cols=170 rows=25 name="contents" id="summernote" ></textarea>
+                <textarea name="contents" id="summernote" style="min-height: 200px;overflow:hidden"></textarea>
+                <script>
+                autosize($("textArea"));
+                </script>
             </div>
         </div>
         <div class="row">
@@ -236,6 +238,7 @@ body {
     <!-- 푸터 -->
 	<jsp:include page="/footer.jsp" flush="false"/>
 </div>                            
-<script type="text/javascript"></script>
+<script type="text/javascript">
+</script>
 </body>
 </html>

@@ -131,7 +131,7 @@
 								</div>
 								<div class="card-body">${dto.key.seq_cp}
 									<a href="/companyBoard.ifcp?seq=${dto.key.seq_cp}&cpage=1"
-										class="h3 text-decoration-none">${dto.key.title_cp}</a>
+										class="h3 text-decoration-none">${dto.value.name}</a>
 									<ul
 										class="w-100 list-unstyled d-flex justify-content-between mb-0">
 										<li>${dto.value.grade }</li>
