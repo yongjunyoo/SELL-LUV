@@ -122,7 +122,7 @@ public class ReviewDAO {
 					while(rs.next()) {
 						Review_IfDTO dto = new Review_IfDTO();
 						dto.setSeq(rs.getInt("seq"));
-						dto.setName_ref(rs.getString("name_ref"));
+						dto.setMember_seq(rs.getInt("member_seq"));
 						dto.setWriter(rs.getString("writer"));
 						dto.setContent(rs.getString("content"));										
 						dto.setTimestamp(rs.getTimestamp("timestamp"));

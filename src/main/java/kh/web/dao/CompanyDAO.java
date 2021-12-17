@@ -644,12 +644,12 @@ public class CompanyDAO {
 
 				while(rs.next()) {
 					int seq = rs.getInt("seq");
-					String name_ref = rs.getString("name_ref");
+					int member_seq = rs.getInt("member_seq");
 					String writer = rs.getString("writer");
 					String content = rs.getString("content");
 					Timestamp timestamp = rs.getTimestamp("timestamp");
 
-					Review_IfDTO dto = new Review_IfDTO(seq,name_ref,writer,content,timestamp );
+					Review_IfDTO dto = new Review_IfDTO(seq,member_seq,writer,content,timestamp );
 
 					list.add(dto);
 				}
@@ -658,41 +658,43 @@ public class CompanyDAO {
 		}
 	}
 	
-	public int getIfCardCount() throws Exception { // 총 인플루언서 리뷰 수 출력.
-		String sql = "select count(*) from review_if";
+	public int getIfCardCount(int seq) throws Exception { // 인플루언서가 작성한 리뷰 수 출력.
+		String sql = "select count(*) from review_if where member_seq=?";
 		try(Connection con = this.getConnection();
-				PreparedStatement pstat = con.prepareStatement(sql);
-				ResultSet rs = pstat.executeQuery();){
-			rs.next();
-			return rs.getInt(1);	
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setInt(1, seq);
+			try(ResultSet rs = pstat.executeQuery();){
+				rs.next();
+				return rs.getInt(1);	
+			}
 		}
 	}
 	
-	public int getifCardPageTotalCount() throws Exception { // 카드 페이지
-		int recordTotalCount = this.getIfCardCount();
+	public int getifCardPageTotalCount(int seq) throws Exception { // 기업 페이지
+		int recordTotalCount = this.getIfCardCount(seq);
 		
 		// 총 페이지 개수
 		int pageTotalCount = 0;
-		if(recordTotalCount%PageStatics.RECORD_COUNT_PER_PAGE==0) {
-			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE;
+		if(recordTotalCount%IFCPStatics.RECORD_COUNT_PER_PAGE==0) {
+			pageTotalCount = recordTotalCount/IFCPStatics.RECORD_COUNT_PER_PAGE;
 		}else {
-			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE+1;
+			pageTotalCount = recordTotalCount/IFCPStatics.RECORD_COUNT_PER_PAGE+1;
 		}
 		return pageTotalCount;
 	}
 	
-	public String getifCardPageNavi(int currentPage,int seq) throws Exception { // 카드 네비
-		int recordTotalCount = this.getIfCardCount();
+	public String getifCardPageNavi(int currentPage,int seq) throws Exception { // 기업 네비
+		int recordTotalCount = this.getIfCardCount(seq);
 
 		int pageTotalCount = 0;
-		if(recordTotalCount%PageStatics.RECORD_COUNT_PER_PAGE==0) {
-			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE;
+		if(recordTotalCount%IFCPStatics.RECORD_COUNT_PER_PAGE==0) {
+			pageTotalCount = recordTotalCount/IFCPStatics.RECORD_COUNT_PER_PAGE;
 		}else {
-			pageTotalCount = recordTotalCount/PageStatics.RECORD_COUNT_PER_PAGE+1;
+			pageTotalCount = recordTotalCount/IFCPStatics.RECORD_COUNT_PER_PAGE+1;
 		}
 
-		int startNavi = (currentPage-1)/PageStatics.NAVI_COUNT_PER_PAGE*PageStatics.NAVI_COUNT_PER_PAGE+1;
-		int endNavi = startNavi+PageStatics.NAVI_COUNT_PER_PAGE-1;
+		int startNavi = (currentPage-1)/IFCPStatics.NAVI_PER_PAGE*IFCPStatics.NAVI_PER_PAGE+1;
+		int endNavi = startNavi+IFCPStatics.NAVI_PER_PAGE-1;
 		
 		if(endNavi > pageTotalCount) {  
 			endNavi = pageTotalCount;
@@ -710,35 +712,36 @@ public class CompanyDAO {
 		
 		String pageNavi ="";
 		if(needPrev) {
-			pageNavi +="<li class='page-item'><a class='page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark' href='/companyBoard.ifcp?seq="+seq+"?cpage="+(startNavi-1)+"'>◀</a></li>";
+			pageNavi +="<li class='page-item'><a class='page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark' href='/companyBoard.ifcp?seq="+seq+"&cpage="+(startNavi-1)+"'>◀</a></li>";
 		}
 		for(int i=startNavi; i<=endNavi; i++) {
 			pageNavi+="<li class='page-item'><a class='page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark' href='/companyBoard.ifcp?seq="+seq+"&cpage="+i+"'>"+i+"</a></li>";
 		}
 		if(needNext) {
-			pageNavi += "<li class='page-item'><a class='page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark' href='/companyBoard.ifcp?seq="+seq+"?cpage="+(endNavi+1)+"'>▶</a></li>";
+			pageNavi += "<li class='page-item'><a class='page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark' href='/companyBoard.ifcp?seq="+seq+"&cpage="+(endNavi+1)+"'>▶</a></li>";
 		}
 		
 		return pageNavi;
 	}
 	
-	public List<Review_IfDTO> ifCardBoundary(int start, int end) throws Exception { // 10개씩 뽑아오는 코드.
-		String sql = "select * from (select review_if.*, row_number() over(order by seq desc) rn from review_if) where rn between ? and ?";
+	public List<Review_IfDTO> ifCardBoundary(int seq,int start, int end) throws Exception { // 9개씩 뽑아오는 코드.
+		String sql = "select * from (select review_if.*, row_number() over(order by seq desc) rn from review_if where member_seq=?) where rn between ? and ?";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
-			pstat.setInt(1, start);
-			pstat.setInt(2, end);
+			pstat.setInt(1, seq);
+			pstat.setInt(2, start);
+			pstat.setInt(3, end);
 			
 			try(ResultSet rs = pstat.executeQuery();){
 				List<Review_IfDTO> list = new ArrayList();
 				while(rs.next()) {
-					int seq = rs.getInt("seq");
-					String name_ref = rs.getString("name_ref");
+					int seq1 = rs.getInt("seq");
+					int member_seq = rs.getInt("member_seq");
 					String writer = rs.getString("writer");
 					String content = rs.getString("content");
 					Timestamp timestamp = rs.getTimestamp("timestamp");
 
-					Review_IfDTO dto = new Review_IfDTO(seq,name_ref,writer,content,timestamp);
+					Review_IfDTO dto = new Review_IfDTO(seq1,member_seq,writer,content,timestamp);
 
 					list.add(dto);
 				}
