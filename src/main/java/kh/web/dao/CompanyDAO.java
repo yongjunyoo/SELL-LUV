@@ -354,9 +354,8 @@ public class CompanyDAO {
 	}
 
 	public int update(String pw, String photo, String name, String crunumber, String zipcode, String address1, 
-			String address2, String rpt_cp, String phone, String email, Long sales, String pwAsk, String pwAnswer, String id) throws Exception {
-		String sql = "update company set pw_cp = ?, photo_cp = ?, name_cp = ?, crnumber_cp = ?, zipcode_cp = ?, address1_cp = ?, "
-				+ "address2_cp = ?, rpt_cp = ?, phone_cp = ?, email_cp = ?, sales_cp = ?, pwAsk_cp = ?, pwAnswer_cp =? where id_cp = ?";
+			String address2, String rpt_cp, String phone, String email, String sales, String pwAsk, String pwAnswer, String id) throws Exception {
+		String sql = "update company set pw_cp = ?, photo_cp = ?, name_cp = ?, crnumber_cp = ?, zipcode_cp = ?, address1_cp = ?, address2_cp = ?, rpt_cp = ?, phone_cp = ?, email_cp = ?, sales_cp = ?, pwAsk_cp = ?, pwAnswer_cp =? where id_cp = ?";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
 
@@ -370,7 +369,7 @@ public class CompanyDAO {
 			pstat.setString(8, rpt_cp);
 			pstat.setString(9, phone);
 			pstat.setString(10, email);
-			pstat.setLong(11, sales);
+			pstat.setString(11, sales);
 			pstat.setString(12, pwAsk);
 			pstat.setString(13, pwAnswer);
 			pstat.setString(14, id);
@@ -568,7 +567,7 @@ public class CompanyDAO {
 			return result;
 		}
 	}
-	
+
 	public int cpSearchById(String loginID) throws Exception{
 		String sql = "select seq_cp from company where id_cp =?";
 		try(Connection con = this.getConnection();
@@ -593,12 +592,12 @@ public class CompanyDAO {
 			int result = 0;
 			try(ResultSet rs = pstat.executeQuery();){
 				if(rs.next()) {
-				result = rs.getInt("seq_cp");
-				
+					result = rs.getInt("seq_cp");
+
 				}
 			}
 			return result;
-			}
+		}
 	}
 
 	public String getName(int kkanbuSeqFrom) throws SQLException, Exception {
@@ -689,7 +688,7 @@ public class CompanyDAO {
 			}
 		}
 	}
-	
+
 	public int getifCardPageTotalCount(int seq) throws Exception { // 기업 페이지
 		int recordTotalCount = this.getIfCardCount(seq);
 		
@@ -702,7 +701,7 @@ public class CompanyDAO {
 		}
 		return pageTotalCount;
 	}
-	
+
 	public String getifCardPageNavi(int currentPage,int seq) throws Exception { // 기업 네비
 		int recordTotalCount = this.getIfCardCount(seq);
 
@@ -719,17 +718,17 @@ public class CompanyDAO {
 		if(endNavi > pageTotalCount) {  
 			endNavi = pageTotalCount;
 		}
-		
+
 		boolean needPrev = true;
 		boolean needNext = true;
-		
+
 		if(startNavi==1) {
 			needPrev = false;
 		}
 		if(endNavi==pageTotalCount) {
 			needNext = false;
 		}
-		
+
 		String pageNavi ="";
 		if(needPrev) {
 			pageNavi +="<li class='page-item'><a class='page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark' href='/companyBoard.ifcp?seq="+seq+"&cpage="+(startNavi-1)+"'>◀</a></li>";
@@ -740,10 +739,10 @@ public class CompanyDAO {
 		if(needNext) {
 			pageNavi += "<li class='page-item'><a class='page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark' href='/companyBoard.ifcp?seq="+seq+"&cpage="+(endNavi+1)+"'>▶</a></li>";
 		}
-		
+
 		return pageNavi;
 	}
-	
+
 	public List<Review_IfDTO> ifCardBoundary(int seq,int start, int end) throws Exception { // 9개씩 뽑아오는 코드.
 		String sql = "select * from (select review_if.*, row_number() over(order by seq desc) rn from review_if where member_seq=?) where rn between ? and ?";
 		try(Connection con = this.getConnection();
@@ -769,18 +768,30 @@ public class CompanyDAO {
 			}
 		}
 	}
-	
+
 	// 기업상호명 중복 체크 method
-		public boolean nameExist(String name) throws Exception{
+	public boolean nameExist(String name) throws Exception{
 
-			String sql = "select * from(select name_cp from company union select nickname_if from influencer) where name_cp = ?";
+		String sql = "select * from(select name_cp from company union select nickname_if from influencer) where name_cp = ?";
 
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1,name);
+			try(ResultSet rs = pstat.executeQuery()){
+				return rs.next();
+			}		
+		}
+	}
+	
+	// 기업 회원 탈퇴
+		public int delete(String id) throws Exception{
+
+			String sql = "delete from company where id_if = ?";
 			try(Connection con = this.getConnection();
-					PreparedStatement pstat = con.prepareStatement(sql);){
-				pstat.setString(1,name);
-				try(ResultSet rs = pstat.executeQuery()){
-					return rs.next();
-				}		
+					PreparedStatement pstat =con.prepareStatement(sql);){
+				pstat.setString(1, id);
+				int result = pstat.executeUpdate();
+				return result;
 			}
 		}
 
