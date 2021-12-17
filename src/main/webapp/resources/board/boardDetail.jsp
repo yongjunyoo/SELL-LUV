@@ -339,7 +339,7 @@ rel="stylesheet" />
     <!-- 댓글 보여주기 -->
     <c:if test="${fn:length(cList)!=0}">
     	<c:forEach var="cdto" items="${cList }">
-	 		<form action='/doneCmt.board?cpage=${cpage }&seq=${seq}' method="post" class="frm-cmt" >
+	 		<form action='/modifyCmt.board?cseq=${cdto.seq }&cpage=${cpage }&seq=${seq}' method="post" class="frm-cmt" >
 			    <div class="container mb-4">
 			    	<div class="row" style="padding-bottom:5px;">
 			            <div class="col-sm-12">
@@ -362,9 +362,8 @@ rel="stylesheet" />
 			        </div>
 			        <div class="row">
 			            <div class="col-sm-12">
-			                <textarea .ass="contents" cols rows name="contents-cmt"  readonly style="height:auto;">${cdto.contents }</textarea>
+			                <textarea class="contents" cols rows name="contents-cmt"  readonly style="height:auto;">${cdto.contents}</textarea>
 			                <script>
-			                $("#contents").text(`${dto.contents}`);
                 			autosize($("textArea"));
 			                </script>
 			            </div>
@@ -373,27 +372,10 @@ rel="stylesheet" />
 			            <div class="col-sm-12" style="text-align:right">
 			            <c:if test="${loginName==cdto.writer }">
 			            	<button type="button" class="btn btn-dark modCmt" style="background-color:rgb(255, 111, 97);">수정</button>
+			            	<button class="btn btn-dark modCmtOk" style="background-color:rgb(255, 111, 97);display:none;">완료</button>
+			            	<button type="button" class="btn btn-dark modCmtCancle" style="background-color:rgb(255, 111, 97);display:none;">취소</button>
 			            	<button type="button" class="btn btn-dark delCmt" style="background-color:rgb(255, 111, 97);">삭제</button>
-			            	<button type="button" class="btn btn-dark modCmtOk" style="background-color:rgb(255, 111, 97);display:none;">완료</button>
-						    	<script>
-								$(".modCmt").on("click", function(){
-			                		$(".delCmt").css("display","none");
-			                		$(".frm-cmt").removeAttr("action");
-			                		$(".contents-cmt").removeAttr("readonly");
-			                		$(".contents-cmt").focus();
-			                		
-			                		$(".frm-cmt").attr("action","/modifyCmt.board?cseq=${cdto.seq}");
-			                		
-			                	});
-			                	$(".delCmt").on("click", function(){
-			                		if(confirm("정말 삭제하시겠습니까? \r\n되돌릴 수 없습니다.")) {
-				                		location.href="/deleteCmt.board?cseq=${cdto.seq}";
-			                		}
-			                	});
-			                	$(".modCmtOk").on("click",function(){
-			                		$(".frm-cmt").submit();
-			                	})
-								</script>
+						    	
 				    	</c:if>
 			            </div>
 			        </div>
@@ -401,7 +383,34 @@ rel="stylesheet" />
 	    	</form>
     	</c:forEach>
     </c:if>
-    <!-- 댓글 칸 -->
+    <script>
+   	$(".card").on("click",".modCmt",function(){
+   		$(this).css("display","none");
+   		$(this).next().next().next().css("display","none");
+   		$(this).next().css("display","inline-block");
+   		$(this).next().next().css("display","inline-block");
+   		// 기존 내용 백업
+    	bkContentsCmt = $(this).closest(".frm-cmt").find("textarea").val();
+   		$(this).closest(".frm-cmt").find("textarea").removeAttr("readonly");
+   		$(this).closest(".frm-cmt").find("textarea").focus();
+   	});
+   	$(".card").on("click",".modCmtCancle",function(){
+   		$(this).closest(".frm-cmt").find("textarea").val(bkContentsCmt);
+   		$(this).closest(".frm-cmt").find("textarea").attr("readonly","");
+   		$(this).prev().prev().css("display","inline-block");
+   		$(this).next().css("display","inline-block");
+   		$(this).prev().css("display","none");
+   		$(this).css("display","none");
+   	});
+   	$(".card").on("click",".delCmt",function(){
+   		if(confirm("정말 삭제하시겠습니까?")){
+   			$(this).closest(".frm-cmt").remove();
+   		}
+   	});
+   	$(".card").on("click","modCmtOk",function(){
+   	})
+	</script>
+    <!-- 댓글 작성 칸 -->
     <hr>
     	<form action='/doneCmt.board?cpage=${cpage }&seq=${seq}' method="post" id="frm-cmt" >
     <div class="container mb-4">
@@ -432,10 +441,10 @@ rel="stylesheet" />
         <div class="row">
             <div class="col-sm-12" style="text-align:right">
             <button class="btn btn-dark" id="writeCmt" style="background-color:rgb(255, 111, 97);">등록</button>
+            <%-- 
             <script>
             </script>
-                	<%--
-                <c:if test="${loginID==댓글작성자 }">
+                <c:if test="${loginName==댓글작성자 }">
 	                <button type="button" class="btn btn-dark" id="mod" style="background-color:rgb(255, 111, 97);">수정하기</button>
 	                <button type="button" class="btn btn-dark" id="del" style="background-color:rgb(255, 111, 97);">삭제하기</button>
 	                <button type="button" class="btn btn-dark" id="modDone" style="background-color:rgb(255, 111, 97);display:none;">수정완료</button>
@@ -484,7 +493,7 @@ rel="stylesheet" />
                 		$("#boardList").css("display","inline-block");
                 	})
 				</script>
-                	--%>
+				--%>
             </div>
         </div>
     </div>	

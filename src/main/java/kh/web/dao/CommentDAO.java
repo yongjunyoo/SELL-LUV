@@ -46,13 +46,12 @@ private static CommentDAO instance = null;
 		}
 	}
 	
-	public int modify(int seq, String title, String contents) throws Exception {
-		String sql = "UPDATE freeboard SET title=?, contents=? WHERE seq = ?";
+	public int modify(int seq, String contents) throws Exception {
+		String sql = "UPDATE board_comment SET comment_content=? WHERE comment_seq = ?";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
-			pstat.setString(1, title);
-			pstat.setString(2, contents);
-			pstat.setInt(3, seq);
+			pstat.setString(1, contents);
+			pstat.setInt(2, seq);
 			int result = pstat.executeUpdate();
 			return result;
 		}

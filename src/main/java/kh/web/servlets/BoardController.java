@@ -125,13 +125,9 @@ public class BoardController extends HttpServlet {
 				}
 				// 댓글 등록
 			}else if(cmd.equals("/doneCmt.board")){
-				System.out.println(seq);
 				int parent = Integer.parseInt(seq);
 				String writer = (String)session.getAttribute("loginName");
 				String contents = request.getParameter("contents-cmt");
-				System.out.println(writer);
-				System.out.println(parent);
-				System.out.println(contents);
 				// 인플루언서인지 기업인지
 				boolean isCompanyMem = companyDAO.isMember(writer);
 				String member = "";
@@ -143,9 +139,13 @@ public class BoardController extends HttpServlet {
 				int result = cdao.insert(new CommentDTO(0,0,writer,null,parent,contents,member));
 				System.out.println("댓글 insert 결과 : " + result);
 				response.sendRedirect("/detail.board?cpage="+cpage+"&seq="+seq);
-				// 댓글 삭제
-			}else if(cmd.equals("modifyCmt.board")) {
-				
+				// 댓글 수정
+			}else if(cmd.equals("/modifyCmt.board")) {
+				String contents = request.getParameter("contents-cmt");
+				int cseq = Integer.parseInt(request.getParameter("cseq"));
+				int result = cdao.modify(cseq, contents);
+				System.out.println("댓글 modify 결과 : " + result);
+				response.sendRedirect("/detail.board?cpage="+cpage+"&seq="+seq);
 			}
 		}catch(Exception e) {
 			e.printStackTrace();

@@ -33,17 +33,10 @@ public class FileController extends HttpServlet {
 				response.setContentType( "image/gif" );
 				ServletOutputStream bout = response.getOutputStream();	
 				String path = request.getServletContext().getRealPath("files");
-				//String sysName = "user2.png";
 				String sysName = companyDAO.findProfile(name);
-				System.out.println("sysName1 : " + sysName);
 				if(sysName.equals("")) {
-					System.out.println("작성자 "+name+"는 인플루언서");
 					sysName = influencerDAO.findProfile(name);
-					System.out.println("sysName2 : " + sysName);
-				}else {
-					System.out.println("작성자 "+name+"는 기업");
 				}
-				System.out.println("sysName3 : " + sysName);
 				String imgpath = path + "/" + sysName;
 				try(FileInputStream f = new FileInputStream(imgpath); ){
 					int length;
