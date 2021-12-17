@@ -247,7 +247,7 @@ p {
             <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
                 <h2 id="heading" style="padding-top:50px;">기업 계정 정보수정</h2>
                 <p>모든 칸은 작성되어야 합니다.</p>
-                <form id="msform" action="/CPmodify.mem" method="post">
+                <form id="msform" action="/CPmodify.mem" method="post" enctype="multipart/form-data">
                     <!-- progressbar -->
                     <ul id="progressbar">
                         <li class="active" id="account"><strong>계정</strong></li>

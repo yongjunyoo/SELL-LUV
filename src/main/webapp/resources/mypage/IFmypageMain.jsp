@@ -226,11 +226,11 @@ body {
 								<div class="row">
 									<div class="col-6 col-md-12">
 									<img id="profile" class="img-profile"
-										src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="">
+										src="/myProfile.file?name=${dto.nickname }" alt="">
 									</div>
 									<div class="col-6 col-md-12"> 
 									<ul class="meta list list-unstyled profile-detail">
-										<li class="name">${dto.name }</li>
+										<li class="name">${dto.nickname }</li>
 										<li class="label" style="margin: 0; padding: 0">인플루언서</li>
 										<li class="email">${dto.email }</li>
 										<li class="activity">Last logged in: Today at 2:18pm</li>

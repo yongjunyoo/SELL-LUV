@@ -354,7 +354,7 @@ public class CompanyDAO {
 	}
 
 	public int update(String pw, String photo, String name, String crunumber, String zipcode, String address1, 
-			String address2, String rpt_cp, String phone, String email, Long sales, String pwAsk, String pwAnswer, String id) throws Exception {
+			String address2, String rpt_cp, String phone, String email, String sales, String pwAsk, String pwAnswer, String id) throws Exception {
 		String sql = "update company set pw_cp = ?, photo_cp = ?, name_cp = ?, crnumber_cp = ?, zipcode_cp = ?, address1_cp = ?, "
 				+ "address2_cp = ?, rpt_cp = ?, phone_cp = ?, email_cp = ?, sales_cp = ?, pwAsk_cp = ?, pwAnswer_cp =? where id_cp = ?";
 		try(Connection con = this.getConnection();
@@ -370,7 +370,7 @@ public class CompanyDAO {
 			pstat.setString(8, rpt_cp);
 			pstat.setString(9, phone);
 			pstat.setString(10, email);
-			pstat.setLong(11, sales);
+			pstat.setString(11, sales);
 			pstat.setString(12, pwAsk);
 			pstat.setString(13, pwAnswer);
 			pstat.setString(14, id);
@@ -590,6 +590,22 @@ public class CompanyDAO {
 				PreparedStatement pstat = con.prepareStatement(sql);){
 			pstat.setString(1, id);
 			pstat.setString(2, pw);
+			int result = 0;
+			try(ResultSet rs = pstat.executeQuery();){
+				if(rs.next()) {
+				result = rs.getInt("seq_cp");
+				
+				}
+			}
+			return result;
+			}
+	}
+	
+	public int findSeq(String id) throws Exception{
+		String sql = "SELECT seq_cp FROM company WHERE id_cp =?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, id);
 			int result = 0;
 			try(ResultSet rs = pstat.executeQuery();){
 				if(rs.next()) {

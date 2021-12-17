@@ -546,6 +546,23 @@ public class InfluencerDAO  {
 		}
 	}
 	
+	//시퀀스찾기....2
+		public int findSeq(String id) throws Exception{
+			String sql = "SELECT seq_if FROM influencer WHERE id_if =?";
+			try(Connection con = this.getConnection();
+					PreparedStatement pstat = con.prepareStatement(sql);){
+				pstat.setString(1, id);
+				int result = 0;
+				try(ResultSet rs = pstat.executeQuery();){
+					if(rs.next()) {
+						result = rs.getInt("seq_if");
+
+					}
+				}
+				return result;
+			}
+		}
+	
 	// 닉네임 찾기
 	public String findName(String id, String pw) throws Exception{
 		String sql = "SELECT nickname_if FROM influencer WHERE id_if =? AND pw_if =?";

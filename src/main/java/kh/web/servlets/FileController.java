@@ -28,8 +28,26 @@ public class FileController extends HttpServlet {
 		InfluencerDAO influencerDAO = new InfluencerDAO();
 		
 		try {
+			// 커뮤니티 프로필 보이기 설정
 			if(cmd.equals("/profile.file")) {
 				String name = request.getParameter("writer");
+				response.setContentType( "image/gif" );
+				ServletOutputStream bout = response.getOutputStream();	
+				String path = request.getServletContext().getRealPath("files");
+				String sysName = companyDAO.findProfile(name);
+				if(sysName.equals("")) {
+					sysName = influencerDAO.findProfile(name);
+				}
+				String imgpath = path + "/" + sysName;
+				try(FileInputStream f = new FileInputStream(imgpath); ){
+					int length;
+					byte[] buffer = new byte[10];
+					while ( ( length = f.read( buffer ) ) != -1 )
+						bout.write( buffer, 0, length );  
+				}
+			// 마이페이지 프로필 설정
+			}else if(cmd.equals("/myProfile.file")) {
+				String name = request.getParameter("name");
 				response.setContentType( "image/gif" );
 				ServletOutputStream bout = response.getOutputStream();	
 				String path = request.getServletContext().getRealPath("files");

@@ -41,6 +41,18 @@ public class FileDAO {
 		}
 	}
 	
+	public int modifyCp(FileDTO dto) throws Exception {
+		String sql = "UPDATE file_company SET oriname_company_file=?, sysname_company_file=? WHERE parentseq_company_file=?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, dto.getOriName());
+			pstat.setString(2, dto.getSysName());
+			pstat.setInt(3, dto.getParentSeq());
+			int result = pstat.executeUpdate();
+			return result;
+		}
+	}
+	
 	public int insertIf(FileDTO dto) throws Exception {
 		String sql = "INSERT INTO file_influencer VALUES (file_influencer_seq.nextval,?,?,?)";
 		try(Connection con = this.getConnection();
@@ -54,7 +66,17 @@ public class FileDAO {
 	}
 	
 	
-	
+	public int modifyIf(FileDTO dto) throws Exception {
+		String sql = "UPDATE file_influencer SET oriname_influencer_file=?, sysname_influencer_file=? WHERE parentseq_influencer_file=?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, dto.getOriName());
+			pstat.setString(2, dto.getSysName());
+			pstat.setInt(3, dto.getParentSeq());
+			int result = pstat.executeUpdate();
+			return result;
+		}
+	}
 	
 	
 	

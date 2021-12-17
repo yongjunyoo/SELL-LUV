@@ -218,7 +218,7 @@ body {
 							<div class="grade">${dto.grade }</div>
 							<div class="col" id="profile-box">
 								<img id="profile" class="img-profile"
-									src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="">
+									src="/myProfile.file?name=${dto.name }" alt="">
 							</div>
 						</div>
 						<ul class="meta list list-unstyled profile-detail">
