@@ -233,7 +233,7 @@ body {
 										<li class="name">${dto.name }</li>
 										<li class="label" style="margin: 0; padding: 0">인플루언서</li>
 										<li class="email">${dto.email }</li>
-										<li class="activity">Last logged in: Today at 2:18pm</li>
+										<li class="activity">${dto.nickname}</li>
 									</ul>
 									</div>
 								</div>

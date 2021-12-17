@@ -152,8 +152,8 @@ body {
 
 .img-profile {
 	border-radius: 70%;
-	width: 90%;
-	height: 90%;
+	width: 100%;
+	height: 100%;
 }
 
 .profile-detail {
@@ -196,6 +196,9 @@ body {
 	flex:1 1;
 	justify-content: center;
 }
+#profile-box{
+	flex-wrap: wrap;
+}
 </style>
 
 <script type="text/javascript">
@@ -204,29 +207,35 @@ body {
 <body>
 	
 
-	<div class="container">
-		<div class="row" id="header">
+<div class="container">
+	<div class="row" id="header">
 			<div class="col">
 				<jsp:include page="/header.jsp" flush="false" />
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-12 col-lg-3">
+	<div class="row">
+			<div class="col-12 col-md-4 col-lg-3">
 				<div class="card">
 					<div class="card-body">
 						<div class="row">
 							<div class="grade">${dto.grade }</div>
-							<div class="col" id="profile-box">
-								<img id="profile" class="img-profile"
-									src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="">
+							<div class="col " id="profile-box">
+								<div class="row">
+									<div class="col-6 col-md-12">
+									<img id="profile" class="img-profile"
+										src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="">
+									</div>
+									<div class="col-6 col-md-12"> 
+									<ul class="meta list list-unstyled profile-detail">
+										<li class="name">${dto.name }</li>
+										<li class="label" style="margin: 0; padding: 0">기업</li>
+										<li class="email">${dto.email }</li>
+										<li class="activity"> ${dto.rpt} </li>
+									</ul>
+									</div>
+								</div>
 							</div>
 						</div>
-						<ul class="meta list list-unstyled profile-detail">
-							<li class="name">${dto.name }</li>
-							<li class="label" style="margin: 0; padding: 0">기업</li>
-							<li class="email">${dto.email }</li>
-							<li class="activity">Last logged in: Today at 2:18pm</li>
-						</ul>
 					</div>
 				</div>
 				
@@ -248,7 +257,7 @@ body {
 
 			</div>
 
-			<div class="col-12 col-lg-9">
+			<div class="col-12 col-md-8 col-lg-9">
 				<div class="card">
 					<div class="card-body">
 						<div class="row mt-3">
@@ -304,20 +313,45 @@ body {
 									<table class="table">
 										<thead>
 											<tr>
-												<th class="type"></th>
-												<th class="name truncate">깐부아이디.</th>
-												<th class="date">날짜.</th>
-												<th class="size">수락/거절./<!--  --></th>
+												<th class="name truncate" colspan=4 style="text-align:center">나의 회원가입 정보</th>
 											</tr>
 										</thead>
 										<tbody>
 											<tr>
-												<td class="type"><i
-													class="fa fa-file-text-o text-primary"></i></td>
-												<td class="name truncate"><a href="#">Meeting
-														Notes.txt</a></td>
-												<td class="date">Sep 23, 2015</td>
-												<td class="size">18 KB</td>
+												<td class="name truncate" colspan=2 style="text-align:center">아이디</td>
+												<td class="date" colspan=2 style="text-align:center"> ${dto.id }</td>												
+											</tr>
+											<tr>
+												<td class="name truncate" colspan=2 style="text-align:center">기업 상호</td>
+												<td class="date" colspan=2 style="text-align:center"> ${dto.name }</td>												
+											</tr>
+											<tr>
+												<td class="name truncate" colspan=2 style="text-align:center">대표자 이름</td>
+												<td class="date" colspan=2 style="text-align:center"> ${dto.rpt }</td>												
+											</tr>
+											<tr>
+												<td class="name truncate" colspan=2 style="text-align:center">우편번호</td>
+												<td class="date" colspan=2 style="text-align:center"> ${dto.zipcode }</td>												
+											</tr>
+											<tr>
+												<td class="name truncate" colspan=2 style="text-align:center">주소1</td>
+												<td class="date" colspan=2 style="text-align:center"> ${dto.address1 }</td>												
+											</tr>
+											<tr>
+												<td class="name truncate" colspan=2 style="text-align:center">주소2</td>
+												<td class="date" colspan=2 style="text-align:center"> ${dto.address2 }</td>												
+											</tr>
+											<tr>
+												<td class="name truncate" colspan=2 style="text-align:center">매출액</td>
+												<td class="date" colspan=2 style="text-align:center"> ${dto.sales }</td>												
+											</tr>
+											<tr>
+												<td class="name truncate" colspan=2 style="text-align:center">휴대폰번호</td>
+												<td class="date" colspan=2 style="text-align:center"> ${dto.phone }</td>												
+											</tr>
+											<tr>
+												<td class="name truncate" colspan=2 style="text-align:center">이메일</td>
+												<td class="date" colspan=2 style="text-align:center"> ${dto.email }</td>												
 											</tr>
 										<!-- 	<tr>
 												<td class="type"><i
@@ -326,87 +360,7 @@ body {
 														DC3214.JPG</a></td>
 												<td class="date">Sep 21, 2015</td>
 												<td class="size">235 MB</td>
-											</tr> -->
-										<!-- 	<tr>
-												<td class="type"><i
-													class="fa fa-file-powerpoint-o text-warning"></i></td>
-												<td class="name truncate"><a href="#">Deck Lorem
-														Ipsum.ppt</a></td>
-												<td class="date">Sep 20, 2015</td>
-												<td class="size">136 MB</td>
-											</tr> -->
-											<!-- <tr>
-												<td class="type"><i
-													class="fa fa-file-excel-o text-success"></i></td>
-												<td class="name truncate"><a href="#">Project
-														Tasks.csv</a></td>
-												<td class="date">Aug 16, 2015</td>
-												<td class="size">32 KB</td>
-											</tr>
-											<tr>
-												<td class="type"><i
-													class="fa fa-file-pdf-o text-warning"></i></td>
-												<td class="name truncate"><a href="#">Project
-														Brief.pdf</a></td>
-												<td class="date">Aug 15, 2015</td>
-												<td class="size">73 MB</td>
-											</tr>
-											<tr>
-												<td class="type"><i
-													class="fa fa-file-image-o text-primary"></i></td>
-												<td class="name truncate"><a href="#">Image
-														DS1341.JPG</a></td>
-												<td class="date">Aug 15, 2015</td>
-												<td class="size">171 MB</td>
-											</tr>
-											<tr>
-												<td class="type"><i
-													class="fa fa-file-image-o text-primary"></i></td>
-												<td class="name truncate"><a href="#">Image
-														DS3214.JPG</a></td>
-												<td class="date">Aug 15, 2015</td>
-												<td class="size">171 MB</td>
-											</tr>
-											<tr>
-												<td class="type"><i class="fa fa-folder text-primary"></i></td>
-												<td class="name truncate"><a href="#">UX Resource</a></td>
-												<td class="date">Feb 07, 2015</td>
-												<td class="size">--</td>
-											</tr>
-											<tr>
-												<td class="type"><i class="fa fa-folder text-primary"></i></td>
-												<td class="name truncate"><a href="#">Prototypes</a></td>
-												<td class="date">Jan 03, 2015</td>
-												<td class="size">--</td>
-											</tr>
-											<tr>
-												<td class="type"><i class="fa fa-file-word-o text-info"></i></td>
-												<td class="name truncate"><a href="#">Quisque.doc</a></td>
-												<td class="date">Oct 21, 2014</td>
-												<td class="size">27 KB</td>
-											</tr>
-											<tr>
-												<td class="type"><i class="fa fa-file-word-o text-info"></i></td>
-												<td class="name truncate"><a href="#">Aenean
-														imperdiet.doc</a></td>
-												<td class="date">Oct 16, 2014</td>
-												<td class="size">23 KB</td>
-											</tr> -->
-											<!-- <tr>
-												<td class="type"> <i
-													class="fa fa-file-code-o text-primary"> </i></td>
-												<td class="name truncate"><a href="#">demo.html</a></td>
-												<td class="date">Aug 23, 2014</td>
-												<td class="size">10 KB</td>
-											</tr> -->
-											<!-- <tr>
-												<td class="type"><i
-													class="fa fa-file-image-o text-success"></i></td>
-												<td class="name truncate"><a href="#">Image
-														DS2314.JPG</a></td>
-												<td class="date">Aug 06, 2014</td>
-												<td class="size">325 MB</td>
-											</tr> -->
+											</tr> -->										
 										</tbody>
 									</table>
 								</div>

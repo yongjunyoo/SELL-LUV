@@ -540,7 +540,7 @@ public class CompanyDAO {
 			return result;
 		}
 	}
-	
+
 	public int cpSearchById(String loginID) throws Exception{
 		String sql = "select seq_cp from company where id_cp =?";
 		try(Connection con = this.getConnection();
@@ -565,14 +565,14 @@ public class CompanyDAO {
 			int result = 0;
 			try(ResultSet rs = pstat.executeQuery();){
 				if(rs.next()) {
-				result = rs.getInt("seq_cp");
-				
+					result = rs.getInt("seq_cp");
+
 				}
 			}
 			return result;
-			}
+		}
 	}
-	
+
 	public List<Review_IfDTO> ifReview() throws Exception{ // 인플루언서가 작성한 리뷰
 		String sql = "select * from review_if";
 		try(Connection con = this.getConnection();
@@ -596,7 +596,7 @@ public class CompanyDAO {
 			}
 		}
 	}
-	
+
 	public int getIfCardCount() throws Exception { // 총 인플루언서 리뷰 수 출력.
 		String sql = "select count(*) from review_if";
 		try(Connection con = this.getConnection();
@@ -606,10 +606,10 @@ public class CompanyDAO {
 			return rs.getInt(1);	
 		}
 	}
-	
+
 	public int getifCardPageTotalCount() throws Exception { // 카드 페이지
 		int recordTotalCount = this.getIfCardCount();
-		
+
 		// 총 페이지 개수
 		int pageTotalCount = 0;
 		if(recordTotalCount%PageStatics.RECORD_COUNT_PER_PAGE==0) {
@@ -619,7 +619,7 @@ public class CompanyDAO {
 		}
 		return pageTotalCount;
 	}
-	
+
 	public String getifCardPageNavi(int currentPage,int seq) throws Exception { // 카드 네비
 		int recordTotalCount = this.getIfCardCount();
 
@@ -632,21 +632,21 @@ public class CompanyDAO {
 
 		int startNavi = (currentPage-1)/PageStatics.NAVI_COUNT_PER_PAGE*PageStatics.NAVI_COUNT_PER_PAGE+1;
 		int endNavi = startNavi+PageStatics.NAVI_COUNT_PER_PAGE-1;
-		
+
 		if(endNavi > pageTotalCount) {  
 			endNavi = pageTotalCount;
 		}
-		
+
 		boolean needPrev = true;
 		boolean needNext = true;
-		
+
 		if(startNavi==1) {
 			needPrev = false;
 		}
 		if(endNavi==pageTotalCount) {
 			needNext = false;
 		}
-		
+
 		String pageNavi ="";
 		if(needPrev) {
 			pageNavi +="<li class='page-item'><a class='page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark' href='/companyBoard.ifcp?seq="+seq+"?cpage="+(startNavi-1)+"'>◀</a></li>";
@@ -657,17 +657,17 @@ public class CompanyDAO {
 		if(needNext) {
 			pageNavi += "<li class='page-item'><a class='page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark' href='/companyBoard.ifcp?seq="+seq+"?cpage="+(endNavi+1)+"'>▶</a></li>";
 		}
-		
+
 		return pageNavi;
 	}
-	
+
 	public List<Review_IfDTO> ifCardBoundary(int start, int end) throws Exception { // 10개씩 뽑아오는 코드.
 		String sql = "select * from (select review_if.*, row_number() over(order by seq desc) rn from review_if) where rn between ? and ?";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
 			pstat.setInt(1, start);
 			pstat.setInt(2, end);
-			
+
 			try(ResultSet rs = pstat.executeQuery();){
 				List<Review_IfDTO> list = new ArrayList();
 				while(rs.next()) {
@@ -685,20 +685,33 @@ public class CompanyDAO {
 			}
 		}
 	}
-	
+
 	// 기업상호명 중복 체크 method
-		public boolean nameExist(String name) throws Exception{
+	public boolean nameExist(String name) throws Exception{
 
-			String sql = "select * from(select name_cp from company union select nickname_if from influencer) where name_cp = ?";
+		String sql = "select * from(select name_cp from company union select nickname_if from influencer) where name_cp = ?";
 
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1,name);
+			try(ResultSet rs = pstat.executeQuery()){
+				return rs.next();
+			}		
+		}
+	}
+	
+	// 기업 회원 탈퇴
+		public int delete(String id) throws Exception{
+
+			String sql = "delete from company where id_if = ?";
 			try(Connection con = this.getConnection();
-					PreparedStatement pstat = con.prepareStatement(sql);){
-				pstat.setString(1,name);
-				try(ResultSet rs = pstat.executeQuery()){
-					return rs.next();
-				}		
+					PreparedStatement pstat =con.prepareStatement(sql);){
+				pstat.setString(1, id);
+				int result = pstat.executeUpdate();
+				return result;
 			}
 		}
+
 }
 
 

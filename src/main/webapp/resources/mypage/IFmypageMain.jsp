@@ -233,7 +233,7 @@ body {
 										<li class="name">${dto.name }</li>
 										<li class="label" style="margin: 0; padding: 0">인플루언서</li>
 										<li class="email">${dto.email }</li>
-										<li class="activity">Last logged in: Today at 2:18pm</li>
+										<li class="activity"> ${dto.nickname} </li>
 									</ul>
 									</div>
 								</div>
@@ -324,13 +324,48 @@ body {
 									<table class="table">
 										<thead>
 											<tr>
-												<th class="type"></th>
-												<th class="name truncate">Name</th>
-												<th class="date">Uploaded</th>
-												<th class="size">Size</th>
+												<th class="name truncate" colspan=4 style="text-align:center">나의 회원가입 정보</th>
 											</tr>
 										</thead>
 										
+										<tbody>
+											<tr>
+												<td class="name truncate" colspan=2 style="text-align:center">아이디</td>
+												<td class="date" colspan=2 style="text-align:center"> ${dto.id }</td>												
+											</tr>
+											<tr>
+												<td class="name truncate" colspan=2 style="text-align:center">이름</td>
+												<td class="date" colspan=2 style="text-align:center"> ${dto.name }</td>												
+											</tr>
+											<tr>
+												<td class="name truncate" colspan=2 style="text-align:center">닉네임</td>
+												<td class="date" colspan=2 style="text-align:center"> ${dto.nickname }</td>												
+											</tr>
+											<tr>
+												<td class="name truncate" colspan=2 style="text-align:center">우편번호</td>
+												<td class="date" colspan=2 style="text-align:center"> ${dto.zipcode }</td>												
+											</tr>
+											<tr>
+												<td class="name truncate" colspan=2 style="text-align:center">주소1</td>
+												<td class="date" colspan=2 style="text-align:center"> ${dto.address1 }</td>												
+											</tr>
+											<tr>
+												<td class="name truncate" colspan=2 style="text-align:center">주소2</td>
+												<td class="date" colspan=2 style="text-align:center"> ${dto.address2 }</td>												
+											</tr>
+											<tr>
+												<td class="name truncate" colspan=2 style="text-align:center">SNS</td>
+												<td class="date" colspan=2 style="text-align:center"> ${dto.sns }</td>												
+											</tr>
+											<tr>
+												<td class="name truncate" colspan=2 style="text-align:center">휴대폰번호</td>
+												<td class="date" colspan=2 style="text-align:center"> ${dto.phone }</td>												
+											</tr>
+											<tr>
+												<td class="name truncate" colspan=2 style="text-align:center">이메일</td>
+												<td class="date" colspan=2 style="text-align:center"> ${dto.email }</td>												
+											</tr>
+										</tbody>
 									</table>
 								</div>
 							</div>
