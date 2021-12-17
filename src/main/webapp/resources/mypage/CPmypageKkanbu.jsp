@@ -320,7 +320,8 @@ body {
 												<td class="name truncate"><a href="#"> ${kkanbu.cp_kkanbuNameFrom}
 													</a></td>
 												<td class="date">${kkanbu.cp_requestedTime}</td>
-												<td class="size"><a href="/approveCompanyKkanbuRequest.kkanbu?kkanbuFrom=${kkanbu.cp_kkanbuSeqFrom }&kkanbuTo=${kkanbu.cp_kkanbuSeqTo}&loggedInSeq=${IDseq}">수락 </a><a href=""/deleteCompanyKkanbuRequest.kkanbu?kkanbuSeq="${kkanbu.cp_kkanbu_seq }">거절 </a></td>
+												<td class="size"><a href="/approveCompanyKkanbuRequest.kkanbu?kkanbuFrom=${kkanbu.cp_kkanbuSeqFrom }&kkanbuTo=${kkanbu.cp_kkanbuSeqTo}&loggedInSeq=${IDseq}" style="text-decoration: none">수락 </a>
+												<a href=""/deleteCompanyKkanbuRequest.kkanbu?kkanbuSeq="${kkanbu.cp_kkanbu_seq }" style="text-decoration: none">거절 </a></td>
 											</tr>
 										</tbody>
 								</c:forEach>

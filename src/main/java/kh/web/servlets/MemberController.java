@@ -1,5 +1,6 @@
 package kh.web.servlets;
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
@@ -10,10 +11,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
 import kh.web.dao.CompanyDAO;
+import kh.web.dao.FileDAO;
 import kh.web.dao.InfluencerDAO;
 import kh.web.dto.CompanyDTO;
+import kh.web.dto.FileDTO;
 import kh.web.dto.InfluencerDTO;
+import kh.web.dto.Profile_IfDTO;
 import kh.web.web.SHA512;
 
 
@@ -30,6 +37,7 @@ public class MemberController extends HttpServlet {
 
 		InfluencerDAO influencerDAO = new InfluencerDAO();
 		CompanyDAO companyDAO = new CompanyDAO();
+		FileDAO fileDAO = new FileDAO();
 
 		SHA512 sha512 = new SHA512();
 
@@ -43,6 +51,7 @@ public class MemberController extends HttpServlet {
 
 				int result2 = influencerDAO.findSeq(id,pw);
 				String seq = String.valueOf(result2);
+				String name = influencerDAO.findName(id, pw);
 				
 				System.out.println(id+pw+seq);
 				
@@ -51,8 +60,9 @@ public class MemberController extends HttpServlet {
 					HttpSession session = request.getSession();
 					session.setAttribute("loginID", id);
 					session.setAttribute("IDseq", seq);
-					
-
+					session.setAttribute("loginName", name);
+					session.setAttribute("loginMember", "인플루언서");
+					System.out.println("인플루언서 닉네임 : "+name);
 					System.out.println("logged in!");
 
 					response.sendRedirect("/index.jsp");
@@ -80,6 +90,7 @@ public class MemberController extends HttpServlet {
 	
 				int result2 = companyDAO.findSeq(id,pw);
 				String seq = String.valueOf(result2);
+				String name = companyDAO.findName(id, pw);
 				
 				System.out.println(id+pw+"   "+seq);
 
@@ -87,6 +98,9 @@ public class MemberController extends HttpServlet {
 					HttpSession session = request.getSession();
 					session.setAttribute("loginID", id);
 					session.setAttribute("IDseq", seq);
+					session.setAttribute("loginName", name);
+					session.setAttribute("loginMember", "기업");
+					System.out.println("기업 상호 : "+name);
 					System.out.println( id + " " + seq + "logged in!");
 					response.sendRedirect("/index.jsp");
 
@@ -106,6 +120,9 @@ public class MemberController extends HttpServlet {
 
 			}else if(cmd.equals("/logout.mem")) {
 				request.getSession().removeAttribute("loginID");
+				request.getSession().removeAttribute("IDseq");
+				request.getSession().removeAttribute("loginName");
+				request.getSession().removeAttribute("loginMember");
 				response.sendRedirect("/index.jsp");
 
 			}else if(cmd.equals("/loginCheck.mem")) {
@@ -116,25 +133,51 @@ public class MemberController extends HttpServlet {
 			}else if(cmd.equals("/login.mem")) {
 				response.sendRedirect("/resources/login/login.jsp");
 			}else if(cmd.equals("/CPSubmit.mem")) {
-
-				String id = request.getParameter("id");
-				String pw = request.getParameter("pw");
-				String photo = request.getParameter("photo");
-				String name = request.getParameter("name");
-				String crunumber = request.getParameter("crunumber");
-				String zipcode = request.getParameter("zipcode");
-				String address1 = request.getParameter("address1");
-				String address2 = request.getParameter("address2");
-				String rpt_cp = request.getParameter("rpt_cp");
-				String phone = request.getParameter("phone");
-				String email = request.getParameter("email");
-				String sales = request.getParameter("sales");
-				String grade = request.getParameter("grade");
-				String pwAsk = request.getParameter("pwAsk");
-				String pwAnswer = request.getParameter("pwAnswer");
-
-				int result = companyDAO.insert(id, sha512.generate(pw), photo, name, crunumber, zipcode, address1, address2, rpt_cp, phone, email, sales, grade, pwAsk, pwAnswer);
-
+				
+				// 파일 업로드 기능 추가
+				
+				// 파일 저장할 위치 생성
+				String savePath = request.getServletContext().getRealPath("files");
+				File filePath = new File(savePath);
+				if(!filePath.exists()) {filePath.mkdir();}
+				
+				// 업로드 된 파일 저장 (COS 사용)
+				int maxSize = 1024*1024*10; // 10MB
+				MultipartRequest multi = new MultipartRequest(request, savePath, maxSize, "UTF8", new DefaultFileRenamePolicy());
+				
+				// request를 multi로 업그레이드
+				String sysName = multi.getFilesystemName("photo");
+				String oriName = multi.getOriginalFileName("photo");
+				System.out.println(sysName);
+				if(sysName==null) {
+					sysName = "blank1.png";
+					oriName = "blank.png";
+				}
+				String id = multi.getParameter("id");
+				String pw = multi.getParameter("pw");
+				String name = multi.getParameter("name");
+				String crunumber = multi.getParameter("crunumber");
+				String zipcode = multi.getParameter("zipcode");
+				String address1 = multi.getParameter("address1");
+				String address2 = multi.getParameter("address2");
+				String rpt_cp = multi.getParameter("rpt_cp");
+				String phone = multi.getParameter("phone");
+				String email = multi.getParameter("email");
+				String sales = multi.getParameter("sales");
+				String grade = multi.getParameter("grade");
+				String pwAsk = multi.getParameter("pwAsk");
+				String pwAnswer = multi.getParameter("pwAnswer");
+				// company 테이블의 seq 생성
+				int cpSeq = companyDAO.createNewseq();
+				
+				// 홈 디렉토리 경로 : E:\2021_09_웹응용과정\workspace_backend\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\SLproject\
+				// 회원 정보 insert
+				int result = companyDAO.insert(cpSeq, id, sha512.generate(pw), sysName, name, crunumber, zipcode, address1, address2, rpt_cp, phone, email, sales, grade, pwAsk, pwAnswer);
+				System.out.println("기업 회원가입 결과 : "+result);
+				// 프로필 사진 별도로 insert 
+				int fileResult = fileDAO.insertCp(new FileDTO(0,oriName,sysName,cpSeq));
+				System.out.println("기업 프로필 사진 insert 결과 : " + fileResult);
+				
 				response.sendRedirect("/resources/login/login.jsp");
 
 			}else if(cmd.equals("/CPidCheck.mem")) {
@@ -220,29 +263,47 @@ public class MemberController extends HttpServlet {
 				System.out.println("인플루언서 아이디는 : " + dto.getId());
 				response.getWriter().append(dto.getId());
 			}else if(cmd.equals("/IFSubmit.mem")) {
+				
+				String savePath = request.getServletContext().getRealPath("files");
+				File filePath = new File(savePath);
+				if(!filePath.exists()) {filePath.mkdir();}
+				
+				int maxSize = 1024*1024*10; // 10MB
+				MultipartRequest multi2 = new MultipartRequest(request, savePath, maxSize, "UTF8", new DefaultFileRenamePolicy());
+				
+				String sysName = multi2.getFilesystemName("photo");
+				String oriName = multi2.getOriginalFileName("photo");
+				if(sysName==null) {
+					sysName = "blank1.png";
+					oriName = "blank.png";
+				}
+				String id = multi2.getParameter("id");
+				String pw = multi2.getParameter("pw");
+				String name = multi2.getParameter("name");
+				String nickName = multi2.getParameter("nickName");
+				String zipcode = multi2.getParameter("zipcode");
+				String address1 = multi2.getParameter("address1");
+				String address2 = multi2.getParameter("address2");
+				String sns = multi2.getParameter("sns");
+				String phone = multi2.getParameter("phone");
+				String email = multi2.getParameter("email");
+				String grade = multi2.getParameter("grade");
+				String pwAsk = multi2.getParameter("pwAsk");
+				String pwAnswer = multi2.getParameter("pwAnswer");
 
-				String id = request.getParameter("id");
-				String pw = request.getParameter("pw");
-				String photo = request.getParameter("photo");
-				String name = request.getParameter("name");
-				String nickName = request.getParameter("nickName");
-				String zipcode = request.getParameter("zipcode");
-				String address1 = request.getParameter("address1");
-				String address2 = request.getParameter("address2");
-				String sns = request.getParameter("sns");
-				String phone = request.getParameter("phone");
-				String email = request.getParameter("email");
-				String grade = request.getParameter("grade");
-				String pwAsk = request.getParameter("pwAsk");
-				String pwAnswer = request.getParameter("pwAnswer");
-
-				String favorite1 = request.getParameter("favorite1");
-				String favorite2 = request.getParameter("favorite2");
-				String favorite3 = request.getParameter("favorite3");
-				String favorite4 = request.getParameter("favorite4");
-
-				int result = influencerDAO.insert(id, sha512.generate(pw), photo, name, nickName, zipcode, address1, address2, sns, phone, email, grade, pwAsk, pwAnswer, favorite1 +":"+ favorite2 +":"+ favorite3 +":"+ favorite4);
-
+				String favorite1 = multi2.getParameter("favorite1");
+				String favorite2 = multi2.getParameter("favorite2");
+				String favorite3 = multi2.getParameter("favorite3");
+				String favorite4 = multi2.getParameter("favorite4");
+				// company 테이블의 seq 생성
+				int ifSeq = influencerDAO.createNewseq();
+				
+				int result = influencerDAO.insert(ifSeq,id, sha512.generate(pw), sysName, name, nickName, zipcode, address1, address2, sns, phone, email, grade, pwAsk, pwAnswer, favorite1 +":"+ favorite2 +":"+ favorite3 +":"+ favorite4);
+				System.out.println("인플루언서 회원가입 결과 : "+result);
+				// 프로필 사진 별도로 insert 
+				int fileResult = fileDAO.insertIf(new FileDTO(0,oriName,sysName,ifSeq));
+				System.out.println("인플루언서 프로필 사진 insert 결과 : " + fileResult);
+				
 				response.sendRedirect("/resources/login/login.jsp");
 
 			}else if(cmd.equals("/IFidCheck.mem")) {
@@ -260,23 +321,29 @@ public class MemberController extends HttpServlet {
 			}else if(cmd.equals("/mypage.mem")) {
 
 				String id = (String)request.getSession().getAttribute("loginID");
+				String seq = (String)request.getSession().getAttribute("IDseq");
 				CompanyDTO cdto = companyDAO.selectById(id);
 				InfluencerDTO idto = influencerDAO.selectById(id);
+				Profile_IfDTO pdto = influencerDAO.selectBySeq(seq);
 
+								
 				if(cdto != null ) {
 					request.setAttribute("dto", cdto);
 					request.getRequestDispatcher("/resources/mypage/CPmypageMain.jsp").forward(request, response);
 
 				}else {
 					request.setAttribute("dto", idto);
+					request.setAttribute("pdto", pdto);
 					request.getRequestDispatcher("/resources/mypage/IFmypageMain.jsp").forward(request, response);
 				}
 
 			}else if(cmd.equals("/modify.mem")) {
 
 				String id = (String)request.getSession().getAttribute("loginID");
+				String seq = (String)request.getSession().getAttribute("IDseq");
 				CompanyDTO cdto = companyDAO.selectById(id);
 				InfluencerDTO idto = influencerDAO.selectById(id);
+				Profile_IfDTO pdto = influencerDAO.selectBySeq(seq);
 
 				if(cdto != null ) {
 					request.setAttribute("dto", cdto);
@@ -284,13 +351,13 @@ public class MemberController extends HttpServlet {
 
 				}else {
 					request.setAttribute("dto", idto);
+					request.setAttribute("pdto", pdto);
 					request.getRequestDispatcher("/resources/mypage/IFModify.jsp").forward(request, response);
 				}
 
 
 			}else if(cmd.equals("/CPmodify.mem")) {
 
-				CompanyDTO dto = new CompanyDTO();
 				String id = request.getParameter("id");
 				String pw = request.getParameter("pw");
 				String photo = request.getParameter("photo");
@@ -311,7 +378,6 @@ public class MemberController extends HttpServlet {
 
 			}else if(cmd.equals("/IFmodify.mem")) {
 
-				InfluencerDTO dto = new InfluencerDTO();
 				String id = request.getParameter("id");
 				String pw = request.getParameter("pw");
 				String photo = request.getParameter("photo");
@@ -331,37 +397,103 @@ public class MemberController extends HttpServlet {
 				String favorite4 = request.getParameter("favorite4");
 
 				int result = influencerDAO.update(sha512.generate(pw), photo, name, nickname, zipcode, address1, address2, sns, phone, email, pwAsk, pwAnswer, favorite1 +":"+ favorite2 +":"+ favorite3 +":"+ favorite4, id);
-				response.sendRedirect("/resources/mypage/IFmypageMain.jsp");
-
+				
+				
+				String idf = (String)request.getSession().getAttribute("loginID");
+				String seq = (String)request.getSession().getAttribute("IDseq");
+				InfluencerDTO dto = influencerDAO.selectById(idf);
+				Profile_IfDTO pdto = influencerDAO.selectBySeq(seq);
+				request.setAttribute("dto", dto);
+				request.setAttribute("pdto", pdto);
+				request.getRequestDispatcher("/resources/mypage/IFmypageMain.jsp").forward(request, response);
+				
 			}else if(cmd.equals("/Ifprofile.mem")) {
 
 				String id = (String)request.getSession().getAttribute("loginID");
-				InfluencerDTO idto = influencerDAO.selectById(id);
-				request.setAttribute("dto", idto);
+				InfluencerDTO dto = influencerDAO.selectById(id);
+				request.setAttribute("dto", dto);
 				request.getRequestDispatcher("/resources/mypage/IFprofile.jsp").forward(request, response);
 
 			}else if(cmd.equals("/upload.mem")) {
 				
 				String id = (String)request.getSession().getAttribute("loginID");
-				InfluencerDTO idto = influencerDAO.selectById(id);
-				request.setAttribute("dto", idto);
+				String seq = (String)request.getSession().getAttribute("IDseq");
+				InfluencerDTO dto = influencerDAO.selectById(id);				
+				String career = request.getParameter("career");
+				String intro = request.getParameter("intro");
+				String condition = request.getParameter("condition");			
+				int result = influencerDAO.insertProfile(seq, condition, career, intro);
 				
-				request.getRequestDispatcher("/resources/mypage/IFprofile.jsp").forward(request, response);
+				Profile_IfDTO pdto = influencerDAO.selectBySeq(seq);
+				request.setAttribute("dto", dto);
+				request.setAttribute("pdto", pdto);
+				request.getRequestDispatcher("/resources/mypage/IFmypageMain.jsp").forward(request, response);
 				
 			}else if(cmd.equals("/IFKkanbuList.mem")) {
 				
 				String id = (String)request.getSession().getAttribute("loginID");
-				InfluencerDTO idto = influencerDAO.selectById(id);
-				request.setAttribute("dto", idto);
+				String seq = (String)request.getSession().getAttribute("IDseq");
+				InfluencerDTO dto = influencerDAO.selectById(id);
+				Profile_IfDTO pdto = influencerDAO.selectBySeq(seq);
+				request.setAttribute("dto", dto);
+				request.setAttribute("pdto", pdto);
 				request.getRequestDispatcher("/resources/mypage/IFmypageKkanbu.jsp").forward(request, response);
 				
 			}else if(cmd.equals("/IFReviewList.mem")) {
 				
 				String id = (String)request.getSession().getAttribute("loginID");
-				InfluencerDTO idto = influencerDAO.selectById(id);
-				request.setAttribute("dto", idto);
+				String seq = (String)request.getSession().getAttribute("IDseq");
+				InfluencerDTO dto = influencerDAO.selectById(id);
+				Profile_IfDTO pdto = influencerDAO.selectBySeq(seq);
+				request.setAttribute("dto", dto);
+				request.setAttribute("pdto", pdto);
 				request.getRequestDispatcher("/resources/mypage/IFmypageReview.jsp").forward(request, response);
 				
+			}else if(cmd.equals("/goIfprofileModify.mem")) {
+				
+				String idf = (String)request.getSession().getAttribute("loginID");
+				String seq = (String)request.getSession().getAttribute("IDseq");
+				InfluencerDTO dto = influencerDAO.selectById(idf);
+				Profile_IfDTO pdto = influencerDAO.selectBySeq(seq);
+				request.setAttribute("dto", dto);
+				request.setAttribute("pdto", pdto);
+				request.getRequestDispatcher("/resources/mypage/IFprofileModify.jsp").forward(request, response);
+				
+			}else if(cmd.equals("/IfprofileModify.mem")) {
+				
+				String idf = (String)request.getSession().getAttribute("loginID");
+				String seq = (String)request.getSession().getAttribute("IDseq");
+				InfluencerDTO dto = influencerDAO.selectById(idf);
+				Profile_IfDTO pdto = influencerDAO.selectBySeq(seq);
+				request.setAttribute("dto", dto);
+				request.setAttribute("pdto", pdto);
+				
+				String career = request.getParameter("career");
+				String intro = request.getParameter("intro");
+				String condition = request.getParameter("condition");
+				
+				int result = influencerDAO.updateProfile(seq, condition, career, intro);
+				request.getRequestDispatcher("/resources/mypage/IFmypageMain.jsp").forward(request, response);
+				
+			}else if(cmd.equals("/Ifleave.mem")) {
+				
+				String idf = (String)request.getSession().getAttribute("loginID");
+				String seq = (String)request.getSession().getAttribute("IDseq");
+				
+				int result = influencerDAO.delete(idf);
+				int result2 = influencerDAO.deleteProfile(seq);
+				
+				request.setAttribute("result", result);
+				request.setAttribute("result2", result2);
+				request.getSession().invalidate();
+				request.getRequestDispatcher("/index.jsp").forward(request, response);
+				
+			}else if(cmd.equals("/CPnameCheck.mem")) {
+
+				String name = request.getParameter("name");
+				boolean result = companyDAO.nameExist(name);
+				response.getWriter().append(String.valueOf(result));
+
 			}
 
 		}catch(Exception e) {

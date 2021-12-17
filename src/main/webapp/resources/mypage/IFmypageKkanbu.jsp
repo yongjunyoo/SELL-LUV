@@ -152,8 +152,8 @@ body {
 
 .img-profile {
 	border-radius: 70%;
-	width: 90%;
-	height: 90%;
+	width: 100%;
+	height: 100%;
 }
 
 .profile-detail {
@@ -196,37 +196,50 @@ body {
 	flex:1 1;
 	justify-content: center;
 }
+#profile-box{
+	flex-wrap: wrap;
+}
+
 </style>
 
-<script type="text/javascript">
-	
+<script>
+
+	$("#leave").on("click",function(){
+		confirm("회원 탈퇴를 하시겠습니까?");
+	})
+		
 </script>
 <body>
 	
-
-	<div class="container">
-		<div class="row" id="header">
+<div class="container">
+	<div class="row" id="header">
 			<div class="col">
 				<jsp:include page="/header.jsp" flush="false" />
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-12 col-lg-3">
+	<div class="row">
+			<div class="col-12 col-md-4 col-lg-3">
 				<div class="card">
 					<div class="card-body">
 						<div class="row">
 							<div class="grade">${dto.grade }</div>
-							<div class="col" id="profile-box">
-								<img id="profile" class="img-profile"
-									src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="">
+							<div class="col " id="profile-box">
+								<div class="row">
+									<div class="col-6 col-md-12">
+									<img id="profile" class="img-profile"
+										src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="">
+									</div>
+									<div class="col-6 col-md-12"> 
+									<ul class="meta list list-unstyled profile-detail">
+										<li class="name">${dto.name }</li>
+										<li class="label" style="margin: 0; padding: 0">인플루언서</li>
+										<li class="email">${dto.email }</li>
+										<li class="activity">Last logged in: Today at 2:18pm</li>
+									</ul>
+									</div>
+								</div>
 							</div>
 						</div>
-						<ul class="meta list list-unstyled profile-detail">
-							<li class="name">${dto.name }</li>
-							<li class="label" style="margin: 0; padding: 0">인플루언서</li>
-							<li class="email">${dto.email }</li>
-							<li class="activity">Last logged in: Today at 2:18pm</li>
-						</ul>
 					</div>
 				</div>
 				<div class="card">
@@ -235,12 +248,19 @@ body {
 						<h5 class="my-3">My Page</h5>
 						<div class="fm-menu">
 							<div class="list-group list-group-flush">
-								<a href="/modify.mem" class="list-group-item py-1"><i class="bx bx-cool me-2"></i><span>개인 정보 수정</span></a> 							
-								<a href="/Ifprofile.mem" class="list-group-item py-1"><i class="bx bx-face me-2"></i><span>프로필 수정</span></a> 
+								<a href="/modify.mem" class="list-group-item py-1"><i class="bx bx-cool me-2"></i><span>개인 정보 수정</span></a>
+								<c:choose>
+									<c:when test="${pdto.member_seq == null}"> 							
+										<a href="/Ifprofile.mem" class="list-group-item py-1"><i class="bx bx-face me-2"></i><span>프로필 생성</span></a>
+									</c:when>
+									<c:otherwise>
+										<a href="/goIfprofileModify.mem" class="list-group-item py-1"><i class="bx bx-face me-2"></i><span>프로필 수정</span></a>
+									</c:otherwise> 
+								</c:choose>
 								<a href="/IFKkanbuList.mem" class="list-group-item py-1"><i class="bx bx-heart me-2"></i><span>깐부 관리</span></a>
-								<a href="" class="list-group-item py-1"><i class="bx bx-like me-2"></i><span>리뷰 관리</span></a>
+								<a href="/IFReviewList.mem" class="list-group-item py-1"><i class="bx bx-like me-2"></i><span>리뷰 관리</span></a>
 								<a href="" class="list-group-item py-1"><i class="bx bx-highlight me-2"></i><span>커뮤니티 관리</span></a>
-								<a href="" class="list-group-item py-1"></i><span>회원탈퇴</span></a>
+								<a href="" class="list-group-item py-2" id="leave">회원탈퇴</a>
 							</div>
 						</div>
 					</div>
@@ -248,7 +268,7 @@ body {
 
 			</div>
 
-			<div class="col-12 col-lg-9">
+			<div class="col-12 col-md-8 col-lg-9">
 				<div class="card">
 					<div class="card-body">
 						<div class="row mt-3">
@@ -308,8 +328,10 @@ body {
 											<tr>
 												<th class="type"></th>
 												<th class="name truncate">기업이름</th>
+
 												<th class="date">시각 </th>
 												<th class="size" style="text-align:center;">깐부맺기</th>
+
 											</tr>
 										</thead>
 						
@@ -322,7 +344,8 @@ body {
 													</a></td>
 												<td class="date">${kkanbu.if_requestedTime}</td>
 										
-													<td id="kkanbuCheckbox" class="size"><a id="kkanbuCheck" href="/approveInfKkanbuRequest.kkanbu?kkanbuFrom=${kkanbu.if_kkanbuSeqFrom }&kkanbuTo=${kkanbu.if_kkanbuSeqTo}">수락 </a><a href="/deleteInfKkanbuRequest.kkanbu?kkanbuSeq="${kkanbu. if_kkanbu_seq }>거절 </a></td>
+													<td id="kkanbuCheckbox" class="size"><a id="kkanbuCheck" href="/approveInfKkanbuRequest.kkanbu?kkanbuFrom=${kkanbu.if_kkanbuSeqFrom }&kkanbuTo=${kkanbu.if_kkanbuSeqTo}" style="text-decoration: none"> 수락 </a>
+													<a href="/deleteInfKkanbuRequest.kkanbu?kkanbuSeq="${kkanbu. if_kkanbu_seq } style="text-decoration: none">거절 </a></td>
 												
 											</tr>
 										</tbody>

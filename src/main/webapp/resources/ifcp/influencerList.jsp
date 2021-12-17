@@ -13,6 +13,8 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/ifcp/css/custom.css">
 
+<!-- search bar css -->
+<link href="${pageContext.request.contextPath}/resources/search/css/main.css" rel="stylesheet" />
 <!-- Load fonts style after rendering the layout styles -->
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
@@ -22,6 +24,21 @@
 	width: 100% px;
 	height: 100% px;
 }
+.s003{
+	background-color: #fff;min-height: 0vh;
+	padding:0;
+	display:block;
+}
+.search-border{
+	border: 1px solid rgba(0,0,0,.125); 
+}
+.s003 form .inner-form .input-field input {
+	height:46px;
+}
+.s003 form .inner-form .input-field {
+	height:46px;
+}
+
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
@@ -108,8 +125,8 @@
 										src=${dto.value.photo }>
 								</div>
 								<div class="card-body">${dto.key.career_if} ${dto.key.seq_if} ${dto.value.seq }
-									<a href="/influencerProfile.ifcp?seq=${dto.key.seq_if}"
-										class="h3 text-decoration-none">${dto.value.name}</a>
+									<a href="/influencerProfile.ifcp?seq=${dto.key.seq_if}&cpage=1"
+										class="h3 text-decoration-none">${dto.value.nickname}</a>
 									<ul
 										class="w-100 list-unstyled d-flex justify-content-between mb-0">
 										<li>${dto.value.grade }</li>
@@ -138,11 +155,46 @@
 						</div>
 					</c:forEach>
 					<!--ㅋㅏ드 끝 -->
-
-					<div div="row">
-						<ul class="pagination pagination-lg justify-content-end">
+						    
+						    
+		<!-- search bar -->				    
+	    <div class="s003" style="margin-bottom:20px">
+	      <form style="max-width:100%">
+	        <div class="inner-form search-border " style="box-shadow:none;">
+	          <div class="input-field first-wrap input-category ">
+	              <select data-trigger="" name="choices-single-defaul" style="height:100%;">
+	                <option>인플루언서</option>
+	              </select>
+	          </div>
+	          <div class="input-field second-wrap">
+	            <input id="search" type="text" placeholder="이름을 입력하세요." />
+	          </div>
+	          <div class="input-field third-wrap">
+	            <button class="btn-search" type="button" style="background-color: #000000;">
+	              <svg class="svg-inline--fa fa-search fa-w-16" aria-hidden="true" data-prefix="fas" data-icon="search" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+	                <path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"></path>
+	              </svg>
+	            </button>
+	          </div>
+	        </div>
+	      </form>
+	    </div>
+	    <script src="<c:url value="/resources/search/js/extention/choices.js" />"></script>
+	    <script>
+	      const choices = new Choices('[data-trigger]',
+	      {
+	        searchEnabled: false,
+	        itemSelectText: '',
+	      });
+	
+	    </script>
+	    
+    
+    				<!-- page navigation -->
+					<div class="row">
+						<div class="pagination pagination-lg justify-content-end">
 							${navi }
-						</ul>
+						</div>
 					</div>
 				</div>
 

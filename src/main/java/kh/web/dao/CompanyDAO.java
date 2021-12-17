@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -16,7 +17,9 @@ import javax.sql.DataSource;
 import kh.web.dto.Board_CpDTO;
 import kh.web.dto.CompanyDTO;
 import kh.web.dto.Photo_ListDTO;
+import kh.web.dto.Review_IfDTO;
 import kh.web.statics.IFCPStatics;
+import kh.web.statics.PageStatics;
 
 public class CompanyDAO {
 
@@ -255,33 +258,46 @@ public class CompanyDAO {
 		}
 	}	
 
-
+	// company_seq 생성 메소드 
+	public int createNewseq() throws Exception {
+		String sql = "SELECT company_seq_cp.NEXTVAL FROM dual";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				ResultSet rs = pstat.executeQuery();
+				){
+			rs.next();
+			return rs.getInt(1);
+		}
+	}
+	
+	
 	// Company 회원가입 -이준협
 
 	// 회원가입 method
-	public int insert(String id, String pw, String photo, String name, String crunumber, String zipcode, String address1, 
+	public int insert(int seq, String id, String pw, String photo, String name, String crunumber, String zipcode, String address1, 
 			String address2, String rpt_cp, String phone, String email, String sales, String grade, String pwAsk, String pwAnswer) throws Exception {
 
-		String sql = "insert into company values(company_seq_cp.nextval,?,?,?,?,?,?,?,?,?,?,?,?,default,?,?)";
+		String sql = "insert into company values(?,?,?,?,?,?,?,?,?,?,?,?,?,default,?,?)";
 
 
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
 
-			pstat.setString(1, id);
-			pstat.setString(2, pw);			
-			pstat.setString(3, photo);
-			pstat.setString(4, name);
-			pstat.setString(5, crunumber);
-			pstat.setString(6, zipcode);
-			pstat.setString(7, address1);
-			pstat.setString(8, address2);
-			pstat.setString(9, rpt_cp);
-			pstat.setString(10, phone);
-			pstat.setString(11, email);
-			pstat.setString(12, sales);
-			pstat.setString(13, pwAsk);
-			pstat.setString(14, pwAnswer);
+			pstat.setInt(1, seq);
+			pstat.setString(2, id);
+			pstat.setString(3, pw);			
+			pstat.setString(4, photo);
+			pstat.setString(5, name);
+			pstat.setString(6, crunumber);
+			pstat.setString(7, zipcode);
+			pstat.setString(8, address1);
+			pstat.setString(9, address2);
+			pstat.setString(10, rpt_cp);
+			pstat.setString(11, phone);
+			pstat.setString(12, email);
+			pstat.setString(13, sales);
+			pstat.setString(14, pwAsk);
+			pstat.setString(15, pwAnswer);
 			int result  = pstat.executeUpdate();
 
 			return result;
@@ -452,6 +468,21 @@ public class CompanyDAO {
 			}
 		}
 	}
+	
+	public boolean isMember(String name) throws Exception {
+		String sql = "SELECT * FROM company WHERE name_cp =? ";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, name);
+			try(ResultSet rs = pstat.executeQuery();){
+
+				if(rs.next()) {
+					return true;
+				}
+				return false;
+			}
+		}
+	}
 
 	// 비밀번호 재설정 메소드
 
@@ -510,14 +541,45 @@ public class CompanyDAO {
 	}
 
 	public int insertPhoto(Photo_ListDTO dto) throws Exception { // 사진 업로드
-		String sql = "insert into files values(files_seq.nextval,?,?,?)";
+		String sql = "insert into photo_list values(photo_list_seq.nextval,?,?,?)";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
 			pstat.setString(1, dto.getOriName());
 			pstat.setString(2, dto.getSysName());
 			pstat.setInt(3, dto.getParentSeq());
 			int result = pstat.executeUpdate();
+			con.setAutoCommit(false);
 			con.commit();
+			return result;
+		}
+	}
+
+	public int writeIntro(int seq,String title,String intro,String condition) throws Exception { // 글 업로드
+		String sql = "insert into board_cp (seq_board_cp, member_seq, title_cp, intro_cp, condition_cp) values(board_cp_seq.nextval,?,?,?,?)";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setInt(1, seq);
+			pstat.setString(2, title);
+			pstat.setString(3, intro);
+			pstat.setString(4, condition);
+			int result = pstat.executeUpdate();
+			con.setAutoCommit(false);
+			con.commit();
+			return result;
+		}
+	}
+	
+	public int cpSearchById(String loginID) throws Exception{
+		String sql = "select seq_cp from company where id_cp =?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, loginID);
+			int result = 0;
+			try(ResultSet rs = pstat.executeQuery();){
+				if(rs.next()) {
+					result = rs.getInt("seq_cp");
+				}
+			}
 			return result;
 		}
 	}
@@ -538,6 +600,7 @@ public class CompanyDAO {
 			return result;
 			}
 	}
+
 	public String getName(int kkanbuSeqFrom) throws SQLException, Exception {
 		String sql = "SELECT name_cp FROM company WHERE seq_cp =?";
 		try(Connection con = this.getConnection();
@@ -552,6 +615,175 @@ public class CompanyDAO {
 			return result;
 			}
 	}
+
+	
+	public String findName(String id, String pw) throws Exception{
+		String sql = "SELECT name_cp FROM company WHERE id_cp =? AND pw_cp =?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, id);
+			pstat.setString(2, pw);
+
+			String result = "";
+			try(ResultSet rs = pstat.executeQuery();){
+				if(rs.next()) {
+				result = rs.getString("name_cp");
+
+				
+
+				}
+			}
+			return result;
+			}
+	}
+
+	
+	public String findProfile(String name) throws Exception{
+		String sql = "SELECT photo_cp FROM company WHERE name_cp = ?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, name);
+			String result = "";
+			try(ResultSet rs = pstat.executeQuery();){
+				if(rs.next()) {
+				result = rs.getString("photo_cp");
+				
+				}
+			}
+			return result;
+			}
+	}
+	
+	public List<Review_IfDTO> ifReview() throws Exception{ // 인플루언서가 작성한 리뷰
+		String sql = "select * from review_if";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			try(ResultSet rs = pstat.executeQuery()){
+
+				List<Review_IfDTO> list = new ArrayList<>();
+
+				while(rs.next()) {
+					int seq = rs.getInt("seq");
+					int member_seq = rs.getInt("member_seq");
+					String writer = rs.getString("writer");
+					String content = rs.getString("content");
+					Timestamp timestamp = rs.getTimestamp("timestamp");
+
+					Review_IfDTO dto = new Review_IfDTO(seq,member_seq,writer,content,timestamp );
+
+					list.add(dto);
+				}
+				return list;
+			}
+		}
+	}
+	
+	public int getIfCardCount(int seq) throws Exception { // 인플루언서가 작성한 리뷰 수 출력.
+		String sql = "select count(*) from review_if where member_seq=?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setInt(1, seq);
+			try(ResultSet rs = pstat.executeQuery();){
+				rs.next();
+				return rs.getInt(1);	
+			}
+		}
+	}
+	
+	public int getifCardPageTotalCount(int seq) throws Exception { // 기업 페이지
+		int recordTotalCount = this.getIfCardCount(seq);
+		
+		// 총 페이지 개수
+		int pageTotalCount = 0;
+		if(recordTotalCount%IFCPStatics.RECORD_COUNT_PER_PAGE==0) {
+			pageTotalCount = recordTotalCount/IFCPStatics.RECORD_COUNT_PER_PAGE;
+		}else {
+			pageTotalCount = recordTotalCount/IFCPStatics.RECORD_COUNT_PER_PAGE+1;
+		}
+		return pageTotalCount;
+	}
+	
+	public String getifCardPageNavi(int currentPage,int seq) throws Exception { // 기업 네비
+		int recordTotalCount = this.getIfCardCount(seq);
+
+		int pageTotalCount = 0;
+		if(recordTotalCount%IFCPStatics.RECORD_COUNT_PER_PAGE==0) {
+			pageTotalCount = recordTotalCount/IFCPStatics.RECORD_COUNT_PER_PAGE;
+		}else {
+			pageTotalCount = recordTotalCount/IFCPStatics.RECORD_COUNT_PER_PAGE+1;
+		}
+
+		int startNavi = (currentPage-1)/IFCPStatics.NAVI_PER_PAGE*IFCPStatics.NAVI_PER_PAGE+1;
+		int endNavi = startNavi+IFCPStatics.NAVI_PER_PAGE-1;
+		
+		if(endNavi > pageTotalCount) {  
+			endNavi = pageTotalCount;
+		}
+		
+		boolean needPrev = true;
+		boolean needNext = true;
+		
+		if(startNavi==1) {
+			needPrev = false;
+		}
+		if(endNavi==pageTotalCount) {
+			needNext = false;
+		}
+		
+		String pageNavi ="";
+		if(needPrev) {
+			pageNavi +="<li class='page-item'><a class='page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark' href='/companyBoard.ifcp?seq="+seq+"&cpage="+(startNavi-1)+"'>◀</a></li>";
+		}
+		for(int i=startNavi; i<=endNavi; i++) {
+			pageNavi+="<li class='page-item'><a class='page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark' href='/companyBoard.ifcp?seq="+seq+"&cpage="+i+"'>"+i+"</a></li>";
+		}
+		if(needNext) {
+			pageNavi += "<li class='page-item'><a class='page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark' href='/companyBoard.ifcp?seq="+seq+"&cpage="+(endNavi+1)+"'>▶</a></li>";
+		}
+		
+		return pageNavi;
+	}
+	
+	public List<Review_IfDTO> ifCardBoundary(int seq,int start, int end) throws Exception { // 9개씩 뽑아오는 코드.
+		String sql = "select * from (select review_if.*, row_number() over(order by seq desc) rn from review_if where member_seq=?) where rn between ? and ?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setInt(1, seq);
+			pstat.setInt(2, start);
+			pstat.setInt(3, end);
+			
+			try(ResultSet rs = pstat.executeQuery();){
+				List<Review_IfDTO> list = new ArrayList();
+				while(rs.next()) {
+					int seq1 = rs.getInt("seq");
+					int member_seq = rs.getInt("member_seq");
+					String writer = rs.getString("writer");
+					String content = rs.getString("content");
+					Timestamp timestamp = rs.getTimestamp("timestamp");
+
+					Review_IfDTO dto = new Review_IfDTO(seq1,member_seq,writer,content,timestamp);
+
+					list.add(dto);
+				}
+				return list;
+			}
+		}
+	}
+	
+	// 기업상호명 중복 체크 method
+		public boolean nameExist(String name) throws Exception{
+
+			String sql = "select * from(select name_cp from company union select nickname_if from influencer) where name_cp = ?";
+
+			try(Connection con = this.getConnection();
+					PreparedStatement pstat = con.prepareStatement(sql);){
+				pstat.setString(1,name);
+				try(ResultSet rs = pstat.executeQuery()){
+					return rs.next();
+				}		
+			}
+		}
+
 }
 
 

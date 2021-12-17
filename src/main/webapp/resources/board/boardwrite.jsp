@@ -15,7 +15,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
+<script src="https://rawgit.com/jackmoore/autosize/master/dist/autosize.min.js"></script>
 <style>
 body {
 	margin: 0;
@@ -141,7 +141,6 @@ a {
 }
 
 textarea {
-	resize: none;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
@@ -154,6 +153,34 @@ body {
 	color: #495057;
 	text-align: left;
 	background-color: #eef1f3
+}
+.profile-box{
+	display:flex;
+}
+.img-profile {
+	border-radius: 70%;
+	width: 100%;
+	height: 100%;
+}
+
+.profile-detail {
+	text-align: center;
+}
+
+.name {
+	font-weight: bold;
+}
+
+.list li {
+	margin-top: 5px;
+}
+
+.label {
+	font-size: 12px;
+}
+.profile-detail{
+	justify-content: flex-start;
+    flex-direction: column;
 }
 </style>
 </head>
@@ -172,16 +199,19 @@ body {
     <br>
 	
 	<!-- 게시판 박스 -->
-    <div class="card mb-3 col-xl-8 col-md-12">
-    
+    <div class="card mb-3 col-xl-6 col-md-12">
+    <!-- 게시글 등록 박스 -->
       <form action="/done.board" method="post" >
-    <div class="container mt-4 mb-4">
+    <div class="container mb-4 mt-4">
         <div class="row" style="padding-bottom:5px;">
             <div class="col-sm-12"><input type=text id=title name=title placeholder="제목을 작성하세요" style="width:100%;"></div>
         </div>
         <div class="row">
             <div class="col-sm-12">
-                <textarea cols=170 rows=25 name="contents"></textarea>
+                <textarea name="contents" id="summernote" style="min-height: 200px;overflow:hidden"></textarea>
+                <script>
+                autosize($("textArea"));
+                </script>
             </div>
         </div>
         <div class="row">
@@ -208,6 +238,7 @@ body {
     <!-- 푸터 -->
 	<jsp:include page="/footer.jsp" flush="false"/>
 </div>                            
-<script type="text/javascript"></script>
+<script type="text/javascript">
+</script>
 </body>
 </html>

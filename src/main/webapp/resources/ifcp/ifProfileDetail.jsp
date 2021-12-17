@@ -31,34 +31,26 @@
 
 <body>
 	<jsp:include page="/header.jsp" flush="false" />
-	<c:forEach var="dto" items="${ifList }">
-		<div class="blog-single gray-bg">
-		
-			<div class="container">
-				<div class="row align-items-start">
+
+	<div class="blog-single gray-bg">
+		<div class="container">
+			<div class="row align-items-start">
 				<div class="col-lg-8 m-15px-tb">
-
-				
 					<article class="article">
-
-				<article class="article">
-
 						<div class="article-img">
-							<img src="${dto.value.photo}" title="" alt="">
+							<c:forEach var="dto" items="${ifList }">
+								<img src="${dto.value.photo}" title="" alt="">
 						</div>
 						<div class="article-title">
 							<!--소개글-->
-							<!-- <h2>제목</h2> -->
+							<div class="avatar"></div>
 							<div class="media">
 								<div class="avatar"></div>
-
 								<div class="media-body">
 									<label>작성자 : </label> ${dto.value.id}
-
 								</div>
-								<div class="avatar"></div>
 								<div class="media-body">
-									<label>원하는 조건 : </label> ${dto.key.condition_if}
+									<label>SNS : </label> ${dto.value.sns}
 								</div>
 							</div>
 							<br>
@@ -67,52 +59,45 @@
 								<div class="media-body">
 									<label>커리어 : </label> ${dto.key.career_if}
 								</div>
-								<div class="avatar"></div>
 								<div class="media-body">
-									<label>SNS : </label> ${dto.value.sns}
+									<label>원하는 조건 : </label> ${dto.key.condition_if}
 								</div>
 							</div>
 						</div>
-						<div class="article-content">
-							<!-- <p>내용</p> -->
-				
-
-
-
-						</div>
-
 					</article>
+
 					<div class="contact-form article-comment">
-						<h4>리뷰 작성</h4>
-						<form id="contact-form" action="/write.review" method="POST">
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-										<input name="Name" id="name" placeholder="Name *"
-											class="form-control" type="text">
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<input name="Email" id="email" placeholder="Email *"
-											class="form-control" type="email">
-									</div>
-								</div>
-								<div class="col-md-12">
-									<div class="form-group">
-										<textarea name="message" id="message" placeholder="글 남기기 *"
-											rows="4" class="form-control"></textarea>
-									</div>
-								</div>
-								<div class="col-md-12">
-									<div class="send">
-										<button class="px-btn theme">
-											<span>작성완료</span> <i class="arrow"></i>
-										</button>
-									</div>
-								</div>
+						<h4>리뷰 목록</h4>
+						<div class="row">
+							<div class="col-md-6">
+								<table class="table-sm mb-0" width="450px; "
+									style="color: #ff6F61;">
+									<thead>
+										<tr>
+											<th>번호</th>
+											<th>작성자</th>
+											<th>작성내용</th>
+											<th>작성시간</th>
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach var="list" items="${list}">
+											<tr style="color: black;">
+												<td>${list.seq }</td>
+												<td>${list.writer }</td>
+												<td>${list.content }</td>
+												<td>${list.timestamp }</td>
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
 							</div>
-						</form>
+						</div>
+						<div div="row">
+							<ul class="pagination pagination-lg justify-content-end">
+								${navi}
+							</ul>
+						</div>
 					</div>
 				</div>
 				<div class="col-lg-4 m-15px-tb blog-aside">
@@ -122,6 +107,7 @@
 							<div class="media align-items-center">
 								<div class="media-body">
 									<div class="nav tag-cloud">
+<<<<<<< HEAD
 									<c:choose>
 										<c:when test="${kkanbuCardSeq !=null }">
 										<div class="nav tag-cloud">
@@ -132,6 +118,11 @@
 											<a href="/kkanbuRequestToInfluencer.kkanbu?kkanbuSeqTo=${dto.key.member_seq }&kkanbuSeqFrom=${IDseq}&kkanbuCardSeq=${dto.key.seq_if}" id = "kkanbuRequest" style="text-decoration: none;">깐부맺기</a>
 										</c:otherwise>
 									</c:choose>
+
+										<a
+											href="/kkanbuRequestToCompany.kkanbu?kkanbuReceiveSeq=${dto.key.member_seq }&kkanbuSendSeq=${IDseq}"
+											style="text-decoration: none;">깐부맺기</a>
+
 									</div>
 								</div>
 							</div>
@@ -141,46 +132,41 @@
 
 					<!-- Latest Post -->
 					<div class="widget widget-latest-post">
-						<div class="widget-title">
-							<h3>
-								<%-- 받은 좋아요 <i class="fas fa-heart" id="heart"></i> --%>
-							</h3>
-						</div>
-						<div class="widget-title">
-							<h3>
-								<%-- 보낸 좋아요 <i class="fas fa-heart" id="heart"></i> --%>
-							</h3>
-						</div>
-				</c:forEach>
-						<div class="widget-title">
+						</c:forEach>
+						<div class="widget-title" style="text-align: center;">
 							<c:forEach var="dto" items="${ifList }">
-								<c:if test="${loginID eq dto.value.id }">
-								<a href="/iFdelete.ifcp?seq=${ifList[0].writer_if}"><button
-										type="button">삭제하기</button></a>
+								<c:if test="${loginID eq dto.value.id}">
+									<a href="/iFdelete.ifcp?seq=${ifList[0].writer_if}"><button
+											type="button" id="delBtn">삭제하기</button></a>
 								</c:if>
 							</c:forEach>
 						</div>
 					</div>
 				</div>
 			</div>
-			
 			<!-- End Latest Post -->
 		</div>
 	</div>
+
 	 <div id="errorMessage" style="display:hidden">${errorMessage}</div>
+
+
 	<script>
-	 const errorMessage = $('#errorMessage').value;
-   	if (errorMessage){
-   		alert(errorMessage);
-   	} 	
-      
-   	if ( window.history.replaceState ) {
-         window.history.replaceState( null, null, '/influencerProfile.ifcp?seq="+${kkanbuCardSeq}' );
-     }  
 	
 	</script>
 	
 	<style type="text/css">
+#delBtn {
+	color: #ff6F61;
+	background-color: transparent;
+	border: 1px solid black;
+	border-radius: 5px;
+}
+
+#delBtn:hover {
+	background-color: black;
+}
+
 #heart {
 	color: red;
 }

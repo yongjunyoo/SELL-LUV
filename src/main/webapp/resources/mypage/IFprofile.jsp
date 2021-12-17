@@ -50,7 +50,7 @@
 									<div class="avatar"></div>
 									<div class="media-body">
 										<label>커리어 </label> <br> 
-										<textarea rows="5" cols="50" id="career" name="career" id="intro" placeholder="본인의 모델 경력이나 홍보관련 커리어를 작성해주세요"></textarea>
+										<textarea rows="5" cols="50" id="career" name="career" placeholder="본인의 모델 경력이나 홍보관련 커리어를 작성해주세요"></textarea>
 										<br>
 										<br> 
 										<label>소개글</label>
@@ -129,8 +129,8 @@
 	</div>
 	<script>
 		$("#complete").on("click", function() {
-			if ($("#title").val() == "") {
-				alert("제목을 입력하세요.");
+			if ($("#career").val() == "") {
+				alert("경력에 대한 내용을 입력하세요.");
 				return false;
 			}
 			if ($("#intro").val() == "") {
@@ -142,7 +142,8 @@
 				alert("원하는 조건을 입력하세요.");
 				return false;
 			}
-			alert("작성완료");
+			
+			confirm("작성을 완료하시겠습니까?");
 		})
 	</script>
 	<style type="text/css">
@@ -641,8 +642,8 @@ img {
 }
 </style>
 
-	<script type="text/javascript">
-		
+	<script>
+	
 	</script>
 	<jsp:include page="/footer.jsp" flush="false" />
 </body>

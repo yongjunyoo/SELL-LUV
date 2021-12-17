@@ -29,15 +29,18 @@
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
+
+
 <body>
 	<jsp:include page="/header.jsp" flush="false" />
+	
 	<div class="blog-single gray-bg">
 		<div class="container">
 			<div class="row align-items-start">
 				<div class="col-lg-8 m-15px-tb">
 					<article class="article">
-						<form action="/upload.ifcp" method="post"
-							enctype="multipart/form-data">
+					
+						<form action="/IfprofileModify.mem" method="post">
 							<div class="article-img">
 								<img src="/resources/ifcp/img/표지.jpeg" title="" alt=""
 									id="cpPhoto" style="display: block; margin: 0 auto;">
@@ -46,16 +49,21 @@
 								<div class="media">
 									<div class="avatar"></div>
 									<div class="media-body">
-										<label>제목</label> <br> <input type="text"
-											style="width: 435px;" name="title" id="title"><br>
-										<br> <label>소개글</label><br>
-										<textarea rows="5" cols="50" name="intro" id="intro"></textarea>
-										<br> <label>원하는 조건</label><br>
-										<textarea rows="5" cols="50" name="condition" id="condition"></textarea>
+										<label>커리어 </label> <br> 
+										<textarea rows="5" cols="50" id="career" name="career" placeholder="본인의 모델 경력이나 홍보관련 커리어를 작성해주세요" >${pdto.career_if }</textarea>
 										<br>
-										<br> <label id="fileUpload"> 사진선택<input
-											type="file" name="file" accept="jpg,jpeg,png"
-											style="display: none;">
+										<br> 
+										<label>소개글</label>
+										<br>
+										<textarea rows="5" cols="50" id="intro" name="intro" id="intro" placeholder="기업에 본인을 소개할 내용을 작성해주세요" >${pdto.intro_if }</textarea>
+										<br> 
+										<label>원하는 조건</label>
+										<br>
+										<textarea rows="5" cols="50" id="condition" name="condition" id="condition" >${pdto.condition_if }</textarea>
+										<br>
+										<br>
+										<label id="fileUpload"> 사진선택<input type="file" name="file"
+											accept="jpg,jpeg,png" style="display:none;">
 										</label>
 									</div>
 								</div>
@@ -77,7 +85,7 @@
 							<div class="media align-items-center">
 								<div class="media-body">
 									<div class="nav tag-cloud">
-										<a href="#" style="text-decoration: none;"><button
+										<a><button type="submit"
 												id="complete">작성완료</button></a>
 									</div>
 								</div>
@@ -90,28 +98,28 @@
 					<!-- Latest Post -->
 					<div class="widget widget-latest-post">
 						<div class="widget-title">
-							<h3>사업자번호</h3>
-							<h6>${cpList[0].crnumber}</h6>
+							<h3>닉네임</h3>
+							<h6>${dto.nickname}</h6>
 						</div>
 						<div class="widget-title">
-							<h3>대표자</h3>
-							<h6>${cpList[0].rpt}</h6>
+							<h3>이름</h3>
+							<h6>${dto.name}</h6>
 						</div>
 						<div class="widget-title">
 							<h3>이메일</h3>
-							<h6>${cpList[0].email}</h6>
+							<h6>${dto.email}</h6>
 						</div>
 						<div class="widget-title">
 							<h3>연락처</h3>
-							<h6>${cpList[0].email}</h6>
+							<h6>${dto.phone}</h6>
 						</div>
 						<div class="widget-title">
-							<h3>매출액</h3>
-							<h6>${cpList[0].sales}</h6>
+							<h3>SNS</h3>
+							<h6>${dto.sns}</h6>
 						</div>
 						<div class="widget-title">
 							<h3>등급</h3>
-							<h6>${cpList[0].grade}</h6>
+							<h6>${dto.grade}</h6>
 						</div>
 					</div>
 				</div>
@@ -121,8 +129,8 @@
 	</div>
 	<script>
 		$("#complete").on("click", function() {
-			if ($("#title").val() == "") {
-				alert("제목을 입력하세요.");
+			if ($("#career").val() == "") {
+				alert("경력에 대한 내용을 입력하세요.");
 				return false;
 			}
 			if ($("#intro").val() == "") {
@@ -134,21 +142,20 @@
 				alert("원하는 조건을 입력하세요.");
 				return false;
 			}
-			alert("작성완료");
+			
+			confirm("수정을 완료하시겠습니꺄?");
 		})
 	</script>
 	<style type="text/css">
 
-#fileUpload {
-	border: 1px solid black;
-	border-radius: 5px;
+#fileUpload{
+	border:1px solid black;
+	border-radius:5px;
 }
-
-#fileUpload:hover {
-	background-color: black;
-	cursor: pointer;
+#fileUpload:hover{
+	background-color:black;
+	cursor:pointer;
 }
-
 button {
 	background-color: transparent;
 	border: 0px;
@@ -202,6 +209,10 @@ body {
 	display: block;
 	line-height: 22px;
 	font-weight: 700;
+}
+
+.blog-grid .blog-img .date textarea {
+	resize: none;
 }
 
 .blog-grid .blog-img .date label {
@@ -631,8 +642,8 @@ img {
 }
 </style>
 
-	<script type="text/javascript">
-		
+	<script>
+	
 	</script>
 	<jsp:include page="/footer.jsp" flush="false" />
 </body>
