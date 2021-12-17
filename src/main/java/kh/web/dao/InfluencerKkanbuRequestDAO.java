@@ -2,13 +2,18 @@ package kh.web.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 import kh.web.dto.BoardDTO;
+import kh.web.dto.InfluencerKkanbuRequestDTO;
 
 public class InfluencerKkanbuRequestDAO {
 	
@@ -41,8 +46,59 @@ public class InfluencerKkanbuRequestDAO {
 				return result;
 			}
 		}
-	
+	public List<InfluencerKkanbuRequestDTO> getKkanbuRequest(int loggedInSeq) throws SQLException, Exception {
+		String sql = "SELECT * FROM influencerKkanbuRequest WHERE if_kkanbuSeqTo=?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setInt(1, loggedInSeq);
+			try(ResultSet rs = pstat.executeQuery();){
+				
+				List<InfluencerKkanbuRequestDTO> list = new ArrayList<InfluencerKkanbuRequestDTO>();
+				
+				while(rs.next()) {
+					int seq = rs.getInt("if_kkanbu_Seq");
+					int if_kkanbuSeqFrom = rs.getInt("if_kkanbuSeqFrom");
+					int if_kkanbuSeqTo = rs.getInt("if_kkanbuSeqTo");
+					String if_kkanbuNameFrom = rs.getString("if_kkanbuNameFrom");
+					String  if_kkanbuNickNameTo = rs.getString("if_kkanbuNickNameTo");
+					Timestamp requestedTime = rs.getTimestamp("if_requestedTime");
+					
+					InfluencerKkanbuRequestDTO influencerKkanbuRequestDTO  = new InfluencerKkanbuRequestDTO(seq,if_kkanbuSeqFrom,if_kkanbuSeqTo,if_kkanbuNameFrom,if_kkanbuNickNameTo,requestedTime);
+				
+					list.add(influencerKkanbuRequestDTO);
+				}
+				return list;
+			}
+			
+			}
+	}
+	public boolean isRequestStillPending(int kkanbuSeqFrom, int kkanbuSeqTo) throws SQLException, Exception {
+		String sql = "SELECT * FROM influencerKkanbuRequest WHERE if_kkanbuSeqFrom=? and if_kkanbuSeqTo =?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setInt(1, kkanbuSeqFrom);
+			pstat.setInt(2,  kkanbuSeqTo);
+			try(ResultSet rs = pstat.executeQuery();){
+				boolean result = false;
+				if(rs.next()) {
+					result = true;
+				
+				}
+				return result;
+			}
+			
+			}
 	
 	}
+	public int delete(int kkanbuSeq) throws SQLException, Exception {
+		String sql = "DELETE FROM influencerKkanbuRequest WHERE if_kkanbu_seq=?";
+		try(Connection con = this.getConnection();
+			PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setInt(1, kkanbuSeq);
+			int result = pstat.executeUpdate();
+			return result;
+		}
+	}
+}
 
 

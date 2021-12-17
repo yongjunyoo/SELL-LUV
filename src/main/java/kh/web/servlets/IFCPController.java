@@ -124,10 +124,6 @@ public class IFCPController extends HttpServlet {
 					System.out.println(seq);
 				
 					LinkedHashMap<Profile_IfDTO,InfluencerDTO> list = influencerDAO.getIfProfile(seq);
-					
-					for (Entry<Profile_IfDTO, InfluencerDTO> entrySet : list.entrySet()) {
-						System.out.println(entrySet.getKey() + " : " + entrySet.getValue());
-					}
 
 					request.setAttribute("ifList", list);
 					request.getRequestDispatcher("/resources/ifcp/ifProfileDetail.jsp").forward(request, response);

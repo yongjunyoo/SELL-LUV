@@ -14,18 +14,4 @@ public class SHA512 {
 	    return result;
 	}
 	
-	 public static String getSHA512(String pw){
-
-	      String toReturn = null;
-	      try {
-	         MessageDigest digest = MessageDigest.getInstance("SHA-512");
-	         digest.reset();
-	         digest.update(pw.getBytes("utf8"));
-	         toReturn = String.format("%0128x", new BigInteger(1, digest.digest()));
-	      } catch (Exception e) {
-	         e.printStackTrace();
-	      }
-
-	      return toReturn;
-	   }
 }
