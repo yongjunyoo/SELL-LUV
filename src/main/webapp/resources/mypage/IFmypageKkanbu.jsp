@@ -257,7 +257,7 @@ body {
 										<a href="/goIfprofileModify.mem" class="list-group-item py-1"><i class="bx bx-face me-2"></i><span>프로필 수정</span></a>
 									</c:otherwise> 
 								</c:choose>
-								<a href="/IFKkanbuList.mem" class="list-group-item py-1"><i class="bx bx-heart me-2"></i><span>깐부 관리</span></a>
+								<a href="/showKkanbuRequest.kkanbu?IDseq=${IDseq}" class="list-group-item py-1"><i class="bx bx-heart me-2"></i><span>깐부 관리</span></a>
 								<a href="/IFReviewList.mem" class="list-group-item py-1"><i class="bx bx-like me-2"></i><span>리뷰 관리</span></a>
 								<a href="" class="list-group-item py-1"><i class="bx bx-highlight me-2"></i><span>커뮤니티 관리</span></a>
 								<a href="" class="list-group-item py-2" id="leave">회원탈퇴</a>
@@ -344,7 +344,7 @@ body {
 													</a></td>
 												<td class="date">${kkanbu.if_requestedTime}</td>
 										
-													<td id="kkanbuCheckbox" class="size"><a id="kkanbuCheck" href="/approveInfKkanbuRequest.kkanbu?kkanbuFrom=${kkanbu.if_kkanbuSeqFrom }&kkanbuTo=${kkanbu.if_kkanbuSeqTo}" style="text-decoration: none"> 수락 </a>
+													<td id="kkanbuCheckbox" class="size"><a id="kkanbuCheck" href="/approveInfKkanbuRequest.kkanbu?kkanbuFrom=${kkanbu.if_kkanbuSeqFrom }&kkanbuTo=${kkanbu.if_kkanbuSeqTo}&kkanbuSeq=${kkanbu.if_kkanbu_seq}" style="text-decoration: none">수락 </a>
 													<a href="/deleteInfKkanbuRequest.kkanbu?kkanbuSeq="${kkanbu.if_kkanbu_seq }kkanbuTo=${kkanbu.if_kkanbuSeqTo} style="text-decoration: none">거절 </a></td>
 												
 											</tr>

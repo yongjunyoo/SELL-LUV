@@ -125,7 +125,7 @@
 										src=${dto.value.photo }>
 								</div>
 								<div class="card-body">${dto.key.career_if} ${dto.key.seq_if} ${dto.value.seq }
-									<a href="/influencerProfile.ifcp?seq=${dto.key.seq_if}&cpage=1"
+									<a href="/influencerProfile.ifcp?seq=${dto.key.seq_if}&cpage=1&loginID=${loginID}"
 										class="h3 text-decoration-none">${dto.value.nickname}</a>
 									<ul
 										class="w-100 list-unstyled d-flex justify-content-between mb-0">
