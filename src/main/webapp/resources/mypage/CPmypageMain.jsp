@@ -152,8 +152,8 @@ body {
 
 .img-profile {
 	border-radius: 70%;
-	width: 90%;
-	height: 90%;
+	width: 100%;
+	height: 100%;
 }
 
 .profile-detail {
@@ -196,6 +196,9 @@ body {
 	flex:1 1;
 	justify-content: center;
 }
+#profile-box{
+	flex-wrap: wrap;
+}
 </style>
 
 <script type="text/javascript">
@@ -204,30 +207,36 @@ body {
 <body>
 	
 
-	<div class="container">
-		<div class="row" id="header">
+<div class="container">
+	<div class="row" id="header">
 			<div class="col">
 				<jsp:include page="/header.jsp" flush="false" />
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-12 col-lg-3">
+	<div class="row">
+			<div class="col-12 col-md-4 col-lg-3">
 				<div class="card">
 					<div class="card-body">
 						<div class="row">
 							<div class="grade">${dto.grade }</div>
-							<div class="col" id="profile-box">
-								<img id="profile" class="img-profile"
-									src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="">
+							<div class="col " id="profile-box">
+								<div class="row">
+									<div class="col-6 col-md-12">
+									<img id="profile" class="img-profile"
+										src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="">
+									</div>
+									<div class="col-6 col-md-12"> 
+									<ul class="meta list list-unstyled profile-detail">
+										<li class="name">${dto.name }</li>
+										<li class="label" style="margin: 0; padding: 0">기업</li>
+										<li class="email">${dto.email }</li>
+										<li class="activity"> ${dto.rpt} </li>
+									</ul>
+									</div>
+								</div>
 							</div>
 						</div>
-						<ul class="meta list list-unstyled profile-detail">
-							<li class="name">${loginID }</li>
-							<li class="name">${dto.name }</li>
-							<li class="label" style="margin: 0; padding: 0">기업</li>
-							<li class="email">${dto.email }</li>
-							<li class="activity">Last logged in: Today at 2:18pm</li>
-						</ul>
+
 					</div>
 				</div>
 				
@@ -241,7 +250,7 @@ body {
 								<a href="/showCompanyKkanbuRequest.kkanbu?IDseq=${IDseq}" class="list-group-item py-1"><i class="bx bx-heart me-2"></i><span>깐부 관리</span></a>
 								<a href="" class="list-group-item py-1"><i class="bx bx-like me-2"></i><span>리뷰 관리</span></a>
 								<a href="" class="list-group-item py-1"><i class="bx bx-highlight me-2"></i><span>커뮤니티 관리</span></a>
-								<a href="" class="list-group-item py-1"></i><span>회원탈퇴</span></a>
+								<a href="" class="list-group-item py-1"><span>회원탈퇴</span></a>
 							</div>
 						</div>
 					</div>
@@ -249,7 +258,7 @@ body {
 
 			</div>
 
-			<div class="col-12 col-lg-9">
+			<div class="col-12 col-md-8 col-lg-9">
 				<div class="card">
 					<div class="card-body">
 						<div class="row mt-3">
@@ -305,13 +314,55 @@ body {
 									<table class="table">
 										<thead>
 											<tr>
-												<th class="type"></th>
-												<th class="name truncate">기업이름 </th>
-												<th class="date">날짜</th>
-												<th class="size">수락/거절</th>
+												<th class="name truncate" colspan=4 style="text-align:center">나의 회원가입 정보</th>
 											</tr>
 										</thead>
-										
+										<tbody>
+											<tr>
+												<td class="name truncate" colspan=2 style="text-align:center">아이디</td>
+												<td class="date" colspan=2 style="text-align:center"> ${dto.id }</td>												
+											</tr>
+											<tr>
+												<td class="name truncate" colspan=2 style="text-align:center">기업 상호</td>
+												<td class="date" colspan=2 style="text-align:center"> ${dto.name }</td>												
+											</tr>
+											<tr>
+												<td class="name truncate" colspan=2 style="text-align:center">대표자 이름</td>
+												<td class="date" colspan=2 style="text-align:center"> ${dto.rpt }</td>												
+											</tr>
+											<tr>
+												<td class="name truncate" colspan=2 style="text-align:center">우편번호</td>
+												<td class="date" colspan=2 style="text-align:center"> ${dto.zipcode }</td>												
+											</tr>
+											<tr>
+												<td class="name truncate" colspan=2 style="text-align:center">주소1</td>
+												<td class="date" colspan=2 style="text-align:center"> ${dto.address1 }</td>												
+											</tr>
+											<tr>
+												<td class="name truncate" colspan=2 style="text-align:center">주소2</td>
+												<td class="date" colspan=2 style="text-align:center"> ${dto.address2 }</td>												
+											</tr>
+											<tr>
+												<td class="name truncate" colspan=2 style="text-align:center">매출액</td>
+												<td class="date" colspan=2 style="text-align:center"> ${dto.sales }</td>												
+											</tr>
+											<tr>
+												<td class="name truncate" colspan=2 style="text-align:center">휴대폰번호</td>
+												<td class="date" colspan=2 style="text-align:center"> ${dto.phone }</td>												
+											</tr>
+											<tr>
+												<td class="name truncate" colspan=2 style="text-align:center">이메일</td>
+												<td class="date" colspan=2 style="text-align:center"> ${dto.email }</td>												
+											</tr>
+										<!-- 	<tr>
+												<td class="type"><i
+													class="fa fa-file-image-o text-primary"></i></td>
+												<td class="name truncate"><a href="#">Stock Image
+														DC3214.JPG</a></td>
+												<td class="date">Sep 21, 2015</td>
+												<td class="size">235 MB</td>
+											</tr> -->										
+										</tbody>
 									</table>
 								</div>
 							</div>

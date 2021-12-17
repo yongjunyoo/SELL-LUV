@@ -369,12 +369,17 @@ public class MemberController extends HttpServlet {
 				String rpt_cp = request.getParameter("rpt_cp");
 				String phone = request.getParameter("phone");
 				String email = request.getParameter("email");
-				Long sales = Long.parseLong(request.getParameter("sales"));
+				String sales = request.getParameter("sales");
 				String pwAsk = request.getParameter("pwAsk");
 				String pwAnswer = request.getParameter("pwAnswer");
 
 				int result = companyDAO.update(sha512.generate(pw), photo, name, crunumber, zipcode, address1, address2, rpt_cp, phone, email, sales, pwAsk, pwAnswer, id);
-				response.sendRedirect("/resources/mypage/CPmypageMain.jsp");
+
+				String idf = (String)request.getSession().getAttribute("loginID");
+				String seq = (String)request.getSession().getAttribute("IDseq");
+				CompanyDTO dto = companyDAO.selectById(idf);				
+				request.setAttribute("dto", dto);
+				request.getRequestDispatcher("/resources/mypage/CPmypageMain.jsp").forward(request, response);
 
 			}else if(cmd.equals("/IFmodify.mem")) {
 
@@ -413,7 +418,8 @@ public class MemberController extends HttpServlet {
 				InfluencerDTO dto = influencerDAO.selectById(id);
 				request.setAttribute("dto", dto);
 				request.getRequestDispatcher("/resources/mypage/IFprofile.jsp").forward(request, response);
-
+				
+				// 인플루언서 마이페이지 - 프로필 등록 컨트롤러
 			}else if(cmd.equals("/upload.mem")) {
 				
 				String id = (String)request.getSession().getAttribute("loginID");
@@ -494,6 +500,16 @@ public class MemberController extends HttpServlet {
 				boolean result = companyDAO.nameExist(name);
 				response.getWriter().append(String.valueOf(result));
 
+			}else if(cmd.equals("/CPleave.mem")) {
+				
+				String idf = (String)request.getSession().getAttribute("loginID");
+				
+				int result = influencerDAO.delete(idf);
+				
+				request.setAttribute("result", result);
+				request.getSession().invalidate();
+				request.getRequestDispatcher("/index.jsp").forward(request, response);
+				
 			}
 
 		}catch(Exception e) {
