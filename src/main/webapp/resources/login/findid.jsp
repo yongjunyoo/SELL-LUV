@@ -26,7 +26,7 @@ html,body{
   background: -webkit-linear-gradient(left, #a445b2, #fa4299);
 }
 ::selection{
-  background: #fa4299;
+  background: rgba(255, 111, 97);
   color: #fff;
 }
 .wrapper{

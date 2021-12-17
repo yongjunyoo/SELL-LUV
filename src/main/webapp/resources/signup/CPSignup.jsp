@@ -253,6 +253,21 @@ p {
     			});
     	})
     	})
+    	
+    	$(function(){
+    		$("#name").on("input",function(){
+    			$.ajax({
+    				url:"/CPnameCheck.mem",
+    				data:{name:$("#name").val()}
+    			}).done(function(check){
+    				if(check == "true"){
+    					$("#CPnameCheckResult").text("이미 존재하는 기업이름 입니다.");
+    				}else{
+    					$("#CPnameCheckResult").text("사용 가능한 기업이름 입니다.");
+    				}
+    			});
+    	})
+    	})
     </script>
 </head>
 <body oncontextmenu='return false' class='snippet-body'>
@@ -265,7 +280,7 @@ p {
             <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
                 <h2 id="heading" style="padding-top:50px;">기업 계정생성</h2>
                 <p>모든 칸은 작성되어야 합니다.</p>
-                <form id="msform" action="/CPSubmit.mem" method="post">
+                <form id="msform" action="/CPSubmit.mem" method="post" enctype="multipart/form-data">
                     <!-- progressbar -->
                     <ul id="progressbar">
                         <li class="active" id="account"><strong>계정</strong></li>
@@ -302,7 +317,7 @@ p {
                                     <h2 class="steps">단계 2 - 4</h2>
                                 </div>
                             </div> 
-                            <label class="fieldlabels">기업상호: *</label> <input type="text" id="name" name="name" placeholder="Company Name" />
+                            <label class="fieldlabels">기업상호: *</label><span id= "CPnameCheckResult"></span> <input type="text" id="name" name="name" placeholder="Company Name" />
                             <label class="fieldlabels">대표자명: *</label> <input type="text" id="rpt_cp" name="rpt_cp" placeholder="Representative Name" />
                             <label class="fieldlabels">사업자번호: * ('-'제외 10자리 숫자입력)</label> <input type="text" id="crunumber" name="crunumber" placeholder="Corporate Registration Number" /> 
                             <label class="fieldlabels">매출액: (단위 만원)</label> <input type="text" id="sales" name="sales" placeholder="Total sales" />
