@@ -79,7 +79,6 @@ public class MemberController extends HttpServlet {
 
 
 
-
 			}else if(cmd.equals("/companyLogin.mem")) { //기업 로그인 부분...
 
 				String id = request.getParameter("id_cp");
@@ -437,7 +436,8 @@ public class MemberController extends HttpServlet {
 				InfluencerDTO dto = influencerDAO.selectById(id);
 				request.setAttribute("dto", dto);
 				request.getRequestDispatcher("/resources/mypage/IFprofile.jsp").forward(request, response);
-
+				
+				// 인플루언서 마이페이지 - 프로필 등록 컨트롤러
 			}else if(cmd.equals("/upload.mem")) {
 				
 				String id = (String)request.getSession().getAttribute("loginID");
@@ -518,6 +518,16 @@ public class MemberController extends HttpServlet {
 				boolean result = companyDAO.nameExist(name);
 				response.getWriter().append(String.valueOf(result));
 
+			}else if(cmd.equals("/CPleave.mem")) {
+				
+				String idf = (String)request.getSession().getAttribute("loginID");
+				
+				int result = influencerDAO.delete(idf);
+				
+				request.setAttribute("result", result);
+				request.getSession().invalidate();
+				request.getRequestDispatcher("/index.jsp").forward(request, response);
+				
 			}
 
 		}catch(Exception e) {

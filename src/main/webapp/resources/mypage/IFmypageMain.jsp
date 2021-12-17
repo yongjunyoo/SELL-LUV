@@ -233,7 +233,7 @@ body {
 										<li class="name">${dto.nickname }</li>
 										<li class="label" style="margin: 0; padding: 0">인플루언서</li>
 										<li class="email">${dto.email }</li>
-										<li class="activity">Last logged in: Today at 2:18pm</li>
+										<li class="activity"> ${dto.nickname} </li>
 									</ul>
 									</div>
 								</div>
@@ -247,6 +247,7 @@ body {
 						<h5 class="my-3">My Page</h5>
 						<div class="fm-menu">
 							<div class="list-group list-group-flush">
+
 								<a href="/modify.mem" class="list-group-item py-1"><i class="bx bx-cool me-2"></i><span>개인 정보 수정</span></a>
 								<c:choose>
 									<c:when test="${pdto.member_seq == null}"> 							
@@ -256,8 +257,9 @@ body {
 										<a href="/goIfprofileModify.mem" class="list-group-item py-1"><i class="bx bx-face me-2"></i><span>프로필 수정</span></a>
 									</c:otherwise> 
 								</c:choose>
-								<a href="/IFKkanbuList.mem" class="list-group-item py-1"><i class="bx bx-heart me-2"></i><span>깐부 관리</span></a>
+								<a href="/showKkanbuRequest.kkanbu?IDseq=${IDseq}" class="list-group-item py-1"><i class="bx bx-heart me-2"></i><span>깐부 관리</span></a>
 								<a href="/IFReviewList.mem" class="list-group-item py-1"><i class="bx bx-like me-2"></i><span>리뷰 관리</span></a>
+
 								<a href="" class="list-group-item py-1"><i class="bx bx-highlight me-2"></i><span>커뮤니티 관리</span></a>
 								<a href="" class="list-group-item py-2" id="leave">회원탈퇴</a>
 							</div>
@@ -324,13 +326,48 @@ body {
 									<table class="table">
 										<thead>
 											<tr>
-												<th class="type"></th>
-												<th class="name truncate">Name</th>
-												<th class="date">Uploaded</th>
-												<th class="size">Size</th>
+												<th class="name truncate" colspan=4 style="text-align:center">나의 회원가입 정보</th>
 											</tr>
 										</thead>
 										
+										<tbody>
+											<tr>
+												<td class="name truncate" colspan=2 style="text-align:center">아이디</td>
+												<td class="date" colspan=2 style="text-align:center"> ${dto.id }</td>												
+											</tr>
+											<tr>
+												<td class="name truncate" colspan=2 style="text-align:center">이름</td>
+												<td class="date" colspan=2 style="text-align:center"> ${dto.name }</td>												
+											</tr>
+											<tr>
+												<td class="name truncate" colspan=2 style="text-align:center">닉네임</td>
+												<td class="date" colspan=2 style="text-align:center"> ${dto.nickname }</td>												
+											</tr>
+											<tr>
+												<td class="name truncate" colspan=2 style="text-align:center">우편번호</td>
+												<td class="date" colspan=2 style="text-align:center"> ${dto.zipcode }</td>												
+											</tr>
+											<tr>
+												<td class="name truncate" colspan=2 style="text-align:center">주소1</td>
+												<td class="date" colspan=2 style="text-align:center"> ${dto.address1 }</td>												
+											</tr>
+											<tr>
+												<td class="name truncate" colspan=2 style="text-align:center">주소2</td>
+												<td class="date" colspan=2 style="text-align:center"> ${dto.address2 }</td>												
+											</tr>
+											<tr>
+												<td class="name truncate" colspan=2 style="text-align:center">SNS</td>
+												<td class="date" colspan=2 style="text-align:center"> ${dto.sns }</td>												
+											</tr>
+											<tr>
+												<td class="name truncate" colspan=2 style="text-align:center">휴대폰번호</td>
+												<td class="date" colspan=2 style="text-align:center"> ${dto.phone }</td>												
+											</tr>
+											<tr>
+												<td class="name truncate" colspan=2 style="text-align:center">이메일</td>
+												<td class="date" colspan=2 style="text-align:center"> ${dto.email }</td>												
+											</tr>
+										</tbody>
 									</table>
 								</div>
 							</div>
