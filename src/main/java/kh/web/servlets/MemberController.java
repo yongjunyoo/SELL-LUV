@@ -79,7 +79,6 @@ public class MemberController extends HttpServlet {
 
 
 
-
 			}else if(cmd.equals("/companyLogin.mem")) { //기업 로그인 부분...
 
 				String id = request.getParameter("id_cp");

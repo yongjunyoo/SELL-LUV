@@ -495,7 +495,7 @@ public class CompanyDAO {
 			int result  = pstat.executeUpdate();
 
 			return result;
-		}
+		} 
 	}
 
 
@@ -599,6 +599,22 @@ public class CompanyDAO {
 			return result;
 		}
 	}
+
+	public String getName(int kkanbuSeqFrom) throws SQLException, Exception {
+		String sql = "SELECT name_cp FROM company WHERE seq_cp =?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setInt(1, kkanbuSeqFrom);
+			String result = "";
+			try(ResultSet rs = pstat.executeQuery();){
+				if(rs.next()) {
+				result = rs.getString("name_cp");
+				}
+			}
+			return result;
+			}
+	}
+
 	
 	public String findName(String id, String pw) throws Exception{
 		String sql = "SELECT name_cp FROM company WHERE id_cp =? AND pw_cp =?";
@@ -606,16 +622,20 @@ public class CompanyDAO {
 				PreparedStatement pstat = con.prepareStatement(sql);){
 			pstat.setString(1, id);
 			pstat.setString(2, pw);
+
 			String result = "";
 			try(ResultSet rs = pstat.executeQuery();){
 				if(rs.next()) {
 				result = rs.getString("name_cp");
+
 				
+
 				}
 			}
 			return result;
 			}
 	}
+
 	
 	public String findProfile(String name) throws Exception{
 		String sql = "SELECT photo_cp FROM company WHERE name_cp = ?";

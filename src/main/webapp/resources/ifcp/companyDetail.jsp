@@ -111,10 +111,20 @@
 						<div class="widget-body">
 							<div class="media align-items-center">
 								<div class="media-body">
+
+									<div class="nav tag-cloud"><c:choose>
+										<c:when test="${kkanbuCardSeq !=null }">
+										<div class="nav tag-cloud">
+											<span>깐부요청보냄</span>
+										</div>	
+										</c:when>
+										<c:otherwise>
+											<a href="/kkanbuRequestToCompany.kkanbu?kkanbuSeqTo=${dto.key.member_seq }&kkanbuSeqFrom=${IDseq}&kkanbuCardSeq=${dto.key.seq_cp}&cpage=1" style="text-decoration: none;">깐부맺기</a>
+										</c:otherwise>
+									</c:choose>
+
 									<div class="nav tag-cloud">
-										<a
-											href="/kkanbuRequestToCompany.kkanbu?kkanbuReceiveSeq=${dto.key.member_seq }&kkanbuSendSeq=${IDseq}"
-											style="text-decoration: none;">깐부맺기</a>
+
 									</div>
 								</div>
 							</div>

@@ -152,8 +152,8 @@ body {
 
 .img-profile {
 	border-radius: 70%;
-	width: 100%;
-	height: 100%;
+	width: 90%;
+	height: 90%;
 }
 
 .profile-detail {
@@ -196,9 +196,6 @@ body {
 	flex:1 1;
 	justify-content: center;
 }
-#profile-box{
-	flex-wrap: wrap;
-}
 </style>
 
 <script type="text/javascript">
@@ -207,50 +204,43 @@ body {
 <body>
 	
 
-<div class="container">
-	<div class="row" id="header">
+	<div class="container">
+		<div class="row" id="header">
 			<div class="col">
 				<jsp:include page="/header.jsp" flush="false" />
 			</div>
 		</div>
-	<div class="row">
-			<div class="col-12 col-md-4 col-lg-3">
+		<div class="row">
+			<div class="col-12 col-lg-3">
 				<div class="card">
 					<div class="card-body">
 						<div class="row">
 							<div class="grade">${dto.grade }</div>
-							<div class="col " id="profile-box">
-								<div class="row">
-									<div class="col-6 col-md-12">
-									<img id="profile" class="img-profile"
-										src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="">
-									</div>
-									<div class="col-6 col-md-12"> 
-									<ul class="meta list list-unstyled profile-detail">
-										<li class="name">${dto.name }</li>
-										<li class="label" style="margin: 0; padding: 0">기업</li>
-										<li class="email">${dto.email }</li>
-										<li class="activity"> ${dto.rpt} </li>
-									</ul>
-									</div>
-								</div>
+							<div class="col" id="profile-box">
+								<img id="profile" class="img-profile"
+									src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="">
 							</div>
 						</div>
-
+						<ul class="meta list list-unstyled profile-detail">
+							<li class="name">${dto.name }</li>
+							<li class="label" style="margin: 0; padding: 0">기업 </li>
+							<li class="email">${dto.email }</li>
+							<li class="activity">Last logged in: Today at 2:18pm</li>
+						</ul>
 					</div>
 				</div>
-				
 				<div class="card">
 					<div class="card-body">
 						<div class="d-grid"></div>
 						<h5 class="my-3">My Page</h5>
 						<div class="fm-menu">
 							<div class="list-group list-group-flush">
-								<a href="/modify.mem" class="list-group-item py-1"><i class="bx bx-cool me-2"></i><span>기업 정보 수정</span></a> 													
-								<a href="/showCompanyKkanbuRequest.kkanbu?IDseq=${IDseq}" class="list-group-item py-1"><i class="bx bx-heart me-2"></i><span>깐부 관리</span></a>
+								<a href="/modify.mem" class="list-group-item py-1"><i class="bx bx-cool me-2"></i><span>개인 정보 수정</span></a> 							
+								<a href="/Ifprofile.mem" class="list-group-item py-1"><i class="bx bx-face me-2"></i><span>프로필 수정</span></a> 
+								<a href="/IFKkanbuList.mem" class="list-group-item py-1"><i class="bx bx-heart me-2"></i><span>깐부 관리</span></a>
 								<a href="" class="list-group-item py-1"><i class="bx bx-like me-2"></i><span>리뷰 관리</span></a>
 								<a href="" class="list-group-item py-1"><i class="bx bx-highlight me-2"></i><span>커뮤니티 관리</span></a>
-								<a href="" class="list-group-item py-1"><span>회원탈퇴</span></a>
+								<a href="" class="list-group-item py-1"></i><span>회원탈퇴</span></a>
 							</div>
 						</div>
 					</div>
@@ -258,7 +248,7 @@ body {
 
 			</div>
 
-			<div class="col-12 col-md-8 col-lg-9">
+			<div class="col-12 col-lg-9">
 				<div class="card">
 					<div class="card-body">
 						<div class="row mt-3">
@@ -285,8 +275,8 @@ body {
 												<i class="fa fa-heart-o fa-2x"></i>
 											</div>
 										<div class="detail-title-one">
-												<h6 class="">깐부관리</h6>
-												
+												<h6 class=""><a href="/showKkanbuRequest.kkanbu?=${IDseq}" style="text-decoration: none;">깐부관리</a></h6>
+												<%-- <p class="detail-detail"><span>이동</span></p>--%>
 											</div>
 										</div>
 									</div>
@@ -300,73 +290,47 @@ body {
 												<i class="fa fa-thumbs-o-up fa-2x" aria-hidden="true"></i>
 											</div>
 											<div class="detail-title-one">
-												<h6 class="">리뷰관리</h6>
-											
+												<h6 class=""><a href="/IFReviewList.mem" style="text-decoration: none;">리뷰관리</a></h6>
+												<%-- <p class="detail-detail"><span>이동</span></p>--%>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
+						
 						<div class="table-responsive mt-3">
 							<div class="drive-wrapper drive-list-view">
 								<div class="table-responsive drive-items-table-wrapper">
+								
 									<table class="table">
 										<thead>
 											<tr>
-												<th class="name truncate" colspan=4 style="text-align:center">나의 회원가입 정보</th>
+												<th class="type"></th>
+												<th class="name truncate">인플루언서 이름</th>
+												<th class="date">시각 </th>
+												<th class="size" style="text-align:center;">깐부맺기</th>
 											</tr>
 										</thead>
+								<c:forEach var="kkanbu" items="${kkanbuRequest }">
 										<tbody>
 											<tr>
-												<td class="name truncate" colspan=2 style="text-align:center">아이디</td>
-												<td class="date" colspan=2 style="text-align:center"> ${dto.id }</td>												
-											</tr>
-											<tr>
-												<td class="name truncate" colspan=2 style="text-align:center">기업 상호</td>
-												<td class="date" colspan=2 style="text-align:center"> ${dto.name }</td>												
-											</tr>
-											<tr>
-												<td class="name truncate" colspan=2 style="text-align:center">대표자 이름</td>
-												<td class="date" colspan=2 style="text-align:center"> ${dto.rpt }</td>												
-											</tr>
-											<tr>
-												<td class="name truncate" colspan=2 style="text-align:center">우편번호</td>
-												<td class="date" colspan=2 style="text-align:center"> ${dto.zipcode }</td>												
-											</tr>
-											<tr>
-												<td class="name truncate" colspan=2 style="text-align:center">주소1</td>
-												<td class="date" colspan=2 style="text-align:center"> ${dto.address1 }</td>												
-											</tr>
-											<tr>
-												<td class="name truncate" colspan=2 style="text-align:center">주소2</td>
-												<td class="date" colspan=2 style="text-align:center"> ${dto.address2 }</td>												
-											</tr>
-											<tr>
-												<td class="name truncate" colspan=2 style="text-align:center">매출액</td>
-												<td class="date" colspan=2 style="text-align:center"> ${dto.sales }</td>												
-											</tr>
-											<tr>
-												<td class="name truncate" colspan=2 style="text-align:center">휴대폰번호</td>
-												<td class="date" colspan=2 style="text-align:center"> ${dto.phone }</td>												
-											</tr>
-											<tr>
-												<td class="name truncate" colspan=2 style="text-align:center">이메일</td>
-												<td class="date" colspan=2 style="text-align:center"> ${dto.email }</td>												
-											</tr>
-										<!-- 	<tr>
 												<td class="type"><i
-													class="fa fa-file-image-o text-primary"></i></td>
-												<td class="name truncate"><a href="#">Stock Image
-														DC3214.JPG</a></td>
-												<td class="date">Sep 21, 2015</td>
-												<td class="size">235 MB</td>
-											</tr> -->										
+													class="fa fa-file-text-o text-primary"></i></td>
+												<td class="name truncate"><a href="#"> ${kkanbu.cp_kkanbuNameFrom}
+													</a></td>
+												<td class="date">${kkanbu.cp_requestedTime}</td>
+												<td class="size"><a href="/approveCompanyKkanbuRequest.kkanbu?kkanbuFrom=${kkanbu.cp_kkanbuSeqFrom }&kkanbuTo=${kkanbu.cp_kkanbuSeqTo}&loggedInSeq=${IDseq}&kkanbu_seq${kkanbu.cp_kkanbu_seq}" style="text-decoration: none">수락 </a>
+												<a href="/deleteCompanyKkanbuRequest.kkanbu?kkanbuSeq=${kkanbu.cp_kkanbu_seq }&kkanbuTo=${kkanbu.cp_kkanbuSeqTo}" style="text-decoration: none">거절 </a></td>
+											</tr>
 										</tbody>
+								</c:forEach>
 									</table>
+									
 								</div>
 							</div>
 						</div>
+						
 					</div>
 				</div>
 			</div>
