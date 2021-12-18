@@ -11,12 +11,14 @@ public class BoardDTO {
 	private String contents;
 	private Timestamp write_date;
 	private int view_count;
-	
+	private String profileName; // 추가된 컬럼
+
 	public BoardDTO() {
-		super();
-		// TODO Auto-generated constructor stub
+
 	}
-	public BoardDTO(int seq, String writer, String title, String contents, Timestamp write_date, int view_count) {
+	
+	public BoardDTO(int seq, String writer, String title, String contents, Timestamp write_date, int view_count,
+			String profileName) {
 		super();
 		this.seq = seq;
 		this.writer = writer;
@@ -24,44 +26,66 @@ public class BoardDTO {
 		this.contents = contents;
 		this.write_date = write_date;
 		this.view_count = view_count;
+		this.profileName = profileName;
 	}
-	public final int getSeq() {
+
+	public int getSeq() {
 		return seq;
 	}
-	public final void setSeq(int seq) {
+
+	public void setSeq(int seq) {
 		this.seq = seq;
 	}
-	public final String getWriter() {
+
+	public String getWriter() {
 		return writer;
 	}
-	public final void setWriter(String writer) {
+
+	public void setWriter(String writer) {
 		this.writer = writer;
 	}
-	public final String getTitle() {
+
+	public String getTitle() {
 		return title;
 	}
-	public final void setTitle(String title) {
+
+	public void setTitle(String title) {
 		this.title = title;
 	}
-	public final String getContents() {
+
+	public String getContents() {
 		return contents;
 	}
-	public final void setContents(String contents) {
+
+	public void setContents(String contents) {
 		this.contents = contents;
 	}
-	public final Timestamp getWrite_date() {
+
+	public Timestamp getWrite_date() {
 		return write_date;
 	}
-	public final void setWrite_date(Timestamp write_date) {
+
+	public void setWrite_date(Timestamp write_date) {
 		this.write_date = write_date;
 	}
-	public final int getView_count() {
+	
+	public int getView_count() {
 		return view_count;
 	}
-	public final void setView_count(int view_count) {
+
+	public void setView_count(int view_count) {
 		this.view_count = view_count;
 	}
-	
+
+	public String getProfileName() {
+		return profileName;
+	}
+
+	public void setProfileName(String profileName) {
+		this.profileName = profileName;
+	}
+
+
 	// 날짜 가공해서 출력
 	public String getFormedDate() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
@@ -84,21 +108,5 @@ public class BoardDTO {
 		}else {
 			return this.getFormedDate();
 		}
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	}	
 }

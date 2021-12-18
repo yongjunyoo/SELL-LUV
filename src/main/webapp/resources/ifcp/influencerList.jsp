@@ -117,12 +117,12 @@
 				</div>
 				<div class="row">
 					<!--ㅋㅏ드 시작 -->
+					<c:if test="${list != null}">
 					<c:forEach var="dto" items="${list }">
 						<div class="col-md-4">
 							<div class="card mb-4 product-wap rounded-0">
-								<div class="card rounded-0">
-									<img id="img" class="card-img rounded-0 img-fluid"
-										src=${dto.value.photo }>
+								<div class="card rounded-0" style="height:256.98px;">
+									<img src="/influencerList.file?seq= ${dto.key.seq_if }" title="" alt="">
 								</div>
 								<div class="card-body">${dto.key.career_if} ${dto.key.seq_if} ${dto.value.seq }
 									<a href="/influencerProfile.ifcp?seq=${dto.key.seq_if}&cpage=1&loginID=${loginID}"
@@ -154,6 +154,7 @@
 							</div>
 						</div>
 					</c:forEach>
+					</c:if>
 					<!--ㅋㅏ드 끝 -->
 						    
 						    
