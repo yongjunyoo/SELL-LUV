@@ -38,23 +38,24 @@
 					<article class="article">
 						<form action="/upload.ifcp" method="post"
 							enctype="multipart/form-data">
-							<div class="article-img">
-								<img src="/resources/ifcp/img/표지.jpeg" title="" alt=""
-									id="cpPhoto" style="display: block; margin: 0 auto;">
-							</div>
 							<div class="article-title">
 								<div class="media">
 									<div class="avatar"></div>
 									<div class="media-body">
-										<label>제목</label> <br> <input type="text"
-											style="width: 435px;" name="title" id="title"><br>
+										<label>제품 사진</label> <br>
+										<div
+											style="height: 256.98px; width: 256.98px; border: 1px solid grey; border-radius: 3px; overflow: hidden;">
+											<img src="/resources/ifcp/img/blank.png" alt="" id="preview"
+												style="width: 100%; height: 100%; object-fit: cover;" />
+										</div>
+										<br> <label>제목</label> <br> <input type="text"
+											style="width: 425px;" name="title" id="title"><br>
 										<br> <label>소개글</label><br>
-										<textarea rows="5" cols="50" name="intro" id="intro"></textarea>
+										<textarea rows="5" cols="48" name="intro" id="intro"></textarea>
 										<br> <label>원하는 조건</label><br>
-										<textarea rows="5" cols="50" name="condition" id="condition"></textarea>
-										<br>
-										<br> <label id="fileUpload"> 사진선택<input
-											type="file" name="file" accept="jpg,jpeg,png"
+										<textarea rows="5" cols="48" name="condition" id="condition"></textarea>
+										<br> <br> <label id="fileUpload"> 사진선택<input
+											type="file" name="file" id="file" accept="jpg,jpeg,png"
 											style="display: none;">
 										</label>
 									</div>
@@ -119,26 +120,8 @@
 			<!-- End Latest Post -->
 		</div>
 	</div>
-	<script>
-		$("#complete").on("click", function() {
-			if ($("#title").val() == "") {
-				alert("제목을 입력하세요.");
-				return false;
-			}
-			if ($("#intro").val() == "") {
-				alert("소개글을 입력하세요.");
-				return false;
-			}
 
-			if ($("#condition").val() == "") {
-				alert("원하는 조건을 입력하세요.");
-				return false;
-			}
-			alert("작성완료");
-		})
-	</script>
 	<style type="text/css">
-
 #fileUpload {
 	border: 1px solid black;
 	border-radius: 5px;
@@ -631,9 +614,40 @@ img {
 }
 </style>
 
-	<script type="text/javascript">
-		
+	<script>
+		$("#complete").on("click", function() {
+			if ($("#title").val() == "") {
+				alert("제목을 입력하세요.");
+				return false;
+			}
+			if ($("#intro").val() == "") {
+				alert("소개글을 입력하세요.");
+				return false;
+			}
+
+			if ($("#condition").val() == "") {
+				alert("원하는 조건을 입력하세요.");
+				return false;
+			}
+			alert("작성완료");
+		})
 	</script>
+	<script>
+		$('#file').change(function() {
+			setImageFromFile(this, '#preview');
+		});
+
+		function setImageFromFile(input, expression) {
+			if (input.files && input.files[0]) {
+				let reader = new FileReader();
+				reader.onload = function(e) {
+					$(expression).attr('src', e.target.result);
+				}
+				reader.readAsDataURL(input.files[0]);
+			}
+		}
+	</script>
+
 	<jsp:include page="/footer.jsp" flush="false" />
 </body>
 </html>

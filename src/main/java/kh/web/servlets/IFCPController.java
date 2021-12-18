@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.SystemMenuBar;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
@@ -24,52 +23,51 @@ import kh.web.dao.CompanyDAO;
 import kh.web.dao.InfluencerDAO;
 import kh.web.dto.Board_CpDTO;
 import kh.web.dto.CompanyDTO;
+import kh.web.dto.FileDTO;
 import kh.web.dto.InfluencerDTO;
-import kh.web.dto.Photo_ListDTO;
 import kh.web.dto.Profile_IfDTO;
 import kh.web.dto.Review_CpDTO;
 import kh.web.dto.Review_IfDTO;
 import kh.web.statics.IFCPStatics;
-import kh.web.statics.PageStatics;
 
 
 @WebServlet("*.ifcp")
 public class IFCPController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		request.setCharacterEncoding("utf8");  // get방식 한글 깨짐 방지
-		
+
 		String uri = request.getRequestURI();
 		String ctx = request.getContextPath();
 		String cmd = uri.substring(ctx.length());
 		System.out.println("사용자가 요청한 기능 : " + cmd);
-		
+
 		InfluencerDAO influencerDAO = new InfluencerDAO();
 		CompanyDAO companyDAO = new CompanyDAO();
-		
+
 		try {
 			//====================================================================================================================================
 			//인플루언서 기본 목록 출력..
 			if(cmd.equals("/influencerList.ifcp")) {
-				
+
 				int currentPage = Integer.parseInt(request.getParameter("cpage"));
-				
+
 				if(currentPage < 1) {currentPage = 1;}
-				
+
 				int start = currentPage * IFCPStatics.RECORD_COUNT_PER_PAGE- (IFCPStatics.RECORD_COUNT_PER_PAGE-1);;
 				int end = currentPage * IFCPStatics.RECORD_COUNT_PER_PAGE;
-				
+
 				LinkedHashMap<Profile_IfDTO,InfluencerDTO> list = influencerDAO.selectByBound(start, end);
-				
+
 				for (Entry<Profile_IfDTO, InfluencerDTO> entrySet : list.entrySet()) {
 					System.out.println(entrySet.getKey().getSeq_if()+ " : " + entrySet.getValue());
 				}
-				
+
 				String navi = influencerDAO.getPageNavi(currentPage);
 				request.setAttribute("list", list);
 				request.setAttribute("navi", navi);
 				request.getRequestDispatcher("/resources/ifcp/influencerList.jsp").forward(request, response);
-				
+
 				//인플루언서 목록 출력 끝..
 				//====================================================================================================================================
 				//기업기본 목록 출력...
@@ -106,16 +104,23 @@ public class IFCPController extends HttpServlet {
 				}
 				//====================================================================================================================================
 				//기업 목록 출력 끝..
-				
-				
+
+
 				//====================================================================================================================================
 				// 상세페이지 이동.
 
 			}else if(cmd.equals("/companyBoard.ifcp")) { // 기업 페이지로 리뷰보내기.
 				int currentPage = Integer.parseInt(request.getParameter("cpage"));
 				int seq = Integer.parseInt(request.getParameter("seq"));
-				System.out.println(seq);
+
+				String loginID = request.getParameter("loginID");
 				
+				String loggedInID = influencerDAO.whatIsLoggedInID(loginID);
+				
+				
+				System.out.println("loginID: " + loginID + " loggedInID: " + loggedInID);
+				
+
 				if(currentPage < 1) { 
 					currentPage = 1;
 				}else if(currentPage > companyDAO.getifCardPageTotalCount(seq)) {
@@ -136,6 +141,7 @@ public class IFCPController extends HttpServlet {
 				for (java.util.Map.Entry<Board_CpDTO, CompanyDTO> entrySet : list.entrySet()) {
 					System.out.println(entrySet.getKey() + " : " + entrySet.getValue());
 				}
+				request.setAttribute("loggedInID", loggedInID);
 				request.setAttribute("seq", seq);
 				request.setAttribute("cpList", list);
 				request.getRequestDispatcher("/resources/ifcp/companyDetail.jsp").forward(request, response);
@@ -143,6 +149,10 @@ public class IFCPController extends HttpServlet {
 			}else if(cmd.equals("/influencerProfile.ifcp")) { // 인플루언서 페이지로 리뷰보내기.
 	            int currentPage = Integer.parseInt(request.getParameter("cpage"));
 	            int seq = Integer.parseInt(request.getParameter("seq"));
+	            String loginID = request.getParameter("loginID");
+				
+				String loggedInID = influencerDAO.whatIsLoggedInID(loginID);	
+	          
 	            
 	            if(currentPage < 1) { 
 	               currentPage = 1;
@@ -164,11 +174,14 @@ public class IFCPController extends HttpServlet {
 	            for (Entry<Profile_IfDTO, InfluencerDTO> entrySet : list.entrySet()) {
 	               System.out.println(entrySet.getKey() + " : " + entrySet.getValue());
 	            }
+	            request.setAttribute("loggedInID", loggedInID);
 	            request.setAttribute("seq", seq);
 	            request.setAttribute("ifList", list);
 	            request.getRequestDispatcher("/resources/ifcp/ifProfileDetail.jsp").forward(request, response);
-		
-				
+
+
+
+
 				//====================================================================================================================================
 				// 작성페이지 이동.
 			}else if(cmd.equals("/write.ifcp")) {
@@ -188,45 +201,39 @@ public class IFCPController extends HttpServlet {
 				if(!filePath.exists()) {
 					filePath.mkdir();
 				}
+				System.out.print(filePath);
 
 				System.out.println(savePath);
 				MultipartRequest multi = new MultipartRequest(request, savePath, maxSize, "UTF8", new DefaultFileRenamePolicy());
 
 				String oriName = multi.getOriginalFileName("file");
 				String sysName = multi.getFilesystemName("file");
-
-				if(oriName==null) { // 사진 안올릴시 작성글만 올리기.
-					String loginID = (String) request.getSession().getAttribute("loginID");
-					String title = multi.getParameter("title");
-					String intro = multi.getParameter("intro");
-					String condition = multi.getParameter("condition");
-
-					int seq = companyDAO.cpSearchById(loginID);
-
-					companyDAO.writeIntro(seq,title, intro, condition);
-					response.sendRedirect("/companyList.ifcp?cpage=1");
-				}else { // 사진까지 올리기.
-					companyDAO.insertPhoto(new Photo_ListDTO(0,oriName,sysName,0));
-
-					String loginID = (String) request.getSession().getAttribute("loginID");
-					String title = multi.getParameter("title");
-					String intro = multi.getParameter("intro");
-					String condition = multi.getParameter("condition");
-
-					int seq = companyDAO.cpSearchById(loginID);
-
-					companyDAO.writeIntro(seq, title, intro, condition);
-					response.sendRedirect("/companyList.ifcp?cpage=1");
+				if(sysName==null) {
+					sysName = "blank1.png";
+					oriName = "blank.png";
 				}
+
+				String loginID = (String) request.getSession().getAttribute("loginID");
+				String title = multi.getParameter("title");
+				String intro = multi.getParameter("intro");
+				String condition = multi.getParameter("condition");
+
+				int seq = companyDAO.cpSearchById(loginID);
+
+				companyDAO.writeIntro(seq, title, intro, condition);
+
+				int productSeq = companyDAO.createProductSeq();
+				companyDAO.insertPhoto(new FileDTO(0,oriName,sysName,productSeq));
+				response.sendRedirect("/companyList.ifcp?cpage=1");
 			}
-			
+
 		}catch(Exception e) {
 			e.printStackTrace();
 			response.sendRedirect("error.jsp");
 		}
 	}
-	
-	
+
+
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);

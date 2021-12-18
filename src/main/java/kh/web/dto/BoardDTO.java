@@ -82,8 +82,7 @@ public class BoardDTO {
 	}
 
 	public BoardDTO() {
-		super();
-		// TODO Auto-generated constructor stub
+
 	}
 
 	// 날짜 가공해서 출력
@@ -108,21 +107,5 @@ public class BoardDTO {
 		}else {
 			return this.getFormedDate();
 		}
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	}	
 }

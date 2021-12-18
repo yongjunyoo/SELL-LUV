@@ -86,4 +86,53 @@ public ArrayList<KkanbuDTO> getCompanyKkanbu(int loggedInSeq) throws SQLExceptio
 					}
 				}
 			}
+public boolean areTheyKkanbu(int kkanbuSeqFrom, int kkanbuSeqTo) throws SQLException, Exception {
+	String sql = "select * from kkanbu where company_Seq = ? and influencer_seq =?";
+	
+	try(Connection con = this.getConnection();
+			PreparedStatement pstat = con.prepareStatement(sql);){
+		pstat.setInt(1, kkanbuSeqFrom);
+		pstat.setInt(2, kkanbuSeqTo);
+		try(ResultSet rs = pstat.executeQuery();){
+			
+				boolean result = rs.next();
+				
+				return result;
+		
+				}
+		}
+}
+public boolean CompanyareTheyKkanbu(int kkanbuSeqFrom, int kkanbuSeqTo) throws SQLException, Exception {
+	String sql = "select * from kkanbu where company_Seq = ? and influencer_seq =?";
+	
+	try(Connection con = this.getConnection();
+			PreparedStatement pstat = con.prepareStatement(sql);){
+		pstat.setInt(1,kkanbuSeqTo );
+		pstat.setInt(2,kkanbuSeqFrom );
+		try(ResultSet rs = pstat.executeQuery();){
+			
+				boolean result = rs.next();
+				
+				return result;
+		
+				}
+		}
+}
+public int getKkanbuSeq(int kkanbuSeqFrom, int kkanbuSeqTo) throws SQLException, Exception {
+String sql = "select kkanbu_seq from kkanbu where company_Seq = ? and influencer_seq =?";
+	
+	try(Connection con = this.getConnection();
+			PreparedStatement pstat = con.prepareStatement(sql);){
+		pstat.setInt(1, kkanbuSeqFrom);
+		pstat.setInt(2, kkanbuSeqTo);
+		try(ResultSet rs = pstat.executeQuery();){
+			int kkanbu_seq = 0;
+				if(rs.next()) {
+					 kkanbu_seq = rs.getInt("kkanbu_seq");
+					
+				}
+				return kkanbu_seq;
+				}
+		}
 	}
+}

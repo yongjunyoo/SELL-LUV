@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -16,10 +15,9 @@ import javax.sql.DataSource;
 
 import kh.web.dto.Board_CpDTO;
 import kh.web.dto.CompanyDTO;
-import kh.web.dto.Photo_ListDTO;
+import kh.web.dto.FileDTO;
 import kh.web.dto.Review_IfDTO;
 import kh.web.statics.IFCPStatics;
-import kh.web.statics.PageStatics;
 
 public class CompanyDAO {
 
@@ -269,8 +267,8 @@ public class CompanyDAO {
 			return rs.getInt(1);
 		}
 	}
-	
-	
+
+
 	// Company 회원가입 -이준협
 
 	// 회원가입 method
@@ -471,6 +469,7 @@ public class CompanyDAO {
 	
 	public boolean isMember(String id) throws Exception {
 		String sql = "SELECT * FROM company WHERE id_cp =? ";
+
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
 			pstat.setString(1, id);
@@ -540,8 +539,8 @@ public class CompanyDAO {
 		}
 	}
 
-	public int insertPhoto(Photo_ListDTO dto) throws Exception { // 사진 업로드
-		String sql = "insert into photo_list values(photo_list_seq.nextval,?,?,?)";
+	public int insertPhoto(FileDTO dto) throws Exception { // 사진 업로드
+		String sql = "insert into file_product values(file_product_seq.nextval,?,?,?)";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
 			pstat.setString(1, dto.getOriName());
@@ -569,7 +568,8 @@ public class CompanyDAO {
 		}
 	}
 
-	public int cpSearchById(String loginID) throws Exception{
+
+	public int cpSearchById(String loginID) throws Exception{ // 로그인id로 seq_cp추출.
 		String sql = "select seq_cp from company where id_cp =?";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
@@ -613,9 +613,8 @@ public class CompanyDAO {
 				}
 			}
 			return result;
-			}
+		}
 	}
-
 	
 	public int findSeq(String id) throws Exception{
 		String sql = "SELECT seq_cp FROM company WHERE id_cp =?";
@@ -643,6 +642,7 @@ public class CompanyDAO {
 			String result = "";
 			try(ResultSet rs = pstat.executeQuery();){
 				if(rs.next()) {
+
 				result = rs.getString("name_cp");
 
 				
@@ -650,7 +650,7 @@ public class CompanyDAO {
 				}
 			}
 			return result;
-			}
+		}
 	}
 	
 	public String findName(String id) throws Exception{
@@ -678,16 +678,14 @@ public class CompanyDAO {
 			String result = "";
 			try(ResultSet rs = pstat.executeQuery();){
 				if(rs.next()) {
-				result = rs.getString("photo_cp");
-				
+					result = rs.getString("photo_cp");
+
 				}
 			}
 			return result;
-			}
+		}
 	}
-	
-	
-	
+
 	public List<Review_IfDTO> ifReview() throws Exception{ // 인플루언서가 작성한 리뷰
 		String sql = "select * from review_if";
 		try(Connection con = this.getConnection();
@@ -702,8 +700,9 @@ public class CompanyDAO {
 					String writer = rs.getString("writer");
 					String content = rs.getString("content");
 					Timestamp timestamp = rs.getTimestamp("timestamp");
+					int ref_seq = rs.getInt("ref_seq");
 
-					Review_IfDTO dto = new Review_IfDTO(seq,member_seq,writer,content,timestamp );
+					Review_IfDTO dto = new Review_IfDTO(seq,member_seq,writer,content,timestamp,ref_seq);
 
 					list.add(dto);
 				}
@@ -711,7 +710,7 @@ public class CompanyDAO {
 			}
 		}
 	}
-	
+
 	public int getIfCardCount(int seq) throws Exception { // 인플루언서가 작성한 리뷰 수 출력.
 		String sql = "select count(*) from review_if where member_seq=?";
 		try(Connection con = this.getConnection();
@@ -726,7 +725,7 @@ public class CompanyDAO {
 
 	public int getifCardPageTotalCount(int seq) throws Exception { // 기업 페이지
 		int recordTotalCount = this.getIfCardCount(seq);
-		
+
 		// 총 페이지 개수
 		int pageTotalCount = 0;
 		if(recordTotalCount%IFCPStatics.RECORD_COUNT_PER_PAGE==0) {
@@ -749,7 +748,7 @@ public class CompanyDAO {
 
 		int startNavi = (currentPage-1)/IFCPStatics.NAVI_PER_PAGE*IFCPStatics.NAVI_PER_PAGE+1;
 		int endNavi = startNavi+IFCPStatics.NAVI_PER_PAGE-1;
-		
+
 		if(endNavi > pageTotalCount) {  
 			endNavi = pageTotalCount;
 		}
@@ -785,7 +784,7 @@ public class CompanyDAO {
 			pstat.setInt(1, seq);
 			pstat.setInt(2, start);
 			pstat.setInt(3, end);
-			
+
 			try(ResultSet rs = pstat.executeQuery();){
 				List<Review_IfDTO> list = new ArrayList();
 				while(rs.next()) {
@@ -794,8 +793,9 @@ public class CompanyDAO {
 					String writer = rs.getString("writer");
 					String content = rs.getString("content");
 					Timestamp timestamp = rs.getTimestamp("timestamp");
+					int ref_seq = rs.getInt("ref_seq");
 
-					Review_IfDTO dto = new Review_IfDTO(seq1,member_seq,writer,content,timestamp);
+					Review_IfDTO dto = new Review_IfDTO(seq1,member_seq,writer,content,timestamp,ref_seq);
 
 					list.add(dto);
 				}
@@ -830,6 +830,33 @@ public class CompanyDAO {
 			}
 		}
 
+	// sysname추출을 위해 board_cp의 currVal 추출.
+	public int createProductSeq() throws Exception {
+		String sql = "SELECT board_cp_seq.currval FROM dual";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				ResultSet rs = pstat.executeQuery();
+				){
+			rs.next();
+			return rs.getInt(1);
+		}
+	}
+
+	// 제품등록된 사진의 부모시퀀스를 통해 sysname 추출.
+	public String productFindbySeq(String seq) throws Exception{
+		String sql = "SELECT sysname_product_file from file_product WHERE parentseq_product_file = ?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, seq);
+			String result = "";
+			try(ResultSet rs = pstat.executeQuery();){
+				if(rs.next()) {
+					result = rs.getString("sysname_product_file");
+				}
+			}
+			return result;
+		}
+	}
 }
 
 
