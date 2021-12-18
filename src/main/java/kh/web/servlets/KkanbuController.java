@@ -61,10 +61,23 @@ public class KkanbuController extends HttpServlet {
 			System.out.println("kkanbuNickNameTo:"+  kkanbuNickNameTo+" "+ " kkanbuNickNameFrom:"+kkanbuNameFrom );
 			
 			 boolean isRequestStillPending = influencerKkanbuRequestDAO.isRequestStillPending(kkanbuSeqFrom,kkanbuSeqTo);
-			
-			 System.out.println(isRequestStillPending);
+			 boolean areTheyKkanbu = kkanbuDAO.areTheyKkanbu(kkanbuSeqFrom,kkanbuSeqTo);
 			 
-			  if(!isRequestStillPending) {
+			 System.out.println(isRequestStillPending);
+			 	
+			 	if(areTheyKkanbu) {
+					
+//			 		int kkanbuSeq = kkanbuDAO.getKkanbuSeq(kkanbuSeqFrom,kkanbuSeqTo);
+			 		
+			 		String kkanbuMessage= "<div class=\"nav tag-cloud\"><span>우린 깐부잖아..</span></div>	";
+			 		
+//			 		request.setAttribute("kkanbuSeq",kkanbuSeq );
+			 		request.setAttribute("kkanbuMessage",kkanbuMessage);
+					RequestDispatcher rd =request.getRequestDispatcher("/influencerProfile.ifcp?seq="+kkanbuCardSeq+"&cpage="+cpage);  
+					rd.forward(request, response);
+			 	
+			 
+			 	}else if(!isRequestStillPending) {
 					
 					int requesting = influencerKkanbuRequestDAO.sendKkanbuRequest(kkanbuSeqFrom,kkanbuSeqTo,kkanbuNameFrom,kkanbuNickNameTo);
 					
@@ -90,23 +103,36 @@ public class KkanbuController extends HttpServlet {
 			int cpage =Integer.parseInt(request.getParameter("cpage"));
 			
 			 System.out.println("kkanbuCardSeq: " + kkanbuCardSeq );
+			 System.out.println("kkanbuSeqFrom: " + kkanbuSeqFrom + "kkanbuSeqTo "+ kkanbuSeqTo);
 
 
 			
-			String kkanbuNameFrom = companyDAO.getName(kkanbuSeqFrom);
-			String kkanbuNickNameTo = influencerDAO.getNickname(kkanbuSeqTo);
+			String kkanbuNameTo = companyDAO.getName(kkanbuSeqTo);
+			String kkanbuNickNameFrom = influencerDAO.getNickname(kkanbuSeqFrom);
 			
 			
 //			파라미터 값을 받은후 해당페이지의 member_seq의 마이페이지에 {로그인된 아이디의 시퀀스를 가진 아이디의 아이디값}으로 부터 깐부요청 <수락><거절> 을 뛰움 ->
-			System.out.println("kkanbuNickNameTo:"+  kkanbuNickNameTo+" "+ " kkanbuNickNameFrom:"+kkanbuNameFrom );
+			System.out.println("kkanbuNickNameTo:"+  kkanbuNickNameFrom+" "+ " kkanbuNameFrom:"+kkanbuNameTo );
 			
 			 boolean isRequestStillPending = companyKkanbuRequestDAO.isRequestStillPending(kkanbuSeqFrom,kkanbuSeqTo);
+			 boolean areTheyKkanbu = kkanbuDAO.areTheyKkanbu(kkanbuSeqFrom,kkanbuSeqTo);
 			
 			 System.out.println(isRequestStillPending);
 			 
-			  if(!isRequestStillPending) {
+			 if(areTheyKkanbu) {
 					
-					int requesting = companyKkanbuRequestDAO.sendKkanbuRequest(kkanbuSeqFrom,kkanbuSeqTo,kkanbuNameFrom,kkanbuNickNameTo);
+//			 		int kkanbuSeq = kkanbuDAO.getKkanbuSeq(kkanbuSeqFrom,kkanbuSeqTo);
+			 		
+			 		String kkanbuMessage= "<div class=\"nav tag-cloud\"><span>우린 깐부잖아..</span></div>	";
+			 		
+//			 		request.setAttribute("kkanbuSeq",kkanbuSeq );
+			 		request.setAttribute("kkanbuMessage",kkanbuMessage);
+					RequestDispatcher rd =request.getRequestDispatcher("/influencerProfile.ifcp?seq="+kkanbuCardSeq+"&cpage="+cpage);  
+					rd.forward(request, response);
+			 
+			 }else if(!isRequestStillPending) {
+					
+					int requesting = companyKkanbuRequestDAO.sendKkanbuRequest(kkanbuSeqFrom,kkanbuSeqTo,kkanbuNickNameFrom,kkanbuNameTo);
 					
 					response.sendRedirect("/companyDetail.ifcp?kkanbuCardSeq="+kkanbuCardSeq+"&cpage="+cpage);
 					
@@ -178,12 +204,12 @@ public class KkanbuController extends HttpServlet {
 
 			int companySeq = Integer.parseInt(request.getParameter("kkanbuFrom"));
 			int influencerSeq = Integer.parseInt(request.getParameter("kkanbuTo"));
-			int kkanbu_seq = Integer.parseInt(request.getParameter("kkanbu_seq"));
+			int kkanbu_seq = Integer.parseInt(request.getParameter("kkanbuSeq"));
 			
 			System.out.println(companySeq+" " + influencerSeq);
 			
 			int result = kkanbuDAO.insertKkanbu(companySeq,influencerSeq);
-			response.sendRedirect("/deleteInfKkanbuRequest?kkanbuSeq="+kkanbu_seq+"&kkanbuTo="+companySeq);
+			response.sendRedirect("/deleteInfKkanbuRequest.kkanbu?kkanbuSeq="+kkanbu_seq+"&kkanbuTo="+companySeq);
 			
 //			response.sendRedirect("/showKkanbuRequest.kkanbu?IDseq="+influencerSeq);
 			
@@ -195,7 +221,7 @@ public class KkanbuController extends HttpServlet {
 			int result = kkanbuDAO.insertKkanbu(influencerSeq,companySeq);
 			
 //			response.sendRedirect("/showCompanyKkanbuRequest.kkanbu?IDseq="+companySeq);
-			response.sendRedirect("/deleteCompanyKkanbuRequest?kkanbuSeq="+kkanbu_seq+"&kkanbuTo="+companySeq);
+			response.sendRedirect("/deleteCompanyKkanbuRequest.kkanbu?kkanbuSeq="+kkanbu_seq+"&kkanbuTo="+companySeq);
 			
 		}
 	}catch(Exception e) {

@@ -93,14 +93,17 @@ private static BoardDAO instance = null;
 				String contents = rs.getString("contents");
 				Timestamp write_date = rs.getTimestamp("write_date");
 				int view_count = rs.getInt("view_count");
-				list.add(new BoardDTO(seq,writer,title,contents,write_date,view_count));
+				String profileName = rs.getString("member_name");
+				list.add(new BoardDTO(seq,writer,title,contents,write_date,view_count,profileName));
 			}
 			return list;
 			}
 	}
 	
 	public List<BoardDTO> selectByBound(int start, int end) throws Exception {
-		String sql = "SELECT * FROM (SELECT ROWNUM rn, freeboard.* FROM freeboard ORDER BY seq DESC) a WHERE a.rn BETWEEN ? AND ?";
+		String sql = "SELECT * FROM (SELECT ROWNUM rn, freeboard.* FROM freeboard ORDER BY seq DESC) a JOIN \r\n"
+				+ "(SELECT c.id_cp , c.name_cp member_name FROM company c UNION SELECT  i.id_if, i.nickname_if FROM influencer i)\r\n"
+				+ "ON a.writer = id_cp WHERE a.rn BETWEEN ? AND ?";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
 				){
@@ -115,7 +118,8 @@ private static BoardDAO instance = null;
 					String contents = rs.getString("contents");
 					Timestamp write_date = rs.getTimestamp("write_date");
 					int view_count = rs.getInt("view_count");
-					list.add(new BoardDTO(seq,writer,title,contents,write_date,view_count));
+					String profileName = rs.getString("member_name");
+					list.add(new BoardDTO(seq,writer,title,contents,write_date,view_count,profileName));
 				}
 				return list;
 				}
@@ -123,7 +127,10 @@ private static BoardDAO instance = null;
 	}
 	
 	public List<BoardDTO> selectByBoundSearch(int start, int end, String select, String keyword) throws Exception {
-		String sql = "SELECT * FROM (SELECT ROWNUM rn, freeboard.* FROM freeboard WHERE "+select+ " LIKE ? ORDER BY seq DESC) a WHERE a.rn BETWEEN ? AND ?";
+		String sql = "SELECT * FROM (SELECT b.*, row_number() OVER(ORDER BY seq DESC) rn FROM (SELECT * FROM(SELECT * FROM (SELECT freeboard.* FROM freeboard) a\r\n"
+				+ "JOIN \r\n"
+				+ "(SELECT id_cp , name_cp FROM company UNION SELECT  id_if, nickname_if FROM influencer) \r\n"
+				+ "ON a.writer = id_cp WHERE "+select+" LIKE ?)) b) WHERE rn BETWEEN ? AND ?";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
 				){
@@ -139,7 +146,8 @@ private static BoardDAO instance = null;
 					String contents = rs.getString("contents");
 					Timestamp write_date = rs.getTimestamp("write_date");
 					int view_count = rs.getInt("view_count");
-					list.add(new BoardDTO(seq,writer,title,contents,write_date,view_count));
+					String profileName = rs.getString("name_cp");
+					list.add(new BoardDTO(seq,writer,title,contents,write_date,view_count,profileName));
 				}
 				return list;
 				}
@@ -147,7 +155,9 @@ private static BoardDAO instance = null;
 	}
 	
 	public BoardDTO selectBySeq(int seq) throws Exception {
-		String sql = "SELECT * FROM freeboard WHERE seq = ?";
+		String sql = "SELECT * FROM (SELECT ROWNUM rn, freeboard.* FROM freeboard ORDER BY seq DESC) a JOIN \r\n"
+				+ "(SELECT c.id_cp , c.name_cp member_name FROM company c UNION SELECT  i.id_if, i.nickname_if FROM influencer i)\r\n"
+				+ "ON a.writer = id_cp WHERE seq = ?";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
 				){
@@ -160,7 +170,8 @@ private static BoardDAO instance = null;
 					String contents = rs.getString("contents");
 					Timestamp write_date = rs.getTimestamp("write_date");
 					int view_count = rs.getInt("view_count");
-					dto = new BoardDTO(seq,writer,title,contents,write_date,view_count);
+					String profileName = rs.getString("member_name");
+					dto = new BoardDTO(seq,writer,title,contents,write_date,view_count,profileName);
 				}
 				return dto;
 				}
@@ -180,7 +191,10 @@ private static BoardDAO instance = null;
 	}
 	
 	private int getRecordCountSearch(String select, String keyword) throws Exception {
-		String sql = "SELECT COUNT(*) FROM freeboard WHERE "+select+" LIKE ? ";
+		String sql = "SELECT count(*) FROM (SELECT b.*, row_number() OVER(ORDER BY seq DESC) rn FROM (SELECT * FROM(SELECT * FROM (SELECT freeboard.* FROM freeboard) a\r\n"
+				+ "JOIN \r\n"
+				+ "(SELECT id_cp , name_cp FROM company UNION SELECT  id_if, nickname_if FROM influencer) \r\n"
+				+ "ON a.writer = id_cp WHERE "+select+" LIKE ?)) b)";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
 				){

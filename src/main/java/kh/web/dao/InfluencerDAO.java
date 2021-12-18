@@ -507,11 +507,11 @@ public class InfluencerDAO  {
 
 	}
 	
-	public boolean isMember(String name) throws Exception {
-		String sql = "SELECT * FROM influencer WHERE nickname_if =? ";
+	public boolean isMember(String id) throws Exception {
+		String sql = "SELECT * FROM influencer WHERE id_if =? ";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
-			pstat.setString(1, name);
+			pstat.setString(1, id);
 			try(ResultSet rs = pstat.executeQuery();){
 
 				if(rs.next()) {
@@ -555,6 +555,38 @@ public class InfluencerDAO  {
 		}
 	}
 	
+	public String findName(String id) throws Exception{
+		String sql = "SELECT nickname_if FROM influencer WHERE id_if =?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, id);
+			String result = "";
+			try(ResultSet rs = pstat.executeQuery();){
+				if(rs.next()) {
+					result = rs.getString("nickname_if");
+				}
+			}
+			return result;
+		}
+	}
+	
+	//시퀀스찾기....2
+		public int findSeq(String id) throws Exception{
+			String sql = "SELECT seq_if FROM influencer WHERE id_if =?";
+			try(Connection con = this.getConnection();
+					PreparedStatement pstat = con.prepareStatement(sql);){
+				pstat.setString(1, id);
+				int result = 0;
+				try(ResultSet rs = pstat.executeQuery();){
+					if(rs.next()) {
+						result = rs.getInt("seq_if");
+
+					}
+				}
+				return result;
+			}
+		}
+	
 	// 닉네임 찾기
 	public String findName(String id, String pw) throws Exception{
 		String sql = "SELECT nickname_if FROM influencer WHERE id_if =? AND pw_if =?";
@@ -573,11 +605,11 @@ public class InfluencerDAO  {
 		}
 	}
 	
-	public String findProfile(String name) throws Exception{
-		String sql = "SELECT photo_if FROM influencer WHERE nickname_if = ?";
+	public String findProfile(String id) throws Exception{
+		String sql = "SELECT photo_if FROM influencer WHERE id_if = ?";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
-			pstat.setString(1, name);
+			pstat.setString(1, id);
 			String result = "";
 			try(ResultSet rs = pstat.executeQuery();){
 				if(rs.next()) {
@@ -590,11 +622,11 @@ public class InfluencerDAO  {
 	}
 
 
-		public String getNickname(int kkanbuSeqTo) throws Exception {
+		public String getNickname(int kkanbuSeqFrom) throws Exception {
 			String sql = "SELECT nickname_if FROM influencer WHERE seq_if =?";
 			try(Connection con = this.getConnection();
 					PreparedStatement pstat = con.prepareStatement(sql);){
-				pstat.setInt(1, kkanbuSeqTo);
+				pstat.setInt(1, kkanbuSeqFrom);
 				String result = "";
 				try(ResultSet rs = pstat.executeQuery();){
 					if(rs.next()) {
@@ -779,8 +811,9 @@ public class InfluencerDAO  {
 					String writer = rs.getString("writer");
 					String content = rs.getString("content");
 					Timestamp timestamp = rs.getTimestamp("timestamp");
+					int ref_seq = rs.getInt("ref_seq");
 
-					Review_CpDTO dto = new Review_CpDTO(seq1,member_seq,writer,content,timestamp);
+					Review_CpDTO dto = new Review_CpDTO(seq1,member_seq,writer,content,timestamp,ref_seq);
 
 					list.add(dto);
 				}
@@ -789,5 +822,55 @@ public class InfluencerDAO  {
 		}
 	}
 
+	public String whatIsLoggedInID(String loginID) throws Exception{
+		String sql = "select * from influencer where id_if = ?";
+		
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, loginID);
+			try(ResultSet rs = pstat.executeQuery();){
+				
+				if(rs.next()) {
 
+					return  "influencer";
+				
+				}
+				return "company";
+			}
+		}
+	}
+
+	
+	// seq를 통해 인플루언서 사진의 부모seq추출.
+	public String ifFindbySeq(String seq) throws Exception{
+		String sql = "SELECT member_seq from profile_if WHERE seq_if = ?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, seq);
+			String result = "";
+			try(ResultSet rs = pstat.executeQuery();){
+				if(rs.next()) {
+					result = rs.getString("member_seq");
+
+				}
+			}
+			return result;
+		}
+	}
+	
+	// 인플루언서 사진의 부모시퀀스를 통해 sysname 추출.
+	public String ifFindbyPseq(String pSeq) throws Exception{
+		String sql = "SELECT sysname_influencer_file from file_influencer WHERE parentseq_influencer_file = ?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, pSeq);
+			String result = "";
+			try(ResultSet rs = pstat.executeQuery();){
+				if(rs.next()) {
+					result = rs.getString("sysname_influencer_file");
+				}
+			}
+			return result;
+		}
+	}
 }

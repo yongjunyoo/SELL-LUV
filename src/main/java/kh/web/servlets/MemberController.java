@@ -40,7 +40,8 @@ public class MemberController extends HttpServlet {
 		FileDAO fileDAO = new FileDAO();
 
 		SHA512 sha512 = new SHA512();
-
+		HttpSession session = request.getSession();
+		
 		try {
 			if(cmd.equals("/influencerLogin.mem")) { //인플루언서 로그인 부분...
 
@@ -57,7 +58,6 @@ public class MemberController extends HttpServlet {
 				
 				if(result) {
 					
-					HttpSession session = request.getSession();
 					session.setAttribute("loginID", id);
 					session.setAttribute("IDseq", seq);
 					session.setAttribute("loginName", name);
@@ -65,7 +65,7 @@ public class MemberController extends HttpServlet {
 					System.out.println("인플루언서 닉네임 : "+name);
 					System.out.println("logged in!");
 
-					response.sendRedirect("/index.jsp");
+					response.sendRedirect("/index.jsp?loginID"+id);
 
 				}else if(!result) {
 					
@@ -95,14 +95,13 @@ public class MemberController extends HttpServlet {
 				System.out.println(id+pw+"   "+seq);
 
 				if(result) {
-					HttpSession session = request.getSession();
 					session.setAttribute("loginID", id);
 					session.setAttribute("IDseq", seq);
 					session.setAttribute("loginName", name);
 					session.setAttribute("loginMember", "기업");
 					System.out.println("기업 상호 : "+name);
 					System.out.println( id + " " + seq + "logged in!");
-					response.sendRedirect("/index.jsp");
+					response.sendRedirect("/index.jsp?loginID="+id);
 
 				}else if(!result) {
 					System.out.println( id+ "로그인실패..");
@@ -119,11 +118,12 @@ public class MemberController extends HttpServlet {
 
 
 			}else if(cmd.equals("/logout.mem")) {
+				String id = "비회원";
 				request.getSession().removeAttribute("loginID");
 				request.getSession().removeAttribute("IDseq");
 				request.getSession().removeAttribute("loginName");
 				request.getSession().removeAttribute("loginMember");
-				response.sendRedirect("/index.jsp");
+				response.sendRedirect("/index.jsp?loginID="+id);
 
 			}else if(cmd.equals("/loginCheck.mem")) {
 
@@ -313,13 +313,12 @@ public class MemberController extends HttpServlet {
 				response.getWriter().append(String.valueOf(result));
 
 			}else if(cmd.equals("/IFnickCheck.mem")) {
-
+				
 				String nickName = request.getParameter("nickName");
 				boolean result = influencerDAO.nickNameExist(nickName);
 				response.getWriter().append(String.valueOf(result));
 
 			}else if(cmd.equals("/mypage.mem")) {
-
 				String id = (String)request.getSession().getAttribute("loginID");
 				String seq = (String)request.getSession().getAttribute("IDseq");
 				CompanyDTO cdto = companyDAO.selectById(id);
@@ -338,7 +337,7 @@ public class MemberController extends HttpServlet {
 				}
 
 			}else if(cmd.equals("/modify.mem")) {
-
+				
 				String id = (String)request.getSession().getAttribute("loginID");
 				String seq = (String)request.getSession().getAttribute("IDseq");
 				CompanyDTO cdto = companyDAO.selectById(id);
@@ -357,60 +356,78 @@ public class MemberController extends HttpServlet {
 
 
 			}else if(cmd.equals("/CPmodify.mem")) {
-
-				String id = request.getParameter("id");
-				String pw = request.getParameter("pw");
-				String photo = request.getParameter("photo");
-				String name = request.getParameter("name");
-				String crunumber = request.getParameter("crunumber");
-				String zipcode = request.getParameter("zipcode");
-				String address1 = request.getParameter("address1");
-				String address2 = request.getParameter("address2");
-				String rpt_cp = request.getParameter("rpt_cp");
-				String phone = request.getParameter("phone");
-				String email = request.getParameter("email");
-				String sales = request.getParameter("sales");
-				String pwAsk = request.getParameter("pwAsk");
-				String pwAnswer = request.getParameter("pwAnswer");
-
-				int result = companyDAO.update(sha512.generate(pw), photo, name, crunumber, zipcode, address1, address2, rpt_cp, phone, email, sales, pwAsk, pwAnswer, id);
-
-				String idf = (String)request.getSession().getAttribute("loginID");
-				String seq = (String)request.getSession().getAttribute("IDseq");
-				CompanyDTO dto = companyDAO.selectById(idf);				
-				request.setAttribute("dto", dto);
-				request.getRequestDispatcher("/resources/mypage/CPmypageMain.jsp").forward(request, response);
+				
+				String savePath = request.getServletContext().getRealPath("files");
+				File filePath = new File(savePath);
+				if(!filePath.exists()) {filePath.mkdir();}
+				
+				int maxSize = 1024*1024*10; // 10MB
+				MultipartRequest multi = new MultipartRequest(request, savePath, maxSize, "UTF8", new DefaultFileRenamePolicy());
+				
+				String sysName = multi.getFilesystemName("photo");
+				String oriName = multi.getOriginalFileName("photo");
+				System.out.println(sysName);
+				if(sysName==null) {
+					sysName = "blank1.png";
+					oriName = "blank.png";
+				}
+				String id = multi.getParameter("id");
+				String pw = multi.getParameter("pw");
+				String name = multi.getParameter("name");
+				String crunumber = multi.getParameter("crunumber");
+				String zipcode = multi.getParameter("zipcode");
+				String address1 = multi.getParameter("address1");
+				String address2 = multi.getParameter("address2");
+				String rpt_cp = multi.getParameter("rpt_cp");
+				String phone = multi.getParameter("phone");
+				String email = multi.getParameter("email");
+				System.out.println("name : "+name);
+				System.out.println(request.getParameter("sales"));
+				String sales = multi.getParameter("sales");
+				String pwAsk = multi.getParameter("pwAsk");
+				String pwAnswer = multi.getParameter("pwAnswer");
+				int seq = companyDAO.findSeq(id);
+				int result = companyDAO.update(sha512.generate(pw), sysName, name, crunumber, zipcode, address1, address2, rpt_cp, phone, email, sales, pwAsk, pwAnswer, id);
+				int fileResult = fileDAO.modifyCp(new FileDTO(0,oriName,sysName,seq));
+				response.sendRedirect("/mypage.mem");
 
 			}else if(cmd.equals("/IFmodify.mem")) {
-
-				String id = request.getParameter("id");
-				String pw = request.getParameter("pw");
-				String photo = request.getParameter("photo");
-				String name = request.getParameter("name");
-				String nickname = request.getParameter("nickName");
-				String zipcode = request.getParameter("zipcode");
-				String address1 = request.getParameter("address1");
-				String address2 = request.getParameter("address2");
-				String sns = request.getParameter("sns");
-				String phone = request.getParameter("phone");
-				String email = request.getParameter("email");
-				String pwAsk = request.getParameter("pwAsk");
-				String pwAnswer = request.getParameter("pwAnswer");
-				String favorite1 = request.getParameter("favorite1");
-				String favorite2 = request.getParameter("favorite2");
-				String favorite3 = request.getParameter("favorite3");
-				String favorite4 = request.getParameter("favorite4");
-
-				int result = influencerDAO.update(sha512.generate(pw), photo, name, nickname, zipcode, address1, address2, sns, phone, email, pwAsk, pwAnswer, favorite1 +":"+ favorite2 +":"+ favorite3 +":"+ favorite4, id);
 				
+				String savePath = request.getServletContext().getRealPath("files");
+				File filePath = new File(savePath);
+				if(!filePath.exists()) {filePath.mkdir();}
 				
-				String idf = (String)request.getSession().getAttribute("loginID");
-				String seq = (String)request.getSession().getAttribute("IDseq");
-				InfluencerDTO dto = influencerDAO.selectById(idf);
-				Profile_IfDTO pdto = influencerDAO.selectBySeq(seq);
-				request.setAttribute("dto", dto);
-				request.setAttribute("pdto", pdto);
-				request.getRequestDispatcher("/resources/mypage/IFmypageMain.jsp").forward(request, response);
+				int maxSize = 1024*1024*10; // 10MB
+				MultipartRequest multi = new MultipartRequest(request, savePath, maxSize, "UTF8", new DefaultFileRenamePolicy());
+				
+				String sysName = multi.getFilesystemName("photo");
+				String oriName = multi.getOriginalFileName("photo");
+				System.out.println(sysName);
+				if(sysName==null) {
+					sysName = "blank1.png";
+					oriName = "blank.png";
+				}
+				String id = multi.getParameter("id");
+				String pw = multi.getParameter("pw");
+				String name = multi.getParameter("name");
+				String nickname = multi.getParameter("nickName");
+				String zipcode = multi.getParameter("zipcode");
+				String address1 = multi.getParameter("address1");
+				String address2 = multi.getParameter("address2");
+				String sns = multi.getParameter("sns");
+				String phone = multi.getParameter("phone");
+				String email = multi.getParameter("email");
+				String pwAsk = multi.getParameter("pwAsk");
+				String pwAnswer = multi.getParameter("pwAnswer");
+				String favorite1 = multi.getParameter("favorite1");
+				String favorite2 = multi.getParameter("favorite2");
+				String favorite3 = multi.getParameter("favorite3");
+				String favorite4 = multi.getParameter("favorite4");
+				int seq = influencerDAO.findSeq(id);
+				
+				int result = influencerDAO.update(sha512.generate(pw), sysName, name, nickname, zipcode, address1, address2, sns, phone, email, pwAsk, pwAnswer, favorite1 +":"+ favorite2 +":"+ favorite3 +":"+ favorite4, id);
+				int fileResult = fileDAO.modifyIf(new FileDTO(0,oriName,sysName,seq));
+				response.sendRedirect("/mypage.mem");
 				
 			}else if(cmd.equals("/Ifprofile.mem")) {
 

@@ -39,7 +39,7 @@
 					<article class="article">
 						<div class="article-img">
 							<c:forEach var="dto" items="${ifList }">
-								<img src="${dto.value.photo}" title="" alt="">
+								<img src="/influencerDetail.file?seq= ${dto.key.seq_if }" title="" alt="">
 						</div>
 						<div class="article-title">
 							<!--소개글-->
@@ -74,6 +74,7 @@
 									style="color: #ff6F61;">
 									<thead>
 										<tr>
+											<th></th>
 											<th>번호</th>
 											<th>작성자</th>
 											<th>작성내용</th>
@@ -83,6 +84,7 @@
 									<tbody>
 										<c:forEach var="list" items="${list}">
 											<tr style="color: black;">
+												<td><img src="/product.file?seq= ${list.ref_seq }" title="" alt="" style="height:25px;width:25px; border-radius:15px;"></td>
 												<td>${list.seq }</td>
 												<td>${list.writer }</td>
 												<td>${list.content }</td>
@@ -109,6 +111,14 @@
 									<div class="nav tag-cloud">
 
 									<c:choose>
+										<c:when test="${loginID == null}">
+										</c:when>
+										<c:when test="${loggedInID eq 'influencer'}">
+										</c:when>
+										
+										<c:when test="${kkanbuMessage != null}">
+			 									${kkanbuMessage}
+										</c:when>
 										<c:when test="${kkanbuCardSeq !=null }">
 										<div class="nav tag-cloud">
 											<span>깐부요청이미함..</span>

@@ -37,11 +37,19 @@ public class BoardController extends HttpServlet {
 		CompanyDAO companyDAO = new CompanyDAO();
 		InfluencerDAO influencerDAO = new InfluencerDAO();
 		
+		try {
 		// cpage, seq 세션에 저장
 		session.setAttribute("cpage", request.getParameter("cpage"));
 		String cpage = (String)session.getAttribute("cpage");
 		session.setAttribute("seq", request.getParameter("seq"));
 		String seq = (String)session.getAttribute("seq");
+		String IDseq = (String)session.getAttribute("IDseq");
+		// name 세션에 저장
+		String loginName = companyDAO.findName((String)session.getAttribute("loginID"));
+		if(loginName=="") {
+			loginName = influencerDAO.findName((String)session.getAttribute("loginID"));
+		}
+		session.setAttribute("loginName", loginName);
 		
 		System.out.println("cpage : " + request.getParameter("cpage"));
 		System.out.println("세션 cpage : " + cpage);
@@ -49,9 +57,9 @@ public class BoardController extends HttpServlet {
 		System.out.println("세션 seq : " + seq);
 		
 		System.out.println("로그인 ID : " + session.getAttribute("loginID"));
+		System.out.println("세션 name : "+session.getAttribute("loginName"));
 		if(cpage == null) {cpage="1";}
 		
-		try {
 			// 게시판 목록
 			if(cmd.equals("/boardList.board")) {
 				int currentPage = Integer.parseInt(cpage);
@@ -67,10 +75,10 @@ public class BoardController extends HttpServlet {
 				response.sendRedirect("/resources/board/boardwrite.jsp");
 			// 글 작성 완료
 			}else if(cmd.equals("/done.board")) {
-				String writer = (String)session.getAttribute("name");
+				String writer = (String)session.getAttribute("loginID");
 				String title = request.getParameter("title");
 				String contents = request.getParameter("contents");
-				int result = bdao.insert(new BoardDTO(0,writer,title,contents,null,0));
+				int result = bdao.insert(new BoardDTO(0,writer,title,contents,null,0,null));
 				System.out.println("게시글 insert 결과 : " + result);
 				response.sendRedirect("/boardList.board?cpage="+cpage);
 			// 게시글 페이지로 이동
@@ -85,7 +93,7 @@ public class BoardController extends HttpServlet {
 					request.setAttribute("member", "인플루언서");
 				}
 				// 댓글 가져가기
-				List<CommentDTO> cList = cdao.selectByBoardSeq(Integer.parseInt(seq));
+				List<CommentDTO> cList = cdao.selectByBoardSeqAddName(Integer.parseInt(seq));
 				request.setAttribute("cList", cList);
 				// 조회수 올리기
 				bdao.addViewCount(Integer.parseInt(seq));
@@ -125,13 +133,9 @@ public class BoardController extends HttpServlet {
 				}
 				// 댓글 등록
 			}else if(cmd.equals("/doneCmt.board")){
-				System.out.println(seq);
 				int parent = Integer.parseInt(seq);
-				String writer = (String)session.getAttribute("loginName");
+				String writer = (String)session.getAttribute("loginID");
 				String contents = request.getParameter("contents-cmt");
-				System.out.println(writer);
-				System.out.println(parent);
-				System.out.println(contents);
 				// 인플루언서인지 기업인지
 				boolean isCompanyMem = companyDAO.isMember(writer);
 				String member = "";
@@ -140,13 +144,22 @@ public class BoardController extends HttpServlet {
 				}else {
 					member = "인플루언서";
 				}
-				int result = cdao.insert(new CommentDTO(0,0,writer,null,parent,contents,member));
+				int result = cdao.insert(new CommentDTO(0,0,writer,null,parent,contents,member,null));
 				System.out.println("댓글 insert 결과 : " + result);
 				response.sendRedirect("/detail.board?cpage="+cpage+"&seq="+seq);
-				// 댓글 삭제
-			}else if(cmd.equals("modifyCmt.board")) {
-				
-			}
+				// 댓글 수정
+			}else if(cmd.equals("/modifyCmt.board")) {
+				String contents = request.getParameter("contents-cmt");
+				int cseq = Integer.parseInt(request.getParameter("cseq"));
+				int result = cdao.modify(cseq, contents);
+				System.out.println("댓글 modify 결과 : " + result);
+				response.sendRedirect("/detail.board?cpage="+cpage+"&seq="+seq);
+			}else if(cmd.equals("/delCmt.board")) {
+				int cseq = Integer.parseInt(request.getParameter("cseq"));
+				int result = cdao.delete(cseq);
+				System.out.println("댓글 delete 결과 : " + result);
+				response.sendRedirect("/detail.board?cpage="+cpage+"&seq="+seq);
+			}	
 		}catch(Exception e) {
 			e.printStackTrace();
 			response.sendRedirect("error.jsp");
