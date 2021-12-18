@@ -65,7 +65,7 @@ public class MemberController extends HttpServlet {
 					System.out.println("인플루언서 닉네임 : "+name);
 					System.out.println("logged in!");
 
-					response.sendRedirect("/index.jsp");
+					response.sendRedirect("/index.jsp?loginID"+id);
 
 				}else if(!result) {
 					
@@ -101,7 +101,7 @@ public class MemberController extends HttpServlet {
 					session.setAttribute("loginMember", "기업");
 					System.out.println("기업 상호 : "+name);
 					System.out.println( id + " " + seq + "logged in!");
-					response.sendRedirect("/index.jsp");
+					response.sendRedirect("/index.jsp?loginID="+id);
 
 				}else if(!result) {
 					System.out.println( id+ "로그인실패..");
@@ -118,11 +118,12 @@ public class MemberController extends HttpServlet {
 
 
 			}else if(cmd.equals("/logout.mem")) {
+				String id = "비회원";
 				request.getSession().removeAttribute("loginID");
 				request.getSession().removeAttribute("IDseq");
 				request.getSession().removeAttribute("loginName");
 				request.getSession().removeAttribute("loginMember");
-				response.sendRedirect("/index.jsp");
+				response.sendRedirect("/index.jsp?loginID="+id);
 
 			}else if(cmd.equals("/loginCheck.mem")) {
 

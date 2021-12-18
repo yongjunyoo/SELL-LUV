@@ -61,7 +61,7 @@
                         <a class="nav-link" href="/influencerList.ifcp?cpage=1">인플루언서</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/boardList.board?cpage=1">커뮤니티</a>
+                        <a class="nav-link" id="freeboard" style="cursor:pointer">커뮤니티</a>
                     </li>
                     <li class="nav-item">
                     	<a class="nav-link" href="/msearch.search">검색</a>
@@ -92,7 +92,6 @@
                 </ul>
                 
                 <span class="nav-item">
-                   
 
                     
 
@@ -114,6 +113,15 @@
 	
 	    document.querySelector(".navbar-toggler").addEventListener("click", () => {
 	      	document.querySelector(".offcanvas-collapse").classList.toggle("open");
+	    });
+	    $("#freeboard").on("click",function(){
+	    	if("${loginID}"==""){
+	    		if(confirm("로그인이 필요한 서비스입니다. \r\n로그인 하시겠습니까?")){
+	    			location.href="/login.mem";
+	    		}	
+	    	}else{
+	    		location.href="/boardList.board?cpage=1";
+	    	}
 	    });
     </script>
 </body>
