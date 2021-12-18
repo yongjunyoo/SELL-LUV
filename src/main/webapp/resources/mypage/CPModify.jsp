@@ -303,7 +303,7 @@ $(function(){
                             <label class="fieldlabels">기업상호: *</label> <span id= "CPnameCheckResult"></span><input type="text" id="name" name="name" placeholder="Company Name" value="${dto.name }"/>
                             <label class="fieldlabels">대표자명: *</label> <input type="text" id="rpt_cp" name="rpt_cp" placeholder="Representative Name" value="${dto.rpt }"/>
                             <label class="fieldlabels">사업자번호: * ('-'제외 10자리 숫자입력, 앞자리 0으로 시작불가능)</label> <input type="text" id="crunumber" name="crunumber" placeholder="Corporate Registration Number" value="${dto.crnumber }"/> 
-                            <label class="fieldlabels">매출액: (단위 만원)</label> <input type="text" id="sales" name="sales" placeholder="Total sales" />
+                            <label class="fieldlabels">매출액: (단위 만원)</label> <input type="text" id="sales" name="sales" placeholder="Total sales" value="${dto.sales }"/>
                             <label class="fieldlabels">연락처: * ('-'제외 입력)</label> <input type="text" id="phone" name="phone" placeholder="Contact No." value="${dto.phone }"/> 
                             <label class="fieldlabels">우편번호: * <button type="button" class="btn btn-dark" id="search" style="background-color:rgb(255, 111, 97);">주소 검색</button></label> <input type="text" id="postcode" name="zipcode" placeholder="Zipcode." value="${dto.zipcode }" readonly/>
                             <label class="fieldlabels">주소1: * </label> <input type="text" id="roadAddress" name="address1" placeholder="Address." value="${dto.address1 }"readonly />
