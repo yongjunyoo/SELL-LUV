@@ -149,24 +149,24 @@ body {
 	color: white;
 }
 
-#delBtn{
-	background-color:transparent;
-	border:1px solid black;
-	border-radius:3px;
-}
-#delBtn:hover{
-	background-color:black;
-	color:white;
-	border:1px solid black;
-	border-radius:3px;
+#delBtn {
+	background-color: transparent;
+	border: 1px solid black;
+	border-radius: 3px;
 }
 
-#search{
-	background-color:transparent;
-	border:1px solid transparent;
-	border-radius:3px;
+#delBtn:hover {
+	background-color: black;
+	color: white;
+	border: 1px solid black;
+	border-radius: 3px;
 }
 
+#search {
+	background-color: transparent;
+	border: 1px solid transparent;
+	border-radius: 3px;
+}
 </style>
 <script type="text/javascript">
 	
@@ -199,16 +199,17 @@ body {
 						</div>
 						<div class="fm-menu">
 							<div class="list-group list-group-flush">
-									<a href="/adminIfMember.admin?cpage=1" class="list-group-item py-1"><i
-									class="bx bx-file me-2"></i><span>인플루언서 회원 관리</span></a>
-									<a href="/adminIfCard.admin?cpage=1" class="list-group-item py-1"><i
-									class="bx bx-folder me-2"></i><span>인플루언서 카드 관리</span></a>
-									<a href="/adminCpMember.admin?cpage=1" class="list-group-item py-1"><i
-									class="bx bx-file me-2"></i><span>기업 회원 관리</span></a>
-									<a href="/adminCpCard.admin?cpage=1" class="list-group-item py-1"><i
-									class="bx bx-folder me-2"></i><span>기업 카드 관리</span></a> 
-									<a href="/adminBoard.admin?cpage=1" class="list-group-item py-1"><i
-									class="bx bx-devices me-2"></i><span>자유게시판 관리</span></a> 
+								<a href="/adminIfMember.admin?cpage=1"
+									class="list-group-item py-1"><i class="bx bx-file me-2"></i><span>인플루언서
+										회원 관리</span></a> <a href="/adminIfCard.admin?cpage=1"
+									class="list-group-item py-1"><i class="bx bx-folder me-2"></i><span>인플루언서
+										카드 관리</span></a> <a href="/adminCpMember.admin?cpage=1"
+									class="list-group-item py-1"><i class="bx bx-file me-2"></i><span>기업
+										회원 관리</span></a> <a href="/adminCpCard.admin?cpage=1"
+									class="list-group-item py-1"><i class="bx bx-folder me-2"></i><span>기업
+										카드 관리</span></a> <a href="/adminBoard.admin?cpage=1"
+									class="list-group-item py-1"><i class="bx bx-devices me-2"></i><span>자유게시판
+										관리</span></a>
 							</div>
 						</div>
 					</div>
@@ -237,58 +238,61 @@ body {
 						</div>
 						<!-- 게시글 목록 -->
 						<form action="adminBoardSearch.admin">
-						<div class="table-responsive mt-3">
-							<table class="table table-striped table-hover table-sm mb-0">
-								<thead>
-									<tr>
-										<th></th>
-										<th>번호</th>
-										<th>제목</th>
-										<th>작성자</th>
-										<th>날짜</th>
-										<th>조회수</th>
-									</tr>
-								</thead>
-								<tbody>
-								<c:forEach var="list" items="${list}">
-									<tr>
-										<td><input type="checkbox" name="checkbox" value="${list.seq}"></td>
-										<td>${list.seq}</td>
-										<td>${list.title}</td>
-										<td>${list.writer}</td>
-										<td>${list.write_date}</td>
-										<td>${list.view_count}</td>
-									</tr>
-									</c:forEach>
-								</tbody>
-							</table>
-						</div>
-						<!-- 게시글 목록 끝-->
+							<div class="table-responsive mt-3">
+								<table class="table table-striped table-hover table-sm mb-0">
+									<thead>
+										<tr>
+											<th></th>
+											<th>번호</th>
+											<th>제목</th>
+											<th>작성자</th>
+											<th>날짜</th>
+											<th>조회수</th>
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach var="list" items="${list}">
+											<tr>
+												<td><input type="checkbox" name="checkbox"
+													value="${list.seq}"></td>
+												<td>${list.seq}</td>
+												<td>${list.title}</td>
+												<td>${list.writer}</td>
+												<td>${list.write_date}</td>
+												<td>${list.view_count}</td>
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
+							</div>
+							<!-- 게시글 목록 끝-->
 
-						<!-- 버튼 페이징 -->
-						<nav aria-label="Page navigation example">
-							<ul class="pagination justify-content-center">
-								${navi}
-							</ul>
-						</nav>
-						<table class="table-sm mb-0" align=right>
-							<tr>
-								<td><select class="selectpicker" id="select" name="select">
-										<option>제목</option>
-										<option>작성자</option>
-								</select></td>
-								<td>
-								<input type="hidden" value="1" name="cpage">
-								<input type="search" class="form-control rounded" placeholder="내용을 입력하세요" id="searchContents" name="searchContents"/>
-								</td>
-								<td>
-								<button id="search" name="search"><i class="fas fa-search"></i></button>
-								</td>
-								<td>
-								<button id="delBtn" name="delBtn" onclick="return submit2(this.form)">삭제하기</button>
-								</td>
-							</tr>
-						</table>
+							<!-- 버튼 페이징 -->
+							<nav aria-label="Page navigation example">
+								<ul class="pagination justify-content-center">${navi}
+								</ul>
+							</nav>
+							<table class="table-sm mb-0" align=right>
+								<tr>
+									<td><select class="selectpicker" id="select" name="select">
+											<option>제목</option>
+											<option>작성자</option>
+									</select></td>
+									<td><input type="hidden" value="1" name="cpage"> <input
+										type="search" class="form-control rounded"
+										placeholder="내용을 입력하세요" id="searchContents"
+										name="searchContents" /></td>
+									<td>
+										<button id="search" name="search">
+											<i class="fas fa-search"></i>
+										</button>
+									</td>
+									<td>
+										<button id="delBtn" name="delBtn"
+											onclick="return submit2(this.form)">삭제하기</button>
+									</td>
+								</tr>
+							</table>
 						</form>
 						<!-- 버튼 페이징 끝 -->
 					</div>
@@ -299,27 +303,25 @@ body {
 	<!-- 풋터 -->
 	<jsp:include page="/footer.jsp" flush="false" />
 	<script>
-		$("#delBtn").on("click",function(){
-			if($("input:checkbox[name='checkbox']:checked").length==0){
-				alert("삭제할 항목을 선택해주세요.");
-				return;
-			}
-			if(confirm("정말 삭제하시겠습니까?")){
-			}
-		})
-		$("#search").on("click",function(){
-			if($("#searchContents").val()==""){
+		$("#search").on("click", function() {
+			if ($("#searchContents").val() == "") {
 				alert("내용을 입력하세요.");
 				return false;
 			}
 		})
 	</script>
-	<script> 
-	  function submit2(frm) { 
-	    frm.action="/adminBoardDelete.admin"; 
-	    frm.submit(); 
-	    return true; 
-  		} 
-	</script> 
+	<script>
+		function submit2(frm) {
+			if ($("input:checkbox[name='checkbox']:checked").length == 0) {
+				alert("삭제할 항목을 선택해주세요.");
+				return false;
+			}
+			if (confirm("정말 삭제하시겠습니까?")) {
+				frm.action = "/adminBoardDelete.admin";
+				frm.submit();
+				return true;
+			}
+		}
+	</script>
 </body>
 </html>

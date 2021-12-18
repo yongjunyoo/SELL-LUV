@@ -297,29 +297,26 @@ body {
 	</div>
 	<!-- 풋터 -->
 	<jsp:include page="/footer.jsp" flush="false" />
-		<script>
-		$("#delBtn").on("click",function(){
-			if($("input:checkbox[name='checkbox']:checked").length==0){
-				alert("삭제할 항목을 선택해주세요.");
-				return;
-			}
-			if(confirm("정말 삭제하시겠습니까?")){
-
-			}
-		})
-		$("#search").on("click",function(){
-			if($("#searchContents").val()==""){
+	<script>
+		$("#search").on("click", function() {
+			if ($("#searchContents").val() == "") {
 				alert("내용을 입력하세요.");
 				return false;
 			}
 		})
 	</script>
-		<script> 
-	  function submit2(frm) { 
-	    frm.action="/adminCpCardDelete.admin"; 
-	    frm.submit(); 
-	    return true; 
-  		} 
-	</script> 
+	<script>
+		function submit2(frm) {
+			if ($("input:checkbox[name='checkbox']:checked").length == 0) {
+				alert("삭제할 항목을 선택해주세요.");
+				return false;
+			}
+			if (confirm("정말 삭제하시겠습니까?")) {
+				frm.action = "/adminCpCardDelete.admin";
+				frm.submit();
+				return true;
+			}
+		}
+	</script>
 </body>
 </html>
