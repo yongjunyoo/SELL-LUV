@@ -93,7 +93,8 @@ private static BoardDAO instance = null;
 				String contents = rs.getString("contents");
 				Timestamp write_date = rs.getTimestamp("write_date");
 				int view_count = rs.getInt("view_count");
-				list.add(new BoardDTO(seq,writer,title,contents,write_date,view_count));
+				String profileName = rs.getString("profileName");
+				list.add(new BoardDTO(seq,writer,title,contents,write_date,view_count,profileName));
 			}
 			return list;
 			}
@@ -115,7 +116,8 @@ private static BoardDAO instance = null;
 					String contents = rs.getString("contents");
 					Timestamp write_date = rs.getTimestamp("write_date");
 					int view_count = rs.getInt("view_count");
-					list.add(new BoardDTO(seq,writer,title,contents,write_date,view_count));
+					String profileName = rs.getString("profileName");
+					list.add(new BoardDTO(seq,writer,title,contents,write_date,view_count,profileName));
 				}
 				return list;
 				}
@@ -139,7 +141,8 @@ private static BoardDAO instance = null;
 					String contents = rs.getString("contents");
 					Timestamp write_date = rs.getTimestamp("write_date");
 					int view_count = rs.getInt("view_count");
-					list.add(new BoardDTO(seq,writer,title,contents,write_date,view_count));
+					String profileName = rs.getString("profileName");
+					list.add(new BoardDTO(seq,writer,title,contents,write_date,view_count,profileName));
 				}
 				return list;
 				}
@@ -160,7 +163,8 @@ private static BoardDAO instance = null;
 					String contents = rs.getString("contents");
 					Timestamp write_date = rs.getTimestamp("write_date");
 					int view_count = rs.getInt("view_count");
-					dto = new BoardDTO(seq,writer,title,contents,write_date,view_count);
+					String profileName = rs.getString("profileName");
+					dto = new BoardDTO(seq,writer,title,contents,write_date,view_count,profileName);
 				}
 				return dto;
 				}

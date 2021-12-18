@@ -70,7 +70,7 @@ public class BoardController extends HttpServlet {
 				String writer = (String)session.getAttribute("name");
 				String title = request.getParameter("title");
 				String contents = request.getParameter("contents");
-				int result = bdao.insert(new BoardDTO(0,writer,title,contents,null,0));
+				int result = bdao.insert(new BoardDTO(0,writer,title,contents,null,0,null));
 				System.out.println("게시글 insert 결과 : " + result);
 				response.sendRedirect("/boardList.board?cpage="+cpage);
 			// 게시글 페이지로 이동

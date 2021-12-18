@@ -9,16 +9,18 @@ public class Review_CpDTO {
 	private String writer;
 	private String content;
 	private Timestamp timestamp;
+	private int ref_seq;
 	
 	Review_CpDTO(){}
 
-	public Review_CpDTO(int seq, int member_seq, String writer, String content, Timestamp timestamp) {
+	public Review_CpDTO(int seq, int member_seq, String writer, String content, Timestamp timestamp, int ref_seq) {
 		super();
 		this.seq = seq;
 		this.member_seq = member_seq;
 		this.writer = writer;
 		this.content = content;
 		this.timestamp = timestamp;
+		this.ref_seq = ref_seq;
 	}
 
 	public int getSeq() {
@@ -61,5 +63,13 @@ public class Review_CpDTO {
 		this.timestamp = timestamp;
 	}
 
+	public int getRef_seq() {
+		return ref_seq;
+	}
 
+	public void setRef_seq(int ref_seq) {
+		this.ref_seq = ref_seq;
+	}
+	
+	
 }

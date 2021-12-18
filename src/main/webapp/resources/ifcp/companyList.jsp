@@ -110,7 +110,8 @@
 							<li class="list-inline-item"><a
 								class="h3 text-dark text-decoration-none mr-3" href="#">리뷰</a></li>
 								<c:if test="${loginID != null && cp != null}">
-									<li class="list-inline-item"><a
+									<li class="list-inline-item">
+									<a
 										class="h3 text-dark text-decoration-none mr-3"
 										href="write.ifcp">제품등록</a></li>
 								</c:if>
@@ -122,12 +123,12 @@
 				</div>
 				<div class="row">
 					<!--ㅋㅏ드 시작 -->
+					<c:if test="${list != null}">
 					<c:forEach var="dto" items="${list }">
 						<div class="col-md-4">
 							<div class="card mb-4 product-wap rounded-0">
-								<div class="card rounded-0">
-									<img id="img" class="card-img rounded-0 img-fluid"
-										src=${dto.key.photo_cp }>
+								<div class="card rounded-0" style="height:256.98px;">
+								<img src="/product.file?seq= ${dto.key.seq_cp }" title="" alt="">
 								</div>
 								<div class="card-body">${dto.key.seq_cp}
 									<a href="/companyBoard.ifcp?seq=${dto.key.seq_cp}&cpage=1&loginID=${loginID}"
@@ -159,6 +160,7 @@
 							</div>
 						</div>
 					</c:forEach>
+					</c:if>
 					<!--ㅋㅏ드 끝 -->
 
 
