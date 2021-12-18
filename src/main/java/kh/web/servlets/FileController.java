@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import kh.web.dao.CompanyDAO;
 import kh.web.dao.InfluencerDAO;
@@ -26,17 +27,18 @@ public class FileController extends HttpServlet {
 		System.out.println("사용자가 요청한 기능 : " + cmd);
 		CompanyDAO companyDAO = new CompanyDAO();
 		InfluencerDAO influencerDAO = new InfluencerDAO();
+		HttpSession session = request.getSession();
 		
 		try {
 			// 커뮤니티 프로필 보이기 설정
 			if(cmd.equals("/profile.file")) {
-				String name = request.getParameter("writer");
+				String id = request.getParameter("writer");
 				response.setContentType( "image/gif" );
 				ServletOutputStream bout = response.getOutputStream();	
 				String path = request.getServletContext().getRealPath("files");
-				String sysName = companyDAO.findProfile(name);
+				String sysName = companyDAO.findProfile(id);
 				if(sysName.equals("")) {
-					sysName = influencerDAO.findProfile(name);
+					sysName = influencerDAO.findProfile(id);
 				}
 				String imgpath = path + "/" + sysName;
 				try(FileInputStream f = new FileInputStream(imgpath); ){
@@ -47,13 +49,13 @@ public class FileController extends HttpServlet {
 				}
 			// 마이페이지 프로필 설정
 			}else if(cmd.equals("/myProfile.file")) {
-				String name = request.getParameter("name");
+				String id = (String)session.getAttribute("loginID");
 				response.setContentType( "image/gif" );
 				ServletOutputStream bout = response.getOutputStream();	
 				String path = request.getServletContext().getRealPath("files");
-				String sysName = companyDAO.findProfile(name);
+				String sysName = companyDAO.findProfile(id);
 				if(sysName.equals("")) {
-					sysName = influencerDAO.findProfile(name);
+					sysName = influencerDAO.findProfile(id);
 				}
 				String imgpath = path + "/" + sysName;
 				try(FileInputStream f = new FileInputStream(imgpath); ){

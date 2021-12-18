@@ -507,11 +507,11 @@ public class InfluencerDAO  {
 
 	}
 	
-	public boolean isMember(String name) throws Exception {
-		String sql = "SELECT * FROM influencer WHERE nickname_if =? ";
+	public boolean isMember(String id) throws Exception {
+		String sql = "SELECT * FROM influencer WHERE id_if =? ";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
-			pstat.setString(1, name);
+			pstat.setString(1, id);
 			try(ResultSet rs = pstat.executeQuery();){
 
 				if(rs.next()) {
@@ -555,6 +555,21 @@ public class InfluencerDAO  {
 		}
 	}
 	
+	public String findName(String id) throws Exception{
+		String sql = "SELECT nickname_if FROM influencer WHERE id_if =?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, id);
+			String result = "";
+			try(ResultSet rs = pstat.executeQuery();){
+				if(rs.next()) {
+					result = rs.getString("nickname_if");
+				}
+			}
+			return result;
+		}
+	}
+	
 	//시퀀스찾기....2
 		public int findSeq(String id) throws Exception{
 			String sql = "SELECT seq_if FROM influencer WHERE id_if =?";
@@ -590,11 +605,11 @@ public class InfluencerDAO  {
 		}
 	}
 	
-	public String findProfile(String name) throws Exception{
-		String sql = "SELECT photo_if FROM influencer WHERE nickname_if = ?";
+	public String findProfile(String id) throws Exception{
+		String sql = "SELECT photo_if FROM influencer WHERE id_if = ?";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
-			pstat.setString(1, name);
+			pstat.setString(1, id);
 			String result = "";
 			try(ResultSet rs = pstat.executeQuery();){
 				if(rs.next()) {

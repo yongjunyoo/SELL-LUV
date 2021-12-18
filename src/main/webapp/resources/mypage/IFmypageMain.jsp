@@ -226,7 +226,7 @@ body {
 								<div class="row">
 									<div class="col-6 col-md-12">
 									<img id="profile" class="img-profile"
-										src="/myProfile.file?name=${dto.nickname }" alt="">
+										src="/myProfile.file?name=${loginID }" alt="">
 									</div>
 									<div class="col-6 col-md-12"> 
 									<ul class="meta list list-unstyled profile-detail">

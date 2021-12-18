@@ -1460,7 +1460,7 @@ public class AdminDAO {
 					String contents = rs.getString(4);
 					Timestamp write_date = rs.getTimestamp(5);
 					int view_count = rs.getInt(6);
-					BoardDTO dto = new BoardDTO(seq,writer,title,contents,write_date,view_count);
+					BoardDTO dto = new BoardDTO(seq,writer,title,contents,write_date,view_count,null);
 					list.add(dto);
 				}
 			}
@@ -1484,7 +1484,7 @@ public class AdminDAO {
 					String contents = rs.getString(4);
 					Timestamp write_date = rs.getTimestamp(5);
 					int view_count = rs.getInt(6);
-					BoardDTO dto = new BoardDTO(seq,writer,title,contents,write_date,view_count);
+					BoardDTO dto = new BoardDTO(seq,writer,title,contents,write_date,view_count,null);
 					list.add(dto);
 				}
 			}

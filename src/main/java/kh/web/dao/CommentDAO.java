@@ -34,7 +34,7 @@ private static CommentDAO instance = null;
 	}
 	
 	public int insert(CommentDTO dto) throws Exception {
-		String sql = "INSERT INTO board_comment VALUES (board_comment_seq.nextval,DEFAULT,?,DEFAULT,?,?,?)";
+		String sql = "INSERT INTO board_comment VALUES (board_comment_seq.nextval,DEFAULT,?,DEFAULT,?,?,?,null)";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
 			pstat.setString(1, dto.getWriter());
@@ -58,7 +58,7 @@ private static CommentDAO instance = null;
 	}
 	
 	public int delete(int seq) throws Exception {
-		String sql = "DELETE FROM freeboard WHERE seq = ?";
+		String sql = "DELETE FROM board_comment WHERE comment_seq = ?";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
 			pstat.setInt(1, seq);
@@ -82,7 +82,8 @@ private static CommentDAO instance = null;
 				int parent = rs.getInt("comment_parent");
 				String contents = rs.getString("comment_content");
 				String member = rs.getString("comment_member");
-				list.add(new CommentDTO(seq,board,writer,write_date,parent,contents,member));
+				String id = rs.getString("comment_id");
+				list.add(new CommentDTO(seq,board,writer,write_date,parent,contents,member,id));
 			}
 			return list;
 			}
@@ -104,14 +105,39 @@ private static CommentDAO instance = null;
 					int parent = rs.getInt("comment_parent");
 					String contents = rs.getString("comment_content");
 					String member = rs.getString("comment_member");
-					list.add(new CommentDTO(seq,board,writer,write_date,parent,contents,member));
+					String id = rs.getString("comment_id");
+					list.add(new CommentDTO(seq,board,writer,write_date,parent,contents,member,id));
 				}
 				return list;
 			}
 		}
 	}
 	
-	
+	public List<CommentDTO> selectByBoardSeqAddName(int pseq) throws Exception {
+		String sql = "SELECT * FROM board_comment bc JOIN \r\n"
+				+ "(SELECT c.id_cp , c.name_cp member_name FROM company c UNION SELECT  i.id_if, i.nickname_if FROM influencer i)\r\n"
+				+ "ON bc.comment_writer = id_cp WHERE comment_parent = ?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			pstat.setInt(1, pseq);
+			try(ResultSet rs = pstat.executeQuery();){
+				List<CommentDTO> list = new ArrayList<>();
+				while(rs.next()) {
+					int seq = rs.getInt("comment_seq");
+					int board = rs.getInt("comment_board");
+					String writer = rs.getString("comment_writer");
+					Timestamp write_date = rs.getTimestamp("comment_date");
+					int parent = rs.getInt("comment_parent");
+					String contents = rs.getString("comment_content");
+					String member = rs.getString("comment_member");
+					String profileName = rs.getString("member_name");
+					list.add(new CommentDTO(seq,board,writer,write_date,parent,contents,member,profileName));
+				}
+				return list;
+			}
+		}
+	}
 	
 	
 	

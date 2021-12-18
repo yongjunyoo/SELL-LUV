@@ -362,6 +362,7 @@ public class CompanyDAO {
 
 			pstat.setString(1, pw);			
 			pstat.setString(2, photo);
+			pstat.setString(3, name);
 			pstat.setString(4, crunumber);
 			pstat.setString(5, zipcode);
 			pstat.setString(6, address1);
@@ -468,11 +469,11 @@ public class CompanyDAO {
 		}
 	}
 	
-	public boolean isMember(String name) throws Exception {
-		String sql = "SELECT * FROM company WHERE name_cp =? ";
+	public boolean isMember(String id) throws Exception {
+		String sql = "SELECT * FROM company WHERE id_cp =? ";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
-			pstat.setString(1, name);
+			pstat.setString(1, id);
 			try(ResultSet rs = pstat.executeQuery();){
 
 				if(rs.next()) {
@@ -651,13 +652,29 @@ public class CompanyDAO {
 			return result;
 			}
 	}
-
 	
-	public String findProfile(String name) throws Exception{
-		String sql = "SELECT photo_cp FROM company WHERE name_cp = ?";
+	public String findName(String id) throws Exception{
+		String sql = "SELECT name_cp FROM company WHERE id_cp =?";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
-			pstat.setString(1, name);
+			pstat.setString(1, id);
+			String result = "";
+			try(ResultSet rs = pstat.executeQuery();){
+				if(rs.next()) {
+				result = rs.getString("name_cp");
+				}
+			}
+			return result;
+			}
+	}
+
+
+	
+	public String findProfile(String id) throws Exception{
+		String sql = "SELECT photo_cp FROM company WHERE id_cp = ?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, id);
 			String result = "";
 			try(ResultSet rs = pstat.executeQuery();){
 				if(rs.next()) {
@@ -668,6 +685,8 @@ public class CompanyDAO {
 			return result;
 			}
 	}
+	
+	
 	
 	public List<Review_IfDTO> ifReview() throws Exception{ // 인플루언서가 작성한 리뷰
 		String sql = "select * from review_if";

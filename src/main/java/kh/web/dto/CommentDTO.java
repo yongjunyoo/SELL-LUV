@@ -11,24 +11,7 @@ public class CommentDTO {
 	private int parent;
 	private String contents;
 	private String member;
-	
-	
-	public CommentDTO(int seq, int board, String writer, Timestamp write_date, int parent, String contents,
-			String member) {
-		super();
-		this.seq = seq;
-		this.board = board;
-		this.writer = writer;
-		this.write_date = write_date;
-		this.parent = parent;
-		this.contents = contents;
-		this.member = member;
-	}
-
-	public CommentDTO() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	private String profileName;
 	
 	public final int getSeq() {
 		return seq;
@@ -84,6 +67,32 @@ public class CommentDTO {
 
 	public final void setMember(String member) {
 		this.member = member;
+	}
+
+	public final String getProfileName() {
+		return profileName;
+	}
+
+	public final void setId(String profileName) {
+		this.profileName = profileName;
+	}
+
+	public CommentDTO(int seq, int board, String writer, Timestamp write_date, int parent, String contents,
+			String member, String profileName) {
+		super();
+		this.seq = seq;
+		this.board = board;
+		this.writer = writer;
+		this.write_date = write_date;
+		this.parent = parent;
+		this.contents = contents;
+		this.member = member;
+		this.profileName = profileName;
+	}
+
+	public CommentDTO() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	// 날짜 가공해서 출력

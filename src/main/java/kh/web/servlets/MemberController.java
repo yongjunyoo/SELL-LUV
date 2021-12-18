@@ -40,7 +40,8 @@ public class MemberController extends HttpServlet {
 		FileDAO fileDAO = new FileDAO();
 
 		SHA512 sha512 = new SHA512();
-
+		HttpSession session = request.getSession();
+		
 		try {
 			if(cmd.equals("/influencerLogin.mem")) { //인플루언서 로그인 부분...
 
@@ -57,7 +58,6 @@ public class MemberController extends HttpServlet {
 				
 				if(result) {
 					
-					HttpSession session = request.getSession();
 					session.setAttribute("loginID", id);
 					session.setAttribute("IDseq", seq);
 					session.setAttribute("loginName", name);
@@ -95,7 +95,6 @@ public class MemberController extends HttpServlet {
 				System.out.println(id+pw+"   "+seq);
 
 				if(result) {
-					HttpSession session = request.getSession();
 					session.setAttribute("loginID", id);
 					session.setAttribute("IDseq", seq);
 					session.setAttribute("loginName", name);
@@ -313,13 +312,12 @@ public class MemberController extends HttpServlet {
 				response.getWriter().append(String.valueOf(result));
 
 			}else if(cmd.equals("/IFnickCheck.mem")) {
-
+				
 				String nickName = request.getParameter("nickName");
 				boolean result = influencerDAO.nickNameExist(nickName);
 				response.getWriter().append(String.valueOf(result));
 
 			}else if(cmd.equals("/mypage.mem")) {
-
 				String id = (String)request.getSession().getAttribute("loginID");
 				String seq = (String)request.getSession().getAttribute("IDseq");
 				CompanyDTO cdto = companyDAO.selectById(id);
@@ -382,7 +380,7 @@ public class MemberController extends HttpServlet {
 				String rpt_cp = multi.getParameter("rpt_cp");
 				String phone = multi.getParameter("phone");
 				String email = multi.getParameter("email");
-				System.out.println(name);
+				System.out.println("name : "+name);
 				System.out.println(request.getParameter("sales"));
 				String sales = multi.getParameter("sales");
 				String pwAsk = multi.getParameter("pwAsk");

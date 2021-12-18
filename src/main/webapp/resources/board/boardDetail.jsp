@@ -257,11 +257,11 @@ rel="stylesheet" />
             	<div class="row profile-detail">
 								<div class="col profile-box mt-4 mb-2 ">
 								<div class="img-box" style="height:100%;display:inline-block">
-								<img id="profile" class="img-profile" style="width:50px;height:50px;"
+								<img id="profile" class="img-profile" style="width2:50px;height:50px;"
 									src="/profile.file?writer=${dto.writer }" alt="">
 								</div>	
 								<ul class="meta list list-unstyled profile-detail d-flex mb-0 ml-2">
-									<li class="name mt-0">${dto.writer }</li>
+									<li class="name mt-0">${dto.profileName }</li>
 									<li class="label" style="margin: 0; padding: 0">${member}</li>
 								</ul>
 								</div>
@@ -350,7 +350,7 @@ rel="stylesheet" />
 											src="/profile.file?writer=${cdto.writer }" alt="">
 									</div>	
 									<ul class="meta list list-unstyled profile-detail d-flex mb-0 ml-2">
-										<li class="name mt-0">${cdto.writer}</li>
+										<li class="name mt-0">${cdto.profileName}</li>
 										<li class="label" style="margin: 0; padding: 0">${cdto.member }</li>
 									</ul>
 									<ul class="meta list list-unstyled profile-detail d-flex mb-0" style="margin-left: auto;justify-content: flex-end;">
@@ -370,12 +370,12 @@ rel="stylesheet" />
 			        </div>
 			        <div class="row">
 			            <div class="col-sm-12" style="text-align:right">
-			            <c:if test="${loginName==cdto.writer }">
+			            <c:if test="${loginID==cdto.writer }">
 			            	<button type="button" class="btn btn-dark modCmt" style="background-color:rgb(255, 111, 97);">수정</button>
 			            	<button class="btn btn-dark modCmtOk" style="background-color:rgb(255, 111, 97);display:none;">완료</button>
 			            	<button type="button" class="btn btn-dark modCmtCancle" style="background-color:rgb(255, 111, 97);display:none;">취소</button>
 			            	<button type="button" class="btn btn-dark delCmt" style="background-color:rgb(255, 111, 97);">삭제</button>
-						    	
+						    <input id=hidden-cseq type=hidden value=${cdto.seq }>
 				    	</c:if>
 			            </div>
 			        </div>
@@ -405,6 +405,8 @@ rel="stylesheet" />
    	$(".card").on("click",".delCmt",function(){
    		if(confirm("정말 삭제하시겠습니까?")){
    			$(this).closest(".frm-cmt").remove();
+   			let cseq = $(this).next().val();
+   			location.href="/delCmt.board?cseq="+cseq+"&cpage=${cpage }&seq=${seq}";
    		}
    	});
    	$(".card").on("click","modCmtOk",function(){
@@ -420,7 +422,7 @@ rel="stylesheet" />
 								<div class="col profile-box mb-2 ">
 								<div class="img-box" style="height:100%;display:inline-block">
 								<img id="profile" class="img-profile" style="width:50px;height:50px;"
-									src="/profile.file?writer=${loginName }" alt="">
+									src="/profile.file?writer=${loginID }" alt="">
 								</div>	
 								<ul class="meta list list-unstyled profile-detail d-flex mb-0 ml-2">
 									<li class="name mt-0">${loginName}</li>

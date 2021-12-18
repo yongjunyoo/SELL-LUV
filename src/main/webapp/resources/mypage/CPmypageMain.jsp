@@ -219,16 +219,11 @@ body {
 					<div class="card-body">
 						<div class="row">
 							<div class="grade">${dto.grade }</div>
-<<<<<<< HEAD
-							<div class="col" id="profile-box">
-								<img id="profile" class="img-profile"
-									src="/myProfile.file?name=${dto.name }" alt="">
-=======
 							<div class="col " id="profile-box">
 								<div class="row">
 									<div class="col-6 col-md-12">
 									<img id="profile" class="img-profile"
-										src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="">
+										src="/myProfile.file?name=${dto.name }" alt="">
 									</div>
 									<div class="col-6 col-md-12"> 
 									<ul class="meta list list-unstyled profile-detail">
@@ -239,7 +234,6 @@ body {
 									</ul>
 									</div>
 								</div>
->>>>>>> branch 'master' of https://github.com/kkongkeozzang/SELL-LUV.git
 							</div>
 						</div>
 
