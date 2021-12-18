@@ -242,13 +242,13 @@ private static BoardDAO instance = null;
 		String navi ="";
 		navi+= "<nav><ul class='pagination mb-5 justify-content-center'>";
 		if(needPrev) {
-			navi += "<li class=page-item><a class=page-link href='/boardList.board?cpage="+(startNavi-1)+"' data-abc=true>"+"«"+"</a></li>";
+			navi += "<li class=page-item><a class=page-link href='/boardList.board?cpage="+(startNavi-1)+"' data-abc=true style=color:black;>"+"«"+"</a></li>";
 		}
 		for(int i=startNavi;i<=endNavi;i++) {
-			navi += "<li class=page-item><a class=page-link href='/boardList.board?cpage="+i+"' data-abc=true>"+i+"</a></li>";
+			navi += "<li class=page-item><a class=page-link href='/boardList.board?cpage="+i+"' data-abc=true style=color:black;>"+i+"</a></li>";
 		}
 		if(needNext) {
-			navi += "<li class=page-item><a class=page-link href='/boardList.board?cpage="+(endNavi+1)+"' data-abc=true>"+"»"+"</a></li>";
+			navi += "<li class=page-item><a class=page-link href='/boardList.board?cpage="+(endNavi+1)+"' data-abc=true style=color:black;>"+"»"+"</a></li>";
 		}
 		navi+="</ul></nav>";
 		

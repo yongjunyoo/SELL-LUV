@@ -113,7 +113,7 @@ a {
 #board-title {
 	text-align:center; 
 	height:100px; 
-	line-height:100px;
+	
 	padding: 100px 0;
 	
 }
@@ -127,6 +127,9 @@ a {
 select {
 	width:30%;height:100%;
 }
+.page-link {
+	color:black;
+}
 </style>
 </head>
 <body>
@@ -137,9 +140,8 @@ select {
 	<div class="container-fluid mt-100">
     <div id="board-title">
     <img id="title" src="/resources/board/image/title.png">
-    <span>커뮤니티 게시판</span>
-    <%= (String)session.getAttribute("cpage") %>
-        <%= request.getParameter("cpage") %>
+    <span>커뮤니티 게시판</span><br>
+    <span>자유롭게 이야기를 나눠보세요.</span>
     </div>       
     <br>
 	
@@ -147,7 +149,7 @@ select {
     <div class="card mb-3 col-xl-8 col-md-12">
     
       <!-- 분류 네비 -->  
-        <div class="card-header pl-0 pr-0" style="justify-content: space-around;">
+        <div class="card-header pl-0 pr-0" style="justify-content: space-around;background-color:rgba(255, 111, 97);color:white;">
             <div class="row no-gutters w-100 align-items-center" style="justify-content: space-around">
                 <div class="col-1 d-none d-md-block" style="text-align:center;" >번호</div>
                 <div class="col-7 d-none d-md-block" style="text-align:center;" >제목</div>
@@ -155,8 +157,8 @@ select {
                 <div class="col-9 d-md-none" style="text-align:center;" >제목</div>
                 <div class="col-4 text-muted">
                     <div class="row no-gutters align-items-center">
-                        <div class="d-none d-md-block col-4" style="text-align:center;">조회수</div>
-                        <div class="d-none d-md-block col-8" style="text-align:center;">작성자/작성일</div>
+                        <div class="d-none d-md-block col-4" style="text-align:center;color:white">조회수</div>
+                        <div class="d-none d-md-block col-8" style="text-align:center;color:white">작성자/작성일</div>
                     </div>
                 </div>
             </div>
@@ -177,7 +179,7 @@ select {
 	                <div class="col-2 d-none d-md-block pl-3"> ${dto.seq } </div>
 	                <%-- 웹버전 title --%>
 	                <div class="col-6 d-none d-md-block"> <a href="/detail.board?cpage=${cpage }&seq=${dto.seq}" class="text-big" data-abc="true">${dto.title }</a>
-	                    <div class="text-muted small mt-1 d-md-none">${dto.detailDate } &nbsp;·&nbsp; <a href="javascript:void(0)" class="text-muted" data-abc="true">by ${dto.profileName }</a></div>
+	                    <div class="text-muted small mt-1 d-md-none">${dto.detailDate } &nbsp;·&nbsp; by ${dto.profileName }</div>
 	                </div>
 	               	<%-- 웹버전 조회수, 작성자, 날짜 --%>
 	                <div class="d-none d-md-block col-4">
@@ -185,7 +187,7 @@ select {
 	                        <div class="col-4" style="text-align:center;">${dto.view_count }</div>
 	                        <div class="media pl-4 col-8 align-items-center"> <img src="/profile.file?writer=${dto.writer }" alt="" class="d-block ui-w-30 rounded-circle">
 	                            <div class="media-body flex-truncate ml-2">
-	                                <div class="line-height-1 text-truncate">${dto.detailDate }</div> <a href="javascript:void(0)" class="text-muted small text-truncate" data-abc="true">by ${dto.profileName }</a>
+	                                <div class="line-height-1 text-truncate">${dto.detailDate }</div>by ${dto.profileName }
 	                            </div>
 	                       	</div>
 	                    </div>
@@ -195,7 +197,7 @@ select {
 	                <div class="col-2 d-md-none pl-2"> ${dto.seq } </div>
 	                <%-- 모바일버전 title,작성자,날짜 --%>
 	                <div class="col-8 d-md-none pl-2"> <a href="/detail.board?cpage=${cpage }&seq=${dto.seq}" class="text-big" data-abc="true">${dto.title }</a>
-	                    <div class="text-muted small mt-1 d-md-none">${dto.detailDate } &nbsp;·&nbsp; <a href="javascript:void(0)" class="text-muted" data-abc="true">by ${dto.profileName }</a></div>
+	                    <div class="text-muted small mt-1 d-md-none">${dto.detailDate } &nbsp;·&nbsp;by ${dto.profileName }</div>
 	                </div>
             	
 	            </div>

@@ -33,8 +33,13 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/mainpage/css/styles.css"> 
 	
 	<!-- Favicon  -->
-    <link rel="icon" href="${pageContext.request.contextPath}/images/favicon.png">
+    <link rel="icon" href="resources/mainpage/images/favicon.png">
 </head>
+<style>
+.quotes {
+	color:black;
+}
+</style>
 <body data-bs-spy="scroll" data-bs-target="#navbarExample">
     
     
@@ -49,7 +54,7 @@
                     <div class="text-container">
                         <h1 class="h1-large">영향력 있는<br> 인플루언서들을<br> 만나보세요.</h1>
                         <p class="p-large">당신의 제품들을 홍보할 준비가 되어있습니다. <br>유튜브, 인스타그램, 트위터, 페이스북 등 다방면의<br> 인플루언서들과 협업이 가능합니다.</p>
-                        <a class="btn-solid-lg" href="/ifList.ifcp">인플루언서 보러가기</a>
+                        <a class="btn-solid-lg" href="/influencerList.ifcp?cpage=1" style="background-color:rgba(255, 111, 97);border:none">인플루언서 보러가기</a>
                     </div> <!-- end of text-container -->
                 </div> <!-- end of col -->
                 <div class="col-lg-6 col-xl-7">
@@ -82,7 +87,9 @@
                         <div class="card-body">
                             <h5 class="card-title">믿고 맡기는 홍보</h5>
                             <p>엄선된 기업, 인플루언서들이 찾아오는 SELL-LUV. 등급제와 리뷰로 더욱 믿음직한 만남을 확인하세요.</p>
+                            <%--
                             <a class="read-more no-line" href="article.html">더보기 <span class="fas fa-long-arrow-alt-right"></span></a>
+                             --%>
                         </div>
                     </div>
                     <!-- end of card -->
@@ -95,7 +102,6 @@
                         <div class="card-body">
                             <h5 class="card-title">간보는 미팅은 NO !</h5>
                             <p>기업은 원하는 조건을, 인플루언서는 원하는 제품을 ! 각자의 needs를 충족시킬 수 있는 미팅을 SELL-LUV이 함께 합니다.</p>
-                            <a class="read-more no-line" href="article.html">더보기 <span class="fas fa-long-arrow-alt-right"></span></a>
                         </div>
                     </div>
                     <!-- end of card -->
@@ -108,7 +114,6 @@
                         <div class="card-body">
                             <h5 class="card-title">한눈에 정리하는 나의 활동</h5>
                             <p>얼만큼의 계약을 성사했는지, 어떤 기업 혹은 인플루언서가 나를 관심있어하는지 확인하세요! 마이페이지에 모든 것이 있습니다.</p>
-                            <a class="read-more no-line" href="article.html">더보기 <span class="fas fa-long-arrow-alt-right"></span></a>
                         </div>
                     </div>
                     <!-- end of card -->
@@ -134,7 +139,7 @@
                         <div class="section-title"></div>
                         <h2>당신의 손에 닿고 싶어하는 수많은 상품들이 있습니다.</h2>
                         <p>내로라하는 대기업의 신상품을 가장 먼저 리뷰해보고 싶다면? 나만 알기에는 아까운 꿀템들까지! <br>당신의 홍보 능력을 펼칠 기회입니다.</p>
-                        <a class="btn-solid-reg" href="#contact">기업 보러가기</a>
+                        <a class="btn-solid-reg" href="/companyList.ifcp?cpage=1" style="background-color:rgba(255, 111, 97);border:none">기업 보러가기</a>
                     </div> <!-- end of text-container -->
                 </div> <!-- end of col -->
             </div> <!-- end of row -->
@@ -152,7 +157,7 @@
                         <div class="section-title"></div>
                         <h2>깐부가 되어보세요!</h2>
                         <p>SELL-LUV에서 원하는 조건에 맞는 나의 깐부를 찾아서 깐부맺기 클릭만 하면 상대에게 자동으로 깐부 요청이 생성됩니다. 깐부가 되면 일정을 잡고, 만나서 일을 어떻게 진행할지 논의해보세요. 리뷰를 남겨 상대에게 피드백을 할 수도 있습니다. </p>
-                        <a class="btn-outline-reg" href="article.html">회원가입 하러가기</a>
+                        <a class="btn-outline-reg" href="/resources/signup/selectSignup.jsp" style="background-color:rgba(255, 111, 97);border:none;">회원가입 하러가기</a>
                     </div> <!-- end of text-container -->
                 </div> <!-- end of col -->
                 <div class="col-lg-6 col-xl-7">
@@ -275,7 +280,7 @@
                             <div class="testimonial-author">(주)이랜드이노플</div>
                             <div class="occupation">이준협</div>
                         </div>
-                        <div class="gradient-floor red-to-blue"></div>
+                        <div class="gradient-floor red-to-blue" style="background:rgba(255, 111, 97);"></div>
                     </div>
                     <!-- end of card -->
 
@@ -287,7 +292,7 @@
                             <div class="testimonial-author">웅진식품(주)</div>
                             <div class="occupation">김정국</div>
                         </div>
-                        <div class="gradient-floor blue-to-purple"></div>
+                        <div class="gradient-floor blue-to-purple" style="background:rgba(255, 111, 97);"></div>
                     </div>
                     <!-- end of card -->
 
@@ -299,7 +304,7 @@
                             <div class="testimonial-author">맥시즘</div>
                             <div class="occupation">박재은</div>
                         </div>
-                        <div class="gradient-floor purple-to-green"></div>
+                        <div class="gradient-floor purple-to-green" style="background:rgba(255, 111, 97);"></div>
                     </div>
                     <!-- end of card -->
                     
@@ -311,7 +316,7 @@
                             <div class="testimonial-author">유튜브(구독자 12만)</div>
                             <div class="occupation">홍지tube</div>
                         </div>
-                        <div class="gradient-floor red-to-blue"></div>
+                        <div class="gradient-floor red-to-blue" style="background:rgba(255, 111, 97);"></div>
                     </div>
                     <!-- end of card -->
 
@@ -323,7 +328,7 @@
                             <div class="testimonial-author">인스타그램(팔로워 7만)</div>
                             <div class="occupation">승훈아빠</div>
                         </div>
-                        <div class="gradient-floor blue-to-purple"></div>
+                        <div class="gradient-floor blue-to-purple" style="background:rgba(255, 111, 97);"></div>
                     </div>
                     <!-- end of card -->
 
@@ -335,7 +340,7 @@
                             <div class="testimonial-author">유튜브(구독자 3만)</div>
                             <div class="occupation">찰리와 도로시</div>
                         </div>
-                        <div class="gradient-floor purple-to-green"></div>
+                        <div class="gradient-floor purple-to-green" style="background:rgba(255, 111, 97);"></div>
                     </div>
                     <!-- end of card -->
 

@@ -175,7 +175,7 @@ a:hover {
 
 .btn-solid-reg:hover {
 	background-color: transparent;
-	color: #0092ff; /* needs to stay here because of the color property of a tag */
+	color: #000; /* needs to stay here because of the color property of a tag */
 	text-decoration: none;
 }
 
@@ -195,7 +195,7 @@ a:hover {
 
 .btn-solid-lg:hover {
 	background-color: transparent;
-	color: #0092ff; /* needs to stay here because of the color property of a tag */
+	color: #000; /* needs to stay here because of the color property of a tag */
 	text-decoration: none;
 }
 
@@ -215,7 +215,7 @@ a:hover {
 
 .btn-solid-sm:hover {
 	background-color: transparent;
-	color: #0092ff; /* needs to stay here because of the color property of a tag */
+	color: #fff; /* needs to stay here because of the color property of a tag */
 	text-decoration: none;
 }
 
@@ -225,7 +225,7 @@ a:hover {
 	border: 1px solid #ef473d;
 	border-radius: 30px;
 	background-color: transparent;
-	color: #ef473d;
+	color: #fff;
 	font-weight: 600;
 	font-size: 0.875rem;
 	line-height: 0;
@@ -235,7 +235,7 @@ a:hover {
 
 .btn-outline-reg:hover {
 	background-color: #ef473d;
-	color: #ffffff;
+	color: #000;
 	text-decoration: none;
 }
 
@@ -330,9 +330,9 @@ a:hover {
 }
 
 .form-control-submit-button:hover {
-	border: 1px solid #0092ff;
+	border: 1px solid #000;
 	background-color: transparent;
-	color: #0092ff;
+	color: #000;
 }
 
 
@@ -403,7 +403,7 @@ a:hover {
 .navbar .nav-item.dropdown.show .nav-link,
 .navbar .nav-item .nav-link:hover,
 .navbar .nav-item .nav-link.active {
-	color: #0092ff;
+	color: #000;
 }
 
 /* Dropdown Menu */
@@ -440,7 +440,7 @@ a:hover {
 
 .navbar .dropdown-item:hover {
 	background-color: #fcfafb;
-	color: #0092ff;
+	color: #000;
 }
 
 .navbar .dropdown-divider {
@@ -908,7 +908,7 @@ a:hover {
 }
 
 .footer .fa-stack:hover .fa-stack-2x {
-    color: #0092ff;
+    color: #000;
 }
 
 

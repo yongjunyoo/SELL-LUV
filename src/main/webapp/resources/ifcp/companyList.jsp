@@ -91,13 +91,13 @@
 
 			<div class="col-lg-3">
 				<h1 class="h2 pb-4">카테고리</h1>
-				<!--  <ul class="list-unstyled templatemo-accordion"> -->
+				<ul style="list-style:none;padding-left:0px;"> 
 				<li class="pb-3"><a href="/companyList.ifcp?cpage=1"
 					class="collapsed d-flex justify-content-between h3 text-decoration-none">
 						기업 </a></li>
 				<li class="pb-3"><a href="/influencerList.ifcp?cpage=1"
 					class="collapsed d-flex justify-content-between h3 text-decoration-none">
-						인플루언서 </a></li>
+						인플루언서 </a></li></ul>
 			</div>
 
 			<div class="col-lg-9">

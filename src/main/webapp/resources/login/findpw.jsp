@@ -26,7 +26,7 @@ html,body{
   background: -webkit-linear-gradient(left, #a445b2, #fa4299);
 }
 ::selection{
-  background: #fa4299;
+  background: rgba(255, 111, 97);
   color: #fff;
 }
 .wrapper{
@@ -83,7 +83,7 @@ html,body{
   left: 0;
   z-index: 0;
   border-radius: 5px;
-  background: -webkit-linear-gradient(left, #a445b2, #fa4299);
+  background: -webkit-linear-gradient(left, rgba(255, 111, 97), rgba(255, 111, 97));
   transition: all 0.6s cubic-bezier(0.68,-0.55,0.265,1.55);
 }
 input[type="radio"]{
@@ -136,7 +136,7 @@ input[type="radio"]{
   transition: all 0.3s ease;
 }
 .form-inner form .field input:focus{
-  border-color: #fc83bb;
+  border-color: rgba(255, 111, 97);
   /* box-shadow: inset 0 0 3px #fb6aae; */
 }
 .form-inner form .field input::placeholder{
@@ -229,7 +229,7 @@ form .btn input[type="button"]{
 }
       </style>
    </head>
-   <body>
+   <body style="background:none;background:rgba(255, 111, 97);">
 
   <jsp:include page="/header.jsp" flush="false"/>
       <div class="wrapper">
@@ -244,6 +244,10 @@ form .btn input[type="button"]{
          </div>
          <div class="form-container">
             <div class="slide-controls">
+            <input type="radio" name="slide" id="login" checked>
+            	<input type="radio" name="slide" id="signup">
+            	<input type="radio" name="slide" id="login" checked>
+            	<input type="radio" name="slide" id="signup">
                <label for="login" class="slide login">기업</label>
                <label for="signup" class="slide signup">개인</label>
                <div class="slider-tab"></div>
@@ -269,15 +273,15 @@ form .btn input[type="button"]{
                      <input type="text" name="answer-cp" placeholder="본인 확인 문구의 답을 입력하세요." id="check-answer-cp" required>
                   </div>
                   <div class="pass-link" >
-                     <a href="/findid.mem" class="idCheckSpan">아이디를 잊으셨습니까..?</a>
+                     <a href="/findid.mem" class="idCheckSpan" style="color:rgba(255, 111, 97)">아이디를 잊으셨습니까..?</a>
                   </div>
                 
-                  <div class="field btn">
-                     <div class="btn-layer"></div>
+                  <div class="field btn" style="padding:0">
+                     <div class="btn-layer" style="background:none;background:rgba(255, 111, 97);"></div>
                      <input type="button" value="비밀번호 찾기" id="cp_findpw" class="">
                   </div>
                   <div class="signup-link">
-                     회원이 아니세요? <a href="/resources/signup/selectSignup.jsp">회원가입</a>
+                     회원이 아니세요? <a href="/resources/signup/selectSignup.jsp" style="color:rgba(255, 111, 97);">회원가입</a>
                   </div>
                </form>
                
@@ -302,12 +306,12 @@ form .btn input[type="button"]{
                      <input type="text" name="answer-if" placeholder="본인 확인 문구의 답을 입력하세요." id="check-answer-if" required>
                   </div>
                   <div class="pass-link">
-                    <a href="/findid.mem" class="idCheckSpan">아이디를 잊으셨습니까..?</a>
+                    <a href="/findid.mem" class="idCheckSpan" style="color:rgba(255, 111, 97);">아이디를 잊으셨습니까..?</a>
                  </div>
                 
                  
-                  <div class="field btn">
-                     <div class="btn-layer"></div>
+                  <div class="field btn" style="padding:0">
+                     <div class="btn-layer" style="background:none;background:rgba(255, 111, 97);"></div>
                      <input type="button" value="비밀번호 찾기" id="if_findpw" class="">
                      <script>
                      	// 기업

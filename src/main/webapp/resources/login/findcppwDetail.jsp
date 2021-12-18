@@ -26,7 +26,7 @@ html,body{
   background: -webkit-linear-gradient(left, #a445b2, #fa4299);
 }
 ::selection{
-  background: #fa4299;
+  background: rgba(255, 111, 97);
   color: #fff;
 }
 .wrapper{
@@ -83,7 +83,7 @@ html,body{
   left: 0;
   z-index: 0;
   border-radius: 5px;
-  background: -webkit-linear-gradient(left, #a445b2, #fa4299);
+  background: -webkit-linear-gradient(left, rgba(255, 111, 97), rgba(255, 111, 97));
   transition: all 0.6s cubic-bezier(0.68,-0.55,0.265,1.55);
 }
 input[type="radio"]{
@@ -136,7 +136,7 @@ input[type="radio"]{
   transition: all 0.3s ease;
 }
 .form-inner form .field input:focus{
-  border-color: #fc83bb;
+  border-color: rgba(255, 111, 97);
   /* box-shadow: inset 0 0 3px #fb6aae; */
 }
 .form-inner form .field input::placeholder{
@@ -247,7 +247,7 @@ form .btn input[type="button"]{
 }
       </style>
    </head>
-   <body>
+   <body style="background:none;background:rgba(255, 111, 97);">
 
   <jsp:include page="/header.jsp" flush="false"/>
       <div class="wrapper">
@@ -258,8 +258,8 @@ form .btn input[type="button"]{
          </div>
          <div class="form-container">
             <div class="slide-controls">
-               <label for="login" class="slide login">기업</label>
-               <label for="signup" class="slide signup">개인</label>
+               <label for="login" class="slide login" style="cursor:default;">기업</label>
+               <label for="signup" class="slide signup" style="cursor:default;">개인</label>
                <div class="slider-tab"></div>
             </div>
             
@@ -279,10 +279,10 @@ form .btn input[type="button"]{
                   <div class="field">
                      <input type="password" name="" id="pwd_cp" placeholder="비밀번호를 한번 더 입력하세요." required>
                   </div>
-                  <div class="signup-link pwCheckResult">
+                  <div class="signup-link " id="pwCheckResult">
                   </div>
-                  <div class="field btn">
-                     <div class="btn-layer"></div>
+                  <div class="field btn" style="padding:0">
+                     <div class="btn-layer" style="background:none;background:rgba(255, 111, 97);"></div>
                      <input type="submit" value="비밀번호 재설정" id="cp_findpw" class="">
                   </div>
                </form>
@@ -303,8 +303,8 @@ form .btn input[type="button"]{
                   </div>
                   <div class="signup-link pwCheckResult">
                   </div>
-                  <div class="field btn">
-                     <div class="btn-layer"></div>
+                  <div class="field btn" style="padding:0">
+                     <div class="btn-layer" style="background:none;background:rgba(255, 111, 97);"></div>
                      <input type="submit" value="비밀번호 재설정" id="if_findpw" class="">
                   </div>
                </form>
@@ -340,14 +340,14 @@ $("#cp_findpw").on("click",function(){
 		let pw1 = $("#pw_cp").val();
 		let pw2 = $("#pwd_cp").val();
 		if (pw1 != pw2) {
-			result.innerHTML = "패스워드가 일치하지않습니다"
+			result.innerHTML = "패스워드가 일치하지않습니다";
 
 		}else if (pw1 ==""){
 			result.innerHTML = ""
 		} else if (pw2 ==""){
 			result.innerHTML = ""
 		}else {
-			result.innerHTML = "패스워드가 일치합니다."
+			result.innerHTML = "패스워드가 일치합니다.";
 		}
 	}
 	document.getElementById("pw_cp").oninput = function() {
