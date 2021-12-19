@@ -42,6 +42,7 @@
 					
 						<form action="/upload.mem" method="post">
 							<div class="article-img">
+							
 							</div>
 							<div class="article-title">
 								<div class="media">
@@ -59,7 +60,7 @@
 										<br>
 										<textarea rows="5" cols="50" id="condition" name="condition" id="condition"></textarea>
 										<br>
-										<br>									
+										<br>										
 									</div>
 								</div>
 							</div>

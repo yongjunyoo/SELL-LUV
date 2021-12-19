@@ -871,7 +871,7 @@ public class InfluencerDAO  {
 			return result;
 		}
 	}
-	
+
 
 	// 깐부목록 불러오기
 	public KkanbuDTO selectByKSeq(String paramSeq) throws Exception {
@@ -894,7 +894,7 @@ public class InfluencerDAO  {
 			}
 		}
 	}
-	
+
 	public int findIfSeq(int seq_if) throws Exception{ // 인플루언서 시퀀스로 인플루언서 프로필 시퀀스 찾기.
 		String sql = "SELECT seq_if FROM profile_if WHERE member_seq =?";
 		try(Connection con = this.getConnection();
@@ -909,7 +909,7 @@ public class InfluencerDAO  {
 			return result;
 		}
 	}
-	
+
 	public int insertReview(int seq,String loginID,String review,int seq_cp) throws Exception{ // 리뷰작성.
 		String sql = "insert into review_cp values(review_cp_seq.nextval,?,?,?,sysdate,?)";
 		try(Connection con = this.getConnection();
