@@ -41,7 +41,7 @@ public class MemberController extends HttpServlet {
 
 		SHA512 sha512 = new SHA512();
 		HttpSession session = request.getSession();
-		
+
 		try {
 			if(cmd.equals("/influencerLogin.mem")) { //인플루언서 로그인 부분...
 
@@ -53,10 +53,10 @@ public class MemberController extends HttpServlet {
 				int result2 = influencerDAO.findSeq(id,pw);
 				String seq = String.valueOf(result2);
 				String name = influencerDAO.findName(id, pw);
-				
+
 				System.out.println(id+pw+seq);
 				if(result) {
-					
+
 					session.setAttribute("loginID", id);
 					session.setAttribute("IDseq", seq);
 					session.setAttribute("loginName", name);
@@ -67,7 +67,7 @@ public class MemberController extends HttpServlet {
 					response.sendRedirect("/index.jsp?loginID"+id);
 
 				}else if(!result) {
-					
+
 					String errorMessage = "정확한 정보를 입력하세요..";
 
 					request.setAttribute("errorMessage", errorMessage);
@@ -86,11 +86,11 @@ public class MemberController extends HttpServlet {
 				boolean result = companyDAO.login(id, pw);
 
 				String idResult = String.valueOf(result);
-	
+
 				int result2 = companyDAO.findSeq(id,pw);
 				String seq = String.valueOf(result2);
 				String name = companyDAO.findName(id, pw);
-				
+
 				System.out.println(id+pw+"   "+seq);
 				if(result) {
 					session.setAttribute("loginID", id);
@@ -131,18 +131,18 @@ public class MemberController extends HttpServlet {
 			}else if(cmd.equals("/login.mem")) {
 				response.sendRedirect("/resources/login/login.jsp");
 			}else if(cmd.equals("/CPSubmit.mem")) {
-				
+
 				// 파일 업로드 기능 추가
-				
+
 				// 파일 저장할 위치 생성
 				String savePath = request.getServletContext().getRealPath("files");
 				File filePath = new File(savePath);
 				if(!filePath.exists()) {filePath.mkdir();}
-				
+
 				// 업로드 된 파일 저장 (COS 사용)
 				int maxSize = 1024*1024*10; // 10MB
 				MultipartRequest multi = new MultipartRequest(request, savePath, maxSize, "UTF8", new DefaultFileRenamePolicy());
-				
+
 				// request를 multi로 업그레이드
 				String sysName = multi.getFilesystemName("photo");
 				String oriName = multi.getOriginalFileName("photo");
@@ -167,7 +167,7 @@ public class MemberController extends HttpServlet {
 				String pwAnswer = multi.getParameter("pwAnswer");
 				// company 테이블의 seq 생성
 				int cpSeq = companyDAO.createNewseq();
-				
+
 				// 홈 디렉토리 경로 : E:\2021_09_웹응용과정\workspace_backend\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\SLproject\
 				// 회원 정보 insert
 				int result = companyDAO.insert(cpSeq, id, sha512.generate(pw), sysName, name, crunumber, zipcode, address1, address2, rpt_cp, phone, email, sales, grade, pwAsk, pwAnswer);
@@ -175,7 +175,7 @@ public class MemberController extends HttpServlet {
 				// 프로필 사진 별도로 insert 
 				int fileResult = fileDAO.insertCp(new FileDTO(0,oriName,sysName,cpSeq));
 				System.out.println("기업 프로필 사진 insert 결과 : " + fileResult);
-				
+
 				response.sendRedirect("/resources/login/login.jsp");
 
 			}else if(cmd.equals("/CPidCheck.mem")) {
@@ -261,14 +261,14 @@ public class MemberController extends HttpServlet {
 				System.out.println("인플루언서 아이디는 : " + dto.getId());
 				response.getWriter().append(dto.getId());
 			}else if(cmd.equals("/IFSubmit.mem")) {
-				
+
 				String savePath = request.getServletContext().getRealPath("files");
 				File filePath = new File(savePath);
 				if(!filePath.exists()) {filePath.mkdir();}
-				
+
 				int maxSize = 1024*1024*10; // 10MB
 				MultipartRequest multi2 = new MultipartRequest(request, savePath, maxSize, "UTF8", new DefaultFileRenamePolicy());
-				
+
 				String sysName = multi2.getFilesystemName("photo");
 				String oriName = multi2.getOriginalFileName("photo");
 				if(sysName==null) {
@@ -295,13 +295,13 @@ public class MemberController extends HttpServlet {
 				String favorite4 = multi2.getParameter("favorite4");
 				// company 테이블의 seq 생성
 				int ifSeq = influencerDAO.createNewseq();
-				
+
 				int result = influencerDAO.insert(ifSeq,id, sha512.generate(pw), sysName, name, nickName, zipcode, address1, address2, sns, phone, email, grade, pwAsk, pwAnswer, favorite1 +":"+ favorite2 +":"+ favorite3 +":"+ favorite4);
 				System.out.println("인플루언서 회원가입 결과 : "+result);
 				// 프로필 사진 별도로 insert 
 				int fileResult = fileDAO.insertIf(new FileDTO(0,oriName,sysName,ifSeq));
 				System.out.println("인플루언서 프로필 사진 insert 결과 : " + fileResult);
-				
+
 				response.sendRedirect("/resources/login/login.jsp");
 
 			}else if(cmd.equals("/IFidCheck.mem")) {
@@ -311,7 +311,7 @@ public class MemberController extends HttpServlet {
 				response.getWriter().append(String.valueOf(result));
 
 			}else if(cmd.equals("/IFnickCheck.mem")) {
-				
+
 				String nickName = request.getParameter("nickName");
 				boolean result = influencerDAO.nickNameExist(nickName);
 				response.getWriter().append(String.valueOf(result));
@@ -323,7 +323,7 @@ public class MemberController extends HttpServlet {
 				InfluencerDTO idto = influencerDAO.selectById(id);
 				Profile_IfDTO pdto = influencerDAO.selectBySeq(seq);
 
-								
+
 				if(cdto != null ) {
 					request.setAttribute("dto", cdto);
 					request.getRequestDispatcher("/resources/mypage/CPmypageMain.jsp").forward(request, response);
@@ -335,7 +335,7 @@ public class MemberController extends HttpServlet {
 				}
 
 			}else if(cmd.equals("/modify.mem")) {
-				
+
 				String id = (String)request.getSession().getAttribute("loginID");
 				String seq = (String)request.getSession().getAttribute("IDseq");
 				CompanyDTO cdto = companyDAO.selectById(id);
@@ -354,14 +354,14 @@ public class MemberController extends HttpServlet {
 
 
 			}else if(cmd.equals("/CPmodify.mem")) {
-				
+
 				String savePath = request.getServletContext().getRealPath("files");
 				File filePath = new File(savePath);
 				if(!filePath.exists()) {filePath.mkdir();}
-				
+
 				int maxSize = 1024*1024*10; // 10MB
 				MultipartRequest multi = new MultipartRequest(request, savePath, maxSize, "UTF8", new DefaultFileRenamePolicy());
-				
+
 				String sysName = multi.getFilesystemName("photo");
 				String oriName = multi.getOriginalFileName("photo");
 				System.out.println(sysName);
@@ -390,14 +390,14 @@ public class MemberController extends HttpServlet {
 				response.sendRedirect("/mypage.mem");
 
 			}else if(cmd.equals("/IFmodify.mem")) {
-				
+
 				String savePath = request.getServletContext().getRealPath("files");
 				File filePath = new File(savePath);
 				if(!filePath.exists()) {filePath.mkdir();}
-				
+
 				int maxSize = 1024*1024*10; // 10MB
 				MultipartRequest multi = new MultipartRequest(request, savePath, maxSize, "UTF8", new DefaultFileRenamePolicy());
-				
+
 				String sysName = multi.getFilesystemName("photo");
 				String oriName = multi.getOriginalFileName("photo");
 				System.out.println(sysName);
@@ -422,21 +422,21 @@ public class MemberController extends HttpServlet {
 				String favorite3 = multi.getParameter("favorite3");
 				String favorite4 = multi.getParameter("favorite4");
 				int seq = influencerDAO.findSeq(id);
-				
+
 				int result = influencerDAO.update(sha512.generate(pw), sysName, name, nickname, zipcode, address1, address2, sns, phone, email, pwAsk, pwAnswer, favorite1 +":"+ favorite2 +":"+ favorite3 +":"+ favorite4, id);
 				int fileResult = fileDAO.modifyIf(new FileDTO(0,oriName,sysName,seq));
 				response.sendRedirect("/mypage.mem");
-				
+
 			}else if(cmd.equals("/Ifprofile.mem")) {
 
 				String id = (String)request.getSession().getAttribute("loginID");
 				InfluencerDTO dto = influencerDAO.selectById(id);
 				request.setAttribute("dto", dto);
 				request.getRequestDispatcher("/resources/mypage/IFprofile.jsp").forward(request, response);
-				
+
 				// 인플루언서 마이페이지 - 프로필 등록 컨트롤러
 			}else if(cmd.equals("/upload.mem")) {
-				
+
 				String id = (String)request.getSession().getAttribute("loginID");
 				String seq = (String)request.getSession().getAttribute("IDseq");
 				InfluencerDTO dto = influencerDAO.selectById(id);				
@@ -444,14 +444,14 @@ public class MemberController extends HttpServlet {
 				String intro = request.getParameter("intro");
 				String condition = request.getParameter("condition");			
 				int result = influencerDAO.insertProfile(seq, condition, career, intro);
-				
+
 				Profile_IfDTO pdto = influencerDAO.selectBySeq(seq);
 				request.setAttribute("dto", dto);
 				request.setAttribute("pdto", pdto);
 				request.getRequestDispatcher("/resources/mypage/IFmypageMain.jsp").forward(request, response);
-				
+
 			}else if(cmd.equals("/IFKkanbuList.mem")) {
-				
+
 				String id = (String)request.getSession().getAttribute("loginID");
 				String seq = (String)request.getSession().getAttribute("IDseq");
 				InfluencerDTO dto = influencerDAO.selectById(id);
@@ -459,9 +459,9 @@ public class MemberController extends HttpServlet {
 				request.setAttribute("dto", dto);
 				request.setAttribute("pdto", pdto);
 				request.getRequestDispatcher("/resources/mypage/IFmypageKkanbu.jsp").forward(request, response);
-				
+
 			}else if(cmd.equals("/IFReviewList.mem")) {
-				
+
 				String id = (String)request.getSession().getAttribute("loginID");
 				String seq = (String)request.getSession().getAttribute("IDseq");
 				InfluencerDTO dto = influencerDAO.selectById(id);
@@ -469,9 +469,9 @@ public class MemberController extends HttpServlet {
 				request.setAttribute("dto", dto);
 				request.setAttribute("pdto", pdto);
 				request.getRequestDispatcher("/resources/mypage/IFmypageReview.jsp").forward(request, response);
-				
+
 			}else if(cmd.equals("/goIfprofileModify.mem")) {
-				
+
 				String idf = (String)request.getSession().getAttribute("loginID");
 				String seq = (String)request.getSession().getAttribute("IDseq");
 				InfluencerDTO dto = influencerDAO.selectById(idf);
@@ -479,36 +479,36 @@ public class MemberController extends HttpServlet {
 				request.setAttribute("dto", dto);
 				request.setAttribute("pdto", pdto);
 				request.getRequestDispatcher("/resources/mypage/IFprofileModify.jsp").forward(request, response);
-				
+
 			}else if(cmd.equals("/IfprofileModify.mem")) {
-				
+
 				String idf = (String)request.getSession().getAttribute("loginID");
 				String seq = (String)request.getSession().getAttribute("IDseq");
 				InfluencerDTO dto = influencerDAO.selectById(idf);
 				Profile_IfDTO pdto = influencerDAO.selectBySeq(seq);
 				request.setAttribute("dto", dto);
 				request.setAttribute("pdto", pdto);
-				
+
 				String career = request.getParameter("career");
 				String intro = request.getParameter("intro");
 				String condition = request.getParameter("condition");
-				
+
 				int result = influencerDAO.updateProfile(seq, condition, career, intro);
 				request.getRequestDispatcher("/resources/mypage/IFmypageMain.jsp").forward(request, response);
-				
+
 			}else if(cmd.equals("/Ifleave.mem")) {
-				
+
 				String idf = (String)request.getSession().getAttribute("loginID");
 				String seq = (String)request.getSession().getAttribute("IDseq");
-				
+
 				int result = influencerDAO.delete(idf);
 				int result2 = influencerDAO.deleteProfile(seq);
-				
+
 				request.setAttribute("result", result);
 				request.setAttribute("result2", result2);
 				request.getSession().invalidate();
 				request.getRequestDispatcher("/index.jsp").forward(request, response);
-				
+
 			}else if(cmd.equals("/CPnameCheck.mem")) {
 
 				String name = request.getParameter("name");
@@ -516,15 +516,41 @@ public class MemberController extends HttpServlet {
 				response.getWriter().append(String.valueOf(result));
 
 			}else if(cmd.equals("/CPleave.mem")) {
-				
+
 				String idf = (String)request.getSession().getAttribute("loginID");
-				
+
 				int result = influencerDAO.delete(idf);
-				
+
 				request.setAttribute("result", result);
 				request.getSession().invalidate();
 				request.getRequestDispatcher("/index.jsp").forward(request, response);
-				
+
+			}else if(cmd.equals("/CPReviewList.mem")) {
+
+				String id = (String)request.getSession().getAttribute("loginID");
+				String seq = (String)request.getSession().getAttribute("IDseq");
+				CompanyDTO dto = companyDAO.selectById(id);
+				//Review_CpDTO pdto =.selectBySeq(seq);
+				request.setAttribute("dto", dto);
+				//request.setAttribute("pdto", pdto);
+				request.getRequestDispatcher("/resources/mypage/CPmypageReview.jsp").forward(request, response);
+
+			}else if(cmd.equals("/CPWriteReview.mem")) {
+
+				String id = (String)request.getSession().getAttribute("loginID");
+				String seq = (String)request.getSession().getAttribute("IDseq");
+				CompanyDTO dto = companyDAO.selectById(id);
+				request.setAttribute("dto", dto);
+				request.getRequestDispatcher("/resources/mypage/CPReview.jsp").forward(request, response);
+
+			}else if(cmd.equals("/IFWriteReview.mem")) {
+
+				String id = (String)request.getSession().getAttribute("loginID");
+				String seq = (String)request.getSession().getAttribute("IDseq");
+				InfluencerDTO dto = influencerDAO.selectById(id);
+				request.setAttribute("dto", dto);
+				request.getRequestDispatcher("/resources/mypage/IFReview.jsp").forward(request, response);
+
 			}
 
 		}catch(Exception e) {
