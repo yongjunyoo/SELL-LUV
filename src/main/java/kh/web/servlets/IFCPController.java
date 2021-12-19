@@ -3,6 +3,8 @@ package kh.web.servlets;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -62,7 +64,7 @@ public class IFCPController extends HttpServlet {
 				for (Entry<Profile_IfDTO, InfluencerDTO> entrySet : list.entrySet()) {
 					System.out.println(entrySet.getKey().getSeq_if()+ " : " + entrySet.getValue());
 				}
-
+				
 				String navi = influencerDAO.getPageNavi(currentPage);
 				request.setAttribute("list", list);
 				request.setAttribute("navi", navi);

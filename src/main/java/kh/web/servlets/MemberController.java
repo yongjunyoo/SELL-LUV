@@ -466,6 +466,7 @@ public class MemberController extends HttpServlet {
 				String seq = (String)request.getSession().getAttribute("IDseq");
 				InfluencerDTO dto = influencerDAO.selectById(id);
 				Profile_IfDTO pdto = influencerDAO.selectBySeq(seq);
+				
 				request.setAttribute("dto", dto);
 				request.setAttribute("pdto", pdto);
 				request.getRequestDispatcher("/resources/mypage/IFmypageReview.jsp").forward(request, response);

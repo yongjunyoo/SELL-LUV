@@ -54,7 +54,7 @@
 										<textarea rows="5" cols="48" name="intro" id="intro"></textarea>
 										<br> <label>원하는 조건</label><br>
 										<textarea rows="5" cols="48" name="condition" id="condition"></textarea>
-										<br> <br> <label id="fileUpload"> 사진선택<input
+										<br> <label id="fileUpload"> 사진선택<input
 											type="file" name="file" id="file" accept="jpg,jpeg,png"
 											style="display: none;">
 										</label>
@@ -123,12 +123,12 @@
 
 	<style type="text/css">
 #fileUpload {
-	border: 1px solid black;
+	border: 1px solid transparent;
 	border-radius: 5px;
 }
 
 #fileUpload:hover {
-	background-color: black;
+	background-color: #f1eeee;
 	cursor: pointer;
 }
 
