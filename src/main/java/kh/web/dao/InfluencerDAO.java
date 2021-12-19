@@ -901,4 +901,15 @@ public class InfluencerDAO  {
 			return result;
 		}
 	}
+	
+	public int cpDelete(String seq) throws Exception{ // 기업 제품등록 삭제.
+		String sql = "delete from profile_if where seq_if=?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat =con.prepareStatement(sql);){
+			pstat.setString(1, seq);
+			int result = pstat.executeUpdate();
+			con.setAutoCommit(false);
+			return result;
+		}
+	}
 }
