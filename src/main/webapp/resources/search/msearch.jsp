@@ -21,12 +21,18 @@
 .choices__list.choices__list--dropdown{
 	margin-top:0;
 }
+#search-desc {
+	font-size:40px;
+	color:black;
+	font-weight:bolder;
+}
 </style>
  <body style="overflow-y:scroll;">
  
  
  	
-	    <div class="s003" style="background-color: rgba(255, 111, 97, 0.5);">
+	    <div class="s003" style="background-color: rgba(255, 111, 97);flex-direction: column;text-align:center">
+	    <div id="search-desc" style="padding:30px"><div>SELL LUV 에는</div> <br> <div>어떤 회원들이 있을까요?</div></div>
 	      <form>
 	        <div class="inner-form">
 	          <div class="input-field first-wrap input-category">

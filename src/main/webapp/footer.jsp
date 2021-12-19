@@ -104,7 +104,7 @@
   <!-- Section: Links  -->
 
   <!-- Copyright -->
-  <div class="text-center p-4" style="background-color: rgba(255, 111, 97, 0.5);">
+  <div class="text-center p-4" style="background-color: rgba(255, 111, 97);color:white">
     Copyright 2020. KKANBU All rights reserved.
   </div>
   <!-- Copyright -->

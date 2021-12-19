@@ -33,14 +33,15 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/mainpage/css/styles.css"> 
 	
 	<!-- Favicon  -->
+	<link rel="shorcut icon" href="#">
 </head>
 <body>
 <!-- Navigation -->
-    <nav id="navbarExample" class="navbar navbar-expand-lg fixed-top navbar-light" aria-label="Main navigation">
+    <nav id="navbarExample" class="navbar navbar-expand-lg fixed-top navbar-light" aria-label="Main navigation" style="padding-top:8px;">
         <div class="container">
 
             <!-- Image Logo -->   <!-- SELL LUV LOGO -->
-            <a class="navbar-brand logo-image" href="/index.jsp"><img src="/resources/mainpage/images/SELL_LUV_NEW1.png" alt="alternative"></a> 
+            <a class="navbar-brand logo-image" href="/index.jsp"><img src="/resources/mainpage/images/SELL_LUV_NEW1.svg" alt="alternative"></a> 
 	
             <!-- Text Logo - Use this if you don't have a graphic logo -->
             <!-- <a class="navbar-brand logo-text" href="index.html">Nubis</a> -->

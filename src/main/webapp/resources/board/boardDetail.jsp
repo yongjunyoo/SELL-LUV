@@ -241,9 +241,6 @@ rel="stylesheet" />
     <div id="board-title">
     <img id="title" src="/resources/board/image/title.png">
     <span>커뮤니티 게시판</span>
-    <%= (String)session.getAttribute("cpage") %>
-        <%= request.getParameter("cpage") %>
-        <%= request.getParameter("seq") %>
     </div>       
     <br>
 	
@@ -261,7 +258,7 @@ rel="stylesheet" />
 									src="/profile.file?writer=${dto.writer }" alt="">
 								</div>	
 								<ul class="meta list list-unstyled profile-detail d-flex mb-0 ml-2">
-									<li class="name mt-0">${dto.profileName }</li>
+									<li class="name mt-0" style="color:rgba(255, 111, 97);">${dto.profileName }</li>
 									<li class="label" style="margin: 0; padding: 0">${member}</li>
 								</ul>
 								</div>
@@ -350,7 +347,7 @@ rel="stylesheet" />
 											src="/profile.file?writer=${cdto.writer }" alt="">
 									</div>	
 									<ul class="meta list list-unstyled profile-detail d-flex mb-0 ml-2">
-										<li class="name mt-0">${cdto.profileName}</li>
+										<li class="name mt-0" style="color:rgba(255, 111, 97);">${cdto.profileName}</li>
 										<li class="label" style="margin: 0; padding: 0">${cdto.member }</li>
 									</ul>
 									<ul class="meta list list-unstyled profile-detail d-flex mb-0" style="margin-left: auto;justify-content: flex-end;">
@@ -425,7 +422,7 @@ rel="stylesheet" />
 									src="/profile.file?writer=${loginID }" alt="">
 								</div>	
 								<ul class="meta list list-unstyled profile-detail d-flex mb-0 ml-2">
-									<li class="name mt-0">${loginName}</li>
+									<li class="name mt-0" style="color:rgba(255, 111, 97);">${loginName}</li>
 									<li class="label" style="margin: 0; padding: 0">${loginMember }</li>
 								</ul>
 								</div>
