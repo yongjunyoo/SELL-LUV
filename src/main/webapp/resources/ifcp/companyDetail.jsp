@@ -72,6 +72,26 @@
 					</article>
 
 					<div class="contact-form article-comment">
+					<c:if test="${kkanbu==true}">
+						<h4>리뷰 작성</h4>
+						<form id="contact-form" method="POST" action="/cpReviewWrite.ifcp?seq=${dto.key.seq_cp}&cpage=1">
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<input type=text id="review" name="review"
+											placeholder="내용을 입력하세요."
+											style="border-right: 0px; border-top: 0px; border-left: 0px; border-bottom: 1px solid #ff6F61;">
+										&nbsp;<button class="px-btn theme">
+											작성하기<i class="arrow"></i>
+										</button>
+									</div>
+								</div>
+								<div class="col-md-12"></div>
+							</div>
+						</form>
+						<br>
+						</c:if>
+
 						<h4>리뷰 목록</h4>
 						<div class="row">
 							<div class="col-md-6">
@@ -88,23 +108,26 @@
 									</thead>
 									<tbody>
 										<c:forEach var="list" items="${list}">
-												<tr style="color: black;">
-													<td><img src="/influencerDetail.file?seq= ${list.ref_seq }" title="" alt="" style="height:25px;width:25px; border-radius:15px;"></td>
-													<td>${list.seq }</td>
-													<td>${list.writer }</td>
-													<td>${list.content }</td>
-													<td>${list.timestamp }</td>
-												</tr>
+											<tr style="color: black;">
+												<td><img
+													src="/influencerDetail.file?seq= ${list.ref_seq }" title=""
+													alt=""
+													style="height: 25px; width: 25px; border-radius: 15px;"></td>
+												<td>${list.seq }</td>
+												<td>${list.writer }</td>
+												<td>${list.content }</td>
+												<td>${list.timestamp }</td>
+											</tr>
 										</c:forEach>
 									</tbody>
 								</table>
 							</div>
 						</div>
-					<div div="row">
-						<ul class="pagination pagination-lg justify-content-end">
-							${navi}
-						</ul>
-					</div>
+						<div div="row">
+							<ul class="pagination pagination-lg justify-content-end">
+								${navi}
+							</ul>
+						</div>
 					</div>
 				</div>
 				<div class="col-lg-4 m-15px-tb blog-aside">
@@ -115,54 +138,58 @@
 								<div class="media-body">
 
 									<div class="nav tag-cloud">
-									<c:choose>
-										<c:when test="${loggedInID eq 'company'}">
-										</c:when>
-										<c:when test="${loggedInID == null}">
-										</c:when>
-										<c:when test="${kkanbuMessage != null}">
+										<c:choose>
+											<c:when test="${loggedInID eq 'company'}">
+											</c:when>
+											<c:when test="${loggedInID == null}">
+											</c:when>
+											<c:when test="${kkanbuMessage != null}">
 			 									${kkanbuMessage}
 										</c:when>
-										<c:when test="${kkanbuCardSeq !=null }">
-										<div class="nav tag-cloud">
-											<span>깐부요청보냄</span>
-										</div>	
-										</c:when>
-										<c:otherwise>
-											<a href="/kkanbuRequestToCompany.kkanbu?kkanbuSeqTo=${dto.key.member_seq }&kkanbuSeqFrom=${IDseq}&kkanbuCardSeq=${dto.key.seq_cp}&cpage=1" style="text-decoration: none;">깐부맺기</a>
-										</c:otherwise>
-									</c:choose>
+											<c:when test="${kkanbuCardSeq !=null }">
+												<div class="nav tag-cloud">
+													<span>깐부요청보냄</span>
+												</div>
+											</c:when>
+											<c:otherwise>
+												<a
+													href="/kkanbuRequestToCompany.kkanbu?kkanbuSeqTo=${dto.key.member_seq }&kkanbuSeqFrom=${IDseq}&kkanbuCardSeq=${dto.key.seq_cp}&cpage=1"
+													style="text-decoration: none;">깐부맺기</a>
+											</c:otherwise>
+										</c:choose>
 
-									<div class="nav tag-cloud">
-
+										<div class="nav tag-cloud"></div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					<!-- End Author -->
+						<!-- End Author -->
 
-					<!-- Latest Post -->
-					<div class="widget widget-latest-post">
-						</c:forEach>
-						<div class="widget-title" style="text-align: center;">
-							<c:forEach var="dto" items="${cpList }">
-								<c:if test="${loginID eq dto.value.id}">
-									<a href="/iFdelete.ifcp?seq=${cpList[0].key.seq_cp}"><button
-											type="button" id="delBtn">삭제하기</button></a>
-								</c:if>
+						<!-- Latest Post -->
+						<div class="widget widget-latest-post">
 							</c:forEach>
+							<div class="widget-title" style="text-align: center;">
+								<c:forEach var="dto" items="${cpList }">
+									<c:if test="${loginID eq dto.value.id}">
+										<a href="/iFdelete.ifcp?seq=${cpList[0].key.seq_cp}"><button
+												type="button" id="delBtn">삭제하기</button></a>
+									</c:if>
+								</c:forEach>
+							</div>
 						</div>
 					</div>
 				</div>
+				<!-- End Latest Post -->
 			</div>
-			<!-- End Latest Post -->
 		</div>
-	</div>
-	<script>
-		
-	</script>
-	<style type="text/css">
+		<script>
+			
+		</script>
+		<style type="text/css">
+#review:focus {
+	outline: none;
+}
+
 #delBtn {
 	color: #ff6F61;
 	background-color: transparent;
@@ -650,9 +677,9 @@ img {
 }
 </style>
 
-	<script type="text/javascript">
-		
-	</script>
-	<jsp:include page="/footer.jsp" flush="false" />
+		<script type="text/javascript">
+			
+		</script>
+		<jsp:include page="/footer.jsp" flush="false" />
 </body>
 </html>

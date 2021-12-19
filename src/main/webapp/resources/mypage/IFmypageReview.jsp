@@ -340,6 +340,7 @@ body {
 												<td class=""><a id="" href="/IFWriteReview.mem" style="text-decoration: none">리뷰남기기</a></td>
 											</tr>
 											</c:forEach>
+											
 											<tr>
 											<td>
 												${navi }

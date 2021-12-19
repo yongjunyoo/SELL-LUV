@@ -2,6 +2,7 @@ package kh.web.servlets;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,9 +18,11 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import kh.web.dao.CompanyDAO;
 import kh.web.dao.FileDAO;
 import kh.web.dao.InfluencerDAO;
+import kh.web.dao.KkanbuDAO;
 import kh.web.dto.CompanyDTO;
 import kh.web.dto.FileDTO;
 import kh.web.dto.InfluencerDTO;
+import kh.web.dto.KkanbuDTO;
 import kh.web.dto.Profile_IfDTO;
 import kh.web.web.SHA512;
 
@@ -38,6 +41,7 @@ public class MemberController extends HttpServlet {
 		InfluencerDAO influencerDAO = new InfluencerDAO();
 		CompanyDAO companyDAO = new CompanyDAO();
 		FileDAO fileDAO = new FileDAO();
+		KkanbuDAO kkanbuDAO = new KkanbuDAO();
 
 		SHA512 sha512 = new SHA512();
 		HttpSession session = request.getSession();
@@ -462,10 +466,11 @@ public class MemberController extends HttpServlet {
 
 			}else if(cmd.equals("/IFReviewList.mem")) {
 
-				String id = (String)request.getSession().getAttribute("loginID");
+				String id = (String)request.getSession().getAttribute("loginID"); 
 				String seq = (String)request.getSession().getAttribute("IDseq");
 				InfluencerDTO dto = influencerDAO.selectById(id);
 				Profile_IfDTO pdto = influencerDAO.selectBySeq(seq);
+				
 				request.setAttribute("dto", dto);
 				request.setAttribute("pdto", pdto);
 				request.getRequestDispatcher("/resources/mypage/IFmypageReview.jsp").forward(request, response);
@@ -525,12 +530,12 @@ public class MemberController extends HttpServlet {
 				request.getSession().invalidate();
 				request.getRequestDispatcher("/index.jsp").forward(request, response);
 
-			}else if(cmd.equals("/CPReviewList.mem")) {
+			}else if(cmd.equals("/CPReviewList.mem")) { // 
 
 				String id = (String)request.getSession().getAttribute("loginID");
 				String seq = (String)request.getSession().getAttribute("IDseq");
 				CompanyDTO dto = companyDAO.selectById(id);
-				//Review_CpDTO pdto =.selectBySeq(seq);
+//				Review_CpDTO pdto =.selectBySeq(seq);
 				request.setAttribute("dto", dto);
 				//request.setAttribute("pdto", pdto);
 				request.getRequestDispatcher("/resources/mypage/CPmypageReview.jsp").forward(request, response);

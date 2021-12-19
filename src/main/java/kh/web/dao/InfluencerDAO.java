@@ -873,4 +873,32 @@ public class InfluencerDAO  {
 			return result;
 		}
 	}
+	
+	public int findIfSeq(int seq_if) throws Exception{ // 인플루언서 시퀀스로 인플루언서 프로필 시퀀스 찾기.
+		String sql = "SELECT seq_if FROM profile_if WHERE member_seq =?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setInt(1, seq_if);
+			int result = 0;
+			try(ResultSet rs = pstat.executeQuery();){
+				if(rs.next()) {
+					result = rs.getInt("seq_if");
+				}
+			}
+			return result;
+		}
+	}
+	
+	public int insertReview(int seq,String loginID,String review,int seq_cp) throws Exception{ // 리뷰작성.
+		String sql = "insert into review_cp values(review_cp_seq.nextval,?,?,?,sysdate,?)";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat =con.prepareStatement(sql);){
+			pstat.setInt(1, seq);
+			pstat.setString(2, loginID);
+			pstat.setString(3, review);
+			pstat.setInt(4, seq_cp);
+			int result = pstat.executeUpdate();
+			return result;
+		}
+	}
 }
