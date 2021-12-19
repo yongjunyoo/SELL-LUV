@@ -345,6 +345,7 @@ body {
 											</c:when>
 											</c:choose>
 											</c:forEach>
+											
 											<tr>
 											<td>
 											${navi }

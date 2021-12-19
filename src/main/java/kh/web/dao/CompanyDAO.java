@@ -820,7 +820,6 @@ public class CompanyDAO {
 
 	// 기업 회원 탈퇴
 	public int delete(String id) throws Exception{
-
 		String sql = "delete from company where id_if = ?";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat =con.prepareStatement(sql);){
@@ -828,7 +827,9 @@ public class CompanyDAO {
 			int result = pstat.executeUpdate();
 			return result;
 		}
+
 	}
+
 
 	// sysname추출을 위해 board_cp의 currVal 추출.
 	public int createProductSeq() throws Exception {
@@ -858,39 +859,33 @@ public class CompanyDAO {
 		}
 	}
 
-	public CompanyDTO selectByRSeq(String paramSeq) throws Exception {
 
-		String sql = "select * from company where seq_cp = ?";
+	public int insertReview(int seq,String loginID,String review,int seq_if) throws Exception{ // 리뷰작성.
+		String sql = "insert into review_if values(review_cp_seq.nextval,?,?,?,sysdate,?)";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat =con.prepareStatement(sql);){
+			pstat.setInt(1, seq);
+			pstat.setString(2, loginID);
+			pstat.setString(3, review);
+			pstat.setInt(4, seq_if);
+			int result = pstat.executeUpdate();
+			return result;
+		}
+	}
 
+	public int findCpSeq(int seq_cp) throws Exception{ // 기업 시퀀스로 기업 제품등록 시퀀스 찾기.
+		String sql = "SELECT seq_board_cp FROM board_cp WHERE member_seq =?";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
-			pstat.setString(1, paramSeq);
-			try(ResultSet rs = pstat.executeQuery()){
-
-				CompanyDTO rdto = new CompanyDTO();
-				if(rs.next()) {					
-					rdto.setSeq(rs.getInt("seq_cp"));
-					rdto.setId(rs.getString("id_cp"));
-					rdto.setPw(rs.getString("pw_cp"));
-					rdto.setPhoto(rs.getString("photo_cp"));
-					rdto.setName(rs.getString("name_cp"));
-					rdto.setCrnumber(rs.getString("crnumber_cp"));
-					rdto.setZipcode(rs.getString("zipcode_cp"));
-					rdto.setAddress1(rs.getString("address1_cp"));
-					rdto.setAddress2(rs.getString("address2_cp"));
-					rdto.setRpt(rs.getString("rpt_cp"));
-					rdto.setPhone(rs.getString("phone_cp"));
-					rdto.setEmail(rs.getString("email_cp"));
-					rdto.setSales(rs.getLong("sales_cp"));
-					rdto.setGrade(rs.getString("grade"));
-					rdto.setPwAsk(rs.getString("pwAsk_cp"));
-					rdto.setPwAnswer(rs.getString("pwAnswer_cp"));
-					return rdto;
+			pstat.setInt(1, seq_cp);
+			int result = 0;
+			try(ResultSet rs = pstat.executeQuery();){
+				if(rs.next()) {
+					result = rs.getInt("seq_board_cp");
 				}
-				return null;
 			}
+			return result;
 		}
-
 	}
 }
 
