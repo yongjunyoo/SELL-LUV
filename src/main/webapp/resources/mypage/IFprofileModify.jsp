@@ -59,7 +59,7 @@
 										<br> 
 										<label>원하는 조건</label>
 										<br>
-										<textarea rows="5" cols="50" id="condition" name="condition" id="condition" >${pdto.condition_if }</textarea>
+										<textarea rows="5" cols="50" id="condition" name="condition" >${pdto.condition_if }</textarea>
 										<br>
 										<br>
 										<label id="fileUpload"> 사진선택<input type="file" name="file"
