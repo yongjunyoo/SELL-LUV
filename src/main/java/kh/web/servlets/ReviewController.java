@@ -41,27 +41,6 @@ request.setCharacterEncoding("utf8");  // get방식 한글 깨짐 방지
 //				int result = reviewDAO.writeReview(reviewDTO);
 				
 				response.sendRedirect("/resources/searchDetail/searchDetail.jsp");
-			}else if(cmd.equals("/IFReviewList.review")) {
-				
-				int currentPage = Integer.parseInt(request.getParameter("cpage"));
-				int pageTotalCount = reviewDAO.getPageTotalCountReview();
-				
-				if(currentPage < 1) {
-					currentPage = 1;
-				}
-				if(currentPage > pageTotalCount) {
-					currentPage = pageTotalCount;
-				}
-				
-				int start = currentPage * IFCPStatics.RECORD_COUNT_PER_PAGE - (IFCPStatics.RECORD_COUNT_PER_PAGE -1) ;
-				int end =  currentPage * IFCPStatics.RECORD_COUNT_PER_PAGE;
-				
-				List<Review_IfDTO> list = reviewDAO.selectByBoundReview(start, end);
-				String navi = reviewDAO.getPageNaviReview(currentPage);
-				request.setAttribute("list",list);
-				request.setAttribute("navi", navi);
-				request.getRequestDispatcher("/board/boardlist.jsp").forward(request,response);
-				
 			}
 		}catch(Exception e) {
 			e.printStackTrace();

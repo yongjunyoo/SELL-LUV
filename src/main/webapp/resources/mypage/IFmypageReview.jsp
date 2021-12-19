@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import = "kh.web.dao.CompanyDAO" %>
+<%@ page import = "kh.web.dto.CompanyDTO" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!-- 태그 라이브러리 -->
 <!DOCTYPE html>
@@ -209,6 +211,7 @@ body {
 		
 </script>
 <body>
+<% CompanyDAO companyDAO = new CompanyDAO();  %>
 	
 <div class="container">
 	<div class="row" id="header">
@@ -257,7 +260,7 @@ body {
 									</c:otherwise> 
 								</c:choose>
 								<a href="/IFKkanbuList.mem" class="list-group-item py-1"><i class="bx bx-heart me-2"></i><span>깐부 관리</span></a>
-								<a href="/IFReviewList.mem" class="list-group-item py-1"><i class="bx bx-like me-2"></i><span>리뷰 관리</span></a>
+								<a href="/IFReviewList.mem?cpage=1" class="list-group-item py-1"><i class="bx bx-like me-2"></i><span>리뷰 관리</span></a>
 								<a href="" class="list-group-item py-1"><i class="bx bx-highlight me-2"></i><span>커뮤니티 관리</span></a>
 								<a href="" class="list-group-item py-2" id="leave">회원탈퇴</a>
 							</div>
@@ -309,7 +312,7 @@ body {
 												<i class="fa fa-thumbs-o-up fa-2x" aria-hidden="true"></i>
 											</div>
 											<div class="detail-title-one">
-												<h6 class=""><a href="/IFReviewList.mem" style="text-decoration: none;">리뷰관리</a></h6>
+												<h6 class=""><a href="/IFReviewList.mem?cpage=1" style="text-decoration: none;">리뷰관리</a></h6>
 												<%-- <p class="detail-detail"><span>이동</span></p>--%>
 											</div>
 										</div>
@@ -324,25 +327,27 @@ body {
 									<table class="table">
 										<thead>
 											<tr>
-												<th class="name truncate">기업이름</th>
-												<th class="date">리뷰 내용</th>
-												<th class="size">작성일</th>
-												<th class="">리뷰남기기</th>
+												<th class="date">리뷰 작성자</th>
+												<th class="size">리뷰 내용</th>
+												<th class="">리뷰작성일</th>
 											</tr>
 										</thead>
 										
 										<tbody>
 											<c:forEach var="rdto" items="${list }">
+											<c:choose>
+											<c:when test="${rdto.writer == dto.id }">
 											<tr>												
-												<td class="name truncate"><a href="#">${rdto.name_ref}</a></td>
-												<td class="date">${rdto.content }</td>
+												<td class="name truncate">${rdto.writer}</td>
+												<td class="date"><a href="#">${rdto.content }</a></td>												
 												<td class="size">${rdto.timestamp }</td>
-												<td class=""><a id="" href="/IFWriteReview.mem" style="text-decoration: none">리뷰남기기</a></td>
 											</tr>
+											</c:when>
+											</c:choose>
 											</c:forEach>
 											<tr>
 											<td>
-												${navi }
+											${navi }
 											</td>
 										</tr>
 										</tbody>
@@ -358,7 +363,7 @@ body {
 					
 			</div>
 		</div>
-		<jsp:include page="/footer.jsp" flush="false"/>
 	</div>
+	<jsp:include page="/footer.jsp" flush="false"/>
 </body>
 </html>

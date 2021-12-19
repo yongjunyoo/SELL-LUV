@@ -258,7 +258,7 @@ body {
 									</c:otherwise> 
 								</c:choose>
 								<a href="/showKkanbuRequest.kkanbu?IDseq=${IDseq}" class="list-group-item py-1"><i class="bx bx-heart me-2"></i><span>깐부 관리</span></a>
-								<a href="/IFReviewList.mem" class="list-group-item py-1"><i class="bx bx-like me-2"></i><span>리뷰 관리</span></a>
+								<a href="/IFReviewList.mem?cpage=1" class="list-group-item py-1"><i class="bx bx-like me-2"></i><span>리뷰 관리</span></a>
 								<a href="" class="list-group-item py-1"><i class="bx bx-highlight me-2"></i><span>커뮤니티 관리</span></a>
 								<a href="" class="list-group-item py-2" id="leave">회원탈퇴</a>
 							</div>
@@ -310,7 +310,7 @@ body {
 												<i class="fa fa-thumbs-o-up fa-2x" aria-hidden="true"></i>
 											</div>
 											<div class="detail-title-one">
-												<h6 class=""><a href="/IFReviewList.mem" style="text-decoration: none;">리뷰관리</a></h6>
+												<h6 class=""><a href="/IFReviewList.mem?cpage=1" style="text-decoration: none;">리뷰관리</a></h6>
 												<%-- <p class="detail-detail"><span>이동</span></p>--%>
 											</div>
 										</div>
@@ -360,7 +360,7 @@ body {
 				</div>
 			</div>
 		</div>
-		<jsp:include page="/footer.jsp" flush="false"/>
 	</div>
+	<jsp:include page="/footer.jsp" flush="false"/>
 </body>
 </html>

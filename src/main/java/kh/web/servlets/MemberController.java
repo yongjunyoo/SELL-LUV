@@ -2,6 +2,7 @@ package kh.web.servlets;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,10 +18,15 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import kh.web.dao.CompanyDAO;
 import kh.web.dao.FileDAO;
 import kh.web.dao.InfluencerDAO;
+import kh.web.dao.ReviewDAO;
 import kh.web.dto.CompanyDTO;
 import kh.web.dto.FileDTO;
 import kh.web.dto.InfluencerDTO;
+import kh.web.dto.KkanbuDTO;
 import kh.web.dto.Profile_IfDTO;
+import kh.web.dto.Review_CpDTO;
+import kh.web.dto.Review_IfDTO;
+import kh.web.statics.IFCPStatics;
 import kh.web.web.SHA512;
 
 
@@ -38,6 +44,7 @@ public class MemberController extends HttpServlet {
 		InfluencerDAO influencerDAO = new InfluencerDAO();
 		CompanyDAO companyDAO = new CompanyDAO();
 		FileDAO fileDAO = new FileDAO();
+		ReviewDAO reviewDAO = new ReviewDAO();
 
 		SHA512 sha512 = new SHA512();
 		HttpSession session = request.getSession();
@@ -465,9 +472,28 @@ public class MemberController extends HttpServlet {
 				String id = (String)request.getSession().getAttribute("loginID");
 				String seq = (String)request.getSession().getAttribute("IDseq");
 				InfluencerDTO dto = influencerDAO.selectById(id);
-				Profile_IfDTO pdto = influencerDAO.selectBySeq(seq);
+				KkanbuDTO kdto = influencerDAO.selectByKSeq(seq);
+				
 				request.setAttribute("dto", dto);
-				request.setAttribute("pdto", pdto);
+				request.setAttribute("kdto", kdto);
+				
+				int currentPage = Integer.parseInt(request.getParameter("cpage"));
+				int pageTotalCount = reviewDAO.getPageTotalCountReview();
+				
+				if(currentPage < 1) {
+					currentPage = 1;
+				}
+				if(currentPage > pageTotalCount) {
+					currentPage = pageTotalCount;
+				}
+				
+				int start = currentPage * IFCPStatics.RECORD_COUNT_PER_PAGE - (IFCPStatics.RECORD_COUNT_PER_PAGE -1) ;
+				int end =  currentPage * IFCPStatics.RECORD_COUNT_PER_PAGE;
+				
+				List<Review_IfDTO> list = reviewDAO.selectByBoundReview(start, end);
+				String navi = reviewDAO.getPageNaviReview(currentPage);
+				request.setAttribute("list",list);
+				request.setAttribute("navi", navi);
 				request.getRequestDispatcher("/resources/mypage/IFmypageReview.jsp").forward(request, response);
 
 			}else if(cmd.equals("/goIfprofileModify.mem")) {
@@ -530,9 +556,25 @@ public class MemberController extends HttpServlet {
 				String id = (String)request.getSession().getAttribute("loginID");
 				String seq = (String)request.getSession().getAttribute("IDseq");
 				CompanyDTO dto = companyDAO.selectById(id);
-				//Review_CpDTO pdto =.selectBySeq(seq);
 				request.setAttribute("dto", dto);
-				//request.setAttribute("pdto", pdto);
+				
+				int currentPage = Integer.parseInt(request.getParameter("cpage"));
+				int pageTotalCount = reviewDAO.getPageTotalCountReview();
+				
+				if(currentPage < 1) {
+					currentPage = 1;
+				}
+				if(currentPage > pageTotalCount) {
+					currentPage = pageTotalCount;
+				}
+				
+				int start = currentPage * IFCPStatics.RECORD_COUNT_PER_PAGE - (IFCPStatics.RECORD_COUNT_PER_PAGE -1) ;
+				int end =  currentPage * IFCPStatics.RECORD_COUNT_PER_PAGE;
+				
+				List<Review_CpDTO> list = reviewDAO.selectByBoundCPReview(start, end);
+				String navi = reviewDAO.getPageNaviReview(currentPage);
+				request.setAttribute("list",list);
+				request.setAttribute("navi", navi);
 				request.getRequestDispatcher("/resources/mypage/CPmypageReview.jsp").forward(request, response);
 
 			}else if(cmd.equals("/CPWriteReview.mem")) {

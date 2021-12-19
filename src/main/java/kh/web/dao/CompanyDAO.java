@@ -466,7 +466,7 @@ public class CompanyDAO {
 			}
 		}
 	}
-	
+
 	public boolean isMember(String id) throws Exception {
 		String sql = "SELECT * FROM company WHERE id_cp =? ";
 
@@ -609,13 +609,13 @@ public class CompanyDAO {
 			String result = "";
 			try(ResultSet rs = pstat.executeQuery();){
 				if(rs.next()) {
-				result = rs.getString("name_cp");
+					result = rs.getString("name_cp");
 				}
 			}
 			return result;
 		}
 	}
-	
+
 	public int findSeq(String id) throws Exception{
 		String sql = "SELECT seq_cp FROM company WHERE id_cp =?";
 		try(Connection con = this.getConnection();
@@ -624,14 +624,14 @@ public class CompanyDAO {
 			int result = 0;
 			try(ResultSet rs = pstat.executeQuery();){
 				if(rs.next()) {
-				result = rs.getInt("seq_cp");
-				
+					result = rs.getInt("seq_cp");
+
 				}
 			}
 			return result;
-			}
+		}
 	}
-	
+
 	public String findName(String id, String pw) throws Exception{
 		String sql = "SELECT name_cp FROM company WHERE id_cp =? AND pw_cp =?";
 		try(Connection con = this.getConnection();
@@ -643,16 +643,16 @@ public class CompanyDAO {
 			try(ResultSet rs = pstat.executeQuery();){
 				if(rs.next()) {
 
-				result = rs.getString("name_cp");
+					result = rs.getString("name_cp");
 
-				
+
 
 				}
 			}
 			return result;
 		}
 	}
-	
+
 	public String findName(String id) throws Exception{
 		String sql = "SELECT name_cp FROM company WHERE id_cp =?";
 		try(Connection con = this.getConnection();
@@ -661,15 +661,15 @@ public class CompanyDAO {
 			String result = "";
 			try(ResultSet rs = pstat.executeQuery();){
 				if(rs.next()) {
-				result = rs.getString("name_cp");
+					result = rs.getString("name_cp");
 				}
 			}
 			return result;
-			}
+		}
 	}
 
 
-	
+
 	public String findProfile(String id) throws Exception{
 		String sql = "SELECT photo_cp FROM company WHERE id_cp = ?";
 		try(Connection con = this.getConnection();
@@ -817,18 +817,18 @@ public class CompanyDAO {
 			}		
 		}
 	}
-	
-	// 기업 회원 탈퇴
-		public int delete(String id) throws Exception{
 
-			String sql = "delete from company where id_if = ?";
-			try(Connection con = this.getConnection();
-					PreparedStatement pstat =con.prepareStatement(sql);){
-				pstat.setString(1, id);
-				int result = pstat.executeUpdate();
-				return result;
-			}
+	// 기업 회원 탈퇴
+	public int delete(String id) throws Exception{
+
+		String sql = "delete from company where id_if = ?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat =con.prepareStatement(sql);){
+			pstat.setString(1, id);
+			int result = pstat.executeUpdate();
+			return result;
 		}
+	}
 
 	// sysname추출을 위해 board_cp의 currVal 추출.
 	public int createProductSeq() throws Exception {
@@ -856,6 +856,41 @@ public class CompanyDAO {
 			}
 			return result;
 		}
+	}
+
+	public CompanyDTO selectByRSeq(String paramSeq) throws Exception {
+
+		String sql = "select * from company where seq_cp = ?";
+
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, paramSeq);
+			try(ResultSet rs = pstat.executeQuery()){
+
+				CompanyDTO rdto = new CompanyDTO();
+				if(rs.next()) {					
+					rdto.setSeq(rs.getInt("seq_cp"));
+					rdto.setId(rs.getString("id_cp"));
+					rdto.setPw(rs.getString("pw_cp"));
+					rdto.setPhoto(rs.getString("photo_cp"));
+					rdto.setName(rs.getString("name_cp"));
+					rdto.setCrnumber(rs.getString("crnumber_cp"));
+					rdto.setZipcode(rs.getString("zipcode_cp"));
+					rdto.setAddress1(rs.getString("address1_cp"));
+					rdto.setAddress2(rs.getString("address2_cp"));
+					rdto.setRpt(rs.getString("rpt_cp"));
+					rdto.setPhone(rs.getString("phone_cp"));
+					rdto.setEmail(rs.getString("email_cp"));
+					rdto.setSales(rs.getLong("sales_cp"));
+					rdto.setGrade(rs.getString("grade"));
+					rdto.setPwAsk(rs.getString("pwAsk_cp"));
+					rdto.setPwAnswer(rs.getString("pwAnswer_cp"));
+					return rdto;
+				}
+				return null;
+			}
+		}
+
 	}
 }
 

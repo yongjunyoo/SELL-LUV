@@ -41,9 +41,7 @@
 					<article class="article">
 					
 						<form action="/IfprofileModify.mem" method="post">
-							<div class="article-img">
-								<img src="/resources/ifcp/img/표지.jpeg" title="" alt=""
-									id="cpPhoto" style="display: block; margin: 0 auto;">
+							<div class="article-img">								
 							</div>
 							<div class="article-title">
 								<div class="media">
@@ -61,10 +59,7 @@
 										<br>
 										<textarea rows="5" cols="50" id="condition" name="condition" >${pdto.condition_if }</textarea>
 										<br>
-										<br>
-										<label id="fileUpload"> 사진선택<input type="file" name="file"
-											accept="jpg,jpeg,png" style="display:none;">
-										</label>
+										<br>										
 									</div>
 								</div>
 							</div>
