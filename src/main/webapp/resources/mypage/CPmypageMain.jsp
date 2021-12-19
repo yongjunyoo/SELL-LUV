@@ -248,7 +248,7 @@ body {
 							<div class="list-group list-group-flush">
 								<a href="/modify.mem" class="list-group-item py-1"><i class="bx bx-cool me-2"></i><span>기업 정보 수정</span></a> 													
 								<a href="/showCompanyKkanbuRequest.kkanbu?IDseq=${IDseq}" class="list-group-item py-1"><i class="bx bx-heart me-2"></i><span>깐부 관리</span></a>
-								<a href="" class="list-group-item py-1"><i class="bx bx-like me-2"></i><span>리뷰 관리</span></a>
+								<a href="/CPReviewList.mem" class="list-group-item py-1"><i class="bx bx-like me-2"></i><span>리뷰 관리</span></a>
 								<a href="" class="list-group-item py-1"><i class="bx bx-highlight me-2"></i><span>커뮤니티 관리</span></a>
 								<a href="" class="list-group-item py-1"><span>회원탈퇴</span></a>
 							</div>
@@ -285,7 +285,7 @@ body {
 												<i class="fa fa-heart-o fa-2x"></i>
 											</div>
 										<div class="detail-title-one">
-												<h6 class="">깐부관리</h6>
+												<h6 class=""><a href="" style="text-decoration: none;">깐부관리</a></h6>
 												
 											</div>
 										</div>
@@ -300,7 +300,7 @@ body {
 												<i class="fa fa-thumbs-o-up fa-2x" aria-hidden="true"></i>
 											</div>
 											<div class="detail-title-one">
-												<h6 class="">리뷰관리</h6>
+												<h6 class=""><a href="/CPReviewList.mem" style="text-decoration: none;">리뷰관리</a></h6>
 											
 											</div>
 										</div>
