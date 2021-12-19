@@ -9,7 +9,7 @@
 <meta charset="utf-8">
 <!--  This file has been downloaded from bootdey.com @bootdey on twitter -->
 <!--  All snippets are MIT license http://bootdey.com/license -->
-<title>blog detail page - Bootdey.com</title>
+<title>리뷰작성 페이지</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 <link
@@ -17,7 +17,7 @@
 	rel="stylesheet">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js"></script>
-
+<script src="https://rawgit.com/jackmoore/autosize/master/dist/autosize.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link
@@ -40,31 +40,19 @@
 				<div class="col-lg-8 m-15px-tb">
 					<article class="article">
 					
-						<form action="/IfprofileModify.mem" method="post">
-							<div class="article-img">
-								<img src="/resources/ifcp/img/표지.jpeg" title="" alt=""
-									id="cpPhoto" style="display: block; margin: 0 auto;">
-							</div>
+						<form action="" method="post">						
 							<div class="article-title">
 								<div class="media">
 									<div class="avatar"></div>
-									<div class="media-body">
-										<label>커리어 </label> <br> 
-										<textarea rows="5" cols="50" id="career" name="career" placeholder="본인의 모델 경력이나 홍보관련 커리어를 작성해주세요" >${pdto.career_if }</textarea>
+									<div class="media-body">										
+										<label>리뷰</label>
 										<br>
-										<br> 
-										<label>소개글</label>
-										<br>
-										<textarea rows="5" cols="50" id="intro" name="intro" id="intro" placeholder="기업에 본인을 소개할 내용을 작성해주세요" >${pdto.intro_if }</textarea>
-										<br> 
-										<label>원하는 조건</label>
-										<br>
-										<textarea rows="5" cols="50" id="condition" name="condition" >${pdto.condition_if }</textarea>
+										<textarea rows="5" cols="50" name="review" id="review" placeholder="리뷰를 남겨주세요"></textarea>
+										 <script>
+                							autosize($("textArea"));
+               							 </script>
 										<br>
 										<br>
-										<label id="fileUpload"> 사진선택<input type="file" name="file"
-											accept="jpg,jpeg,png" style="display:none;">
-										</label>
 									</div>
 								</div>
 							</div>
@@ -96,32 +84,7 @@
 					<!-- End Author -->
 
 					<!-- Latest Post -->
-					<div class="widget widget-latest-post">
-						<div class="widget-title">
-							<h3>닉네임</h3>
-							<h6>${dto.nickname}</h6>
-						</div>
-						<div class="widget-title">
-							<h3>이름</h3>
-							<h6>${dto.name}</h6>
-						</div>
-						<div class="widget-title">
-							<h3>이메일</h3>
-							<h6>${dto.email}</h6>
-						</div>
-						<div class="widget-title">
-							<h3>연락처</h3>
-							<h6>${dto.phone}</h6>
-						</div>
-						<div class="widget-title">
-							<h3>SNS</h3>
-							<h6>${dto.sns}</h6>
-						</div>
-						<div class="widget-title">
-							<h3>등급</h3>
-							<h6>${dto.grade}</h6>
-						</div>
-					</div>
+				
 				</div>
 			</div>
 			<!-- End Latest Post -->
@@ -129,21 +92,12 @@
 	</div>
 	<script>
 		$("#complete").on("click", function() {
-			if ($("#career").val() == "") {
-				alert("경력에 대한 내용을 입력하세요.");
+			if ($("#review").val() == "") {
+				alert("리뷰를 입력해주세요");
 				return false;
-			}
-			if ($("#intro").val() == "") {
-				alert("소개글을 입력하세요.");
-				return false;
-			}
-
-			if ($("#condition").val() == "") {
-				alert("원하는 조건을 입력하세요.");
-				return false;
-			}
+			}			
 			
-			confirm("수정을 완료하시겠습니꺄?");
+			confirm("작성을 완료하시겠습니까?");
 		})
 	</script>
 	<style type="text/css">

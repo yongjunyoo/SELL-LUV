@@ -55,7 +55,6 @@ public class MemberController extends HttpServlet {
 				String name = influencerDAO.findName(id, pw);
 				
 				System.out.println(id+pw+seq);
-				
 				if(result) {
 					
 					session.setAttribute("loginID", id);
@@ -93,7 +92,6 @@ public class MemberController extends HttpServlet {
 				String name = companyDAO.findName(id, pw);
 				
 				System.out.println(id+pw+"   "+seq);
-
 				if(result) {
 					session.setAttribute("loginID", id);
 					session.setAttribute("IDseq", seq);
