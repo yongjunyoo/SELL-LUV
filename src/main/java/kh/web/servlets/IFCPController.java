@@ -3,9 +3,6 @@ package kh.web.servlets;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -20,13 +17,14 @@ import javax.servlet.http.HttpSession;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
-
 import kh.web.dao.CompanyDAO;
 import kh.web.dao.InfluencerDAO;
+import kh.web.dao.KkanbuDAO;
 import kh.web.dto.Board_CpDTO;
 import kh.web.dto.CompanyDTO;
 import kh.web.dto.FileDTO;
 import kh.web.dto.InfluencerDTO;
+import kh.web.dto.KkanbuDTO;
 import kh.web.dto.Profile_IfDTO;
 import kh.web.dto.Review_CpDTO;
 import kh.web.dto.Review_IfDTO;
@@ -46,6 +44,7 @@ public class IFCPController extends HttpServlet {
 
 		InfluencerDAO influencerDAO = new InfluencerDAO();
 		CompanyDAO companyDAO = new CompanyDAO();
+		KkanbuDAO kkanbuDAO = new KkanbuDAO();
 
 		try {
 			//====================================================================================================================================
@@ -119,6 +118,9 @@ public class IFCPController extends HttpServlet {
 				
 				String loggedInID = influencerDAO.whatIsLoggedInID(loginID);
 				
+				int seq_if = influencerDAO.findSeq(loginID); // 아이디로 인플루언서 시퀀스 찾기.
+				int seq_profile_if = influencerDAO.findIfSeq(seq_if); // 인플루언서 시퀀스로 인플루언서 프로필 시퀀스 찾기.
+				boolean kkanbu = kkanbuDAO.areTheyKkanbu(seq,seq_profile_if); // 인플루언서 시퀀스와 제품등록 시퀀스로 깐부인지 확인하기.
 				
 				System.out.println("loginID: " + loginID + " loggedInID: " + loggedInID);
 				
@@ -143,6 +145,7 @@ public class IFCPController extends HttpServlet {
 				for (java.util.Map.Entry<Board_CpDTO, CompanyDTO> entrySet : list.entrySet()) {
 					System.out.println(entrySet.getKey() + " : " + entrySet.getValue());
 				}
+				request.setAttribute("kkanbu", kkanbu);
 				request.setAttribute("loggedInID", loggedInID);
 				request.setAttribute("seq", seq);
 				request.setAttribute("cpList", list);
@@ -153,7 +156,11 @@ public class IFCPController extends HttpServlet {
 	            int seq = Integer.parseInt(request.getParameter("seq"));
 	            String loginID = request.getParameter("loginID");
 				
-				String loggedInID = influencerDAO.whatIsLoggedInID(loginID);	
+				String loggedInID = influencerDAO.whatIsLoggedInID(loginID);
+				
+				int seq_cp = companyDAO.findSeq(loginID); // 아이디로 기업 시퀀스 찾기.
+				int seq_board_cp = companyDAO.findCpSeq(seq_cp); // 기업 시퀀스로 기업 제품등록된 시퀀스 찾기.
+				boolean kkanbu = kkanbuDAO.areTheyKkanbu(seq_board_cp,seq); // 제품등록 시퀀스와 인플루언서 시퀀스로 깐부인지 확인하기.
 	          
 	            
 	            if(currentPage < 1) { 
@@ -176,6 +183,7 @@ public class IFCPController extends HttpServlet {
 	            for (Entry<Profile_IfDTO, InfluencerDTO> entrySet : list.entrySet()) {
 	               System.out.println(entrySet.getKey() + " : " + entrySet.getValue());
 	            }
+	            request.setAttribute("kkanbu", kkanbu);
 	            request.setAttribute("loggedInID", loggedInID);
 	            request.setAttribute("seq", seq);
 	            request.setAttribute("ifList", list);
@@ -227,6 +235,72 @@ public class IFCPController extends HttpServlet {
 				int productSeq = companyDAO.createProductSeq();
 				companyDAO.insertPhoto(new FileDTO(0,oriName,sysName,productSeq));
 				response.sendRedirect("/companyList.ifcp?cpage=1");
+				
+			}else if(cmd.equals("/cpReviewWrite.ifcp")) { // 기업디테일에서 리뷰작성
+				int currentPage = Integer.parseInt(request.getParameter("cpage"));
+				int seq = Integer.parseInt(request.getParameter("seq"));
+				String review = request.getParameter("review");
+				String loginID = (String) request.getSession().getAttribute("loginID");
+								
+				int seq_if = influencerDAO.findSeq(loginID); // 아이디로 인플루언서 시퀀스 찾기.
+				companyDAO.insertReview(seq,loginID,review,seq_if); // 리뷰작성.
+				
+				if(currentPage < 1) { 
+					currentPage = 1;
+				}else if(currentPage > companyDAO.getifCardPageTotalCount(seq)) {
+					currentPage = companyDAO.getifCardPageTotalCount(seq);
+				}
+
+				int start = currentPage * IFCPStatics.RECORD_COUNT_PER_PAGE - (IFCPStatics.RECORD_COUNT_PER_PAGE-1);
+				int end = currentPage * IFCPStatics.RECORD_COUNT_PER_PAGE;
+
+				List<Review_IfDTO> list1 = companyDAO.ifCardBoundary(seq,start, end);
+
+				String navi = companyDAO.getifCardPageNavi(currentPage,seq);
+				request.setAttribute("navi", navi);
+				request.setAttribute("list", list1); 
+
+				LinkedHashMap<Board_CpDTO,CompanyDTO> list = companyDAO.getCompanyBoardDetail(seq);
+
+				for (java.util.Map.Entry<Board_CpDTO, CompanyDTO> entrySet : list.entrySet()) {
+					System.out.println(entrySet.getKey() + " : " + entrySet.getValue());
+				}
+				request.setAttribute("seq", seq);
+				request.setAttribute("cpList", list);
+				request.getRequestDispatcher("/resources/ifcp/companyDetail.jsp").forward(request, response);
+				
+			}else if(cmd.equals("/ifReviewWrite.ifcp")) { // 인플루언서 디테일에서 리뷰작성
+				int currentPage = Integer.parseInt(request.getParameter("cpage"));
+				int seq = Integer.parseInt(request.getParameter("seq"));
+				String review = request.getParameter("review");
+				String loginID = (String) request.getSession().getAttribute("loginID");
+				
+				int seq_cp = companyDAO.findSeq(loginID); // 아이디로 기업 시퀀스 찾기.
+				influencerDAO.insertReview(seq,loginID,review,seq_cp); // 리뷰작성.
+	            
+	            if(currentPage < 1) { 
+	               currentPage = 1;
+	            }else if(currentPage > influencerDAO.getifCardPageTotalCount(seq)) {
+	               currentPage = influencerDAO.getifCardPageTotalCount(seq);
+	            }
+
+	            int start = currentPage * IFCPStatics.RECORD_COUNT_PER_PAGE - (IFCPStatics.RECORD_COUNT_PER_PAGE-1);
+	            int end = currentPage * IFCPStatics.RECORD_COUNT_PER_PAGE;
+
+	            List<Review_CpDTO> list1 = influencerDAO.ifCardBoundary(seq,start, end);
+	            
+	            String navi = influencerDAO.getifCardPageNavi(currentPage,seq); 
+	            request.setAttribute("navi", navi);
+	            request.setAttribute("list", list1);
+
+	            LinkedHashMap<Profile_IfDTO,InfluencerDTO> list = influencerDAO.getIfProfile(seq);
+	            
+	            for (Entry<Profile_IfDTO, InfluencerDTO> entrySet : list.entrySet()) {
+	               System.out.println(entrySet.getKey() + " : " + entrySet.getValue());
+	            }
+	            request.setAttribute("seq", seq);
+	            request.setAttribute("ifList", list);
+	            request.getRequestDispatcher("/resources/ifcp/ifProfileDetail.jsp").forward(request, response);
 			}
 
 		}catch(Exception e) {

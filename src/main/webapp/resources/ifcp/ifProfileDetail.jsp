@@ -39,7 +39,8 @@
 					<article class="article">
 						<div class="article-img">
 							<c:forEach var="dto" items="${ifList }">
-								<img src="/influencerDetail.file?seq= ${dto.key.seq_if }" title="" alt="">
+								<img src="/influencerList.file?seq= ${dto.key.seq_if }"
+									title="" alt="">
 						</div>
 						<div class="article-title">
 							<!--소개글-->
@@ -67,6 +68,27 @@
 					</article>
 
 					<div class="contact-form article-comment">
+						<c:if test="${kkanbu==true}">
+							<h4>리뷰 작성</h4>
+							<form id="contact-form" method="POST"
+								action="/ifReviewWrite.ifcp?seq=${dto.key.seq_if}&cpage=1">
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<input type=text id="review" name="review"
+												placeholder="내용을 입력하세요."
+												style="border-right: 0px; border-top: 0px; border-left: 0px; border-bottom: 1px solid #ff6F61;">
+											&nbsp;<button class="px-btn theme">
+												작성하기<i class="arrow"></i>
+											</button>
+										</div>
+									</div>
+									<div class="col-md-12"></div>
+								</div>
+							</form>
+							<br>
+						</c:if>
+
 						<h4>리뷰 목록</h4>
 						<div class="row">
 							<div class="col-md-6">
@@ -84,7 +106,9 @@
 									<tbody>
 										<c:forEach var="list" items="${list}">
 											<tr style="color: black;">
-												<td><img src="/product.file?seq= ${list.ref_seq }" title="" alt="" style="height:25px;width:25px; border-radius:15px;"></td>
+												<td><img src="/product.file?seq= ${list.ref_seq }"
+													title="" alt=""
+													style="height: 25px; width: 25px; border-radius: 15px;"></td>
 												<td>${list.seq }</td>
 												<td>${list.writer }</td>
 												<td>${list.content }</td>
@@ -110,24 +134,26 @@
 								<div class="media-body">
 									<div class="nav tag-cloud">
 
-									<c:choose>
-										<c:when test="${loginID == null}">
-										</c:when>
-										<c:when test="${loggedInID eq 'influencer'}">
-										</c:when>
-										
-										<c:when test="${kkanbuMessage != null}">
+										<c:choose>
+											<c:when test="${loginID == null}">
+											</c:when>
+											<c:when test="${loggedInID eq 'influencer'}">
+											</c:when>
+
+											<c:when test="${kkanbuMessage != null}">
 			 									${kkanbuMessage}
 										</c:when>
-										<c:when test="${kkanbuCardSeq !=null }">
-										<div class="nav tag-cloud">
-											<span>깐부요청이미함..</span>
-										</div>	
-										</c:when>
-										<c:otherwise>
-											<a href="/kkanbuRequestToInfluencer.kkanbu?kkanbuSeqTo=${dto.key.member_seq }&kkanbuSeqFrom=${IDseq}&kkanbuCardSeq=${dto.key.seq_if}&cpage=1" id = "kkanbuRequest" style="text-decoration: none;">깐부맺기</a>
-										</c:otherwise>
-									</c:choose>
+											<c:when test="${kkanbuCardSeq !=null }">
+												<div class="nav tag-cloud">
+													<span>깐부요청이미함..</span>
+												</div>
+											</c:when>
+											<c:otherwise>
+												<a
+													href="/kkanbuRequestToInfluencer.kkanbu?kkanbuSeqTo=${dto.key.member_seq }&kkanbuSeqFrom=${IDseq}&kkanbuCardSeq=${dto.key.seq_if}&cpage=1"
+													id="kkanbuRequest" style="text-decoration: none;">깐부맺기</a>
+											</c:otherwise>
+										</c:choose>
 
 									</div>
 								</div>
@@ -154,13 +180,13 @@
 		</div>
 	</div>
 
-	 <div id="errorMessage" style="display:hidden">${errorMessage}</div>
+	<div id="errorMessage" style="display: hidden">${errorMessage}</div>
 
 
 	<script>
-	
+		
 	</script>
-	
+
 	<style type="text/css">
 #delBtn {
 	color: #ff6F61;
