@@ -11,7 +11,7 @@ public class Review_CpDTO {
 	private Timestamp timestamp;
 	private int ref_seq;
 	
-	Review_CpDTO(){}
+	public Review_CpDTO(){}
 
 	public Review_CpDTO(int seq, int member_seq, String writer, String content, Timestamp timestamp, int ref_seq) {
 		super();

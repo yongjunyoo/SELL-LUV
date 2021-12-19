@@ -466,7 +466,7 @@ public class CompanyDAO {
 			}
 		}
 	}
-	
+
 	public boolean isMember(String id) throws Exception {
 		String sql = "SELECT * FROM company WHERE id_cp =? ";
 
@@ -609,13 +609,13 @@ public class CompanyDAO {
 			String result = "";
 			try(ResultSet rs = pstat.executeQuery();){
 				if(rs.next()) {
-				result = rs.getString("name_cp");
+					result = rs.getString("name_cp");
 				}
 			}
 			return result;
 		}
 	}
-	
+
 	public int findSeq(String id) throws Exception{
 		String sql = "SELECT seq_cp FROM company WHERE id_cp =?";
 		try(Connection con = this.getConnection();
@@ -624,14 +624,14 @@ public class CompanyDAO {
 			int result = 0;
 			try(ResultSet rs = pstat.executeQuery();){
 				if(rs.next()) {
-				result = rs.getInt("seq_cp");
-				
+					result = rs.getInt("seq_cp");
+
 				}
 			}
 			return result;
-			}
+		}
 	}
-	
+
 	public String findName(String id, String pw) throws Exception{
 		String sql = "SELECT name_cp FROM company WHERE id_cp =? AND pw_cp =?";
 		try(Connection con = this.getConnection();
@@ -643,16 +643,16 @@ public class CompanyDAO {
 			try(ResultSet rs = pstat.executeQuery();){
 				if(rs.next()) {
 
-				result = rs.getString("name_cp");
+					result = rs.getString("name_cp");
 
-				
+
 
 				}
 			}
 			return result;
 		}
 	}
-	
+
 	public String findName(String id) throws Exception{
 		String sql = "SELECT name_cp FROM company WHERE id_cp =?";
 		try(Connection con = this.getConnection();
@@ -661,15 +661,15 @@ public class CompanyDAO {
 			String result = "";
 			try(ResultSet rs = pstat.executeQuery();){
 				if(rs.next()) {
-				result = rs.getString("name_cp");
+					result = rs.getString("name_cp");
 				}
 			}
 			return result;
-			}
+		}
 	}
 
 
-	
+
 	public String findProfile(String id) throws Exception{
 		String sql = "SELECT photo_cp FROM company WHERE id_cp = ?";
 		try(Connection con = this.getConnection();
@@ -817,17 +817,19 @@ public class CompanyDAO {
 			}		
 		}
 	}
-	
+
 	// 기업 회원 탈퇴
-		public int delete(String id) throws Exception{
-			String sql = "delete from company where id_if = ?";
-			try(Connection con = this.getConnection();
-					PreparedStatement pstat =con.prepareStatement(sql);){
-				pstat.setString(1, id);
-				int result = pstat.executeUpdate();
-				return result;
-			}
+	public int delete(String id) throws Exception{
+		String sql = "delete from company where id_if = ?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat =con.prepareStatement(sql);){
+			pstat.setString(1, id);
+			int result = pstat.executeUpdate();
+			return result;
 		}
+
+	}
+
 
 	// sysname추출을 위해 board_cp의 currVal 추출.
 	public int createProductSeq() throws Exception {
@@ -856,7 +858,8 @@ public class CompanyDAO {
 			return result;
 		}
 	}
-	
+
+
 	public int insertReview(int seq,String loginID,String review,int seq_if) throws Exception{ // 리뷰작성.
 		String sql = "insert into review_if values(review_cp_seq.nextval,?,?,?,sysdate,?)";
 		try(Connection con = this.getConnection();
@@ -869,7 +872,7 @@ public class CompanyDAO {
 			return result;
 		}
 	}
-	
+
 	public int findCpSeq(int seq_cp) throws Exception{ // 기업 시퀀스로 기업 제품등록 시퀀스 찾기.
 		String sql = "SELECT seq_board_cp FROM board_cp WHERE member_seq =?";
 		try(Connection con = this.getConnection();

@@ -10,6 +10,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import kh.web.dto.Review_CpDTO;
 import kh.web.dto.Review_IfDTO;
 import kh.web.statics.IFCPStatics;
 
@@ -97,19 +98,20 @@ public class ReviewDAO {
 
 			String pageNavi = "";
 			if(needPrev) {
-				pageNavi += "<a href ='/boardlist.board?cpage="+(startNavi-1)+"'><</a> ";		
+				pageNavi += "<a href ='/IFReviewList.mem?cpage="+(startNavi-1)+"'><</a> ";		
 			}
 
 			for(int i = startNavi; i <= endNavi; i++) {
-				pageNavi +="<a href='/boardlist.board?cpage="+i+"'>" + i +"</a> ";
+				pageNavi +="<a href='/IFReviewList.mem?cpage="+i+"'>" + i +"</a> ";
 			}
 			if(needNext) {
-				pageNavi += "<a href ='/boardlist.board?cpage="+(endNavi+1)+"'>></a> ";
+				pageNavi += "<a href ='/IFReviewList.mem?cpage="+(endNavi+1)+"'>></a> ";
 			}
 
 			return pageNavi;
 		}
 		
+		// 인플루언서 리뷰 모아보기
 		public List<Review_IfDTO> selectByBoundReview(int start, int end) throws Exception{
 
 			String sql = "select * from(select review_if.*, row_number() over(order by seq desc) rn from review_if) where rn between ? and ?";
@@ -124,8 +126,34 @@ public class ReviewDAO {
 						dto.setSeq(rs.getInt("seq"));
 						dto.setMember_seq(rs.getInt("member_seq"));
 						dto.setWriter(rs.getString("writer"));
-						dto.setContent(rs.getString("content"));										
+						dto.setContent(rs.getString("content"));
 						dto.setTimestamp(rs.getTimestamp("timestamp"));
+						dto.setRef_seq(rs.getInt("ref_seq"));
+						list.add(dto);
+					}
+					return list;
+				}			
+			}
+		}
+		
+		
+		public List<Review_CpDTO> selectByBoundCPReview(int start, int end) throws Exception{
+
+			String sql = "select * from(select review_cp.*, row_number() over(order by seq desc) rn from review_cp) where rn between ? and ?";
+			try(Connection con = this.getConnection();
+					PreparedStatement pstat = con.prepareStatement(sql);){
+				pstat.setInt(1, start);
+				pstat.setInt(2, end);
+				try(ResultSet rs = pstat.executeQuery();){
+					List<Review_CpDTO> list = new ArrayList<>();
+					while(rs.next()) {
+						Review_CpDTO dto = new Review_CpDTO();
+						dto.setSeq(rs.getInt("seq"));
+						dto.setMember_seq(rs.getInt("member_seq"));
+						dto.setWriter(rs.getString("writer"));
+						dto.setContent(rs.getString("content"));
+						dto.setTimestamp(rs.getTimestamp("timestamp"));
+						dto.setRef_seq(rs.getInt("ref_seq"));
 						list.add(dto);
 					}
 					return list;
