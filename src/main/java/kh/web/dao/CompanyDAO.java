@@ -607,11 +607,11 @@ public class CompanyDAO {
 				PreparedStatement pstat = con.prepareStatement(sql);){
 			pstat.setInt(1, kkanbuSeqFrom);
 			String result = "";
-			System.out.println("메소드 인자값 "+kkanbuSeqFrom);
+			
 			try(ResultSet rs = pstat.executeQuery();){
 				if(rs.next()) {
 					result = rs.getString("name_cp");
-					System.out.println("메소드 결과값 "+result);
+					
 					return result;
 				}
 			}
