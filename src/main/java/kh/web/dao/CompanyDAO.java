@@ -13,6 +13,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import kh.web.dto.BoardDTO;
 import kh.web.dto.Board_CpDTO;
 import kh.web.dto.CompanyDTO;
 import kh.web.dto.FileDTO;
@@ -887,6 +888,7 @@ public class CompanyDAO {
 			return result;
 		}
 	}
+	
 }
 
 

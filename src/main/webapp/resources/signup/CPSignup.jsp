@@ -300,7 +300,7 @@ p {
                                 <div class="col-5">
                                     <h2 class="steps">단계 1 - 4</h2>
                                 </div>
-                            </div> <label class="fieldlabels">이메일: *</label> 
+                            </div> <label class="fieldlabels">이메일: * (@xxxx.com 형식으로만 가능)</label> 
                             <input type="email" id="email" name="email" placeholder="Email" /> 
                             <label class="fieldlabels">아이디: * (최소 6글자 이상 최대 12글자, 소문자와 숫자 조합으로만 가능)</label> <span id= "checkResult"></span><input type="text" id="id" name="id" placeholder="Id" /> 
                             <label class="fieldlabels">비밀번호: * (최소 8글자 이상 최대 16글자)</label> <input type="password" id="pw" name="pw" placeholder="Password" /> 
@@ -464,14 +464,14 @@ $("#step2").click(function(){
 	current_fs = $(this).parent();
 	next_fs = $(this).parent().next();
 
-	let regexName = /^[a-zA-Z가-힣\d]{1,}$/;
+	let regexName = /^[a-zA-Z가-힣\d]{1,8}$/;
 	let resultName = regexName.test($("#name").val());
 	if(resultName == false){
 	    alert("기업상호 형식이 올바르지 않습니다.")
 	    return false;
 	}
 	 
-     let regexRpt = /^[가-힣]{1,5}$/
+     let regexRpt = /^[a-zA-Z가-힣]{1,8}$/
      let resultRpt = regexRpt.test($("#rpt_cp").val());
      if(resultRpt == false){
          alert("대표자명을 다시 확인 해주세요")

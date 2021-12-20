@@ -301,7 +301,7 @@ p {
                                 <div class="col-5">
                                     <h2 class="steps">단계 1 - 4</h2>
                                 </div>
-                            </div> <label class="fieldlabels">이메일: *</label> 
+                            </div> <label class="fieldlabels">이메일: * (@xxxx.com 형식으로만 가능)</label> 
                             <input type="email" id="email" name="email" placeholder="Email" /> 
                             <label class="fieldlabels">아이디: * (최소 6글자 이상 최대 12글자, 소문자와 숫자 조합으로만 가능)</label> <span id= "checkResult"></span><input type="text" id="id" name="id" placeholder="Id" /> 
                             <label class="fieldlabels">비밀번호: * (최소 8글자 이상 최대 16글자)</label> <input type="password" id="pw" name="pw" placeholder="Password" /> 
