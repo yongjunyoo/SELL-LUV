@@ -158,11 +158,11 @@ String sql = "select kkanbu_seq from kkanbu where company_Seq = ? and influencer
 	
 	public int getBoardCpSeq(String title_cp) throws Exception{
 		   
-	    String sql = "select seq_board_cp from board_cp where title_cp = ?";
+	    String sql = "select seq_board_cp from board_cp where title_cp LIKE ?";
 	
 	    try(Connection con = this.getConnection();
 	          PreparedStatement pstat = con.prepareStatement(sql);){
-	       pstat.setString(1, title_cp);
+	       pstat.setString(1, "%"+title_cp+"%");
 	       try(ResultSet rs = pstat.executeQuery();){
 	    	   int member_seq = 0;
 	          if(rs.next()) {
