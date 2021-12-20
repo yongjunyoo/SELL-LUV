@@ -28,6 +28,49 @@
 	integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
+<script>
+   $(function(){
+      $("#kkanbuRequest").on("click",function(){
+    	  
+    	  let member_seq = $("#member_seq").val();
+    	  let seq_if = $("#seq_if").val();
+    	  let cpage = $("#cpage").val();
+    	  
+         $.ajax({
+            url:"/selectAllboardCp.kkanbu",
+            dataType:"json",
+            data: {
+            	kkanbuSeqTo: member_seq,
+            	kkanbuCardSeq: seq_if,
+            	cpage: cpage
+            }
+         }).done(function(resp){
+            console.log(resp);
+            let container = window.open("","","width=300px,height=200px,top=200px,left=200px");
+            container.document.write("깐부를 맺을 ");
+            container.document.write("<br>");
+            container.document.write("제품의 이름을 선택해주세요.");
+            container.document.write("<form id=frm action='/kkanbuRequestToInfluencer.kkanbu?kkanbuSeqTo'>");
+            container.document.write("<select name=select>");
+            for(let i of resp){
+            container.document.write("<option>");
+            container.document.write(i);
+            container.document.write("</option>");
+            }
+            container.document.write("</select>");
+            container.document.write("<button  id=btn >선택</button>");
+            container.document.write("</form>")
+           	window.close();
+            <!-- 
+            $("#btn").on("click",function(){
+            	$("#frm").submit();
+            	self.close();
+            })
+            -->
+         })
+      })
+   })
+</script>
 
 <body>
 	<jsp:include page="/header.jsp" flush="false" />
@@ -43,6 +86,9 @@
 									title="" alt="">
 						</div>
 						<div class="article-title">
+					<input type="hidden" id ="member_seq" value=${dto.key.member_seq }> 
+					<input type="hidden" id="seq_if" value=${dto.key.seq_if } >
+					<input type="hidden" id="cpage" value=1>
 							<!--소개글-->
 							<div class="avatar"></div>
 							<div class="media">
@@ -134,7 +180,7 @@
 								<div class="media-body">
 									<div class="nav tag-cloud">
 
-										<c:choose>
+										 <c:choose>
 											<c:when test="${loginID == null}">
 											</c:when>
 											<c:when test="${loggedInID eq 'influencer'}">
@@ -150,10 +196,10 @@
 											</c:when>
 											<c:otherwise>
 												<a
-													href="/kkanbuRequestToInfluencer.kkanbu?kkanbuSeqTo=${dto.key.member_seq }&kkanbuSeqFrom=${IDseq}&kkanbuCardSeq=${dto.key.seq_if}&cpage=1"
+													
 													id="kkanbuRequest" style="text-decoration: none;">깐부맺기</a>
 											</c:otherwise>
-										</c:choose>
+										</c:choose> 
 
 									</div>
 								</div>

@@ -153,7 +153,7 @@
 											</c:when>
 											<c:otherwise>
 												<a
-													href="/kkanbuRequestToCompany.kkanbu?kkanbuSeqTo=${dto.key.member_seq }&kkanbuSeqFrom=${IDseq}&kkanbuCardSeq=${dto.key.seq_cp}&cpage=1"
+													href="/kkanbuRequestToCompany.kkanbu?kkanbuSeqTo=${dto.key.member_seq }&kkanbuSeqFrom=${IDseq}&kkanbuCardSeq=${dto.key.seq_cp}&cpage=1&kkanbuTitleCp=${dto.key.title_cp}"
 													style="text-decoration: none;">깐부맺기</a>
 											</c:otherwise>
 										</c:choose>
