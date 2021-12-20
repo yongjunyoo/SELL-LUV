@@ -891,6 +891,17 @@ public class CompanyDAO {
 			return result;
 		}
 	}
+	
+	public int cpDelete(String seq) throws Exception{ // 기업 제품등록 삭제.
+		String sql = "delete from board_cp where seq_board_cp=?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat =con.prepareStatement(sql);){
+			pstat.setString(1, seq);
+			int result = pstat.executeUpdate();
+			con.setAutoCommit(false);
+			return result;
+		}
+	}
 }
 
 

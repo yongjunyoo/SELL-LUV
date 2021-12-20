@@ -224,6 +224,8 @@
 
 			</div>
 		</div>
+		</div>
+	<jsp:include page="/footer.jsp" flush="false" />
 		<!-- End Content -->
 
 
@@ -239,6 +241,5 @@
 		<script src="<c:url value="/resources/ifcp/js/templatemo.js" />"></script>
 		<script src="<c:url value="/resources/ifcp/js/custom.js" />"></script>
 		<!-- End Script -->
-		<jsp:include page="/footer.jsp" flush="false" />
 </body>
 </html>
