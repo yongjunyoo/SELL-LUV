@@ -167,6 +167,12 @@ body {
 	border: 1px solid transparent;
 	border-radius: 3px;
 }
+.td{
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	max-width:130px;
+}
 </style>
 <script type="text/javascript">
 	
@@ -253,12 +259,12 @@ body {
 									<tbody>
 										<c:forEach var="list" items="${list}">
 											<tr>
-												<td><input type="checkbox" name="checkbox"
+												<td class="td"><input type="checkbox" name="checkbox"
 													value="${list.seq_if}"></td>
-												<td>${list.seq_if}</td>
-												<td>${list.intro_if}</td>
-												<td>${list.condition_if}</td>
-												<td>${list.career_if}</td>
+												<td class="td">${list.seq_if}</td>
+												<td class="td">${list.intro_if}</td>
+												<td class="td">${list.condition_if}</td>
+												<td class="td">${list.career_if}</td>
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -279,7 +285,7 @@ body {
 											<option>원하는조건</option>
 											<option>커리어</option>
 									</select></td>
-									<td><input type="hidden" value="1" name="cpage"> <input
+									<td id="frame"><input type="hidden" value="1" name="cpage"> <input
 										type="search" class="form-control rounded"
 										placeholder="내용을 입력하세요" id="searchContents"
 										name="searchContents" /></td>
