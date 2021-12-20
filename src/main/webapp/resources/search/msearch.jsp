@@ -63,6 +63,11 @@
         searchEnabled: false,
         itemSelectText: '',
       });
+      
+      $(".btn-search").on("click",function(){
+    	  alert("미구현 기능입니다.");
+    	  location.href="/index.jsp";
+      })
 
     </script>
   </body><!-- This templates was made by Colorlib (https://colorlib.com) -->

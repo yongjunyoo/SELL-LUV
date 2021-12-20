@@ -80,32 +80,39 @@
 			<div class="row align-items-start">
 				<div class="col-lg-8 m-15px-tb">
 					<article class="article">
-						<div class="article-img">
+						<div class="article-img"
+							style="text-align: center; height: 256.98px;">
 							<c:forEach var="dto" items="${ifList }">
-								<img src="/influencerList.file?seq= ${dto.key.seq_if }"
-									title="" alt="">
+								<img src="/influencerList.file?seq= ${dto.key.seq_if }" title=""
+									alt="">
 						</div>
 						<div class="article-title">
-					<input type="hidden" id ="member_seq" value=${dto.key.member_seq }> 
-					<input type="hidden" id="seq_if" value=${dto.key.seq_if } >
-					<input type="hidden" id="cpage" value=1>
+							<input type="hidden" id="member_seq" value=${dto.key.member_seq }>
+							<input type="hidden" id="seq_if" value=${dto.key.seq_if }>
+							<input type="hidden" id="cpage" value=1>
 							<!--소개글-->
 							<div class="avatar"></div>
 							<div class="media">
-								<div class="avatar"></div>
 								<div class="media-body">
 									<label>작성자 : </label> ${dto.value.id}
 								</div>
+							</div>
+							<div class="media">
 								<div class="media-body">
 									<label>SNS : </label> ${dto.value.sns}
 								</div>
 							</div>
-							<br>
 							<div class="media">
-								<div class="avatar"></div>
 								<div class="media-body">
 									<label>커리어 : </label> ${dto.key.career_if}
 								</div>
+							</div>
+							<div class="media">
+								<div class="media-body">
+									<label>소개글 : </label> ${dto.key.intro_if}
+								</div>
+							</div>
+							<div class="media">
 								<div class="media-body">
 									<label>원하는 조건 : </label> ${dto.key.condition_if}
 								</div>
@@ -124,7 +131,8 @@
 											<input type=text id="review" name="review"
 												placeholder="내용을 입력하세요."
 												style="border-right: 0px; border-top: 0px; border-left: 0px; border-bottom: 1px solid #ff6F61;">
-											&nbsp;<button class="px-btn theme">
+											&nbsp;
+											<button class="px-btn theme">
 												작성하기<i class="arrow"></i>
 											</button>
 										</div>
@@ -138,8 +146,7 @@
 						<h4>리뷰 목록</h4>
 						<div class="row">
 							<div class="col-md-6">
-								<table class="table-sm mb-0" width="450px; "
-									style="color: #ff6F61;">
+								<table class="table-sm mb-0">
 									<thead>
 										<tr>
 											<th></th>
@@ -180,7 +187,7 @@
 								<div class="media-body">
 									<div class="nav tag-cloud">
 
-										 <c:choose>
+										<c:choose>
 											<c:when test="${loginID == null}">
 											</c:when>
 											<c:when test="${loggedInID eq 'influencer'}">
@@ -195,11 +202,9 @@
 												</div>
 											</c:when>
 											<c:otherwise>
-												<a
-													
-													id="kkanbuRequest" style="text-decoration: none;">깐부맺기</a>
+												<a id="kkanbuRequest" style="text-decoration: none;">깐부맺기</a>
 											</c:otherwise>
-										</c:choose> 
+										</c:choose>
 
 									</div>
 								</div>
@@ -234,6 +239,16 @@
 	</script>
 
 	<style type="text/css">
+table {
+	color: #ff6F61;
+	width: 500px;
+}
+
+img {
+	max-width: 100%;
+	height: 100%;
+}
+
 #delBtn {
 	color: #ff6F61;
 	background-color: transparent;
