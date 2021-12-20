@@ -33,7 +33,7 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/mainpage/css/styles.css"> 
 	
 	<!-- Favicon  -->
-    <link rel="icon" href="resources/mainpage/images/favicon.png">
+    <link rel="icon" href="#">
 </head>
 <style>
 .quotes {

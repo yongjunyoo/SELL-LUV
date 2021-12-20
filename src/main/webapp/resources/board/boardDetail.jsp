@@ -288,7 +288,7 @@ rel="stylesheet" />
                 <button type="button" id="boardList" class="btn btn-dark" style="background-color:rgb(255, 111, 97);">목록으로</button>
                 <script>
 					$("#boardList").on("click",function(){
-						location.href="/boardList.board?cpage=1";
+						location.href="/boardList.board?cpage=${cpage}";
 					});
 					
 					// 기존 내용 백업
