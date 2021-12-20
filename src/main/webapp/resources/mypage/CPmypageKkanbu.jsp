@@ -237,7 +237,7 @@ body {
 							<div class="list-group list-group-flush">
 								<a href="/modify.mem" class="list-group-item py-1"><i class="bx bx-cool me-2"></i><span>개인 정보 수정</span></a> 							
 								<a href="/Ifprofile.mem" class="list-group-item py-1"><i class="bx bx-face me-2"></i><span>프로필 수정</span></a> 
-								<a href="/IFKkanbuList.mem" class="list-group-item py-1"><i class="bx bx-heart me-2"></i><span>깐부 관리</span></a>
+								<a href="/showCompanyKkanbuRequest.kkanbu?IDseq=${IDseq }" class="list-group-item py-1"><i class="bx bx-heart me-2"></i><span>깐부 관리</span></a>
 								<a href="/CPReviewList.mem?cpage=1" class="list-group-item py-1"><i class="bx bx-like me-2"></i><span>리뷰 관리</span></a>
 								<a href="" class="list-group-item py-1"><i class="bx bx-highlight me-2"></i><span>커뮤니티 관리</span></a>
 								<a href="" class="list-group-item py-1"></i><span>회원탈퇴</span></a>
@@ -275,7 +275,7 @@ body {
 												<i class="fa fa-heart-o fa-2x"></i>
 											</div>
 										<div class="detail-title-one">
-												<h6 class=""><a href="/showKkanbuRequest.kkanbu?=${IDseq}" style="text-decoration: none;">깐부관리</a></h6>
+												<h6 class=""><a href="/showCompanyKkanbuRequest.kkanbu?IDseq=${IDseq}" style="text-decoration: none;">깐부관리</a></h6>
 												<%-- <p class="detail-detail"><span>이동</span></p>--%>
 											</div>
 										</div>
@@ -320,7 +320,7 @@ body {
 												<td class="name truncate"><a href="#"> ${kkanbu.cp_kkanbuNameFrom}
 													</a></td>
 												<td class="date">${kkanbu.cp_requestedTime}</td>
-												<td class="size"><a href="/approveCompanyKkanbuRequest.kkanbu?kkanbuFrom=${kkanbu.cp_kkanbuSeqFrom }&kkanbuTo=${kkanbu.cp_kkanbuSeqTo}&loggedInSeq=${IDseq}&kkanbu_seq${kkanbu.cp_kkanbu_seq}" style="text-decoration: none">수락 </a>
+												<td class="size"><a href="/approveCompanyKkanbuRequest.kkanbu?kkanbuFrom=${kkanbu.cp_kkanbuSeqFrom }&kkanbuTo=${kkanbu.cp_kkanbuSeqTo}&loggedInSeq=${IDseq}&kkanbu_seq=${kkanbu.cp_kkanbu_seq}" style="text-decoration: none">수락 </a>
 												<a href="/deleteCompanyKkanbuRequest.kkanbu?kkanbuSeq=${kkanbu.cp_kkanbu_seq }&kkanbuTo=${kkanbu.cp_kkanbuSeqTo}" style="text-decoration: none">거절 </a></td>
 											</tr>
 										</tbody>
