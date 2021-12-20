@@ -279,7 +279,7 @@ rel="stylesheet" />
         </div>
         <div class="row">
             <div class="col-sm-12" style="text-align:right">
-                <c:if test="${loginName==dto.writer }">
+                <c:if test="${loginID==dto.writer }">
 	                <button type="button" class="btn btn-dark" id="mod" style="background-color:rgb(255, 111, 97);">수정하기</button>
 	                <button type="button" class="btn btn-dark" id="del" style="background-color:rgb(255, 111, 97);">삭제하기</button>
 	                <button type="button" class="btn btn-dark" id="modDone" style="background-color:rgb(255, 111, 97);display:none;">수정완료</button>
