@@ -27,8 +27,10 @@ import kh.web.dto.KkanbuDTO;
 @WebServlet("*.kkanbu")
 public class KkanbuController extends HttpServlet {
 	
-	int kkanbuSeqFrom = 0 ;
-	int kkanbuSeqTo = 0 ;
+	String kkanbuTitleCp = "";
+	int board_cp = 0;
+	int kkanbuSeqFrom = 0;
+	int kkanbuSeqTo = 0;
 	int kkanbuCardSeq = 0;
 	int cpage = 0;
 	
@@ -58,22 +60,18 @@ public class KkanbuController extends HttpServlet {
 	try {
 		if(cmd.equals("/kkanbuRequestToInfluencer.kkanbu")) {
 			
+			kkanbuSeqFrom = Integer.parseInt((String)session.getAttribute("IDseq"));
 			
-			
-//			String kkanbuTitleCp = request.getParameter("kkanbuTitleCp");
-//			int board_cp = Integer.parseInt(request.getParameter("board_cp"));
-			
-			String kkanbuTitleCp = request.getParameter("select");
-			int board_cp = kkanbuDAO.getMemberSeq(kkanbuTitleCp);
-			
-			 System.out.println("kkanbuCardSeq: " + kkanbuCardSeq );
-			 System.out.println("kkanbuTitleCp: " + kkanbuTitleCp);
-			 System.out.println("board_cp: " + board_cp);
-
+			System.out.println("kkanbuSeqTo: " + kkanbuSeqTo); // 세션 저장
+			System.out.println("cpage: " + cpage); // 세션 저장
+			System.out.println("kkanbuTitleCp: " + kkanbuTitleCp); // 세션 저장
+			System.out.println("kkanbuSeqFrom: " + kkanbuSeqFrom ); // 세션 IDseq사용
+			int board_cp = kkanbuDAO.getBoardCpSeq(kkanbuTitleCp);
+			System.out.println("kkanbuCardSeq: " + kkanbuCardSeq ); // 세선 저장
+			System.out.println("board_cp: " + board_cp);
 			
 			String kkanbuNameFrom = companyDAO.getName(kkanbuSeqFrom);
 			String kkanbuNickNameTo = influencerDAO.getNickname(kkanbuSeqTo);
-			
 			
 //			파라미터 값을 받은후 해당페이지의 member_seq의 마이페이지에 {로그인된 아이디의 시퀀스를 가진 아이디의 아이디값}으로 부터 깐부요청 <수락><거절> 을 뛰움 ->
 			System.out.println("kkanbuNickNameTo:"+  kkanbuNickNameTo+" "+ " kkanbuNickNameFrom:"+kkanbuNameFrom );
@@ -235,22 +233,25 @@ public class KkanbuController extends HttpServlet {
 			response.sendRedirect("/deleteCompanyKkanbuRequest.kkanbu?kkanbuSeq="+kkanbu_seq+"&kkanbuTo="+companySeq);
 			
 		}else if(cmd.equals("/selectAllboardCp.kkanbu")){
-			 Gson g = new Gson();
-	         String result = g.toJson(kkanbuDAO.selectByBSeq((String)session.getAttribute("IDseq")));
-	         response.setContentType("text/html;charset=utf8");
-	         response.getWriter().append(result);
-		
-			 kkanbuSeqFrom = Integer.parseInt((String)session.getAttribute("IDseq"));
-			 kkanbuSeqTo = Integer.parseInt(request.getParameter("kkanbuSeqTo"));
-			 kkanbuCardSeq = Integer.parseInt(request.getParameter("kkanbuCardSeq"));
-			 cpage =Integer.parseInt(request.getParameter("cpage"));
-			
-
-			 System.out.println("kkanbuCardSeq: " + kkanbuCardSeq );
-			 System.out.println(" kkanbuSeqFrom:" +  kkanbuSeqFrom);
-			 System.out.println("kkanbuSeqTo:" +  kkanbuSeqTo);
+			List<String> result = kkanbuDAO.selectByBSeq((String)session.getAttribute("IDseq"));
+			request.setAttribute("result", result);
+			request.getRequestDispatcher("/resources/ifcp/popup.jsp").forward(request, response);
 			 
 			
+	      }else if(cmd.equals("/selectPopup.kkanbu")) {
+	    	  
+	    	  
+	    	  kkanbuSeqTo = Integer.parseInt(request.getParameter("kkanbuSeqTo"));
+	    	  kkanbuCardSeq = Integer.parseInt(request.getParameter("kkanbuCardSeq"));
+	    	  cpage =Integer.parseInt(request.getParameter("cpage"));
+	    	  session.setAttribute("kkanbuSeqTo", kkanbuSeqTo);
+	    	  session.setAttribute("cpage", cpage);
+	    	  session.setAttribute("kkanbuCardSeq", kkanbuCardSeq);
+				
+	      }else if(cmd.equals("/select.kkanbu")) {
+	    	  kkanbuTitleCp = request.getParameter("select");
+	    	  session.setAttribute("kkanbuTitleCp", kkanbuTitleCp);
+
 	      }
 	}catch(Exception e) {
 		e.printStackTrace();
