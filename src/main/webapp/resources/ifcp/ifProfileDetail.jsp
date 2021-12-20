@@ -179,7 +179,7 @@
 			<!-- End Latest Post -->
 		</div>
 	</div>
-
+	<jsp:include page="/footer.jsp" flush="false" />
 	<div id="errorMessage" style="display: hidden">${errorMessage}</div>
 
 
@@ -680,6 +680,5 @@ img {
 		confirm("삭제하시겠습니까?");
 	})
 	</script>
-	<jsp:include page="/footer.jsp" flush="false" />
 </body>
 </html>

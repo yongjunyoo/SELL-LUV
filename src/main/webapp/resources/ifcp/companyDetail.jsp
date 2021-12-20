@@ -183,6 +183,9 @@
 				<!-- End Latest Post -->
 			</div>
 		</div>
+	</div>
+	<jsp:include page="/footer.jsp" flush="false" />
+		
 		<script>
 			
 		</script>
@@ -683,6 +686,5 @@ img {
 				confirm("삭제하시겠습니까?");
 			})
 		</script>
-		<jsp:include page="/footer.jsp" flush="false" />
 </body>
 </html>
