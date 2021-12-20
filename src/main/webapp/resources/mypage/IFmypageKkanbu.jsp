@@ -327,9 +327,9 @@ body {
 										<thead>
 											<tr>
 												<th class="type"></th>
-												<th class="name truncate">기업이름</th>
+												<th class="name truncate">아이템이름.</th>
 
-												<th class="date">시각 </th>
+												<th class="date">기업이름. </th>
 												<th class="size" style="text-align:center;">깐부맺기</th>
 
 											</tr>
@@ -340,9 +340,9 @@ body {
 											<tr>
 												<td class="type"><i
 													class="fa fa-file-text-o text-primary"></i></td>
-												<td class="name truncate"><a href="#"> ${kkanbu.if_kkanbuNameFrom}
+												<td class="name truncate"><a href="#"> ${kkanbu.cp_title_cp}
 													</a></td>
-												<td class="date">${kkanbu.if_requestedTime}</td>
+												<td class="date">${kkanbu.if_kkanbuNameFrom}</td>
 										
 													<td id="kkanbuCheckbox" class="size"><a id="kkanbuCheck" href="/approveInfKkanbuRequest.kkanbu?kkanbuFrom=${kkanbu.if_kkanbuSeqFrom }&kkanbuTo=${kkanbu.if_kkanbuSeqTo}&kkanbuSeq=${kkanbu.if_kkanbu_seq}" style="text-decoration: none">수락 </a>
 													<a href="/deleteInfKkanbuRequest.kkanbu?kkanbuSeq="${kkanbu.if_kkanbu_seq }kkanbuTo=${kkanbu.if_kkanbuSeqTo} style="text-decoration: none">거절 </a></td>

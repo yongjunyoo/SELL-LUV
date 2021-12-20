@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -86,13 +87,13 @@ public ArrayList<KkanbuDTO> getCompanyKkanbu(int loggedInSeq) throws SQLExceptio
 					}
 				}
 			}
-public boolean areTheyKkanbu(int kkanbuSeqFrom, int kkanbuSeqTo) throws SQLException, Exception {
-	String sql = "select * from kkanbu where company_Seq = ? and influencer_seq =?";
+public boolean areTheyKkanbu(int kkanbuSeqFrom, int kkanbuCardSeq) throws SQLException, Exception {
+	String sql = "select * from kkanbu where influencer_seq =? and kkanbuCardSeq=?";
 	
 	try(Connection con = this.getConnection();
 			PreparedStatement pstat = con.prepareStatement(sql);){
 		pstat.setInt(1, kkanbuSeqFrom);
-		pstat.setInt(2, kkanbuSeqTo);
+		pstat.setInt(2, kkanbuCardSeq);
 		try(ResultSet rs = pstat.executeQuery();){
 			
 				boolean result = rs.next();
@@ -135,4 +136,42 @@ String sql = "select kkanbu_seq from kkanbu where company_Seq = ? and influencer
 				}
 		}
 	}
+
+	public int getMemberSeq(String title_cp) throws Exception{
+		   
+	    String sql = "select member_seq from board_cp where title_cp = ?";
+	
+	    try(Connection con = this.getConnection();
+	          PreparedStatement pstat = con.prepareStatement(sql);){
+	       pstat.setString(1, title_cp);
+	       try(ResultSet rs = pstat.executeQuery();){
+	    	   int member_seq = 0;
+	          if(rs.next()) {
+	              member_seq = rs.getInt("member_seq");
+	             
+	          }
+	          return member_seq;
+	       }
+	
+	    }
+ }
+	
+	public List<String> selectByBSeq(String seq) throws Exception{
+		   
+	       String sql = "select title_cp from board_cp where member_seq = ?";
+	   
+	       try(Connection con = this.getConnection();
+	             PreparedStatement pstat = con.prepareStatement(sql);){
+	          pstat.setString(1, seq);
+	          try(ResultSet rs = pstat.executeQuery();){
+	             List<String> list = new ArrayList<>();
+	             while(rs.next()) {
+	                String title = rs.getString("title_cp");
+	                list.add(title);
+	             }
+	             return list;
+	          }
+	   
+	       }
+	    }
 }

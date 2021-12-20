@@ -122,11 +122,11 @@
 				<div class="row">
 					<div class="col-md-6">
 						<ul class="list-inline shop-top-menu pb-3 pt-1">
-							<li class="list-inline-item"><a
+							<!-- <li class="list-inline-item"><a
 								class="h3 text-dark text-decoration-none mr-3"
 								href="/influencerList.ifcp">&nbsp;등급&nbsp;</a></li>
 							<li class="list-inline-item"><a
-								class="h3 text-dark text-decoration-none mr-3" href="#">&nbsp;리뷰&nbsp;</a></li>
+								class="h3 text-dark text-decoration-none mr-3" href="#">&nbsp;리뷰&nbsp;</a></li> -->
 							<c:if test="${loginID != null && cp != null}">
 								<li class="list-inline-item"><a
 									class="h3 text-dark text-decoration-none mr-3"
@@ -148,13 +148,13 @@
 										<img src="/influencerList.file?seq= ${dto.key.seq_if }"
 											title="" alt="">
 									</div>
-									<div class="card-body">${dto.key.career_if}
-										${dto.key.seq_if} ${dto.value.seq } <a
+									<div class="card-body">
+										 <a
 											href="/influencerProfile.ifcp?seq=${dto.key.seq_if}&cpage=1&loginID=${loginID}"
 											class="h3 text-decoration-none">${dto.value.nickname}</a>
 										<ul
 											class="w-100 list-unstyled d-flex justify-content-between mb-0">
-											<li>${dto.value.grade }</li>
+											<%-- <li>${dto.value.grade }</li> --%>
 											<li class="pt-2"><span
 												class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
 												<span
@@ -167,14 +167,8 @@
 												class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
 											</li>
 										</ul>
-										<ul class="list-unstyled d-flex justify-content-center mb-1">
-											<li><i class="text-warning fa fa-star"></i> <i
-												class="text-warning fa fa-star"></i> <i
-												class="text-warning fa fa-star"></i> <i
-												class="text-muted fa fa-star"></i> <i
-												class="text-muted fa fa-star"></i></li>
-										</ul>
-										<p class="text-center mb-0">${dto.value.grade }</p>
+										
+										
 									</div>
 								</div>
 							</div>

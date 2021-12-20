@@ -260,7 +260,7 @@ public class InfluencerDAO  {
 					int seq_if = rs.getInt("seq_if");
 					int member_seq = rs.getInt("member_seq");
 					String condition_if = rs.getString("condition_if");
-					String career_if = rs.getString("condition_if");
+					String career_if = rs.getString("career_if");
 					String intro_if = rs.getString("intro_if");
 					int sLike_if = rs.getInt("sLike_if");
 					int rLike_if = rs.getInt("rLike_if");
