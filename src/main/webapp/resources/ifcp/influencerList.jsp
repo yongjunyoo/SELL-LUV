@@ -26,9 +26,9 @@
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <title>Insert title here</title>
 <style>
-#img {
-	width: 100% px;
-	height: 100% px;
+img {
+  max-width: 100%;
+  height: 100%;
 }
 
 .s003 {
@@ -59,6 +59,14 @@
 	background-color: #c5c2c2;
 	border-radius: 5px;
 }
+.card-body{
+	text-align:center;
+}
+.h3.text-decoration-none{
+	font-size:20px;
+	font-weight:bold;
+}
+
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
@@ -240,6 +248,11 @@
 			src="<c:url value="/resources/ifcp/js/bootstrap.bundle.min.js" />"></script>
 		<script src="<c:url value="/resources/ifcp/js/templatemo.js" />"></script>
 		<script src="<c:url value="/resources/ifcp/js/custom.js" />"></script>
+				<script type="text/javascript">
+			$(".btn-search").on("click",function(){
+				alert("미구현 기능입니다.");
+			})
+		</script>
 		<!-- End Script -->
 </body>
 </html>

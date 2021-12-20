@@ -26,9 +26,9 @@
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <title>Insert title here</title>
 <style>
-#img {
-	width: 100% px;
-	height: 100% px;
+img {
+  max-width: 100%;
+  height: 100%;
 }
 
 .s003 {
@@ -50,13 +50,6 @@
 	height: 46px;
 }
 
-.choices__list.choices__list--dropdown {
-	display: none;
-}
-
-.choices[data-type*="select-one"]:after {
-	display: none;
-}
 
 .h3.text-dark.text-decoration-none.mr-3 {
 	font-size: 18px;
@@ -69,6 +62,10 @@
 	background-color: #c5c2c2;
 	border-radius: 5px;
 }
+.card-body{
+	text-align:center;
+}
+
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
@@ -155,14 +152,14 @@
 						<c:forEach var="dto" items="${list }">
 							<div class="col-md-4">
 								<div class="card mb-4 product-wap rounded-0">
-									<div class="card rounded-0" style="height: 256.98px;">
+									<div class="card rounded-0" style="height:256.98px;">
 										<img src="/product.file?seq= ${dto.key.seq_cp }" title=""
 											alt="">
 									</div>
 									<div class="card-body">
 										<a
 											href="/companyBoard.ifcp?seq=${dto.key.seq_cp}&cpage=1&loginID=${loginID}"
-											class="h3 text-decoration-none">${dto.key.title_cp}</a>
+											class="h3 text-decoration-none" style="	font-size:20px;font-weight:bold;">${dto.key.title_cp}</a>
 										<ul
 											class="w-100 list-unstyled d-flex justify-content-between mb-0">
 											<li><%-- ${dto.value.grade } --%></li>
@@ -194,7 +191,7 @@
 							<div class="inner-form search-border " style="box-shadow: none;">
 								<div class="input-field first-wrap input-category ">
 									<select data-trigger="" name="choices-single-defaul"
-										style="height: 100%;" id="select-box">
+										style="height: 100%;">
 										<option>기업</option>
 									</select>
 								</div>
@@ -251,6 +248,11 @@
 			src="<c:url value="/resources/ifcp/js/bootstrap.bundle.min.js" />"></script>
 		<script src="<c:url value="/resources/ifcp/js/templatemo.js" />"></script>
 		<script src="<c:url value="/resources/ifcp/js/custom.js" />"></script>
+		<script type="text/javascript">
+			$(".btn-search").on("click",function(){
+				alert("미구현 기능입니다.");
+			})
+		</script>
 		<!-- End Script -->
 </body>
 </html>
