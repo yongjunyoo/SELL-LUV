@@ -80,6 +80,25 @@ public class FileController extends HttpServlet {
 					while ( ( length = f.read( buffer ) ) != -1 )
 						bout.write( buffer, 0, length );  
 				}
+				
+			}else if(cmd.equals("/productDetail.file")) { // 인플루언서 디테일에서 제품등록한 사진 불러오기.
+				String seq = request.getParameter("seq");
+				response.setContentType( "image/gif" );
+				ServletOutputStream bout = response.getOutputStream();	
+				String path = request.getServletContext().getRealPath("files");
+				//String sysName = "user2.png";
+				String pSeq = companyDAO.ifFindbySeq(seq); // seq를 통해 부모seq추출.
+				String sysName = companyDAO.productFindbySeq(pSeq); // 제품등록된 사진의 부모시퀀스를 통해 sysname 추출.
+				System.out.print(sysName);
+				
+				String imgpath = path + "/" + sysName;
+				try(FileInputStream f = new FileInputStream(imgpath); ){
+					int length;
+					byte[] buffer = new byte[10];
+					while ( ( length = f.read( buffer ) ) != -1 )
+						bout.write( buffer, 0, length );  
+				}
+				
 			}else if(cmd.equals("/influencerList.file")) { // 인플루언서 리스트에서 프로필 사진 불러오기.
 				String seq = request.getParameter("seq");
 				response.setContentType( "image/gif" );
@@ -97,7 +116,7 @@ public class FileController extends HttpServlet {
 					while ( ( length = f.read( buffer ) ) != -1 )
 						bout.write( buffer, 0, length );  
 				}
-			}else if(cmd.equals("/influencerDetail.file")) { // 인플루언서 디테일에서 프로필 사진 불러오기.
+			}else if(cmd.equals("/influencerDetail.file")) { // 기업 디테일에서 프로필 사진 불러오기.
 				String seq = request.getParameter("seq");
 				response.setContentType( "image/gif" );
 				ServletOutputStream bout = response.getOutputStream();	

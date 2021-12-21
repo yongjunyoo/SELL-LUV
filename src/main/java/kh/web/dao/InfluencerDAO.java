@@ -951,4 +951,19 @@ public class InfluencerDAO  {
 			return result;
 		}
 	}
+	
+	public int findMember_seq(int seq) throws Exception{ // profile_if seq로 influencer seq찾기.
+		String sql = "select member_seq from profile_if where seq_if=?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setInt(1, seq);
+			int result = 0;
+			try(ResultSet rs = pstat.executeQuery();){
+				if(rs.next()) {
+					result = rs.getInt("member_seq");
+				}
+			}
+			return result;
+		}
+	}
 }
