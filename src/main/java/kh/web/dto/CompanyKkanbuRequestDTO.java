@@ -11,7 +11,9 @@ public class CompanyKkanbuRequestDTO {
     private String cp_kkanbuNickNameTo;
     private Timestamp cp_requestedTime;
     private int cp_kkanbuCardSeq;
+
     private String cp_title_cp;
+
     
 	public CompanyKkanbuRequestDTO() {
 		super();
@@ -67,6 +69,7 @@ public class CompanyKkanbuRequestDTO {
 	public final void setCp_requestedTime(Timestamp cp_requestedTime) {
 		this.cp_requestedTime = cp_requestedTime;
 	}
+
 	public final int getCp_kkanbuCardSeq() {
 		return cp_kkanbuCardSeq;
 	}
@@ -80,6 +83,7 @@ public class CompanyKkanbuRequestDTO {
 		this.cp_title_cp = cp_title_cp;
 	}
     
+
     
 	
 	

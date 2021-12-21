@@ -52,7 +52,9 @@ public class CompanyKkanbuRequestDAO {
 			}
 	
 	}
+
 	public int sendKkanbuRequest(int kkanbuSeqFrom, int kkanbuSeqTo, String kkanbuNameFrom, String kkanbuNickNameTo, int cp_kkanbuCardSeq, String cp_title_cp ) throws SQLException, Exception {
+
 		String sql = "INSERT INTO companyKkanbuRequest VALUES (cp_kkanbu_seq.nextval,?,?,?,?,DEFAULT,?,?)";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
@@ -60,8 +62,10 @@ public class CompanyKkanbuRequestDAO {
 			pstat.setInt(2, kkanbuSeqTo);
 			pstat.setString(3, kkanbuNameFrom);
 			pstat.setString(4, kkanbuNickNameTo);
+
 			pstat.setInt(5, cp_kkanbuCardSeq);
 			pstat.setString(6, cp_title_cp);
+
 			
 			int result = pstat.executeUpdate();
 			return result;
@@ -84,8 +88,10 @@ public class CompanyKkanbuRequestDAO {
 					String  cp_kkanbuNickNameTo = rs.getString("cp_kkanbuNickNameTo");
 					Timestamp requestedTime = rs.getTimestamp("cp_requestedTime");
 					int cp_kkanbuCardSeq = rs.getInt("cp_kkanbuCardSeq");
+
 					String cp_title_cp = rs.getString("cp_title_cp");
 					
+
 					CompanyKkanbuRequestDTO companyKkanbuRequestDTO  = new CompanyKkanbuRequestDTO(seq,cp_kkanbuSeqFrom,cp_kkanbuSeqTo,cp_kkanbuNameFrom,cp_kkanbuNickNameTo,requestedTime,cp_kkanbuCardSeq,cp_title_cp);
 				
 					list.add(companyKkanbuRequestDTO);
