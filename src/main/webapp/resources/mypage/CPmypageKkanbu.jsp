@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>기업회원 깐부 관리</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 	crossorigin="anonymous"></script>
@@ -152,8 +152,8 @@ body {
 
 .img-profile {
 	border-radius: 70%;
-	width: 90%;
-	height: 90%;
+	width: 100%;
+	height: 100%;
 }
 
 .profile-detail {
@@ -196,6 +196,10 @@ body {
 	flex:1 1;
 	justify-content: center;
 }
+
+#profile-box{
+	flex-wrap: wrap;
+}
 </style>
 
 <script type="text/javascript">
@@ -211,21 +215,21 @@ body {
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-12 col-lg-3">
+			<div class="col-12 col-md-4 col-lg-3">
 				<div class="card">
 					<div class="card-body">
 						<div class="row">
 							<div class="grade">${dto.grade }</div>
 							<div class="col" id="profile-box">
 								<img id="profile" class="img-profile"
-									src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="">
+										src="/myProfile.file?name=${loginID }" alt="">
 							</div>
 						</div>
 						<ul class="meta list list-unstyled profile-detail">
 							<li class="name">${dto.name }</li>
 							<li class="label" style="margin: 0; padding: 0">기업 </li>
 							<li class="email">${dto.email }</li>
-							<li class="activity">Last logged in: Today at 2:18pm</li>
+							<li class="activity"> ${dto.rpt} </li>
 						</ul>
 					</div>
 				</div>
@@ -239,8 +243,8 @@ body {
 								<a href="/Ifprofile.mem" class="list-group-item py-1"><i class="bx bx-face me-2"></i><span>프로필 수정</span></a> 
 								<a href="/showCompanyKkanbuRequest.kkanbu?IDseq=${IDseq }" class="list-group-item py-1"><i class="bx bx-heart me-2"></i><span>깐부 관리</span></a>
 								<a href="/CPReviewList.mem?cpage=1" class="list-group-item py-1"><i class="bx bx-like me-2"></i><span>리뷰 관리</span></a>
-								<a href="" class="list-group-item py-1"><i class="bx bx-highlight me-2"></i><span>커뮤니티 관리</span></a>
-								<a href="" class="list-group-item py-1"></i><span>회원탈퇴</span></a>
+								<a href="/CPBoardList.mem?cpage=1" class="list-group-item py-1"><i class="bx bx-highlight me-2"></i><span>커뮤니티 관리</span></a>
+								<a href="/CPleave.mem" onclick="return confirm('계정을 정말 삭제하시겠습니까?');" class="list-group-item py-1"><span>회원탈퇴</span></a>
 							</div>
 						</div>
 					</div>
@@ -248,7 +252,7 @@ body {
 
 			</div>
 
-			<div class="col-12 col-lg-9">
+			<div class="col-12 col-md-8 col-lg-9">
 				<div class="card">
 					<div class="card-body">
 						<div class="row mt-3">

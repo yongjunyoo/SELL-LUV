@@ -13,6 +13,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import kh.web.dto.BoardDTO;
 import kh.web.dto.InfluencerDTO;
 import kh.web.dto.KkanbuDTO;
 import kh.web.dto.Profile_IfDTO;

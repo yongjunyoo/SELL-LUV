@@ -269,6 +269,12 @@ p {
     			});
     	})
     	})
+    	
+    document.addEventListener('keydown', function(event) {
+    if (event.keyCode === 13) {
+        event.preventDefault();
+    }
+}, true);
     </script>
 </head>
 <body oncontextmenu='return false' class='snippet-body'>
@@ -301,10 +307,10 @@ p {
                                 <div class="col-5">
                                     <h2 class="steps">단계 1 - 4</h2>
                                 </div>
-                            </div> <label class="fieldlabels">이메일: *</label> 
+                            </div> <label class="fieldlabels">이메일: * (@ ~ .com 형식으로만 가능)</label> 
                             <input type="email" id="email" name="email" placeholder="Email" /> 
                             <label class="fieldlabels">아이디: * (최소 6글자 이상 최대 12글자, 소문자와 숫자 조합으로만 가능)</label> <span id= "checkResult"></span><input type="text" id="id" name="id" placeholder="Id" /> 
-                            <label class="fieldlabels">비밀번호: * (최소 8글자 이상 최대 16글자)</label> <input type="password" id="pw" name="pw" placeholder="Password" /> 
+                            <label class="fieldlabels">비밀번호: * (최소 8글자 이상 최대 16글자, 특수문자 사용불가)</label> <input type="password" id="pw" name="pw" placeholder="Password" /> 
                             <label class="fieldlabels">비밀번호 확인: *</label> <span id= "pwCheckResult"></span> <input type="password" id="pwd" name="pwd" placeholder="Confirm Password" />
                         </div> <input type="button" id="step1" name="next" class="next action-button" value="다음" />
                     </fieldset>
@@ -320,7 +326,7 @@ p {
                             </div> 
                             <label class="fieldlabels">이름: *</label> <input type="text" id="name" name="name" placeholder="Influencer Name" />
                             <label class="fieldlabels">닉네임: *</label> <span id= "nickCheckResult"></span><input type="text" id="nickName" name="nickName" placeholder="nickName" />
-                            <label class="fieldlabels">연락처: * ('-'제외 입력)</label> <input type="text" id="phone" name="phone" placeholder="Contact No." /> 
+                            <label class="fieldlabels">연락처: * ('-'제외 11자리 입력)</label> <input type="text" id="phone" name="phone" placeholder="Contact No." /> 
                             <label class="fieldlabels">우편번호: * <button type="button" class="btn btn-dark" id="search" style="background-color:rgb(255, 111, 97);">주소 검색</button></label> <input type="text" id="postcode" name="zipcode" placeholder="Zipcode."  readonly/>
                             <label class="fieldlabels">주소1: * </label> <input type="text" id="roadAddress" name="address1" placeholder="Address." readonly />
                             <label class="fieldlabels">주소2: *</label> <input type="text" id="address2" name="address2" placeholder="Detail Address." />
@@ -668,6 +674,8 @@ $(".progress-bar")
             }            
         }).open();
     }
+	
+	
 	
 	if($("#photo").val() == ""){
 		$("#photo").val() == "default";

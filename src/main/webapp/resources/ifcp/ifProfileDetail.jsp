@@ -197,7 +197,7 @@
 						</c:forEach>
 						<div class="widget-title" style="text-align: center;">
 							<c:forEach var="dto" items="${ifList }">
-								<c:if test="${loginID eq dto.value.id}">
+								<c:if test="${loginID eq dto.value.id or loginID==kkanbu}">
 									<a href="/ifDelete.ifcp?seq=${dto.key.seq_if}&cpage=1"><button
 											type="button" id="delBtn">삭제하기</button></a>
 								</c:if>

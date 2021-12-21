@@ -13,7 +13,9 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 import kh.web.dto.BoardDTO;
+import kh.web.dto.Review_IfDTO;
 import kh.web.statics.BoardStatics;
+import kh.web.statics.IFCPStatics;
 
 public class BoardDAO  {
 	
@@ -328,6 +330,154 @@ public String getPageNaviSearch(int cpage, String select, String keyword) throws
 		
 		return navi;
 	}
+	
+	public int getPageTotalCountBoard() throws Exception{
+	int recordTotalCount = this.getRecordCount(); 
+	int pageTotalCount = 0; //
+	if(recordTotalCount % IFCPStatics.RECORD_COUNT_PER_PAGE == 0) { 
+		pageTotalCount = recordTotalCount / IFCPStatics.RECORD_COUNT_PER_PAGE;
+	}else {
+		pageTotalCount = recordTotalCount / IFCPStatics.RECORD_COUNT_PER_PAGE + 1;
+	}
+	return pageTotalCount;
+	}
+	
+	public String getPageNaviIFBoard(int currentPage) throws Exception{
+
+		// 총 몇개의 레코드(게시글)을 가지고 있는지
+		int recordTotalCount = this.getRecordCount(); // 게시글 개수
+		int recordCountPerPage = 9; // 한페이지에 출력되는 개수
+		int naviCountPerPage = 3; // 밑에 페이지 숫자 출력
+
+		int pageTotalCount = 0; //
+
+		if(recordTotalCount % IFCPStatics.RECORD_COUNT_PER_PAGE == 0) { // 게시글 개수와 한페이 출력되는 개수를 나눴을 때 나머지가 없는 경우
+			pageTotalCount = recordTotalCount / IFCPStatics.RECORD_COUNT_PER_PAGE;
+		}else {// 게시글 개수와 한페이 출력되는 개수를 나눴을 때 나머지가 있는 경우 +1을해서 나머지 게시글도 출력하게 한다
+			pageTotalCount = recordTotalCount / IFCPStatics.RECORD_COUNT_PER_PAGE + 1;
+		}
+
+
+		if(currentPage < 1) {
+			currentPage = 1;  // 보완작업
+		}else if(currentPage > pageTotalCount) {
+			currentPage = pageTotalCount;
+		} // currentPage 인자값을 클라이언트가 조작했을 시 방어하기 위한 코드
+
+		int startNavi = (currentPage-1) / IFCPStatics.NAVI_PER_PAGE * IFCPStatics.NAVI_PER_PAGE +1;
+		int endNavi = startNavi + IFCPStatics.NAVI_PER_PAGE -1 ;
+
+		if(endNavi > pageTotalCount) {
+			endNavi = pageTotalCount; // 보완작업
+		}
+
+		boolean needPrev = true;
+		boolean needNext= true;
+
+		if(startNavi == 1) {
+			needPrev = false;
+		}
+
+		if(endNavi == pageTotalCount) {
+			needNext = false;
+		}
+
+		String pageNavi = "";
+		if(needPrev) {
+			pageNavi += "<a href ='/IFBoardList.mem?cpage="+(startNavi-1)+"'><</a> ";		
+		}
+
+		for(int i = startNavi; i <= endNavi; i++) {
+			pageNavi +="<a href='/IFBoardList.mem?cpage="+i+"'>" + i +"</a> ";
+		}
+		if(needNext) {
+			pageNavi += "<a href ='/IFBoardList.mem?cpage="+(endNavi+1)+"'>></a> ";
+		}
+
+		return pageNavi;
+	}
+	
+	public List<BoardDTO> selectByBoundBoard(String writer, int start, int end) throws Exception{
+
+		String sql = "select * from(select freeboard.*, row_number() over(order by seq desc) rn from freeboard where writer = ?) where rn between ? and ?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, writer);
+			pstat.setInt(2, start);
+			pstat.setInt(3, end);
+			try(ResultSet rs = pstat.executeQuery();){
+				List<BoardDTO> list = new ArrayList<>();
+				while(rs.next()) {
+					BoardDTO dto = new BoardDTO();
+					dto.setSeq(rs.getInt("seq"));
+					dto.setWriter(rs.getString("writer"));
+					dto.setTitle(rs.getString("title"));
+					dto.setContents(rs.getString("contents"));
+					dto.setWrite_date(rs.getTimestamp("write_date"));
+					dto.setView_count(rs.getInt("view_count"));
+					list.add(dto);
+				}
+				return list;
+			}			
+		}
+	}
+	
+	public String getPageNaviCPBoard(int currentPage) throws Exception{
+
+		// 총 몇개의 레코드(게시글)을 가지고 있는지
+		int recordTotalCount = this.getRecordCount(); // 게시글 개수
+		int recordCountPerPage = 9; // 한페이지에 출력되는 개수
+		int naviCountPerPage = 3; // 밑에 페이지 숫자 출력
+
+		int pageTotalCount = 0; //
+
+		if(recordTotalCount % IFCPStatics.RECORD_COUNT_PER_PAGE == 0) { // 게시글 개수와 한페이 출력되는 개수를 나눴을 때 나머지가 없는 경우
+			pageTotalCount = recordTotalCount / IFCPStatics.RECORD_COUNT_PER_PAGE;
+		}else {// 게시글 개수와 한페이 출력되는 개수를 나눴을 때 나머지가 있는 경우 +1을해서 나머지 게시글도 출력하게 한다
+			pageTotalCount = recordTotalCount / IFCPStatics.RECORD_COUNT_PER_PAGE + 1;
+		}
+
+
+		if(currentPage < 1) {
+			currentPage = 1;  // 보완작업
+		}else if(currentPage > pageTotalCount) {
+			currentPage = pageTotalCount;
+		} // currentPage 인자값을 클라이언트가 조작했을 시 방어하기 위한 코드
+
+		int startNavi = (currentPage-1) / IFCPStatics.NAVI_PER_PAGE * IFCPStatics.NAVI_PER_PAGE +1;
+		int endNavi = startNavi + IFCPStatics.NAVI_PER_PAGE -1 ;
+
+		if(endNavi > pageTotalCount) {
+			endNavi = pageTotalCount; // 보완작업
+		}
+
+		boolean needPrev = true;
+		boolean needNext= true;
+
+		if(startNavi == 1) {
+			needPrev = false;
+		}
+
+		if(endNavi == pageTotalCount) {
+			needNext = false;
+		}
+
+		String pageNavi = "";
+		if(needPrev) {
+			pageNavi += "<a href ='/CPBoardList.mem?cpage="+(startNavi-1)+"'><</a> ";		
+		}
+
+		for(int i = startNavi; i <= endNavi; i++) {
+			pageNavi +="<a href='/CPBoardList.mem?cpage="+i+"'>" + i +"</a> ";
+		}
+		if(needNext) {
+			pageNavi += "<a href ='/CPBoardList.mem?cpage="+(endNavi+1)+"'>></a> ";
+		}
+
+		return pageNavi;
+	}
+
+	
 	
 	
 	
