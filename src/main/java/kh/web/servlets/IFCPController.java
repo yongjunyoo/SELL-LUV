@@ -93,8 +93,12 @@ public class IFCPController extends HttpServlet {
 
 				String loginID = (String) request.getSession().getAttribute("loginID"); // 버튼 숨기기 구분.
 				List<CompanyDTO> hideBtn = companyDAO.searchById(loginID);
+
 				if(hideBtn.size()!=0) {
 					String cp = hideBtn.get(0).getId();
+					int seq = hideBtn.get(0).getSeq();
+					boolean didEnroll = companyDAO.didEnroll(seq);
+					request.setAttribute("didEnroll", didEnroll);
 					request.setAttribute("cp", cp);
 					request.setAttribute("list", list);
 					request.setAttribute("navi", navi);
@@ -121,8 +125,11 @@ public class IFCPController extends HttpServlet {
 				
 				
 				int seq_if = influencerDAO.findSeq(loginID); // 아이디로 인플루언서 시퀀스 찾기.
+				System.out.println("인플루언서시퀀스:"+seq_if);
 				int member_seq = companyDAO.findRealCpSeq(seq); // 제품등록 시퀀스로 기업 시퀀스 찾기.
-				boolean kkanbu = kkanbuDAO.areTheyCpKkanbu(member_seq,seq_if); // 인플루언서 시퀀스와 제품등록 시퀀스로 깐부인지 확인하기.
+				System.out.println("기업시퀀스:"+member_seq);
+				boolean kkanbu = kkanbuDAO.areTheyCpKkanbu(seq_if,member_seq); // 인플루언서 시퀀스와 제품등록 시퀀스로 깐부인지 확인하기.
+				System.out.println("깐부인지:"+kkanbu);
 				
 				System.out.println("loginID: " + loginID + " loggedInID: " + loggedInID);
 				
@@ -156,14 +163,19 @@ public class IFCPController extends HttpServlet {
 			}else if(cmd.equals("/influencerProfile.ifcp")) { // 인플루언서 페이지로 리뷰보내기.
 	            int currentPage = Integer.parseInt(request.getParameter("cpage"));
 	            int seq = Integer.parseInt(request.getParameter("seq"));
+	            System.out.println("???:"+seq);
 	            int ifSeq = influencerDAO.findMember_seq(seq); // profile_if seq로 influencer seq찾기.
+	            System.out.println("?????:"+ifSeq);
 	            String loginID = request.getParameter("loginID");
 
 	            String loggedInID = influencerDAO.whatIsLoggedInID(loginID);
 				
 				int seq_cp = companyDAO.findSeq(loginID); // 아이디로 기업 시퀀스 찾기.
+				System.out.println("기업 시퀀스:"+seq_cp);
 				int seq_board_cp = companyDAO.findCpSeq(seq_cp); // 기업 시퀀스로 기업 제품등록된 시퀀스 찾기.
-				boolean kkanbu = kkanbuDAO.areTheyKkanbu(ifSeq,seq_board_cp); // 제품등록 시퀀스와 인플루언서 시퀀스로 깐부인지 확인하기.
+				System.out.println("제품등록된 시퀀스:"+seq_board_cp);
+				boolean kkanbu = kkanbuDAO.areTheyRealKkanbu(ifSeq,seq_cp); // 제품등록 시퀀스와 인플루언서 시퀀스로 깐부인지 확인하기.
+				System.out.println("깐부인지:"+kkanbu);
 				System.out.println(kkanbu);
 	            
 	            if(currentPage < 1) { 
@@ -261,11 +273,12 @@ public class IFCPController extends HttpServlet {
 				String title = multi.getParameter("title");
 				String intro = multi.getParameter("intro");
 				String condition = multi.getParameter("condition");
+				String seq_board_cp = multi.getParameter("seq_board_cp");
 
 				int seq = companyDAO.cpSearchById(loginID);
-				int productSeq = companyDAO.findCpSeq(seq);
+				int productSeq = companyDAO.findCpSeqBySeqNTitle(title,seq);
 
-				companyDAO.modifyIntro(title, intro, condition, seq);
+				companyDAO.modifyIntro(title, intro, condition, seq_board_cp);
 				companyDAO.modifyPhoto(oriName,sysName,productSeq);
 				response.sendRedirect("/companyList.ifcp?cpage=1");
 				
@@ -372,10 +385,13 @@ public class IFCPController extends HttpServlet {
 			}else if(cmd.equals("/cpModify.ifcp")) { // 기업 제품등록 수정페이지로 보내기.
 				String seq = request.getParameter("seq");
 				String loginID = (String) request.getSession().getAttribute("loginID");
+				String title_cp = request.getParameter("title_cp");
 				List<CompanyDTO> list = companyDAO.searchById(loginID);
 				int seq_cp = companyDAO.findSeq(loginID); // 아이디로 기업 시퀀스 찾기.
-				int seq_board_cp = companyDAO.findCpSeq(seq_cp); // 기업 시퀀스로 기업 제품 시퀀스 찾기.
-				List<Board_CpDTO> board_cp = companyDAO.findBoard_CpBySeq(seq_cp); // 기업 시퀀스로 board_cp불러오기.
+				System.out.println(seq_cp);
+				int seq_board_cp = companyDAO.findCpSeqBySeqNTitle(title_cp,seq_cp); // 기업 시퀀스로 기업 제품 시퀀스 찾기.
+				System.out.println(seq_board_cp);
+				List<Board_CpDTO> board_cp = companyDAO.findBoard_CpBySeq(title_cp,seq_cp); // 기업 시퀀스로 board_cp불러오기.
 				
 				request.setAttribute("seq", seq);
 				request.setAttribute("seq_board_cp", seq_board_cp);

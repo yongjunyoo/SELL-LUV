@@ -279,11 +279,14 @@ rel="stylesheet" />
         </div>
         <div class="row">
             <div class="col-sm-12" style="text-align:right">
-                <c:if test="${loginID==dto.writer or loginID=='kkanbu'}">
+                <c:if test="${loginID==dto.writer}">
 	                <button type="button" class="btn btn-dark" id="mod" style="background-color:rgb(255, 111, 97);">수정하기</button>
 	                <button type="button" class="btn btn-dark" id="del" style="background-color:rgb(255, 111, 97);">삭제하기</button>
 	                <button type="button" class="btn btn-dark" id="modDone" style="background-color:rgb(255, 111, 97);display:none;">수정완료</button>
 	                <button type="button" class="btn btn-dark" id="cancle" style="background-color:rgb(255, 111, 97);display:none;">취소</button>
+                </c:if>
+                <c:if test="${loginID=='kkanbu'}">
+                	<button type="button" class="btn btn-dark" id="del" style="background-color:rgb(255, 111, 97);">삭제하기</button>
                 </c:if>
                 <button type="button" id="boardList" class="btn btn-dark" style="background-color:rgb(255, 111, 97);">목록으로</button>
                 <script>
@@ -367,12 +370,16 @@ rel="stylesheet" />
 			        </div>
 			        <div class="row">
 			            <div class="col-sm-12" style="text-align:right">
-			            <c:if test="${loginID==cdto.writer or loginID=='kkanbu'}">
+			            <c:if test="${loginID==cdto.writer}">
 			            	<button type="button" class="btn btn-dark modCmt" style="background-color:rgb(255, 111, 97);">수정</button>
 			            	<button class="btn btn-dark modCmtOk" style="background-color:rgb(255, 111, 97);display:none;">완료</button>
 			            	<button type="button" class="btn btn-dark modCmtCancle" style="background-color:rgb(255, 111, 97);display:none;">취소</button>
 			            	<button type="button" class="btn btn-dark delCmt" style="background-color:rgb(255, 111, 97);">삭제</button>
 						    <input id=hidden-cseq type=hidden value=${cdto.seq }>
+				    	</c:if>
+				    	<c:if test="${loginID=='kkanbu'}">
+				    		<button type="button" class="btn btn-dark delCmt" style="background-color:rgb(255, 111, 97);">삭제</button>
+				    		<input id=hidden-cseq type=hidden value=${cdto.seq }>
 				    	</c:if>
 			            </div>
 			        </div>

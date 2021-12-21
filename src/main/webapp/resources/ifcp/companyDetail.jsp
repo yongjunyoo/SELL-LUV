@@ -165,19 +165,20 @@
 
 						<!-- Latest Post -->
 						<div class="widget widget-latest-post">
-							</c:forEach>
+							
 							<div class="widget-title" style="text-align: center;">
 								<c:forEach var="dto" items="${cpList }">
 									<c:if test="${loginID eq dto.value.id}">
 										<a href="/cpDelete.ifcp?seq=${dto.key.seq_cp}&cpage=1"><button
 												type="button" id="delBtn">삭제하기</button></a>
-										<a href="/cpModify.ifcp?seq=${dto.key.seq_cp}&cpage=1"><button
+										<a href="/cpModify.ifcp?seq=${dto.key.seq_cp}&title_cp=${dto.key.title_cp}&cpage=1"><button
 												type="button" id="modBtn">수정하기</button></a>
 									</c:if>
-									<c:if test="${loginID eq kkanbu}">
-										<a href="/cpDelete.ifcp?seq=${dto.key.seq_cp}&cpage=1"><button
+									<c:if test="${loginID eq 'kkanbu'}">
+									<a href="/cpDelete.ifcp?seq=${dto.key.seq_cp}&cpage=1"><button
 												type="button" id="delBtn">삭제하기</button></a>
 									</c:if>
+								</c:forEach>
 								</c:forEach>
 							</div>
 						</div>
