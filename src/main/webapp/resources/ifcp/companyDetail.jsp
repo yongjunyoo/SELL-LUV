@@ -135,6 +135,7 @@
 								<div class="media-body">
 
 									<div class="nav tag-cloud">
+									<%--
 										<c:choose>
 											<c:when test="${loggedInID eq 'company'}">
 											</c:when>
@@ -154,7 +155,7 @@
 													style="text-decoration: none;">깐부맺기</a>
 											</c:otherwise>
 										</c:choose>
-
+									 --%>
 										<div class="nav tag-cloud"></div>
 									</div>
 								</div>

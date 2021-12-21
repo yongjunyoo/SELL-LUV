@@ -203,7 +203,7 @@ public class KkanbuController extends HttpServlet {
 			
 			int result = influencerKkanbuRequestDAO.delete(kkanbuSeq); 
 			
-			response.sendRedirect("/showKkanbuRequest.kkanbu?IDseq="+kkanbuTo);
+			response.sendRedirect("/showKkanbuRequest.kkanbu?IDseq="+kkanbuSeq);
 			
 		}else if(cmd.equals("/deleteCompanyKkanbuRequest.kkanbu")) {
 			int kkanbuSeq = Integer.parseInt(request.getParameter("kkanbuSeq"));
@@ -215,7 +215,7 @@ public class KkanbuController extends HttpServlet {
 		
 			int result = companyKkanbuRequestDAO.delete(kkanbuSeq); 
 			
-			response.sendRedirect("/showKkanbuRequest.kkanbu?IDseq="+kkanbuTo);
+			response.sendRedirect("/showKkanbuRequest.kkanbu?IDseq="+kkanbuSeq);
 			
 			
 		}else if(cmd.equals("/approveInfKkanbuRequest.kkanbu")) {

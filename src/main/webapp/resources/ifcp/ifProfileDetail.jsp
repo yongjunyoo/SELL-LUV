@@ -168,7 +168,7 @@
 								<div class="media-body">
 									<div class="nav tag-cloud">
 									<a id="kkanbuRequest" style="text-decoration: none;">깐부맺기</a>
-										<%--
+									<%-- 
 										<c:choose>
 											<c:when test="${loginID == null}">
 											</c:when>
@@ -187,7 +187,7 @@
 												<a id="kkanbuRequest" style="text-decoration: none;">깐부맺기</a>
 											</c:otherwise>
 										</c:choose>
-										 --%>
+										--%>
 									</div>
 								</div>
 							</div>
