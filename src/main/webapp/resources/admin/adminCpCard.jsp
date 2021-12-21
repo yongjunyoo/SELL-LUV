@@ -166,6 +166,13 @@ body {
 	border:1px solid transparent;
 	border-radius:3px;
 }
+
+.td{
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	max-width:130px;
+}
 </style>
 <script type="text/javascript">
 	
@@ -251,11 +258,11 @@ body {
 								<tbody>
 								<c:forEach var="list" items="${list}">
 									<tr>
-										<td><input type="checkbox" name="checkbox" value="${list.seq_cp}"></td>
-										<td>${list.seq_cp}</td>
-										<td>${list.title_cp}</td>
-										<td>${list.condition_cp}</td>
-										<td>${list.intro_cp}</td>
+										<td class="td"><input type="checkbox" name="checkbox" value="${list.seq_cp}"></td>
+										<td class="td">${list.seq_cp}</td>
+										<td class="td">${list.title_cp}</td>
+										<td class="td">${list.condition_cp}</td>
+										<td class="td">${list.intro_cp}</td>
 									</tr>
 									</c:forEach>
 								</tbody>

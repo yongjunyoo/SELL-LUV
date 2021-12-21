@@ -608,11 +608,15 @@ public class CompanyDAO {
 				PreparedStatement pstat = con.prepareStatement(sql);){
 			pstat.setInt(1, kkanbuSeqFrom);
 			String result = "";
+			
 			try(ResultSet rs = pstat.executeQuery();){
 				if(rs.next()) {
 					result = rs.getString("name_cp");
+					
+					return result;
 				}
 			}
+			
 			return result;
 		}
 	}

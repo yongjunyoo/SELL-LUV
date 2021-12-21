@@ -37,66 +37,63 @@
 			<div class="row align-items-start">
 				<div class="col-lg-8 m-15px-tb">
 					<article class="article">
-						<div class="article-img">
+						<div class="article-img"
+							style="text-align: center; height: 256.98px;">
 							<c:forEach var="dto" items="${cpList }">
 								<img src="/product.file?seq= ${dto.key.seq_cp }" title="" alt="">
 						</div>
 						<div class="article-title">
 							<!--소개글-->
-							<div class="avatar"></div>
-							<h2>${dto.key.title_cp}</h2>
+							<div class="avatar"></div><br>
+							<h2 style="text-align:center;">${dto.key.title_cp}</h2><br>
 							<div class="media">
-								<div class="avatar"></div>
 								<div class="media-body">
 									<label>작성자 : </label> ${dto.value.id}
 								</div>
 								<div class="media-body">
 									<label>매출 : </label> ${dto.value.sales}
 								</div>
+							</div>
+							<div class="media">
 								<div class="media-body">
-									<label>소개 : </label> ${dto.key.intro_cp}
+									<label>소개글 : </label> ${dto.key.intro_cp}
 								</div>
 							</div>
-							<br>
 							<div class="media">
-								<div class="avatar"></div>
 								<div class="media-body">
 									<label>원하는 조건 : </label> ${dto.key.condition_cp}
 								</div>
 							</div>
 						</div>
-						<div class="article-content">
-							<p>${dto.key.intro_cp}</p>
-						</div>
-
 					</article>
 
 					<div class="contact-form article-comment">
-					<c:if test="${kkanbu==true}">
-						<h4>리뷰 작성</h4>
-						<form id="contact-form" method="POST" action="/cpReviewWrite.ifcp?seq=${dto.key.seq_cp}&cpage=1">
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-										<input type=text id="review" name="review"
-											placeholder="내용을 입력하세요."
-											style="border-right: 0px; border-top: 0px; border-left: 0px; border-bottom: 1px solid #ff6F61;">
-										&nbsp;<button class="px-btn theme">
-											작성하기<i class="arrow"></i>
-										</button>
+						<c:if test="${kkanbu==true}">
+							<h4>리뷰 작성</h4>
+							<form id="contact-form" method="POST"
+								action="/cpReviewWrite.ifcp?seq=${dto.key.seq_cp}&cpage=1">
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<input type=text id="review" name="review"
+												placeholder="내용을 입력하세요."
+												style="border-right: 0px; border-top: 0px; border-left: 0px; border-bottom: 1px solid #ff6F61;">
+											&nbsp;
+											<button class="px-btn theme">
+												작성하기<i class="arrow"></i>
+											</button>
+										</div>
 									</div>
+									<div class="col-md-12"></div>
 								</div>
-								<div class="col-md-12"></div>
-							</div>
-						</form>
-						<br>
+							</form>
+							<br>
 						</c:if>
 
 						<h4>리뷰 목록</h4>
 						<div class="row">
 							<div class="col-md-6">
-								<table class="table-sm mb-0" width="450px; "
-									style="color: #ff6F61;">
+								<table class="table-sm mb-0">
 									<thead>
 										<tr>
 											<th></th>
@@ -153,7 +150,7 @@
 											</c:when>
 											<c:otherwise>
 												<a
-													href="/kkanbuRequestToCompany.kkanbu?kkanbuSeqTo=${dto.key.member_seq }&kkanbuSeqFrom=${IDseq}&kkanbuCardSeq=${dto.key.seq_cp}&cpage=1"
+													href="/kkanbuRequestToCompany.kkanbu?kkanbuSeqTo=${dto.key.member_seq }&kkanbuSeqFrom=${IDseq}&kkanbuCardSeq=${dto.key.seq_cp}&cpage=1&kkanbuTitleCp=${dto.key.title_cp}"
 													style="text-decoration: none;">깐부맺기</a>
 											</c:otherwise>
 										</c:choose>
@@ -173,7 +170,7 @@
 									<c:if test="${loginID eq dto.value.id}">
 										<a href="/cpDelete.ifcp?seq=${dto.key.seq_cp}&cpage=1"><button
 												type="button" id="delBtn">삭제하기</button></a>
-												
+
 									</c:if>
 								</c:forEach>
 							</div>
@@ -185,11 +182,21 @@
 		</div>
 	</div>
 	<jsp:include page="/footer.jsp" flush="false" />
+
+	<script>
 		
-		<script>
-			
-		</script>
-		<style type="text/css">
+	</script>
+	<style type="text/css">
+table {
+	color: #ff6F61;
+	width: 500px;
+}
+
+img {
+	max-width: 100%;
+	height: 100%;
+}
+
 #review:focus {
 	outline: none;
 }
@@ -681,10 +688,10 @@ img {
 }
 </style>
 
-		<script type="text/javascript">
-			$("#delBtn").on("click",function(){
-				confirm("삭제하시겠습니까?");
-			})
-		</script>
+	<script type="text/javascript">
+		$("#delBtn").on("click", function() {
+			confirm("삭제하시겠습니까?");
+		})
+	</script>
 </body>
 </html>

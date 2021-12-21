@@ -48,7 +48,7 @@
 											<img src="/resources/ifcp/img/blank.png" alt="" id="preview"
 												style="width: 100%; height: 100%; object-fit: cover;" />
 										</div>
-										<br> <label>제목</label> <br> <input type="text"
+										<br> <label>제품명</label> <br> <input type="text"
 											style="width: 425px;" name="title" id="title"><br>
 										<br> <label>소개글</label><br>
 										<textarea rows="5" cols="48" name="intro" id="intro"></textarea>

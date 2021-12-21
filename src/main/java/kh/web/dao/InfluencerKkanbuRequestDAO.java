@@ -33,19 +33,22 @@ public class InfluencerKkanbuRequestDAO {
 		DataSource ds = (DataSource)ctx.lookup("java:comp/env/jdbc/oracle");
 		return ds.getConnection();
 	}
-	public int sendKkanbuRequest(int kkanbuSeqFrom,int kkanbuSeqTo, String kkanbuNameFrom, String kkanbuNickNameTo) throws SQLException, Exception {
+	public int sendKkanbuRequest(int kkanbuSeqFrom,int kkanbuSeqTo, String kkanbuNameFrom, String kkanbuNickNameTo, int kkanbuCardSeq, String title_cp ) throws SQLException, Exception {
 		
-			String sql = "INSERT INTO InfluencerKkanbuRequest VALUES (if_kkanbu_seq.nextval,?,?,?,?,DEFAULT)";
+			String sql = "INSERT INTO InfluencerKkanbuRequest VALUES (if_kkanbu_seq.nextval,?,?,?,?,DEFAULT,?,?)";
 			try(Connection con = this.getConnection();
 					PreparedStatement pstat = con.prepareStatement(sql);){
 				pstat.setInt(1, kkanbuSeqFrom);
 				pstat.setInt(2, kkanbuSeqTo);
 				pstat.setString(3, kkanbuNameFrom);
 				pstat.setString(4, kkanbuNickNameTo);
+				pstat.setInt(5, kkanbuCardSeq);
+				pstat.setString(6, title_cp);
 				int result = pstat.executeUpdate();
 				return result;
 			}
 		}
+	
 	public List<InfluencerKkanbuRequestDTO> getKkanbuRequest(int loggedInSeq) throws SQLException, Exception {
 		String sql = "SELECT * FROM influencerKkanbuRequest WHERE if_kkanbuSeqTo=?";
 		try(Connection con = this.getConnection();
@@ -62,8 +65,10 @@ public class InfluencerKkanbuRequestDAO {
 					String if_kkanbuNameFrom = rs.getString("if_kkanbuNameFrom");
 					String  if_kkanbuNickNameTo = rs.getString("if_kkanbuNickNameTo");
 					Timestamp requestedTime = rs.getTimestamp("if_requestedTime");
+					int cp_kkanbuCardSeq = rs.getInt("cp_kkanbuCardSeq");
+					String cp_title_cp = rs.getString("cp_title_cp");
 					
-					InfluencerKkanbuRequestDTO influencerKkanbuRequestDTO  = new InfluencerKkanbuRequestDTO(seq,if_kkanbuSeqFrom,if_kkanbuSeqTo,if_kkanbuNameFrom,if_kkanbuNickNameTo,requestedTime);
+					InfluencerKkanbuRequestDTO influencerKkanbuRequestDTO  = new InfluencerKkanbuRequestDTO(seq,if_kkanbuSeqFrom,if_kkanbuSeqTo,if_kkanbuNameFrom,if_kkanbuNickNameTo,requestedTime,cp_kkanbuCardSeq,cp_title_cp);
 				
 					list.add(influencerKkanbuRequestDTO);
 				}
@@ -72,12 +77,12 @@ public class InfluencerKkanbuRequestDAO {
 			
 			}
 	}
-	public boolean isRequestStillPending(int kkanbuSeqFrom, int kkanbuSeqTo) throws SQLException, Exception {
-		String sql = "SELECT * FROM influencerKkanbuRequest WHERE if_kkanbuSeqFrom=? and if_kkanbuSeqTo =?";
+	public boolean isRequestStillPending(int kkanbuSeqFrom, int kkanbuCardSeq) throws SQLException, Exception {
+		String sql = "SELECT * FROM influencerKkanbuRequest WHERE if_kkanbuSeqFrom=? and cp_kkanbuCardSeq =?";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
 			pstat.setInt(1, kkanbuSeqFrom);
-			pstat.setInt(2,  kkanbuSeqTo);
+			pstat.setInt(2,  kkanbuCardSeq);
 			try(ResultSet rs = pstat.executeQuery();){
 				boolean result = false;
 				if(rs.next()) {
