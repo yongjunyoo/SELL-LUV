@@ -237,6 +237,37 @@ public class IFCPController extends HttpServlet {
 				int productSeq = companyDAO.createProductSeq();
 				companyDAO.insertPhoto(new FileDTO(0,oriName,sysName,productSeq));
 				response.sendRedirect("/companyList.ifcp?cpage=1");
+			
+			}else if(cmd.equals("/uploadModify.ifcp")) { // 제품정보 수정.
+				int maxSize = 1024*1024*10;
+				String savePath = request.getServletContext().getRealPath("files");
+				File filePath = new File(savePath);
+				if(!filePath.exists()) {
+					filePath.mkdir();
+				}
+				System.out.print(filePath);
+
+				System.out.println(savePath);
+				MultipartRequest multi = new MultipartRequest(request, savePath, maxSize, "UTF8", new DefaultFileRenamePolicy());
+
+				String oriName = multi.getOriginalFileName("file");
+				String sysName = multi.getFilesystemName("file");
+				if(sysName==null) {
+					sysName = "blank1.png";
+					oriName = "blank.png";
+				}
+
+				String loginID = (String) request.getSession().getAttribute("loginID");
+				String title = multi.getParameter("title");
+				String intro = multi.getParameter("intro");
+				String condition = multi.getParameter("condition");
+
+				int seq = companyDAO.cpSearchById(loginID);
+				int productSeq = companyDAO.findCpSeq(seq);
+
+				companyDAO.modifyIntro(title, intro, condition, seq);
+				companyDAO.modifyPhoto(oriName,sysName,productSeq);
+				response.sendRedirect("/companyList.ifcp?cpage=1");
 				
 			}else if(cmd.equals("/cpReviewWrite.ifcp")) { // 기업디테일에서 리뷰작성
 				int currentPage = Integer.parseInt(request.getParameter("cpage"));
@@ -338,12 +369,18 @@ public class IFCPController extends HttpServlet {
 					request.setAttribute("navi", navi);
 					request.getRequestDispatcher("/resources/ifcp/companyList.jsp").forward(request, response);
 				}
-			}else if(cmd.equals("/cpModify.ifcp")) { // 기업 제품등록 수정하기.
+			}else if(cmd.equals("/cpModify.ifcp")) { // 기업 제품등록 수정페이지로 보내기.
 				String seq = request.getParameter("seq");
 				String loginID = (String) request.getSession().getAttribute("loginID");
 				List<CompanyDTO> list = companyDAO.searchById(loginID);
+				int seq_cp = companyDAO.findSeq(loginID); // 아이디로 기업 시퀀스 찾기.
+				int seq_board_cp = companyDAO.findCpSeq(seq_cp); // 기업 시퀀스로 기업 제품 시퀀스 찾기.
+				List<Board_CpDTO> board_cp = companyDAO.findBoard_CpBySeq(seq_cp); // 기업 시퀀스로 board_cp불러오기.
+				
 				request.setAttribute("seq", seq);
+				request.setAttribute("seq_board_cp", seq_board_cp);
 				request.setAttribute("cpList", list);
+				request.setAttribute("board_cp", board_cp);
 				request.getRequestDispatcher("/resources/ifcp/modifyCompanyDetail.jsp").forward(request, response);
 				
 			}else if(cmd.equals("/ifDelete.ifcp")) { // 인플루언서 프로필등록 건 삭제하기.

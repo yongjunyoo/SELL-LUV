@@ -279,7 +279,7 @@ rel="stylesheet" />
         </div>
         <div class="row">
             <div class="col-sm-12" style="text-align:right">
-                <c:if test="${loginID==dto.writer }">
+                <c:if test="${loginID==dto.writer or loginID=='kkanbu'}">
 	                <button type="button" class="btn btn-dark" id="mod" style="background-color:rgb(255, 111, 97);">수정하기</button>
 	                <button type="button" class="btn btn-dark" id="del" style="background-color:rgb(255, 111, 97);">삭제하기</button>
 	                <button type="button" class="btn btn-dark" id="modDone" style="background-color:rgb(255, 111, 97);display:none;">수정완료</button>
@@ -367,7 +367,7 @@ rel="stylesheet" />
 			        </div>
 			        <div class="row">
 			            <div class="col-sm-12" style="text-align:right">
-			            <c:if test="${loginID==cdto.writer }">
+			            <c:if test="${loginID==cdto.writer or loginID=='kkanbu'}">
 			            	<button type="button" class="btn btn-dark modCmt" style="background-color:rgb(255, 111, 97);">수정</button>
 			            	<button class="btn btn-dark modCmtOk" style="background-color:rgb(255, 111, 97);display:none;">완료</button>
 			            	<button type="button" class="btn btn-dark modCmtCancle" style="background-color:rgb(255, 111, 97);display:none;">취소</button>
