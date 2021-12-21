@@ -833,7 +833,25 @@ public class InfluencerDAO  {
 					return  "influencer";
 
 				}
-				return "company";
+				return null;
+			}
+		}
+	}
+	
+	public String whatIsLoggedInIDforCompany(String loginID) throws Exception{
+		String sql = "select * from company where id_cp = ?";
+
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, loginID);
+			try(ResultSet rs = pstat.executeQuery();){
+
+				if(rs.next()) {
+
+					return  "company";
+
+				}
+				return null;
 			}
 		}
 	}
