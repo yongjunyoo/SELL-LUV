@@ -120,7 +120,7 @@ public class IFCPController extends HttpServlet {
 				
 				int seq_if = influencerDAO.findSeq(loginID); // 아이디로 인플루언서 시퀀스 찾기.
 				int seq_profile_if = influencerDAO.findIfSeq(seq_if); // 인플루언서 시퀀스로 인플루언서 프로필 시퀀스 찾기.
-				boolean kkanbu = kkanbuDAO.areTheyKkanbu(seq,seq_profile_if); // 인플루언서 시퀀스와 제품등록 시퀀스로 깐부인지 확인하기.
+				boolean kkanbu = kkanbuDAO.areTheyKkanbu(seq_if,seq); // 인플루언서 시퀀스와 제품등록 시퀀스로 깐부인지 확인하기.
 				
 				System.out.println("loginID: " + loginID + " loggedInID: " + loggedInID);
 				
@@ -154,14 +154,15 @@ public class IFCPController extends HttpServlet {
 			}else if(cmd.equals("/influencerProfile.ifcp")) { // 인플루언서 페이지로 리뷰보내기.
 	            int currentPage = Integer.parseInt(request.getParameter("cpage"));
 	            int seq = Integer.parseInt(request.getParameter("seq"));
+	            int ifSeq = influencerDAO.findMember_seq(seq); // profile_if seq로 influencer seq찾기.
 	            String loginID = request.getParameter("loginID");
-				
-				String loggedInID = influencerDAO.whatIsLoggedInID(loginID);
+
+	            String loggedInID = influencerDAO.whatIsLoggedInID(loginID);
 				
 				int seq_cp = companyDAO.findSeq(loginID); // 아이디로 기업 시퀀스 찾기.
 				int seq_board_cp = companyDAO.findCpSeq(seq_cp); // 기업 시퀀스로 기업 제품등록된 시퀀스 찾기.
-				boolean kkanbu = kkanbuDAO.areTheyKkanbu(seq_board_cp,seq); // 제품등록 시퀀스와 인플루언서 시퀀스로 깐부인지 확인하기.
-	          
+				boolean kkanbu = kkanbuDAO.areTheyKkanbu(ifSeq,seq_board_cp); // 제품등록 시퀀스와 인플루언서 시퀀스로 깐부인지 확인하기.
+				System.out.println(kkanbu);
 	            
 	            if(currentPage < 1) { 
 	               currentPage = 1;

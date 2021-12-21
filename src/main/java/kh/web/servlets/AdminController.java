@@ -210,7 +210,7 @@ public class AdminController extends HttpServlet {
 				String searchContents = request.getParameter("searchContents");
 				String select = request.getParameter("select");
 				
-				if(select.equals("제목")) { //제목으로 찾기.					
+				if(select.equals("제품명")) { //제품명으로 찾기.					
 					int currentPage = Integer.parseInt(request.getParameter("cpage"));
 
 					if(currentPage < 1) { 

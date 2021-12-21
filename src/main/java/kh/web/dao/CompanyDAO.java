@@ -848,11 +848,11 @@ public class CompanyDAO {
 	}
 
 	// 제품등록된 사진의 부모시퀀스를 통해 sysname 추출.
-	public String productFindbySeq(String seq) throws Exception{
+	public String productFindbySeq(String pSeq) throws Exception{
 		String sql = "SELECT sysname_product_file from file_product WHERE parentseq_product_file = ?";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
-			pstat.setString(1, seq);
+			pstat.setString(1, pSeq);
 			String result = "";
 			try(ResultSet rs = pstat.executeQuery();){
 				if(rs.next()) {
@@ -899,6 +899,23 @@ public class CompanyDAO {
 			pstat.setString(1, seq);
 			int result = pstat.executeUpdate();
 			con.setAutoCommit(false);
+			return result;
+		}
+	}
+	
+	// seq를 통해 기업 사진의 부모seq추출.
+	public String ifFindbySeq(String seq) throws Exception{
+		String sql = "SELECT seq_board_cp from board_cp WHERE member_seq = ?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, seq);
+			String result = "";
+			try(ResultSet rs = pstat.executeQuery();){
+				if(rs.next()) {
+					result = rs.getString("seq_board_cp");
+
+				}
+			}
 			return result;
 		}
 	}

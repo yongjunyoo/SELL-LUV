@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>자유게시판 관리</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 	crossorigin="anonymous"></script>
@@ -263,7 +263,7 @@ body {
 												<td class="td"><input type="checkbox" name="checkbox"
 													value="${list.seq}"></td>
 												<td class="td">${list.seq}</td>
-												<td class="td">${list.title}</td>
+												<td class="td"><a href="/detail.board?seq=${list.seq}">${list.title}</a></td>
 												<td class="td">${list.writer}</td>
 												<td class="td">${list.write_date}</td>
 												<td class="td">${list.view_count}</td>

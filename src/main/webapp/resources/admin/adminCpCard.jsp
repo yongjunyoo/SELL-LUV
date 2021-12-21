@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>기업 카드 관리</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 	crossorigin="anonymous"></script>
@@ -250,7 +250,7 @@ body {
 									<tr>
 										<th></th>
 										<th>번호</th>
-										<th>제목</th>
+										<th>제품명</th>
 										<th>원하는조건</th>
 										<th>소개글</th>
 									</tr>
@@ -260,7 +260,7 @@ body {
 									<tr>
 										<td class="td"><input type="checkbox" name="checkbox" value="${list.seq_cp}"></td>
 										<td class="td">${list.seq_cp}</td>
-										<td class="td">${list.title_cp}</td>
+										<td class="td"><a href="/companyBoard.ifcp?seq=${list.seq_cp}&cpage=1">${list.title_cp}</a></td>
 										<td class="td">${list.condition_cp}</td>
 										<td class="td">${list.intro_cp}</td>
 									</tr>
@@ -279,7 +279,7 @@ body {
 						<table class="table-sm mb-0" align=right>
 							<tr>
 								<td><select class="selectpicker" id="select" name="select">
-										<option>제목</option>
+										<option>제품명</option>
 										<option>원하는조건</option>
 										<option>소개글</option>
 								</select></td>

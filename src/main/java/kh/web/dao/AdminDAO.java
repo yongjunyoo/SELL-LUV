@@ -644,16 +644,16 @@ public class AdminDAO {
 		
 		String pageNavi ="";
 		if(needPrev) {
-			pageNavi +="								<li class=\"page-item\"><a class=\"page-link\" href=\"/adminCpCardSearch.admin?select=제목&cpage="+(startNavi-1)+"&searchContents="+searchContents+"\"\r\n"
+			pageNavi +="								<li class=\"page-item\"><a class=\"page-link\" href=\"/adminCpCardSearch.admin?select=제품명&cpage="+(startNavi-1)+"&searchContents="+searchContents+"\"\r\n"
 					+ "									aria-label=\"Previous\"> <span aria-hidden=\"true\">&laquo;</span>\r\n"
 					+ "										<span class=\"sr-only\">Previous</span>\r\n"
 					+ "								</a></li>";
 		}
 		for(int i=startNavi; i<=endNavi; i++) {
-			pageNavi+="<li class=\"page-item\"><a class=\"page-link\" href=/adminCpCardSearch.admin?select=제목&cpage="+i+"&searchContents="+searchContents+">"+i+"</a></li>";
+			pageNavi+="<li class=\"page-item\"><a class=\"page-link\" href=/adminCpCardSearch.admin?select=제품명&cpage="+i+"&searchContents="+searchContents+">"+i+"</a></li>";
 		}
 		if(needNext) {
-			pageNavi += "								<li class=\"page-item\"><a class=\"page-link\" href=\"/adminCpCardSearch.admin?select=제목&cpage="+(endNavi+1)+"&searchContents="+searchContents+"\"\r\n"
+			pageNavi += "								<li class=\"page-item\"><a class=\"page-link\" href=\"/adminCpCardSearch.admin?select=제품명&cpage="+(endNavi+1)+"&searchContents="+searchContents+"\"\r\n"
 					+ "									aria-label=\"Next\"> <span aria-hidden=\"true\">&raquo;</span>\r\n"
 					+ "										<span class=\"sr-only\">Next</span>\r\n"
 					+ "								</a></li>";
