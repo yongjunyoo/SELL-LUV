@@ -210,7 +210,6 @@
 		</div>
 	</div>
 	<jsp:include page="/footer.jsp" flush="false" />
-	<div id="errorMessage" style="display: hidden">${errorMessage}</div>
 
 
 	<script>

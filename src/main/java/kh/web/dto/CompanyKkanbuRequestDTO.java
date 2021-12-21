@@ -11,10 +11,15 @@ public class CompanyKkanbuRequestDTO {
     private String cp_kkanbuNickNameTo;
     private Timestamp cp_requestedTime;
     private int cp_kkanbuCardSeq;
-    private String cp_title_cp; 
-    
-    public CompanyKkanbuRequestDTO() {}
 
+    private String cp_title_cp;
+
+    
+	public CompanyKkanbuRequestDTO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
 	public CompanyKkanbuRequestDTO(int cp_kkanbu_seq, int cp_kkanbuSeqFrom, int cp_kkanbuSeqTo,
 			String cp_kkanbuNameFrom, String cp_kkanbuNickNameTo, Timestamp cp_requestedTime, int cp_kkanbuCardSeq,
 			String cp_title_cp) {
@@ -28,70 +33,56 @@ public class CompanyKkanbuRequestDTO {
 		this.cp_kkanbuCardSeq = cp_kkanbuCardSeq;
 		this.cp_title_cp = cp_title_cp;
 	}
-
-	public int getCp_kkanbu_seq() {
+	public final int getCp_kkanbu_seq() {
 		return cp_kkanbu_seq;
 	}
-
-	public void setCp_kkanbu_seq(int cp_kkanbu_seq) {
+	public final void setCp_kkanbu_seq(int cp_kkanbu_seq) {
 		this.cp_kkanbu_seq = cp_kkanbu_seq;
 	}
-
-	public int getCp_kkanbuSeqFrom() {
+	public final int getCp_kkanbuSeqFrom() {
 		return cp_kkanbuSeqFrom;
 	}
-
-	public void setCp_kkanbuSeqFrom(int cp_kkanbuSeqFrom) {
+	public final void setCp_kkanbuSeqFrom(int cp_kkanbuSeqFrom) {
 		this.cp_kkanbuSeqFrom = cp_kkanbuSeqFrom;
 	}
-
-	public int getCp_kkanbuSeqTo() {
+	public final int getCp_kkanbuSeqTo() {
 		return cp_kkanbuSeqTo;
 	}
-
-	public void setCp_kkanbuSeqTo(int cp_kkanbuSeqTo) {
+	public final void setCp_kkanbuSeqTo(int cp_kkanbuSeqTo) {
 		this.cp_kkanbuSeqTo = cp_kkanbuSeqTo;
 	}
-
-	public String getCp_kkanbuNameFrom() {
+	public final String getCp_kkanbuNameFrom() {
 		return cp_kkanbuNameFrom;
 	}
-
-	public void setCp_kkanbuNameFrom(String cp_kkanbuNameFrom) {
+	public final void setCp_kkanbuNameFrom(String cp_kkanbuNameFrom) {
 		this.cp_kkanbuNameFrom = cp_kkanbuNameFrom;
 	}
-
-	public String getCp_kkanbuNickNameTo() {
+	public final String getCp_kkanbuNickNameTo() {
 		return cp_kkanbuNickNameTo;
 	}
-
-	public void setCp_kkanbuNickNameTo(String cp_kkanbuNickNameTo) {
+	public final void setCp_kkanbuNickNameTo(String cp_kkanbuNickNameTo) {
 		this.cp_kkanbuNickNameTo = cp_kkanbuNickNameTo;
 	}
-
-	public Timestamp getCp_requestedTime() {
+	public final Timestamp getCp_requestedTime() {
 		return cp_requestedTime;
 	}
-
-	public void setCp_requestedTime(Timestamp cp_requestedTime) {
+	public final void setCp_requestedTime(Timestamp cp_requestedTime) {
 		this.cp_requestedTime = cp_requestedTime;
 	}
 
-	public int getCp_kkanbuCardSeq() {
+	public final int getCp_kkanbuCardSeq() {
 		return cp_kkanbuCardSeq;
 	}
-
-	public void setCp_kkanbuCardSeq(int cp_kkanbuCardSeq) {
+	public final void setCp_kkanbuCardSeq(int cp_kkanbuCardSeq) {
 		this.cp_kkanbuCardSeq = cp_kkanbuCardSeq;
 	}
-
-	public String getCp_title_cp() {
+	public final String getCp_title_cp() {
 		return cp_title_cp;
 	}
-
-	public void setCp_title_cp(String cp_title_cp) {
+	public final void setCp_title_cp(String cp_title_cp) {
 		this.cp_title_cp = cp_title_cp;
 	}
+    
 
     
 	
