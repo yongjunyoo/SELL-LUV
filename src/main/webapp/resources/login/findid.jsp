@@ -136,7 +136,7 @@ input[type="radio"]{
   transition: all 0.3s ease;
 }
 .form-inner form .field input:focus{
-  border-color: #fc83bb;
+  border-color: rgba(255, 111, 97);
   /* box-shadow: inset 0 0 3px #fb6aae; */
 }
 .form-inner form .field input::placeholder{
@@ -330,7 +330,7 @@ form .btn input[type="button"]{
                 
                  
                   <div class="field btn btn-if" style="padding:0">
-                     <div class="btn-layer"></div>
+                     <div class="btn-layer" style="background:none;background:rgba(255, 111, 97);"></div>
                      <input type="button" value="아이디 찾기" id="if_findpw" class="">
                   </div>
                   <div class="field btn btn-if" id="btn-if-box" style="display:none;padding:0">

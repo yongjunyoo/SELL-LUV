@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>인플루언서회원 깐부 관리</title>
+<title>기업회원 커뮤니티 글 모아보기</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 	crossorigin="anonymous"></script>
@@ -199,12 +199,14 @@ body {
 #profile-box{
 	flex-wrap: wrap;
 }
-
 </style>
 
-
+<script type="text/javascript">
+	
+</script>
 <body>
 	
+
 <div class="container">
 	<div class="row" id="header">
 			<div class="col">
@@ -221,40 +223,34 @@ body {
 								<div class="row">
 									<div class="col-6 col-md-12">
 									<img id="profile" class="img-profile"
-										src="/myProfile.file?name=${loginID }" alt="">
+										src="/myProfile.file?name=${dto.name }" alt="">
 									</div>
 									<div class="col-6 col-md-12"> 
 									<ul class="meta list list-unstyled profile-detail">
 										<li class="name">${dto.name }</li>
-										<li class="label" style="margin: 0; padding: 0">인플루언서</li>
+										<li class="label" style="margin: 0; padding: 0">기업</li>
 										<li class="email">${dto.email }</li>
-										<li class="activity">${dto.nickname}</li>
+										<li class="activity"> ${dto.rpt} </li>
 									</ul>
 									</div>
 								</div>
 							</div>
 						</div>
+
 					</div>
 				</div>
+
 				<div class="card">
 					<div class="card-body">
 						<div class="d-grid"></div>
 						<h5 class="my-3">My Page</h5>
 						<div class="fm-menu">
 							<div class="list-group list-group-flush">
-								<a href="/modify.mem" class="list-group-item py-1"><i class="bx bx-cool me-2"></i><span>개인 정보 수정</span></a>
-								<c:choose>
-									<c:when test="${pdto.member_seq == null}"> 							
-										<a href="/Ifprofile.mem" class="list-group-item py-1"><i class="bx bx-face me-2"></i><span>프로필 생성</span></a>
-									</c:when>
-									<c:otherwise>
-										<a href="/goIfprofileModify.mem" class="list-group-item py-1"><i class="bx bx-face me-2"></i><span>프로필 수정</span></a>
-									</c:otherwise> 
-								</c:choose>
-								<a href="/showKkanbuRequest.kkanbu?IDseq=${IDseq}" class="list-group-item py-1"><i class="bx bx-heart me-2"></i><span>깐부 관리</span></a>
-								<a href="/IFReviewList.mem?cpage=1" class="list-group-item py-1"><i class="bx bx-like me-2"></i><span>리뷰 관리</span></a>
-								<a href="/IFBoardList.mem?cpage=1" class="list-group-item py-1"><i class="bx bx-highlight me-2"></i><span>커뮤니티 관리</span></a>
-								<a href="/Ifleave.mem" onclick="return confirm('계정을 정말 삭제하시겠습니까?');" class="list-group-item py-1"><span>회원탈퇴</span></a>
+								<a href="/modify.mem" class="list-group-item py-1"><i class="bx bx-cool me-2"></i><span>기업 정보 수정</span></a> 													
+								<a href="/showCompanyKkanbuRequest.kkanbu?IDseq=${IDseq}" class="list-group-item py-1"><i class="bx bx-heart me-2"></i><span>깐부 관리</span></a>
+								<a href="/CPReviewList.mem?cpage=1" class="list-group-item py-1"><i class="bx bx-like me-2"></i><span>리뷰 관리</span></a>
+								<a href="/CPBoardList.mem?cpage=1" class="list-group-item py-1"><i class="bx bx-highlight me-2"></i><span>커뮤니티 관리</span></a>
+								<a href="/CPleave.mem" onclick="return confirm('계정을 정말 삭제하시겠습니까?');" class="list-group-item py-1"><span>회원탈퇴</span></a>
 							</div>
 						</div>
 					</div>
@@ -289,8 +285,8 @@ body {
 												<i class="fa fa-heart-o fa-2x"></i>
 											</div>
 										<div class="detail-title-one">
-												<h6 class=""><a href="/showKkanbuRequest.kkanbu?IDseq=${IDseq}" style="text-decoration: none;">깐부관리</a></h6>
-												<%-- <p class="detail-detail"><span>이동</span></p>--%>
+												<h6 class=""><a href="" style="text-decoration: none;">깐부관리</a></h6>
+												
 											</div>
 										</div>
 									</div>
@@ -304,56 +300,54 @@ body {
 												<i class="fa fa-thumbs-o-up fa-2x" aria-hidden="true"></i>
 											</div>
 											<div class="detail-title-one">
-												<h6 class=""><a href="/IFReviewList.mem?cpage=1" style="text-decoration: none;">리뷰관리</a></h6>
-												<%-- <p class="detail-detail"><span>이동</span></p>--%>
+												<h6 class=""><a href="/CPReviewList.mem?cpage=1" style="text-decoration: none;">리뷰관리</a></h6>
+											
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-						
 						<div class="table-responsive mt-3">
 							<div class="drive-wrapper drive-list-view">
 								<div class="table-responsive drive-items-table-wrapper">
-								
 									<table class="table">
 										<thead>
 											<tr>
-												<th class="type"></th>
-												<th class="name truncate">아이템이름.</th>
-
-												<th class="date">기업이름. </th>
-												<th class="size" style="text-align:center;">깐부맺기</th>
-
+												<th class="date" style="text-align:center">제목</th>
+												<th class="size" style="text-align:center">내용</th>
+												<th class="" style="text-align:center">작성일</th>
 											</tr>
 										</thead>
-						
-								<c:forEach var="kkanbu" items="${kkanbuRequest }">
-										<tbody>
-											<tr>
-												<td class="type"><i
-													class="fa fa-file-text-o text-primary"></i></td>
-												<td class="name truncate"><a href="#"> ${kkanbu.cp_title_cp}
-													</a></td>
-												<td class="date">${kkanbu.if_kkanbuNameFrom}</td>
 										
-													<td id="kkanbuCheckbox" class="size"><a id="kkanbuCheck" href="/approveInfKkanbuRequest.kkanbu?kkanbuFrom=${kkanbu.if_kkanbuSeqFrom }&kkanbuTo=${kkanbu.if_kkanbuSeqTo}&kkanbuSeq=${kkanbu.if_kkanbu_seq}&kkanbuCardSeq=${kkanbu.cp_kkanbuCardSeq}&title_cp=${kkanbu.cp_title_cp}"id=kkanbuOk style="text-decoration: none">수락 </a>
-													<a href="/deleteInfKkanbuRequest.kkanbu?kkanbuSeq=${kkanbu.if_kkanbu_seq }&kkanbuTo=${kkanbu.if_kkanbuSeqTo}" id=kkanbuCancel style="text-decoration: none">거절 </a></td>
+										<tbody>
+											<c:forEach var="rdto" items="${list }">
+											<c:choose>
+											<c:when test="${rdto.writer == dto.id }">
+											<tr>												
+												<td class="name truncate" style="text-align:center">${rdto.title}</td>
+												<td class="date" style="text-align:center">${rdto.contents }</td>												
+												<td class="size" style="text-align:center">${rdto.write_date }</td>
 											</tr>
+											</c:when>
+											</c:choose>
+											</c:forEach>
+											
+											<tr>
+											<td colspan=4 style="text-align:center">
+
+											</td>
+										</tr>
 										</tbody>
-								</c:forEach>
 									</table>
-					
 								</div>
 							</div>
 						</div>
-						
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<jsp:include page="/footer.jsp" flush="false"/>
+<jsp:include page="/footer.jsp" flush="false"/>
 </body>
 </html>

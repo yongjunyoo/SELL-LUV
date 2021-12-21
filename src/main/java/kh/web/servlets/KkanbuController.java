@@ -19,9 +19,12 @@ import kh.web.dao.CompanyKkanbuRequestDAO;
 import kh.web.dao.InfluencerDAO;
 import kh.web.dao.InfluencerKkanbuRequestDAO;
 import kh.web.dao.KkanbuDAO;
+import kh.web.dto.CompanyDTO;
 import kh.web.dto.CompanyKkanbuRequestDTO;
+import kh.web.dto.InfluencerDTO;
 import kh.web.dto.InfluencerKkanbuRequestDTO;
 import kh.web.dto.KkanbuDTO;
+import kh.web.dto.Profile_IfDTO;
 
 
 @WebServlet("*.kkanbu")
@@ -168,7 +171,10 @@ public class KkanbuController extends HttpServlet {
 		}else if(cmd.equals("/showKkanbuRequest.kkanbu")) {
 			
 			int loggedInSeq = Integer.parseInt(request.getParameter("IDseq"));
-			
+			String seq = (String)request.getSession().getAttribute("IDseq");
+			String id = (String)request.getSession().getAttribute("loginID");
+			InfluencerDTO idto = influencerDAO.selectById(id);
+			Profile_IfDTO pdto = influencerDAO.selectBySeq(seq);
 			
 			System.out.println("loggedInSeq : "+loggedInSeq);
 			
@@ -180,6 +186,8 @@ public class KkanbuController extends HttpServlet {
 				System.out.println(kkanbu.getIf_kkanbu_seq()+ " " + kkanbu.getIf_kkanbuNameFrom());
 			}
 			
+			request.setAttribute("pdto", pdto);
+			request.setAttribute("dto", idto);
 			request.setAttribute("kkanbuRequest", kkanbuRequest);
 			request.setAttribute("kkanbuList", kkanbuList);
 			request.getRequestDispatcher("/resources/mypage/IFmypageKkanbu.jsp").forward(request, response);
@@ -188,6 +196,8 @@ public class KkanbuController extends HttpServlet {
 			
 		}else if(cmd.equals("/showCompanyKkanbuRequest.kkanbu")) {
 			int loggedInSeq = Integer.parseInt(request.getParameter("IDseq"));
+			String id = (String)request.getSession().getAttribute("loginID");
+			CompanyDTO cdto = companyDAO.selectById(id);
 			
 			System.out.println(loggedInSeq);
 			
@@ -197,6 +207,7 @@ public class KkanbuController extends HttpServlet {
 				System.out.println(kkanbu.getCp_kkanbu_seq()+ " " + kkanbu.getCp_kkanbuNameFrom());
 			}
 			
+			request.setAttribute("dto", cdto);
 			request.setAttribute("kkanbuRequest", kkanbuRequest);
 			request.getRequestDispatcher("/resources/mypage/CPmypageKkanbu.jsp").forward(request, response);
 			

@@ -203,7 +203,9 @@ body {
       <form action="/done.board" method="post" id="frm">
     <div class="container mb-4 mt-4">
         <div class="row" style="padding-bottom:5px;">
-            <div class="col-sm-12"><input type=text id=input-title name=title placeholder="제목을 작성하세요" style="width:100%;"></div>
+            <div class="col-sm-12">
+            <input hidden="hidden" />
+            <input type=text id=input-title name=title placeholder="제목을 작성하세요" style="width:100%;"></div>
         </div>
         <div class="row">
             <div class="col-sm-12">
