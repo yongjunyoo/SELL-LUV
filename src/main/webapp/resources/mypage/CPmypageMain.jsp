@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>기업회원 마이페이지</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 	crossorigin="anonymous"></script>
@@ -249,8 +249,8 @@ body {
 								<a href="/modify.mem" class="list-group-item py-1"><i class="bx bx-cool me-2"></i><span>기업 정보 수정</span></a> 													
 								<a href="/showCompanyKkanbuRequest.kkanbu?IDseq=${IDseq}" class="list-group-item py-1"><i class="bx bx-heart me-2"></i><span>깐부 관리</span></a>
 								<a href="/CPReviewList.mem?cpage=1" class="list-group-item py-1"><i class="bx bx-like me-2"></i><span>리뷰 관리</span></a>
-								<a href="" class="list-group-item py-1"><i class="bx bx-highlight me-2"></i><span>커뮤니티 관리</span></a>
-								<a href="" class="list-group-item py-1"><span>회원탈퇴</span></a>
+								<a href="/CPBoardList.mem?cpage=1" class="list-group-item py-1"><i class="bx bx-highlight me-2"></i><span>커뮤니티 관리</span></a>
+								<a href="/CPleave.mem" onclick="return confirm('계정을 정말 삭제하시겠습니까?');" class="list-group-item py-1"><span>회원탈퇴</span></a>
 							</div>
 						</div>
 					</div>

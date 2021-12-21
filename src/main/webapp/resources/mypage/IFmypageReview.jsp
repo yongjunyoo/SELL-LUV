@@ -1,14 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import = "kh.web.dao.CompanyDAO" %>
-<%@ page import = "kh.web.dto.CompanyDTO" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!-- 태그 라이브러리 -->
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>인플루언서회원 리뷰 모아보기</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 	crossorigin="anonymous"></script>
@@ -211,7 +209,6 @@ body {
 		
 </script>
 <body>
-<% CompanyDAO companyDAO = new CompanyDAO();  %>
 	
 <div class="container">
 	<div class="row" id="header">
@@ -261,8 +258,8 @@ body {
 								</c:choose>
 								<a href="/IFKkanbuList.mem" class="list-group-item py-1"><i class="bx bx-heart me-2"></i><span>깐부 관리</span></a>
 								<a href="/IFReviewList.mem?cpage=1" class="list-group-item py-1"><i class="bx bx-like me-2"></i><span>리뷰 관리</span></a>
-								<a href="" class="list-group-item py-1"><i class="bx bx-highlight me-2"></i><span>커뮤니티 관리</span></a>
-								<a href="" class="list-group-item py-2" id="leave">회원탈퇴</a>
+								<a href="/IFBoardList.mem?cpage=1" class="list-group-item py-1"><i class="bx bx-highlight me-2"></i><span>커뮤니티 관리</span></a>
+								<a href="/Ifleave.mem" onclick="return confirm('계정을 정말 삭제하시겠습니까?');" class="list-group-item py-1"><span>회원탈퇴</span></a>
 							</div>
 						</div>
 					</div>
@@ -327,9 +324,9 @@ body {
 									<table class="table">
 										<thead>
 											<tr>
-												<th class="date">리뷰 작성자</th>
-												<th class="size">리뷰 내용</th>
-												<th class="">리뷰작성일</th>
+												<th class="date" style="text-align:center">글 번호</th>
+												<th class="size" style="text-align:center">리뷰 내용</th>
+												<th class="" style="text-align:center">리뷰작성일</th>
 											</tr>
 										</thead>
 										
@@ -338,17 +335,17 @@ body {
 											<c:choose>
 											<c:when test="${rdto.writer == dto.id }">
 											<tr>												
-												<td class="name truncate">${rdto.writer}</td>
-												<td class="date"><a href="#">${rdto.content }</a></td>												
-												<td class="size">${rdto.timestamp }</td>
+												<td class="name truncate" style="text-align:center">${rdto.seq}</td>
+												<td class="date" style="text-align:center">${rdto.content }</td>												
+												<td class="size" style="text-align:center">${rdto.timestamp }</td>
 											</tr>
 											</c:when>
 											</c:choose>
 											</c:forEach>
 											
 											<tr>
-											<td>
-											${navi }
+											<td colspan=4 style="text-align:center">
+
 											</td>
 										</tr>
 										</tbody>
