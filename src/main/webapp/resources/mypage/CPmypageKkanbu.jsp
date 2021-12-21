@@ -324,7 +324,7 @@ body {
 												<td class="name truncate"><a href="#"> ${kkanbu.cp_kkanbuNameFrom}
 													</a></td>
 												<td class="date">${kkanbu.cp_requestedTime}</td>
-												<td class="size"><a href="/approveCompanyKkanbuRequest.kkanbu?kkanbuFrom=${kkanbu.cp_kkanbuSeqFrom }&kkanbuTo=${kkanbu.cp_kkanbuSeqTo}&loggedInSeq=${IDseq}&kkanbu_seq=${kkanbu.cp_kkanbu_seq}" style="text-decoration: none">수락 </a>
+												<td class="size"><a href="/approveCompanyKkanbuRequest.kkanbu?kkanbuFrom=${kkanbu.cp_kkanbuSeqFrom }&kkanbuTo=${kkanbu.cp_kkanbuSeqTo}&loggedInSeq=${IDseq}&kkanbu_seq=${kkanbu.cp_kkanbu_seq}&kkanbuCardSeq=${kkanbu.cp_kkanbuCardSeq}&title_cp=${kkanbu.cp_title_cp}" style="text-decoration: none">수락 </a>
 												<a href="/deleteCompanyKkanbuRequest.kkanbu?kkanbuSeq=${kkanbu.cp_kkanbu_seq }&kkanbuTo=${kkanbu.cp_kkanbuSeqTo}" style="text-decoration: none">거절 </a></td>
 											</tr>
 										</tbody>

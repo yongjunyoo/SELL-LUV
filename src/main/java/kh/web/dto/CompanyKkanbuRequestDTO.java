@@ -10,11 +10,14 @@ public class CompanyKkanbuRequestDTO {
     private String cp_kkanbuNameFrom; 
     private String cp_kkanbuNickNameTo;
     private Timestamp cp_requestedTime;
+    private int cp_kkanbuCardSeq;
+    private String cp_title_cp; 
     
     public CompanyKkanbuRequestDTO() {}
 
 	public CompanyKkanbuRequestDTO(int cp_kkanbu_seq, int cp_kkanbuSeqFrom, int cp_kkanbuSeqTo,
-			String cp_kkanbuNameFrom, String cp_kkanbuNickNameTo, Timestamp cp_requestedTime) {
+			String cp_kkanbuNameFrom, String cp_kkanbuNickNameTo, Timestamp cp_requestedTime, int cp_kkanbuCardSeq,
+			String cp_title_cp) {
 		super();
 		this.cp_kkanbu_seq = cp_kkanbu_seq;
 		this.cp_kkanbuSeqFrom = cp_kkanbuSeqFrom;
@@ -22,6 +25,8 @@ public class CompanyKkanbuRequestDTO {
 		this.cp_kkanbuNameFrom = cp_kkanbuNameFrom;
 		this.cp_kkanbuNickNameTo = cp_kkanbuNickNameTo;
 		this.cp_requestedTime = cp_requestedTime;
+		this.cp_kkanbuCardSeq = cp_kkanbuCardSeq;
+		this.cp_title_cp = cp_title_cp;
 	}
 
 	public int getCp_kkanbu_seq() {
@@ -71,6 +76,23 @@ public class CompanyKkanbuRequestDTO {
 	public void setCp_requestedTime(Timestamp cp_requestedTime) {
 		this.cp_requestedTime = cp_requestedTime;
 	}
+
+	public int getCp_kkanbuCardSeq() {
+		return cp_kkanbuCardSeq;
+	}
+
+	public void setCp_kkanbuCardSeq(int cp_kkanbuCardSeq) {
+		this.cp_kkanbuCardSeq = cp_kkanbuCardSeq;
+	}
+
+	public String getCp_title_cp() {
+		return cp_title_cp;
+	}
+
+	public void setCp_title_cp(String cp_title_cp) {
+		this.cp_title_cp = cp_title_cp;
+	}
+
     
 	
 	

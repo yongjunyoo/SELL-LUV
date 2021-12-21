@@ -146,8 +146,8 @@ public boolean areTheyKkanbuForInfluencer(int kkanbuSeqFrom, int kkanbuSeqTo) th
 	
 	try(Connection con = this.getConnection();
 			PreparedStatement pstat = con.prepareStatement(sql);){
-		pstat.setInt(1, kkanbuSeqFrom);
-		pstat.setInt(2, kkanbuSeqTo);
+		pstat.setInt(1,kkanbuSeqTo);
+		pstat.setInt(2,kkanbuSeqFrom);
 		try(ResultSet rs = pstat.executeQuery();){
 			
 				boolean result = rs.next();
