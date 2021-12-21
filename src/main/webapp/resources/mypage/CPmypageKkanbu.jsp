@@ -152,8 +152,8 @@ body {
 
 .img-profile {
 	border-radius: 70%;
-	width: 90%;
-	height: 90%;
+	width: 100%;
+	height: 100%;
 }
 
 .profile-detail {
@@ -196,6 +196,10 @@ body {
 	flex:1 1;
 	justify-content: center;
 }
+
+#profile-box{
+	flex-wrap: wrap;
+}
 </style>
 
 <script type="text/javascript">
@@ -211,7 +215,7 @@ body {
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-12 col-lg-3">
+			<div class="col-12 col-md-4 col-lg-3">
 				<div class="card">
 					<div class="card-body">
 						<div class="row">
@@ -248,7 +252,7 @@ body {
 
 			</div>
 
-			<div class="col-12 col-lg-9">
+			<div class="col-12 col-md-8 col-lg-9">
 				<div class="card">
 					<div class="card-body">
 						<div class="row mt-3">
