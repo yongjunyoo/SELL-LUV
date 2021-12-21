@@ -178,6 +178,19 @@ private static BoardDAO instance = null;
 			}
 	}
 	
+	public int getPageTotalCount() throws Exception {
+		int recordTotalCount = this.getRecordCount();
+
+		// 총 몇 개의 페이지가 나오는지 계산할 수 있다.
+		int pageTotalCount = 0;
+		if(recordTotalCount % BoardStatics.RECORD_COUNT_PER_PAGE == 0) {
+			pageTotalCount = recordTotalCount / BoardStatics.RECORD_COUNT_PER_PAGE;
+		}else {
+			pageTotalCount = recordTotalCount / BoardStatics.RECORD_COUNT_PER_PAGE + 1;
+		}
+		return pageTotalCount;
+	}
+	
 
 	private int getRecordCount() throws Exception {
 		String sql = "SELECT COUNT(*) FROM freeboard";

@@ -28,6 +28,7 @@ rel="stylesheet" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://rawgit.com/jackmoore/autosize/master/dist/autosize.min.js"></script>
+<link rel="icon" href="#">
 <style>
 	body {
 		margin: 0;
@@ -240,7 +241,7 @@ rel="stylesheet" />
 	<div class="container-fluid mt-100">
     <div id="board-title">
     <img id="title" src="/resources/board/image/title.png">
-    <span>커뮤니티 게시판</span>
+    <span>커뮤니티 게시판${loginID }</span>
     </div>       
     <br>
 	
@@ -279,7 +280,7 @@ rel="stylesheet" />
         </div>
         <div class="row">
             <div class="col-sm-12" style="text-align:right">
-                <c:if test="${loginID==dto.writer }">
+                <c:if test="${loginID==dto.writer or loginID=='kkanbu' }">
 	                <button type="button" class="btn btn-dark" id="mod" style="background-color:rgb(255, 111, 97);">수정하기</button>
 	                <button type="button" class="btn btn-dark" id="del" style="background-color:rgb(255, 111, 97);">삭제하기</button>
 	                <button type="button" class="btn btn-dark" id="modDone" style="background-color:rgb(255, 111, 97);display:none;">수정완료</button>
@@ -290,7 +291,6 @@ rel="stylesheet" />
 					$("#boardList").on("click",function(){
 						location.href="/boardList.board?cpage=${cpage}";
 					});
-					
 					// 기존 내용 백업
 					let bkTitle = $("#input-title").val();					
 					let bkContents = $("#contents").val();					

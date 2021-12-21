@@ -63,6 +63,12 @@ public class BoardController extends HttpServlet {
 			// 게시판 목록
 			if(cmd.equals("/boardList.board")) {
 				int currentPage = Integer.parseInt(cpage);
+				
+				
+				int pageTotalCount  = bdao.getPageTotalCount();
+				if(currentPage <1) {currentPage=1;}
+				if(currentPage > pageTotalCount) {currentPage = pageTotalCount;}
+				
 				int start = currentPage * BoardStatics.RECORD_COUNT_PER_PAGE-9;
 				int end = currentPage * BoardStatics.RECORD_COUNT_PER_PAGE;
 				List<BoardDTO> boardList = bdao.selectByBound(start,end);
@@ -162,7 +168,7 @@ public class BoardController extends HttpServlet {
 			}	
 		}catch(Exception e) {
 			e.printStackTrace();
-			response.sendRedirect("error.jsp");
+			response.sendRedirect("/error.jsp");
 		}
 		
 		

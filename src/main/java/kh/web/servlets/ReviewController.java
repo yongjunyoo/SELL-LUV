@@ -44,7 +44,7 @@ request.setCharacterEncoding("utf8");  // get방식 한글 깨짐 방지
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
-			response.sendRedirect("error.jsp");
+			response.sendRedirect("/error.jsp");
 		}
 		
 		
