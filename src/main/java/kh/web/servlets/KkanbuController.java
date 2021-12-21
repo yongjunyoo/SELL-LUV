@@ -51,6 +51,7 @@ public class KkanbuController extends HttpServlet {
 		KkanbuDAO kkanbuDAO = new KkanbuDAO();
 		KkanbuDTO kkanbuDTO = new KkanbuDTO();
 		HttpSession session = request.getSession();
+		String deleteKkanbuId = (String) session.getAttribute("IDseq");
 		
 		
 		
@@ -203,9 +204,10 @@ public class KkanbuController extends HttpServlet {
 			int kkanbuSeq = Integer.parseInt(request.getParameter("kkanbuSeq"));
 			int kkanbuTo = Integer.parseInt(request.getParameter("kkanbuTo"));
 			
+			
 			int result = influencerKkanbuRequestDAO.delete(kkanbuSeq); 
 			
-			response.sendRedirect("/showKkanbuRequest.kkanbu?IDseq="+kkanbuTo);
+			response.sendRedirect("/showKkanbuRequest.kkanbu?IDseq="+deleteKkanbuId);
 			
 		}else if(cmd.equals("/deleteCompanyKkanbuRequest.kkanbu")) {
 			int kkanbuSeq = Integer.parseInt(request.getParameter("kkanbuSeq"));
@@ -217,7 +219,7 @@ public class KkanbuController extends HttpServlet {
 		
 			int result = companyKkanbuRequestDAO.delete(kkanbuSeq); 
 			
-			response.sendRedirect("/showKkanbuRequest.kkanbu?IDseq="+kkanbuTo);
+			response.sendRedirect("/showKkanbuRequest.kkanbu?IDseq="+deleteKkanbuId);
 			
 			
 		}else if(cmd.equals("/approveInfKkanbuRequest.kkanbu")) {
