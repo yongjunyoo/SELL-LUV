@@ -9,7 +9,7 @@
 <meta charset="utf-8">
 <!--  This file has been downloaded from bootdey.com @bootdey on twitter -->
 <!--  All snippets are MIT license http://bootdey.com/license -->
-<title>blog detail page - Bootdey.com</title>
+<title>인플루언서 프로필 상세정보</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 <link
@@ -112,8 +112,7 @@
 											<input type=text id="review" name="review"
 												placeholder="내용을 입력하세요."
 												style="border-right: 0px; border-top: 0px; border-left: 0px; border-bottom: 1px solid #ff6F61;">
-											&nbsp;
-											<button class="px-btn theme">
+											&nbsp;<button class="px-btn theme">
 												작성하기<i class="arrow"></i>
 											</button>
 										</div>
@@ -140,7 +139,7 @@
 									<tbody>
 										<c:forEach var="list" items="${list}">
 											<tr style="color: black;">
-												<td><img src="/product.file?seq= ${list.ref_seq }"
+												<td><img src="/productDetail.file?seq= ${list.ref_seq }"
 													title="" alt=""
 													style="height: 25px; width: 25px; border-radius: 15px;"></td>
 												<td>${list.seq }</td>

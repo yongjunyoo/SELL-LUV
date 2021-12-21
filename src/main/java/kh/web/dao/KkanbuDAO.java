@@ -106,6 +106,24 @@ public boolean areTheyKkanbu(int kkanbuSeqFrom, int kkanbuCardSeq) throws SQLExc
 				}
 		}
 }
+
+public boolean areTheyCpKkanbu(int kkanbuSeqFrom, int kkanbuCardSeq) throws SQLException, Exception {
+	String sql = "select * from kkanbu where influencer_seq =? and company_seq=?";
+	
+	try(Connection con = this.getConnection();
+			PreparedStatement pstat = con.prepareStatement(sql);){
+		pstat.setInt(1, kkanbuSeqFrom);
+		pstat.setInt(2, kkanbuCardSeq);
+		try(ResultSet rs = pstat.executeQuery();){
+			
+				boolean result = rs.next();
+				
+				return result;
+		
+				}
+		}
+}
+
 public boolean areTheyKkanbuForKkanbu(int kkanbuSeqFrom, int kkanbuCardSeq, int companySeq) throws SQLException, Exception {
 	String sql = "select * from kkanbu where influencer_seq =? and kkanbuCardSeq=? and company_seq=?";
 	

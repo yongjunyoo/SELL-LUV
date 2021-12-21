@@ -339,7 +339,7 @@ body {
 											
 											<tr>
 											<td colspan=4 style="text-align:center">
-											${navi }
+											
 											</td>
 										</tr>
 										</tbody>

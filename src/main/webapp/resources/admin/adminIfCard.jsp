@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>인플루언서 카드 관리</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 	crossorigin="anonymous"></script>
@@ -262,7 +262,7 @@ body {
 												<td class="td"><input type="checkbox" name="checkbox"
 													value="${list.seq_if}"></td>
 												<td class="td">${list.seq_if}</td>
-												<td class="td">${list.intro_if}</td>
+												<td class="td"><a href="/influencerProfile.ifcp?seq=${list.seq_if}&cpage=1">${list.intro_if}</a></td>
 												<td class="td">${list.condition_if}</td>
 												<td class="td">${list.career_if}</td>
 											</tr>

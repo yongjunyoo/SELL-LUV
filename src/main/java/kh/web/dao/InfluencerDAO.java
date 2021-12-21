@@ -838,6 +838,24 @@ public class InfluencerDAO  {
 			}
 		}
 	}
+	
+	public String whatIsLoggedInIDforCompany(String loginID) throws Exception{
+		String sql = "select * from company where id_cp = ?";
+
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, loginID);
+			try(ResultSet rs = pstat.executeQuery();){
+
+				if(rs.next()) {
+
+					return  "company";
+
+				}
+				return null;
+			}
+		}
+	}
 
 
 	// seq를 통해 인플루언서 사진의 부모seq추출.
@@ -934,5 +952,19 @@ public class InfluencerDAO  {
 			return result;
 		}
 	}
-		
+	
+	public int findMember_seq(int seq) throws Exception{ // profile_if seq로 influencer seq찾기.
+		String sql = "select member_seq from profile_if where seq_if=?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setInt(1, seq);
+			int result = 0;
+			try(ResultSet rs = pstat.executeQuery();){
+				if(rs.next()) {
+					result = rs.getInt("member_seq");
+				}
+			}
+			return result;
+		}
+	}
 }

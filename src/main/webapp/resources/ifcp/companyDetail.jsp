@@ -9,7 +9,7 @@
 <meta charset="utf-8">
 <!--  This file has been downloaded from bootdey.com @bootdey on twitter -->
 <!--  All snippets are MIT license http://bootdey.com/license -->
-<title>blog detail page - Bootdey.com</title>
+<title>기업 제품 상세정보</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 <link
@@ -78,8 +78,7 @@
 											<input type=text id="review" name="review"
 												placeholder="내용을 입력하세요."
 												style="border-right: 0px; border-top: 0px; border-left: 0px; border-bottom: 1px solid #ff6F61;">
-											&nbsp;
-											<button class="px-btn theme">
+											&nbsp;<button class="px-btn theme">
 												작성하기<i class="arrow"></i>
 											</button>
 										</div>
@@ -136,11 +135,11 @@
 
 									<div class="nav tag-cloud">
 										<c:choose>
-											<c:when test="${loggedInID eq 'company'}">
-												
-											</c:when>
 											<c:when test="${loggedInID == null}">
 												
+											</c:when>
+											<c:when test="${loggedInID eq 'company'}">
+											
 											</c:when>
 											<%-- 이미 깐부를 맺었을 때 --%>
 											<c:when test="${kkanbuMessage != null}">
@@ -172,7 +171,8 @@
 									<c:if test="${loginID eq dto.value.id}">
 										<a href="/cpDelete.ifcp?seq=${dto.key.seq_cp}&cpage=1"><button
 												type="button" id="delBtn">삭제하기</button></a>
-
+										<a href="/cpModify.ifcp?seq=${dto.key.seq_cp}&cpage=1"><button
+												type="button" id="modBtn">수정하기</button></a>
 									</c:if>
 								</c:forEach>
 							</div>
@@ -211,6 +211,17 @@ img {
 }
 
 #delBtn:hover {
+	background-color: black;
+}
+
+#modBtn {
+	color: #ff6F61;
+	background-color: transparent;
+	border: 1px solid black;
+	border-radius: 5px;
+}
+
+#modBtn:hover {
 	background-color: black;
 }
 

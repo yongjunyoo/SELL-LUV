@@ -335,9 +335,9 @@ body {
 											<c:choose>
 											<c:when test="${rdto.writer == dto.id }">
 											<tr>												
-												<td class="name truncate">${rdto.seq}</td>
-												<td class="date">${rdto.content }</td>												
-												<td class="size">${rdto.timestamp }</td>
+												<td class="name truncate" style="text-align:center">${rdto.seq}</td>
+												<td class="date" style="text-align:center">${rdto.content }</td>												
+												<td class="size" style="text-align:center">${rdto.timestamp }</td>
 											</tr>
 											</c:when>
 											</c:choose>
@@ -345,7 +345,7 @@ body {
 											
 											<tr>
 											<td colspan=4 style="text-align:center">
-											${navi }
+
 											</td>
 										</tr>
 										</tbody>
