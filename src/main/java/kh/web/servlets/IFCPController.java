@@ -424,7 +424,7 @@ public class IFCPController extends HttpServlet {
 
 		}catch(Exception e) {
 			e.printStackTrace();
-			response.sendRedirect("error.jsp");
+			response.sendRedirect("/error.jsp");
 		}
 	}
 

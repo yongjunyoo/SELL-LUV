@@ -107,7 +107,7 @@
 							<form id="contact-form" method="POST"
 								action="/ifReviewWrite.ifcp?seq=${dto.key.seq_if}&cpage=1">
 								<div class="row">
-									<div class="col-md-6">
+									<div class="col-md-6" >
 										<div class="form-group">
 											<input type=text id="review" name="review"
 												placeholder="내용을 입력하세요."
@@ -125,27 +125,27 @@
 
 						<h4>리뷰 목록</h4>
 						<div class="row">
-							<div class="col-md-6">
-								<table class="table-sm mb-0">
+							<div class="col-md-6" style="flex-grow: 1;">
+								<table class="table-sm mb-0" style="width: 100%;">
 									<thead>
 										<tr>
-											<th></th>
-											<th>번호</th>
+											<th style="width: 10%;"></th>
+											<th style="width: 8%;">번호</th>
 											<th>작성자</th>
-											<th>작성내용</th>
-											<th>작성시간</th>
+											<th style="text-align:center">작성내용</th>
+											<th style="width: 16%;">작성시간</th>
 										</tr>
 									</thead>
 									<tbody>
 										<c:forEach var="list" items="${list}">
 											<tr style="color: black;">
-												<td><img src="/productDetail.file?seq= ${list.ref_seq }"
+												<td style="width: 10%;"><img src="/productDetail.file?seq= ${list.ref_seq }"
 													title="" alt=""
-													style="height: 25px; width: 25px; border-radius: 15px;"></td>
-												<td>${list.seq }</td>
+													style="height: 50px; width: 50px; border-radius: 70%;"></td>
+												<td style="width: 8%;">${list.seq }</td>
 												<td>${list.writer }</td>
 												<td>${list.content }</td>
-												<td>${list.timestamp }</td>
+												<td style="width: 16%;">${list.timestamp }</td>
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -214,7 +214,6 @@
 		</div>
 	</div>
 	<jsp:include page="/footer.jsp" flush="false" />
-	<div id="errorMessage" style="display: hidden">${errorMessage}</div>
 
 
 	<script>

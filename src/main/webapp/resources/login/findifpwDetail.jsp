@@ -270,7 +270,7 @@ form .btn input[type="button"]{
 					<div class="form-div">ID : ${ifdto.id }</div>             	  
                   </div>
              	  <div class="signup-link" style="margin-top:20px;">
-                     비밀번호는 <br>최소 8글자 이상 최대 16글자를 <br> 만족해야합니다. 
+                     비밀번호는 <br>최소 8글자 이상 최대 16글자를 <br> 만족해야합니다. <br>특수문자 사용불가
                   </div>
                   <div class="field">
                      <input type="password" name="pw_if" id="pw_if" placeholder="새로운 비밀번호를 입력하세요." required>
