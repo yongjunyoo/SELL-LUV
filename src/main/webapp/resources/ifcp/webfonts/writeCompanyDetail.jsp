@@ -9,7 +9,7 @@
 <meta charset="utf-8">
 <!--  This file has been downloaded from bootdey.com @bootdey on twitter -->
 <!--  All snippets are MIT license http://bootdey.com/license -->
-<title>기업 제품 상세정보</title>
+<title>기업 제품 등록</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 <link
@@ -31,100 +31,45 @@
 
 <body>
 	<jsp:include page="/header.jsp" flush="false" />
-
 	<div class="blog-single gray-bg">
 		<div class="container">
 			<div class="row align-items-start">
 				<div class="col-lg-8 m-15px-tb">
 					<article class="article">
-						<div class="article-img"
-							style="text-align: center; height: 256.98px;">
-							<c:forEach var="dto" items="${cpList }">
-								<img src="/product.file?seq= ${dto.key.seq_cp }" title="" alt="">
-						</div>
-						<div class="article-title">
-							<!--소개글-->
-							<div class="avatar"></div><br>
-							<h2 style="text-align:center;">${dto.key.title_cp}</h2><br>
-							<div class="media">
-								<div class="media-body">
-									<label>작성자 : </label> ${dto.value.id}
-								</div>
-								<div class="media-body">
-									<label>매출 : </label> ${dto.value.sales}
-								</div>
-							</div>
-							<div class="media">
-								<div class="media-body">
-									<label>소개글 : </label> ${dto.key.intro_cp}
-								</div>
-							</div>
-							<div class="media">
-								<div class="media-body">
-									<label>원하는 조건 : </label> ${dto.key.condition_cp}
-								</div>
-							</div>
-						</div>
-					</article>
-
-					<div class="contact-form article-comment">
-						<c:if test="${kkanbu==true}">
-							<h4>리뷰 작성</h4>
-							<form id="contact-form" method="POST"
-								action="/cpReviewWrite.ifcp?seq=${dto.key.seq_cp}&cpage=1">
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
-											<input type=text id="review" name="review"
-												placeholder="내용을 입력하세요."
-												style="border-right: 0px; border-top: 0px; border-left: 0px; border-bottom: 1px solid #ff6F61;">
-											&nbsp;<button class="px-btn theme">
-												작성하기<i class="arrow"></i>
-											</button>
+						<form action="/upload.ifcp" method="post"
+							enctype="multipart/form-data">
+							<div class="article-title">
+								<div class="media">
+									<div class="avatar"></div>
+									<div class="media-body">
+										<label>제품 사진</label> <br>
+										<div
+											style="height: 256.98px; width: 256.98px; border: 1px solid grey; border-radius: 3px; overflow: hidden;">
+											<img src="/resources/ifcp/img/blank.png" alt="" id="preview"
+												style="width: 100%; height: 100%; object-fit: cover;" />
 										</div>
+										<br> <label>제품명</label> <br> <input type="text"
+											style="width: 425px;" name="title" id="title"><br>
+										<br> <label>소개글</label><br>
+										<textarea rows="5" cols="48" name="intro" id="intro"></textarea>
+										<br> <label>원하는 조건</label><br>
+										<textarea rows="5" cols="48" name="condition" id="condition"></textarea>
+										<br> <label id="fileUpload"> 사진선택<input
+											type="file" name="file" id="file" accept="jpg,jpeg,png"
+											style="display: none;">
+										</label>
 									</div>
-									<div class="col-md-12"></div>
 								</div>
-							</form>
-							<br>
-						</c:if>
-
-						<h4>리뷰 목록</h4>
-						<div class="row">
-							<div class="col-md-6">
-								<table class="table-sm mb-0">
-									<thead>
-										<tr>
-											<th></th>
-											<th>번호</th>
-											<th>작성자</th>
-											<th>작성내용</th>
-											<th>작성시간</th>
-										</tr>
-									</thead>
-									<tbody>
-										<c:forEach var="list" items="${list}">
-											<tr style="color: black;">
-												<td><img
-													src="/influencerDetail.file?seq= ${list.ref_seq }" title=""
-													alt=""
-													style="height: 25px; width: 25px; border-radius: 15px;"></td>
-												<td>${list.seq }</td>
-												<td>${list.writer }</td>
-												<td>${list.content }</td>
-												<td>${list.timestamp }</td>
-											</tr>
-										</c:forEach>
-									</tbody>
-								</table>
 							</div>
-						</div>
-						<div div="row">
-							<ul class="pagination pagination-lg justify-content-end">
-								${navi}
-							</ul>
-						</div>
-					</div>
+							<div class="article-content">
+
+								<!-- <p>내용</p> -->
+
+
+
+
+							</div>
+					</article>
 				</div>
 				<div class="col-lg-4 m-15px-tb blog-aside">
 					<!-- Author -->
@@ -132,97 +77,65 @@
 						<div class="widget-body">
 							<div class="media align-items-center">
 								<div class="media-body">
-
 									<div class="nav tag-cloud">
-										<c:choose>
-											<c:when test="${loggedInID == null}">
-												로그인이 필요한 서비스입니다
-											</c:when>
-											<c:when test="${loggedInID eq 'company'}">
-											
-											</c:when>
-											<%-- 이미 깐부를 맺었을 때 --%>
-											<c:when test="${kkanbuMessage != null}">
-			 									${kkanbuMessage}
-										</c:when>
-											<c:when test="${ckkanbuCardSeq !=null }">
-												<div class="nav tag-cloud">
-													<span>깐부요청보냄</span>
-												</div>
-											</c:when>
-											<c:otherwise>
-												<a
-													href="/kkanbuRequestToCompany.kkanbu?kkanbuSeqTo=${dto.key.member_seq }&kkanbuSeqFrom=${IDseq}&kkanbuCardSeq=${dto.key.seq_cp}&cpage=1&kkanbuTitleCp=${dto.key.title_cp}"
-													style="text-decoration: none;">깐부맺기</a>
-											</c:otherwise>
-										</c:choose>
-										<div class="nav tag-cloud"></div>
+										<a href="#" style="text-decoration: none;"><button
+												id="complete">작성완료</button></a>
 									</div>
 								</div>
 							</div>
 						</div>
-						<!-- End Author -->
+					</div>
+					</form>
+					<!-- End Author -->
 
-						<!-- Latest Post -->
-						<div class="widget widget-latest-post">
-							</c:forEach>
-							<div class="widget-title" style="text-align: center;">
-								<c:forEach var="dto" items="${cpList }">
-									<c:if test="${loginID eq dto.value.id}">
-										<a href="/cpDelete.ifcp?seq=${dto.key.seq_cp}&cpage=1"><button
-												type="button" id="delBtn">삭제하기</button></a>
-										<a href="/cpModify.ifcp?seq=${dto.key.seq_cp}&cpage=1"><button
-												type="button" id="modBtn">수정하기</button></a>
-									</c:if>
-								</c:forEach>
-							</div>
+					<!-- Latest Post -->
+					<div class="widget widget-latest-post">
+						<div class="widget-title">
+							<h3>사업자번호</h3>
+							<h6>${cpList[0].crnumber}</h6>
+						</div>
+						<div class="widget-title">
+							<h3>대표자</h3>
+							<h6>${cpList[0].rpt}</h6>
+						</div>
+						<div class="widget-title">
+							<h3>이메일</h3>
+							<h6>${cpList[0].email}</h6>
+						</div>
+						<div class="widget-title">
+							<h3>연락처</h3>
+							<h6>${cpList[0].email}</h6>
+						</div>
+						<div class="widget-title">
+							<h3>매출액</h3>
+							<h6>${cpList[0].sales}</h6>
+						</div>
+						<div class="widget-title">
+							<h3>등급</h3>
+							<h6>${cpList[0].grade}</h6>
 						</div>
 					</div>
 				</div>
-				<!-- End Latest Post -->
 			</div>
+			<!-- End Latest Post -->
 		</div>
 	</div>
-	<jsp:include page="/footer.jsp" flush="false" />
 
-	<script>
-		
-	</script>
 	<style type="text/css">
-table {
-	color: #ff6F61;
-	width: 500px;
-}
-
-img {
-	max-width: 100%;
-	height: 100%;
-}
-
-#review:focus {
-	outline: none;
-}
-
-#delBtn {
-	color: #ff6F61;
-	background-color: transparent;
-	border: 1px solid black;
+#fileUpload {
+	border: 1px solid transparent;
 	border-radius: 5px;
 }
 
-#delBtn:hover {
-	background-color: black;
+#fileUpload:hover {
+	background-color: #f1eeee;
+	cursor: pointer;
 }
 
-#modBtn {
-	color: #ff6F61;
+button {
 	background-color: transparent;
-	border: 1px solid black;
-	border-radius: 5px;
-}
-
-#modBtn:hover {
-	background-color: black;
+	border: 0px;
+	color: white;
 }
 
 #heart {
@@ -701,10 +614,40 @@ img {
 }
 </style>
 
-	<script type="text/javascript">
-		$("#delBtn").on("click", function() {
-			confirm("삭제하시겠습니까?");
+	<script>
+		$("#complete").on("click", function() {
+			if ($("#title").val() == "") {
+				alert("제목을 입력하세요.");
+				return false;
+			}
+			if ($("#intro").val() == "") {
+				alert("소개글을 입력하세요.");
+				return false;
+			}
+
+			if ($("#condition").val() == "") {
+				alert("원하는 조건을 입력하세요.");
+				return false;
+			}
+			alert("작성완료");
 		})
 	</script>
+	<script>
+		$('#file').change(function() {
+			setImageFromFile(this, '#preview');
+		});
+
+		function setImageFromFile(input, expression) {
+			if (input.files && input.files[0]) {
+				let reader = new FileReader();
+				reader.onload = function(e) {
+					$(expression).attr('src', e.target.result);
+				}
+				reader.readAsDataURL(input.files[0]);
+			}
+		}
+	</script>
+
+	<jsp:include page="/footer.jsp" flush="false" />
 </body>
 </html>

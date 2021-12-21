@@ -337,6 +337,14 @@ public class IFCPController extends HttpServlet {
 					request.setAttribute("navi", navi);
 					request.getRequestDispatcher("/resources/ifcp/companyList.jsp").forward(request, response);
 				}
+			}else if(cmd.equals("/cpModify.ifcp")) { // 기업 제품등록 수정하기.
+				String seq = request.getParameter("seq");
+				String loginID = (String) request.getSession().getAttribute("loginID");
+				List<CompanyDTO> list = companyDAO.searchById(loginID);
+				request.setAttribute("seq", seq);
+				request.setAttribute("cpList", list);
+				request.getRequestDispatcher("/resources/ifcp/modifyCompanyDetail.jsp").forward(request, response);
+				
 			}else if(cmd.equals("/ifDelete.ifcp")) { // 인플루언서 프로필등록 건 삭제하기.
 				int currentPage = Integer.parseInt(request.getParameter("cpage"));
 				String seq = request.getParameter("seq");
