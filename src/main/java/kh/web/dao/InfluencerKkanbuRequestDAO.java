@@ -77,12 +77,13 @@ public class InfluencerKkanbuRequestDAO {
 			
 			}
 	}
-	public boolean isRequestStillPending(int kkanbuSeqFrom, int kkanbuCardSeq) throws SQLException, Exception {
-		String sql = "SELECT * FROM influencerKkanbuRequest WHERE if_kkanbuSeqFrom=? and cp_kkanbuCardSeq =?";
+	public boolean isRequestStillPending(int kkanbuSeqFrom, int kkanbuCardSeq, int influencerSeq) throws SQLException, Exception {
+		String sql = "SELECT * FROM influencerKkanbuRequest WHERE if_kkanbuSeqFrom=? and cp_kkanbuCardSeq =? and if_kkanbuseqto =?";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
 			pstat.setInt(1, kkanbuSeqFrom);
 			pstat.setInt(2,  kkanbuCardSeq);
+			pstat.setInt(3,  influencerSeq);
 			try(ResultSet rs = pstat.executeQuery();){
 				boolean result = false;
 				if(rs.next()) {

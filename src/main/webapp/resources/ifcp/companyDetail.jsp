@@ -136,13 +136,16 @@
 									<div class="nav tag-cloud">
 										<c:choose>
 											<c:when test="${loggedInID eq 'company'}">
+												
 											</c:when>
 											<c:when test="${loggedInID == null}">
+												
 											</c:when>
+											<%-- 이미 깐부를 맺었을 때 --%>
 											<c:when test="${kkanbuMessage != null}">
 			 									${kkanbuMessage}
 										</c:when>
-											<c:when test="${kkanbuCardSeq !=null }">
+											<c:when test="${ckkanbuCardSeq !=null }">
 												<div class="nav tag-cloud">
 													<span>깐부요청보냄</span>
 												</div>
@@ -153,7 +156,6 @@
 													style="text-decoration: none;">깐부맺기</a>
 											</c:otherwise>
 										</c:choose>
-
 										<div class="nav tag-cloud"></div>
 									</div>
 								</div>
