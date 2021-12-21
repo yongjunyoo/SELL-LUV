@@ -833,7 +833,7 @@ public class InfluencerDAO  {
 					return  "influencer";
 
 				}
-				return null;
+				return "company";
 			}
 		}
 	}
