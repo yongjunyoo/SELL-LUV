@@ -137,7 +137,7 @@
 									<div class="nav tag-cloud">
 										<c:choose>
 											<c:when test="${loggedInID == null}">
-												로그인이 필요한 서비스입니다
+												
 											</c:when>
 											<c:when test="${loggedInID eq 'company'}">
 											
