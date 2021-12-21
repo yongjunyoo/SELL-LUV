@@ -113,6 +113,11 @@ public class KkanbuController extends HttpServlet {
 			
 		}else if(cmd.equals("/kkanbuRequestToCompany.kkanbu")) {
 			
+			kkanbuSeqFrom = Integer.parseInt((String)session.getAttribute("IDseq"));
+			 kkanbuSeqTo = Integer.parseInt(request.getParameter("kkanbuSeqTo"));
+			 kkanbuCardSeq = Integer.parseInt(request.getParameter("kkanbuCardSeq"));
+			 cpage =Integer.parseInt(request.getParameter("cpage"));
+			
 			String kkanbuNameTo = companyDAO.getName(kkanbuSeqTo);
 			String kkanbuNickNameFrom = influencerDAO.getNickname(kkanbuSeqFrom);
 			
@@ -151,7 +156,7 @@ public class KkanbuController extends HttpServlet {
 
 					request.setAttribute("errorMessage", errorMessage);
 					request.setAttribute("kkanbuCardSeq", kkanbuCardSeq);
-					RequestDispatcher rd =request.getRequestDispatcher("/influencerProfile.ifcp?seq="+kkanbuCardSeq+"&cpage="+cpage);  
+					RequestDispatcher rd =request.getRequestDispatcher("/companyDetail.ifcp?kkanbuCardSeq="+kkanbuCardSeq+"&cpage="+cpage);  
 					rd.forward(request, response);
 				}
 			
@@ -200,9 +205,13 @@ public class KkanbuController extends HttpServlet {
 			
 			response.sendRedirect("/showKkanbuRequest.kkanbu?IDseq="+kkanbuTo);
 			
-		}else if(cmd.equals("/deleteCompanyKkanbuRequest")) {
+		}else if(cmd.equals("/deleteCompanyKkanbuRequest.kkanbu")) {
 			int kkanbuSeq = Integer.parseInt(request.getParameter("kkanbuSeq"));
 			int kkanbuTo = Integer.parseInt(request.getParameter("kkanbuTo"));
+			
+			System.out.println("kkanbuSeq " + kkanbuSeq);
+			System.out.println("kkanbuTo " + kkanbuTo);
+			
 		
 			int result = companyKkanbuRequestDAO.delete(kkanbuSeq); 
 			
@@ -214,10 +223,12 @@ public class KkanbuController extends HttpServlet {
 			int companySeq = Integer.parseInt(request.getParameter("kkanbuFrom"));
 			int influencerSeq = Integer.parseInt(request.getParameter("kkanbuTo"));
 			int kkanbu_seq = Integer.parseInt(request.getParameter("kkanbuSeq"));
+			int kkanbuCardSeq = Integer.parseInt(request.getParameter("kkanbuCardSeq"));
+			String cp_title_cp = request.getParameter("title_cp");
 			
 			System.out.println(companySeq+" " + influencerSeq);
 			
-			int result = kkanbuDAO.insertKkanbu(companySeq,influencerSeq);
+			int result = kkanbuDAO.insertKkanbu(companySeq,influencerSeq,kkanbuCardSeq,cp_title_cp);
 			response.sendRedirect("/deleteInfKkanbuRequest.kkanbu?kkanbuSeq="+kkanbu_seq+"&kkanbuTo="+companySeq);
 			
 //			response.sendRedirect("/showKkanbuRequest.kkanbu?IDseq="+influencerSeq);
@@ -227,7 +238,7 @@ public class KkanbuController extends HttpServlet {
 			int influencerSeq = Integer.parseInt(request.getParameter("kkanbuFrom"));
 			int kkanbu_seq = Integer.parseInt(request.getParameter("kkanbu_seq"));
 			
-			int result = kkanbuDAO.insertKkanbu(influencerSeq,companySeq);
+			int result = kkanbuDAO.insertKkanbu(influencerSeq,companySeq,0,null);
 			
 //			response.sendRedirect("/showCompanyKkanbuRequest.kkanbu?IDseq="+companySeq);
 			response.sendRedirect("/deleteCompanyKkanbuRequest.kkanbu?kkanbuSeq="+kkanbu_seq+"&kkanbuTo="+companySeq);

@@ -65,7 +65,7 @@ public class CompanyKkanbuRequestDAO {
 		}
 	}
 	public List<CompanyKkanbuRequestDTO> getKkanbuRequest(int loggedInSeq) throws SQLException, Exception {
-		String sql = "SELECT * FROM influencerKkanbuRequest WHERE if_kkanbuSeqTo=?";
+		String sql = "SELECT * FROM companyKkanbuRequest WHERE cp_kkanbuSeqTo=?";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
 			pstat.setInt(1, loggedInSeq);
