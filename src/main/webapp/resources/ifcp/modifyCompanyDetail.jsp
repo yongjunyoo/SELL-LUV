@@ -9,7 +9,7 @@
 <meta charset="utf-8">
 <!--  This file has been downloaded from bootdey.com @bootdey on twitter -->
 <!--  All snippets are MIT license http://bootdey.com/license -->
-<title>기업 제품 등록</title>
+<title>기업 제품 수정</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 <link
@@ -36,7 +36,7 @@
 			<div class="row align-items-start">
 				<div class="col-lg-8 m-15px-tb">
 					<article class="article">
-						<form action="/upload.ifcp" method="post"
+						<form action="/uploadModify.ifcp" method="post"
 							enctype="multipart/form-data">
 							<div class="article-title">
 								<div class="media">
@@ -45,15 +45,15 @@
 										<label>제품 사진</label> <br>
 										<div
 											style="height: 256.98px; width: 256.98px; border: 1px solid grey; border-radius: 3px; overflow: hidden;">
-											<img src="/resources/ifcp/img/blank.png" alt="" id="preview"
+											<img src="/product.file?seq= ${seq_board_cp}" alt="" id="preview"
 												style="width: 100%; height: 100%; object-fit: cover;" />
 										</div>
 										<br> <label>제품명</label> <br> <input type="text"
-											style="width: 425px;" name="title" id="title"><br>
+											style="width: 425px;" name="title" id="title" value="${board_cp[0].title_cp}"><br>
 										<br> <label>소개글</label><br>
-										<textarea rows="5" cols="48" name="intro" id="intro"></textarea>
+										<textarea rows="5" cols="48" name="intro" id="intro">${board_cp[0].intro_cp}</textarea>
 										<br> <label>원하는 조건</label><br>
-										<textarea rows="5" cols="48" name="condition" id="condition"></textarea>
+										<textarea rows="5" cols="48" name="condition" id="condition">${board_cp[0].condition_cp}</textarea>
 										<br> <label id="fileUpload"> 사진선택<input
 											type="file" name="file" id="file" accept="jpg,jpeg,png"
 											style="display: none;">

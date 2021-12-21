@@ -934,6 +934,60 @@ public class CompanyDAO {
 			return result;
 		}
 	}
+	
+	public List<Board_CpDTO> findBoard_CpBySeq(int seq_cp) throws Exception{ // 기업 시퀀스로 board_cp불러오기.
+		String sql = "select * from board_cp where member_seq=?";
+
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setInt(1, seq_cp);
+			try(ResultSet rs = pstat.executeQuery();){
+				List<Board_CpDTO> list = new ArrayList();
+				while(rs.next()) {
+					int seq_board_cp = rs.getInt("seq_board_cp");
+					int member_seq = rs.getInt("member_seq");
+					String title_cp = rs.getString("title_cp");
+					String condition_cp = rs.getString("condition_cp");
+					String intro_cp = rs.getString("intro_cp");
+					int sLike_cp = rs.getInt("sLike_cp");
+					int rLike_cp = rs.getInt("rLike_cp");
+					String photo_cp = rs.getString("photo_cp");
+					Board_CpDTO board_CpDTO = new Board_CpDTO(seq_board_cp,member_seq,title_cp,condition_cp,intro_cp,sLike_cp,rLike_cp,photo_cp);
+					list.add(board_CpDTO);
+				}
+				return list;
+			}
+		}
+	}
+	
+	public int modifyIntro(String title,String intro,String condition,int seq) throws Exception { // 제품 수정
+		String sql = "update board_cp set title_cp=?, intro_cp=?, condition_cp=? where member_seq=?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, title);
+			pstat.setString(2, intro);
+			pstat.setString(3, condition);
+			pstat.setInt(4, seq);
+			int result = pstat.executeUpdate();
+			con.setAutoCommit(false);
+			con.commit();
+			return result;
+		}
+	}
+	
+	public int modifyPhoto(String oriName,String sysName,int productSeq) throws Exception { // 사진 수정 업로드
+		String sql = "update file_product set oriname_product_file=?, sysname_product_file=? where parentseq_product_file=?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, oriName);
+			pstat.setString(2, sysName);
+			pstat.setInt(3, productSeq);
+			int result = pstat.executeUpdate();
+			con.setAutoCommit(false);
+			con.commit();
+			return result;
+		}
+	}
 }
 
 
