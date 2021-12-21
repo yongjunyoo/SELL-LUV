@@ -350,17 +350,6 @@ body {
 										</tbody>
 								</c:forEach>
 									</table>
-										<script>
-										$("#kkanbuOk").on("click",function(){
-											$.ajax({
-												url:""
-											}).done(function(){
-												
-											})
-											location.href="/";
-										})
-										</script>
-					
 								</div>
 							</div>
 						</div>

@@ -138,11 +138,11 @@ public class KkanbuController extends HttpServlet {
 			 
 			 if(areTheyKkanbu) {
 					
-//			 		int kkanbuSeq = kkanbuDAO.getKkanbuSeq(kkanbuSeqFrom,kkanbuSeqTo);
+			 		int kkanbuSeq = kkanbuDAO.getKkanbuSeq(kkanbuSeqFrom,kkanbuSeqTo);
 			 		
 			 		String kkanbuMessage= "<div class=\"nav tag-cloud\"><span>우린 깐부잖아..</span></div>	";
 			 		
-//			 		request.setAttribute("kkanbuSeq",kkanbuSeq );
+			 		request.setAttribute("kkanbuSeq",kkanbuSeq );
 			 		request.setAttribute("kkanbuMessage",kkanbuMessage);
 					RequestDispatcher rd =request.getRequestDispatcher("/influencerProfile.ifcp?seq="+kkanbuCardSeq+"&cpage="+cpage);  
 					rd.forward(request, response);
@@ -230,7 +230,7 @@ public class KkanbuController extends HttpServlet {
 			int kkanbuCardSeq = Integer.parseInt(request.getParameter("kkanbuCardSeq"));
 			String cp_title_cp = request.getParameter("title_cp");
 			
-			System.out.println(companySeq+" " + influencerSeq);
+			System.out.println(companySeq+" " + influencerSeq+ " " + kkanbuCardSeq);
 			
 			int result = kkanbuDAO.insertKkanbu(companySeq,influencerSeq,kkanbuCardSeq,cp_title_cp);
 			response.sendRedirect("/deleteInfKkanbuRequest.kkanbu?kkanbuSeq="+kkanbu_seq+"&kkanbuTo="+companySeq);
