@@ -117,7 +117,7 @@ public class IFCPController extends HttpServlet {
 
 				String loginID = (String)session.getAttribute("loginID");
 				
-				String loggedInID = influencerDAO.whatIsLoggedInID(loginID);
+				String loggedInID = influencerDAO.whatIsLoggedInIDforCompany(loginID);
 				
 				int seq_if = influencerDAO.findSeq(loginID); // 아이디로 인플루언서 시퀀스 찾기.
 				int member_seq = companyDAO.findRealCpSeq(seq); // 제품등록 시퀀스로 기업 시퀀스 찾기.

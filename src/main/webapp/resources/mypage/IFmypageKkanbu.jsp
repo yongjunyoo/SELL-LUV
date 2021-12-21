@@ -295,7 +295,7 @@ body {
 												<i class="fa fa-heart-o fa-2x"></i>
 											</div>
 										<div class="detail-title-one">
-												<h6 class=""><a href="/showKkanbuRequest.kkanbu?=${IDseq}" style="text-decoration: none;">깐부관리</a></h6>
+												<h6 class=""><a href="/showKkanbuRequest.kkanbu?IDseq=${IDseq}" style="text-decoration: none;">깐부관리</a></h6>
 												<%-- <p class="detail-detail"><span>이동</span></p>--%>
 											</div>
 										</div>
