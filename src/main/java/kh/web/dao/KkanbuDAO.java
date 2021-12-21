@@ -31,12 +31,15 @@ public class KkanbuDAO {
 		DataSource ds = (DataSource)ctx.lookup("java:comp/env/jdbc/oracle");
 		return ds.getConnection();
 	}
-	public int insertKkanbu(int companySeq, int influencerSeq) throws SQLException, Exception {
-		String sql = "insert into kkanbu values(kkanbu_seq.nextval,?,?)";
+	public int insertKkanbu(int companySeq, int influencerSeq, int kkanbuCardSeq, String cp_title_cp) throws SQLException, Exception {
+		String sql = "insert into kkanbu values(kkanbu_seq.nextval,?,?,?,?)";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
 			pstat.setInt(1, influencerSeq);
 			pstat.setInt(2, companySeq);
+			pstat.setInt(3, kkanbuCardSeq);
+			pstat.setString(4, cp_title_cp);
+			
 			int result = pstat.executeUpdate();
 			
 			return result;
@@ -174,4 +177,5 @@ String sql = "select kkanbu_seq from kkanbu where company_Seq = ? and influencer
 	   
 	       }
 	    }
+	
 }
