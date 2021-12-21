@@ -239,8 +239,8 @@ body {
 								<a href="/Ifprofile.mem" class="list-group-item py-1"><i class="bx bx-face me-2"></i><span>프로필 수정</span></a> 
 								<a href="/IFKkanbuList.mem" class="list-group-item py-1"><i class="bx bx-heart me-2"></i><span>깐부 관리</span></a>
 								<a href="/CPReviewList.mem?cpage=1" class="list-group-item py-1"><i class="bx bx-like me-2"></i><span>리뷰 관리</span></a>
-								<a href="" class="list-group-item py-1"><i class="bx bx-highlight me-2"></i><span>커뮤니티 관리</span></a>
-								<a href="" class="list-group-item py-1"></i><span>회원탈퇴</span></a>
+								<a href="/CPBoardList.mem?cpage=1" class="list-group-item py-1"><i class="bx bx-highlight me-2"></i><span>커뮤니티 관리</span></a>
+								<a href="/CPleave.mem" onclick="return confirm('계정을 정말 삭제하시겠습니까?');" class="list-group-item py-1"><span>회원탈퇴</span></a>
 							</div>
 						</div>
 					</div>

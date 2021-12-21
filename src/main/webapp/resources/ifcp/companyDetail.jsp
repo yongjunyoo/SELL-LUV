@@ -171,8 +171,9 @@
 							<div class="widget-title" style="text-align: center;">
 								<c:forEach var="dto" items="${cpList }">
 									<c:if test="${loginID eq dto.value.id}">
-										<a href="/iFdelete.ifcp?seq=${cpList[0].key.seq_cp}"><button
+										<a href="/cpDelete.ifcp?seq=${dto.key.seq_cp}&cpage=1"><button
 												type="button" id="delBtn">삭제하기</button></a>
+												
 									</c:if>
 								</c:forEach>
 							</div>
@@ -182,6 +183,9 @@
 				<!-- End Latest Post -->
 			</div>
 		</div>
+	</div>
+	<jsp:include page="/footer.jsp" flush="false" />
+		
 		<script>
 			
 		</script>
@@ -678,8 +682,9 @@ img {
 </style>
 
 		<script type="text/javascript">
-			
+			$("#delBtn").on("click",function(){
+				confirm("삭제하시겠습니까?");
+			})
 		</script>
-		<jsp:include page="/footer.jsp" flush="false" />
 </body>
 </html>

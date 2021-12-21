@@ -301,6 +301,62 @@ public class IFCPController extends HttpServlet {
 	            request.setAttribute("seq", seq);
 	            request.setAttribute("ifList", list);
 	            request.getRequestDispatcher("/resources/ifcp/ifProfileDetail.jsp").forward(request, response);
+	            
+			}else if(cmd.equals("/cpDelete.ifcp")) { // 기업 제품등록 삭제하기.
+				int currentPage = Integer.parseInt(request.getParameter("cpage"));
+				String seq = request.getParameter("seq");
+				
+				companyDAO.cpDelete(seq);
+
+				if(currentPage < 1) {currentPage = 1;}
+
+
+				int start = currentPage * IFCPStatics.RECORD_COUNT_PER_PAGE- (IFCPStatics.RECORD_COUNT_PER_PAGE-1);;
+				int end = currentPage * IFCPStatics.RECORD_COUNT_PER_PAGE;
+
+				LinkedHashMap<Board_CpDTO,CompanyDTO> list = companyDAO.selectByBound(start,end);
+
+				String navi = companyDAO.getPageNavi(currentPage);
+
+
+				for (java.util.Map.Entry<Board_CpDTO, CompanyDTO> entrySet : list.entrySet()) {
+					System.out.println(entrySet.getKey() + " : " + entrySet.getValue());
+				}
+
+				String loginID = (String) request.getSession().getAttribute("loginID"); // 버튼 숨기기 구분.
+				List<CompanyDTO> hideBtn = companyDAO.searchById(loginID);
+				if(hideBtn.size()!=0) {
+					String cp = hideBtn.get(0).getId();
+					request.setAttribute("cp", cp);
+					request.setAttribute("list", list);
+					request.setAttribute("navi", navi);
+					request.getRequestDispatcher("/resources/ifcp/companyList.jsp").forward(request, response);
+				}else {
+					request.setAttribute("list", list);
+					request.setAttribute("navi", navi);
+					request.getRequestDispatcher("/resources/ifcp/companyList.jsp").forward(request, response);
+				}
+			}else if(cmd.equals("/ifDelete.ifcp")) { // 인플루언서 프로필등록 건 삭제하기.
+				int currentPage = Integer.parseInt(request.getParameter("cpage"));
+				String seq = request.getParameter("seq");
+
+				influencerDAO.cpDelete(seq);
+				
+				if(currentPage < 1) {currentPage = 1;}
+
+				int start = currentPage * IFCPStatics.RECORD_COUNT_PER_PAGE- (IFCPStatics.RECORD_COUNT_PER_PAGE-1);;
+				int end = currentPage * IFCPStatics.RECORD_COUNT_PER_PAGE;
+
+				LinkedHashMap<Profile_IfDTO,InfluencerDTO> list = influencerDAO.selectByBound(start, end);
+
+				for (Entry<Profile_IfDTO, InfluencerDTO> entrySet : list.entrySet()) {
+					System.out.println(entrySet.getKey().getSeq_if()+ " : " + entrySet.getValue());
+				}
+				
+				String navi = influencerDAO.getPageNavi(currentPage);
+				request.setAttribute("list", list);
+				request.setAttribute("navi", navi);
+				request.getRequestDispatcher("/resources/ifcp/influencerList.jsp").forward(request, response);
 			}
 
 		}catch(Exception e) {

@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>인플루언서 마이페이지 커뮤니티관리</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 	crossorigin="anonymous"></script>
@@ -252,7 +252,6 @@ body {
 								</c:choose>
 								<a href="/showKkanbuRequest.kkanbu?IDseq=${IDseq}" class="list-group-item py-1"><i class="bx bx-heart me-2"></i><span>깐부 관리</span></a>
 								<a href="/IFReviewList.mem?cpage=1" class="list-group-item py-1"><i class="bx bx-like me-2"></i><span>리뷰 관리</span></a>
-
 								<a href="/IFBoardList.mem?cpage=1" class="list-group-item py-1"><i class="bx bx-highlight me-2"></i><span>커뮤니티 관리</span></a>
 								<a href="/Ifleave.mem" onclick="return confirm('계정을 정말 삭제하시겠습니까?');" class="list-group-item py-1"><span>회원탈퇴</span></a>
 							</div>
@@ -319,48 +318,32 @@ body {
 									<table class="table">
 										<thead>
 											<tr>
-												<th class="name truncate" colspan=4 style="text-align:center">나의 회원가입 정보</th>
+												<th class="date" style="text-align:center">제목</th>
+												<th class="size" style="text-align:center">내용</th>
+												<th class="" style="text-align:center">작성일</th>
 											</tr>
 										</thead>
 										
 										<tbody>
-											<tr>
-												<td class="name truncate" colspan=2 style="text-align:center">아이디</td>
-												<td class="date" colspan=2 style="text-align:center"> ${dto.id }</td>												
+											<c:forEach var="rdto" items="${list }">
+											<c:choose>
+											<c:when test="${rdto.writer == dto.id }">
+											<tr>												
+												<td class="name truncate" style="text-align:center">${rdto.title}</td>
+												<td class="date" style="text-align:center">${rdto.contents }</td>												
+												<td class="size" style="text-align:center">${rdto.write_date }</td>
 											</tr>
+											</c:when>
+											</c:choose>
+											</c:forEach>
+											
 											<tr>
-												<td class="name truncate" colspan=2 style="text-align:center">이름</td>
-												<td class="date" colspan=2 style="text-align:center"> ${dto.name }</td>												
-											</tr>
-											<tr>
-												<td class="name truncate" colspan=2 style="text-align:center">닉네임</td>
-												<td class="date" colspan=2 style="text-align:center"> ${dto.nickname }</td>												
-											</tr>
-											<tr>
-												<td class="name truncate" colspan=2 style="text-align:center">우편번호</td>
-												<td class="date" colspan=2 style="text-align:center"> ${dto.zipcode }</td>												
-											</tr>
-											<tr>
-												<td class="name truncate" colspan=2 style="text-align:center">주소1</td>
-												<td class="date" colspan=2 style="text-align:center"> ${dto.address1 }</td>												
-											</tr>
-											<tr>
-												<td class="name truncate" colspan=2 style="text-align:center">주소2</td>
-												<td class="date" colspan=2 style="text-align:center"> ${dto.address2 }</td>												
-											</tr>
-											<tr>
-												<td class="name truncate" colspan=2 style="text-align:center">SNS</td>
-												<td class="date" colspan=2 style="text-align:center"> ${dto.sns }</td>												
-											</tr>
-											<tr>
-												<td class="name truncate" colspan=2 style="text-align:center">휴대폰번호</td>
-												<td class="date" colspan=2 style="text-align:center"> ${dto.phone }</td>												
-											</tr>
-											<tr>
-												<td class="name truncate" colspan=2 style="text-align:center">이메일</td>
-												<td class="date" colspan=2 style="text-align:center"> ${dto.email }</td>												
-											</tr>
+											<td colspan=4 style="text-align:center">
+											${navi }
+											</td>
+										</tr>
 										</tbody>
+										
 									</table>
 								</div>
 							</div>
