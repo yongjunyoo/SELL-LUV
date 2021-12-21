@@ -120,8 +120,8 @@ public class IFCPController extends HttpServlet {
 				String loggedInID = influencerDAO.whatIsLoggedInID(loginID);
 				
 				int seq_if = influencerDAO.findSeq(loginID); // 아이디로 인플루언서 시퀀스 찾기.
-				int seq_profile_if = influencerDAO.findIfSeq(seq_if); // 인플루언서 시퀀스로 인플루언서 프로필 시퀀스 찾기.
-				boolean kkanbu = kkanbuDAO.areTheyKkanbu(seq_if,seq); // 인플루언서 시퀀스와 제품등록 시퀀스로 깐부인지 확인하기.
+				int member_seq = companyDAO.findRealCpSeq(seq); // 제품등록 시퀀스로 기업 시퀀스 찾기.
+				boolean kkanbu = kkanbuDAO.areTheyCpKkanbu(member_seq,seq_if); // 인플루언서 시퀀스와 제품등록 시퀀스로 깐부인지 확인하기.
 				
 				System.out.println("loginID: " + loginID + " loggedInID: " + loggedInID);
 				

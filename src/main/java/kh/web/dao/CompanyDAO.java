@@ -919,6 +919,21 @@ public class CompanyDAO {
 			return result;
 		}
 	}
+	
+	public int findRealCpSeq(int seq_cp) throws Exception{ // 제품등록 시퀀스로 기업 시퀀스 찾기.
+		String sql = "SELECT member_seq FROM board_cp WHERE seq_board_cp =?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setInt(1, seq_cp);
+			int result = 0;
+			try(ResultSet rs = pstat.executeQuery();){
+				if(rs.next()) {
+					result = rs.getInt("member_seq");
+				}
+			}
+			return result;
+		}
+	}
 }
 
 
