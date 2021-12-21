@@ -344,9 +344,8 @@ body {
 													</a></td>
 												<td class="date">${kkanbu.if_kkanbuNameFrom}</td>
 										
-													<td id="kkanbuCheckbox" class="size"><a id="kkanbuCheck" href="/approveInfKkanbuRequest.kkanbu?kkanbuFrom=${kkanbu.if_kkanbuSeqFrom }&kkanbuTo=${kkanbu.if_kkanbuSeqTo}&kkanbuSeq=${kkanbu.if_kkanbu_seq}&kkanbuCardSeq=${kkanbu.cp_kkanbuCardSeq}&title_cp=${kkanbu.cp_title_cp}" style="text-decoration: none">수락 </a>
-													<a href="/deleteInfKkanbuRequest.kkanbu?kkanbuSeq="${kkanbu.if_kkanbu_seq }kkanbuTo=${kkanbu.if_kkanbuSeqTo} style="text-decoration: none">거절 </a></td>
-												
+													<td id="kkanbuCheckbox" class="size"><a id="kkanbuCheck" href="/approveInfKkanbuRequest.kkanbu?kkanbuFrom=${kkanbu.if_kkanbuSeqFrom }&kkanbuTo=${kkanbu.if_kkanbuSeqTo}&kkanbuSeq=${kkanbu.if_kkanbu_seq}&kkanbuCardSeq=${kkanbu.cp_kkanbuCardSeq}&title_cp=${kkanbu.cp_title_cp}"id=kkanbuOk style="text-decoration: none">수락 </a>
+													<a href="/deleteInfKkanbuRequest.kkanbu?kkanbuSeq=${kkanbu.if_kkanbu_seq }&kkanbuTo=${kkanbu.if_kkanbuSeqTo}" id=kkanbuCancel style="text-decoration: none">거절 </a></td>
 											</tr>
 										</tbody>
 								</c:forEach>
