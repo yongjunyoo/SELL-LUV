@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>커뮤니티 게시판</title>
+<title>${dto.title}</title>
 	<link
 		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
 		rel="stylesheet" />
@@ -279,7 +279,7 @@ rel="stylesheet" />
         </div>
         <div class="row">
             <div class="col-sm-12" style="text-align:right">
-                <c:if test="${loginName==dto.writer }">
+                <c:if test="${loginID==dto.writer }">
 	                <button type="button" class="btn btn-dark" id="mod" style="background-color:rgb(255, 111, 97);">수정하기</button>
 	                <button type="button" class="btn btn-dark" id="del" style="background-color:rgb(255, 111, 97);">삭제하기</button>
 	                <button type="button" class="btn btn-dark" id="modDone" style="background-color:rgb(255, 111, 97);display:none;">수정완료</button>
@@ -288,7 +288,7 @@ rel="stylesheet" />
                 <button type="button" id="boardList" class="btn btn-dark" style="background-color:rgb(255, 111, 97);">목록으로</button>
                 <script>
 					$("#boardList").on("click",function(){
-						location.href="/boardList.board?cpage=1";
+						location.href="/boardList.board?cpage=${cpage}";
 					});
 					
 					// 기존 내용 백업

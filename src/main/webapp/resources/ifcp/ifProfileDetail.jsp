@@ -30,46 +30,27 @@
 </head>
 <script>
    $(function(){
-      $("#kkanbuRequest").on("click",function(){
-    	  
-    	  let member_seq = $("#member_seq").val();
-    	  let seq_if = $("#seq_if").val();
-    	  let cpage = $("#cpage").val();
-    	  
-         $.ajax({
-            url:"/selectAllboardCp.kkanbu",
-            dataType:"json",
-            data: {
-            	kkanbuSeqTo: member_seq,
-            	kkanbuCardSeq: seq_if,
-            	cpage: cpage
-            }
-         }).done(function(resp){
-            console.log(resp);
-            let container = window.open("","","width=300px,height=200px,top=200px,left=200px");
-            container.document.write("깐부를 맺을 ");
-            container.document.write("<br>");
-            container.document.write("제품의 이름을 선택해주세요.");
-            container.document.write("<form id=frm action='/kkanbuRequestToInfluencer.kkanbu?kkanbuSeqTo'>");
-            container.document.write("<select name=select>");
-            for(let i of resp){
-            container.document.write("<option>");
-            container.document.write(i);
-            container.document.write("</option>");
-            }
-            container.document.write("</select>");
-            container.document.write("<button  id=btn >선택</button>");
-            container.document.write("</form>")
-           	window.close();
-            <!-- 
-            $("#btn").on("click",function(){
-            	$("#frm").submit();
-            	self.close();
-            })
-            -->
-         })
-      })
-   })
+      
+	   $("#kkanbuRequest").on("click",function(){
+	 	  let member_seq = $("#member_seq").val();
+	 	  let seq_if = $("#seq_if").val();
+	 	  let cpage = $("#cpage").val();
+	 	  $.ajax({
+	 		  url:"/selectPopup.kkanbu",
+	 		  type:"post",
+	 		  data: {
+	 			  kkanbuSeqTo: member_seq,
+	           	  kkanbuCardSeq: seq_if,
+	           	  cpage: cpage
+	 		  }
+	 	  })
+	 	  
+	 	  let container = window.open("/selectAllboardCp.kkanbu","","width=300px,height=200px,top=200px,left=200px");
+	 	  //location.href="/kkanbuRequestToInfluencer.kkanbu?";
+	   })
+  })
+           	
+  
 </script>
 
 <body>
@@ -186,9 +167,9 @@
 							<div class="media align-items-center">
 								<div class="media-body">
 									<div class="nav tag-cloud">
-
 										<c:choose>
 											<c:when test="${loginID == null}">
+												
 											</c:when>
 											<c:when test="${loggedInID eq 'influencer'}">
 											</c:when>
@@ -196,7 +177,7 @@
 											<c:when test="${kkanbuMessage != null}">
 			 									${kkanbuMessage}
 										</c:when>
-											<c:when test="${kkanbuCardSeq !=null }">
+											<c:when test="${ckkanbuCardSeq !=null }">
 												<div class="nav tag-cloud">
 													<span>깐부요청이미함..</span>
 												</div>
@@ -205,7 +186,6 @@
 												<a id="kkanbuRequest" style="text-decoration: none;">깐부맺기</a>
 											</c:otherwise>
 										</c:choose>
-
 									</div>
 								</div>
 							</div>

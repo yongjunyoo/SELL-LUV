@@ -269,6 +269,12 @@ p {
     			});
     	})
     	})
+    	
+    document.addEventListener('keydown', function(event) {
+    if (event.keyCode === 13) {
+        event.preventDefault();
+    }
+}, true);
     </script>
 </head>
 <body oncontextmenu='return false' class='snippet-body'>
@@ -668,6 +674,8 @@ $(".progress-bar")
             }            
         }).open();
     }
+	
+	
 	
 	if($("#photo").val() == ""){
 		$("#photo").val() == "default";
