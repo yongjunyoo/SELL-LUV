@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
 <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Home</title>
+<title>기업과 인플루언서의 만남의 창, 셀럽</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://kit.fontawesome.com/5c87e9ee71.js" crossorigin="anonymous"></script>
 
@@ -67,16 +67,27 @@
             빠른 실행
           </h6>
           <p>
-            <a href="/ifList.ifcp" class="text-reset" style="text-decoration:none;">기업</a>
+            <a href="/companyList.ifcp?cpage=1" class="text-reset" style="text-decoration:none;">기업</a>
           </p>
           <p>
-            <a href="/cpList.ifcp" class="text-reset" style="text-decoration:none;">인플루언서</a>
+            <a href="/influencerList.ifcp?cpage=1" class="text-reset" style="text-decoration:none;">인플루언서</a>
           </p>
           <p>
-            <a href="/boardList.board" class="text-reset" style="text-decoration:none;">커뮤니티</a>
+            <a class="text-reset" id=freeboard-quick style="text-decoration:none;cursor:pointer">커뮤니티</a>
+            <script>
+			 $("#freeboard-quick").on("click",function(){
+			 	if("${loginID}"==""){
+			 		if(confirm("로그인이 필요한 서비스입니다. \r\n로그인 하시겠습니까?")){
+			 			location.href="/login.mem";
+			 		}	
+			 	}else{
+			 		location.href="/boardList.board?cpage=1";
+			 	}
+			 });
+			 </script>
           </p>
           <p>
-            <a href="/search.ifcp" class="text-reset" style="text-decoration:none;">검색</a>
+            <a href="/msearch.search" class="text-reset" style="text-decoration:none;">검색</a>
           </p>
         </div>
         <!-- Grid column -->
@@ -111,7 +122,7 @@
 </footer>
 <!-- Footer -->
     <!-- end of footer -->
-    
+ 
     
 </body>
 </html>
