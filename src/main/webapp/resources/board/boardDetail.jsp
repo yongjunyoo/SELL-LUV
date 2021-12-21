@@ -264,6 +264,7 @@ rel="stylesheet" />
 								</ul>
 								</div>
 							</div>
+							<input type="hidden" value="${loginID}" id="kkanbu">
             </div>
         </div>
         <div class="row" style="padding-bottom:5px;">
@@ -313,7 +314,11 @@ rel="stylesheet" />
                 	});
                 	$("#del").on("click", function(){
                 		if(confirm("정말 삭제하시겠습니까? \r\n되돌릴 수 없습니다.")) {
-	                		location.href="/delete.board?cpage=${cpage}&seq=${dto.seq}";
+                			if($("#kkanbu").val()=="kkanbu"){
+                				location.href="/delete.board?seq=${dto.seq}";
+                			}else{
+                				location.href="/delete.board?cpage=${cpage}&seq=${dto.seq}";	
+                			}
                 		}
                 	});
                 	$("#modDone").on("click",function(){

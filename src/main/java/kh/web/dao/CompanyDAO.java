@@ -142,7 +142,7 @@ public class CompanyDAO {
 				+ "        intro_cp,\n"
 				+ "        slike_cp,\n"
 				+ "        rlike_cp,\n"
-				+ "        b.photo_cp b_photo_cp from company c,board_cp b where seq_cp = member_seq) temp)\n"
+				+ "        b.photo_cp b_photo_cp from company c,board_cp b where seq_cp = member_seq order by seq_board_cp desc) temp)\n"
 				+ "        where rn between ? and ? order by 2 desc";
 
 		try(Connection con = this.getConnection();
