@@ -167,10 +167,9 @@
 							<div class="media align-items-center">
 								<div class="media-body">
 									<div class="nav tag-cloud">
-									<a id="kkanbuRequest" style="text-decoration: none;">깐부맺기</a>
-									<%-- 
 										<c:choose>
 											<c:when test="${loginID == null}">
+												
 											</c:when>
 											<c:when test="${loggedInID eq 'influencer'}">
 											</c:when>
@@ -178,7 +177,7 @@
 											<c:when test="${kkanbuMessage != null}">
 			 									${kkanbuMessage}
 										</c:when>
-											<c:when test="${kkanbuCardSeq !=null }">
+											<c:when test="${ckkanbuCardSeq !=null }">
 												<div class="nav tag-cloud">
 													<span>깐부요청이미함..</span>
 												</div>
@@ -187,7 +186,6 @@
 												<a id="kkanbuRequest" style="text-decoration: none;">깐부맺기</a>
 											</c:otherwise>
 										</c:choose>
-										--%>
 									</div>
 								</div>
 							</div>

@@ -45,6 +45,7 @@ public class IFCPController extends HttpServlet {
 		InfluencerDAO influencerDAO = new InfluencerDAO();
 		CompanyDAO companyDAO = new CompanyDAO();
 		KkanbuDAO kkanbuDAO = new KkanbuDAO();
+		HttpSession session = request.getSession();
 
 		try {
 			//====================================================================================================================================
@@ -114,7 +115,7 @@ public class IFCPController extends HttpServlet {
 				int currentPage = Integer.parseInt(request.getParameter("cpage"));
 				int seq = Integer.parseInt(request.getParameter("seq"));
 
-				String loginID = request.getParameter("loginID");
+				String loginID = (String)session.getAttribute("loginID");
 				
 				String loggedInID = influencerDAO.whatIsLoggedInID(loginID);
 				
@@ -195,7 +196,6 @@ public class IFCPController extends HttpServlet {
 				//====================================================================================================================================
 				// 작성페이지 이동.
 			}else if(cmd.equals("/write.ifcp")) {
-				HttpSession session = request.getSession();
 				String loginId = (String) session.getAttribute("loginID");
 				List<CompanyDTO> list = companyDAO.searchById(loginId);
 				System.out.print(list);
