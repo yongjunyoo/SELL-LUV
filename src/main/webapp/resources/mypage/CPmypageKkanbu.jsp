@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>기업회원 깐부 관리</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 	crossorigin="anonymous"></script>
@@ -218,14 +218,14 @@ body {
 							<div class="grade">${dto.grade }</div>
 							<div class="col" id="profile-box">
 								<img id="profile" class="img-profile"
-									src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="">
+										src="/myProfile.file?name=${loginID }" alt="">
 							</div>
 						</div>
 						<ul class="meta list list-unstyled profile-detail">
 							<li class="name">${dto.name }</li>
 							<li class="label" style="margin: 0; padding: 0">기업 </li>
 							<li class="email">${dto.email }</li>
-							<li class="activity">Last logged in: Today at 2:18pm</li>
+							<li class="activity"> ${dto.rpt} </li>
 						</ul>
 					</div>
 				</div>

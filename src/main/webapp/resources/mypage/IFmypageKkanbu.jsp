@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>인플루언서회원 깐부 관리</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 	crossorigin="anonymous"></script>
@@ -202,13 +202,7 @@ body {
 
 </style>
 
-<script>
 
-	$("#leave").on("click",function(){
-		confirm("회원 탈퇴를 하시겠습니까?");
-	})
-		
-</script>
 <body>
 	
 <div class="container">
@@ -227,7 +221,7 @@ body {
 								<div class="row">
 									<div class="col-6 col-md-12">
 									<img id="profile" class="img-profile"
-										src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="">
+										src="/myProfile.file?name=${loginID }" alt="">
 									</div>
 									<div class="col-6 col-md-12"> 
 									<ul class="meta list list-unstyled profile-detail">

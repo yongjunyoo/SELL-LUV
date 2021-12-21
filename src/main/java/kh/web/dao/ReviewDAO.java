@@ -194,7 +194,7 @@ public class ReviewDAO {
 		// 인플루언서 리뷰 모아보기
 		public List<Review_IfDTO> selectByBoundReview(String seq, int start, int end) throws Exception{
 
-			String sql = "select * from(select review_if.*, row_number() over(order by seq desc) rn from review_if where member_seq = ?) where rn between ? and ?";
+			String sql = "select * from(select review_if.*, row_number() over(order by seq desc) rn from review_if where ref_seq = ?) where rn between ? and ?";
 			try(Connection con = this.getConnection();
 					PreparedStatement pstat = con.prepareStatement(sql);){
 				pstat.setString(1, seq);
@@ -220,7 +220,7 @@ public class ReviewDAO {
 		//기업 리뷰 모아보기
 		public List<Review_CpDTO> selectByBoundCPReview(String seq, int start, int end) throws Exception{
 
-			String sql = "select * from(select review_cp.*, row_number() over(order by seq desc) rn from review_cp where member_seq = ?) where rn between ? and ?";
+			String sql = "select * from(select review_cp.*, row_number() over(order by seq desc) rn from review_cp where ref_seq = ?) where rn between ? and ?";
 			try(Connection con = this.getConnection();
 					PreparedStatement pstat = con.prepareStatement(sql);){
 				pstat.setString(1, seq);

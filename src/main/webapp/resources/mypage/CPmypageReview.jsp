@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>기업회원 리뷰 모아보기</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 	crossorigin="anonymous"></script>
@@ -314,7 +314,7 @@ body {
 									<table class="table">
 										<thead>
 											<tr>
-												<th class="date" style="text-align:center">리뷰 작성자</th>
+												<th class="date" style="text-align:center">글 번호</th>
 												<th class="size" style="text-align:center">리뷰 내용</th>
 												<th class="" style="text-align:center">리뷰작성일</th>
 											</tr>
@@ -324,8 +324,8 @@ body {
 											<c:choose>
 											<c:when test="${rdto.writer == dto.id }">
 											<tr>												
-												<td class="name truncate">${rdto.writer}</td>
-												<td class="date"><a href="#">${rdto.content }</a></td>												
+												<td class="name truncate">${rdto.seq}</td>
+												<td class="date">${rdto.content }</td>												
 												<td class="size">${rdto.timestamp }</td>
 											</tr>
 											</c:when>
