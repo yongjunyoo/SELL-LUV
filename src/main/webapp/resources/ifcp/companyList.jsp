@@ -135,7 +135,7 @@ img {
 								href="/companyList.ifcp">&nbsp;등급&nbsp;</a></li>
 							<li class="list-inline-item"><a
 								class="h3 text-dark text-decoration-none mr-3" href="#">&nbsp;리뷰&nbsp;</a></li> -->
-							<c:if test="${loginID != null && cp != null}">
+							<c:if test="${loginID != null && cp != null && didEnroll != true}">
 								<li class="list-inline-item"><a
 									class="h3 text-dark text-decoration-none mr-3"
 									href="write.ifcp">&nbsp;제품등록&nbsp;</a></li>

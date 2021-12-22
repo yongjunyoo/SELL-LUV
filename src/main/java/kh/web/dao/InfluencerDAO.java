@@ -146,7 +146,7 @@ public class InfluencerDAO  {
 				+ "        p.career_if,\n"
 				+ "        p.intro_if,\n"
 				+ "        p.slike_if,\n"
-				+ "        p.rlike_if from influencer i, profile_if p where i.seq_if = member_seq) temp)\n"
+				+ "        p.rlike_if from influencer i, profile_if p where i.seq_if = member_seq order by seq_if desc) temp)\n"
 				+ "        where rn between ? and ? order by 2 desc"
 				+ " ";
 
