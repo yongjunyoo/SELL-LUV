@@ -28,7 +28,7 @@ rel="stylesheet" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://rawgit.com/jackmoore/autosize/master/dist/autosize.min.js"></script>
-<link rel="icon" href="#">
+<link rel="icon" href="">
 <style>
 	body {
 		margin: 0;
@@ -241,7 +241,7 @@ rel="stylesheet" />
 	<div class="container-fluid mt-100">
     <div id="board-title">
     <img id="title" src="/resources/board/image/title.png">
-    <span>커뮤니티 게시판${loginID }</span>
+    <span>커뮤니티 게시판</span>
     </div>       
     <br>
 	
@@ -443,7 +443,7 @@ rel="stylesheet" />
         </div>
         <div class="row">
             <div class="col-sm-12">
-                <textarea id="contents" cols=170 rows=4 name="contents-cmt"></textarea>
+                <textarea id="contents-cmt" cols=170 rows=4 name="contents-cmt"></textarea>
                 <script>
             	autosize($("textArea"));
                 </script>
@@ -451,60 +451,16 @@ rel="stylesheet" />
         </div>
         <div class="row">
             <div class="col-sm-12" style="text-align:right">
-            <button class="btn btn-dark" id="writeCmt" style="background-color:rgb(255, 111, 97);">등록</button>
-            <%-- 
+            <button type=button class="btn btn-dark" id="writeCmt" style="background-color:rgb(255, 111, 97);">등록</button>
             <script>
+            $("#writeCmt").on("click",function(){
+            	if($("#contents-cmt").val()==""){
+            		alert("내용을 입력해주세요.");
+            	}else{
+            		$("#frm-cmt").submit();
+            	}
+            })
             </script>
-                <c:if test="${loginName==댓글작성자 }">
-	                <button type="button" class="btn btn-dark" id="mod" style="background-color:rgb(255, 111, 97);">수정하기</button>
-	                <button type="button" class="btn btn-dark" id="del" style="background-color:rgb(255, 111, 97);">삭제하기</button>
-	                <button type="button" class="btn btn-dark" id="modDone" style="background-color:rgb(255, 111, 97);display:none;">수정완료</button>
-	                <button type="button" class="btn btn-dark" id="cancle" style="background-color:rgb(255, 111, 97);display:none;">취소</button>
-                </c:if>
-                <button type="button" id="boardList" class="btn btn-dark" style="background-color:rgb(255, 111, 97);">목록으로</button>
-                <script>
-					$("#boardList").on("click",function(){
-						location.href="/boardList.board?cpage=1";
-					});
-					
-					// 기존 내용 백업
-					let bkTitle = $("#input-title").val();					
-					let bkContents = $("#contents").val();					
-					$("#mod").on("click", function(){
-                		$("#del").css("display","none");
-                		$("#mod").css("display","none");
-                		$("#boardList").css("display","none");
-                		$("#modDone").css("display","inline-block");
-                		$("#cancle").css("display","inline-block");
-                		$("#frm").removeAttr("action");
-                		$("#input-title").removeAttr("readonly");
-                		$("#contents").removeAttr("readonly");
-                		$("#contents").focus();
-                		
-                		$("#frm").attr("action","/modify.board?cpage=${cpage}&seq=${dto.seq}");
-                		
-                	});
-                	$("#del").on("click", function(){
-                		if(confirm("정말 삭제하시겠습니까? \r\n되돌릴 수 없습니다.")) {
-	                		location.href="/delete.board?cpage=${cpage}&seq=${dto.seq}";
-                		}
-                	});
-                	$("#modDone").on("click",function(){
-                		$("#frm").submit();
-                	})
-                	$("#cancle").on("click",function(){
-                		$("#input-title").val(bkTitle);
-                		$("#contents").val(bkContents);
-                		$("#input-title").attr("readonly","");
-                		$("#contents").attr("readonly","");
-                		$("#mod").css("display","inline-block");
-                		$("#del").css("display","inline-block");
-                		$("#modDone").css("display","none");
-                		$("#cancle").css("display","none");
-                		$("#boardList").css("display","inline-block");
-                	})
-				</script>
-				--%>
             </div>
         </div>
     </div>	
