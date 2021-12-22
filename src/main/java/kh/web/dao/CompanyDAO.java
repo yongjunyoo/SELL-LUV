@@ -129,21 +129,22 @@ public class CompanyDAO {
 	public LinkedHashMap<Board_CpDTO,CompanyDTO> selectByBound(int start, int end) throws Exception {
 		//		String sql ="select * from (select company.*, row_number() over(order by seq_cp desc) rn from company) where rn between ? and ?";
 		String sql = "select * from (\n"
-				+ " select \n"
-				+ "    row_number() over(order by decode(grade,'gold','A','silver','B','bronze','C')) rn, \n"
-				+ "    temp.*\n"
-				+ "from \n"
-				+ "    (select \n"
-				+ "        c.*,\n"
-				+ "        seq_board_cp,\n"
-				+ "        member_seq,\n"
-				+ "        title_cp,\n"
-				+ "        condition_cp,\n"
-				+ "        intro_cp,\n"
-				+ "        slike_cp,\n"
-				+ "        rlike_cp,\n"
-				+ "        b.photo_cp b_photo_cp from company c,board_cp b where seq_cp = member_seq order by seq_board_cp desc) temp)\n"
-				+ "        where rn between ? and ? order by 2 desc";
+				+ "				 select \n"
+				+ "               row_number() over(order by seq_cp desc) rn, \n"
+				+ "				    temp.*\n"
+				+ "				from \n"
+				+ "                (select \n"
+				+ "				 c.*,\n"
+				+ "				seq_board_cp,\n"
+				+ "				member_seq,\n"
+				+ "				title_cp,\n"
+				+ "				condition_cp,\n"
+				+ "				intro_cp,\n"
+				+ "				slike_cp,\n"
+				+ "				rlike_cp,\n"
+				+ "				 b.photo_cp b_photo_cp from company c,board_cp b where seq_cp = member_seq) temp)\n"
+				+ "				 where rn between ? and ? order by 2 desc";
+
 
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql)){;

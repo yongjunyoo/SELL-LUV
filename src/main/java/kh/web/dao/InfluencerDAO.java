@@ -125,30 +125,32 @@ public class InfluencerDAO  {
 
 	public LinkedHashMap<Profile_IfDTO, InfluencerDTO> selectByBound(int start, int end) throws Exception {
 
-		String sql = "select * from (\n"
-				+ " select \n"
-				+ "    row_number() over(order by decode(grade,'gold','A','silver','B','bronze','C')) rn, \n"
-				+ "    temp.*\n"
-				+ "from \n"
-				+ "    (select \n"
-				+ "        i.id_if,\n"
-				+ "        i.grade,\n"
-				+ "        i.favorite_if,\n"
-				+ "        i.sns_if,\n"
-				+ "        i.name_if,\n"
-				+ "        i.photo_if,\n"
-				+ "        i.nickname_if,\n"
-				+ "        i.phone_if,\n"
-				+ "        i.email_if,\n"
-				+ "        p.seq_if,\n"
-				+ "        p.member_seq,\n"
-				+ "        p.condition_if,\n"
-				+ "        p.career_if,\n"
-				+ "        p.intro_if,\n"
-				+ "        p.slike_if,\n"
-				+ "        p.rlike_if from influencer i, profile_if p where i.seq_if = member_seq order by seq_if desc) temp)\n"
-				+ "        where rn between ? and ? order by 2 desc"
-				+ " ";
+
+		String sql = " select * from (\n"
+				+ "				 select \n"
+				+ "                    row_number() over(order by seq_if desc) rn, \n"
+				+ "                    temp.*\n"
+				+ "                        from \n"
+				+ "				(select \n"
+				+ "				i.id_if,\n"
+				+ "				i.grade,\n"
+				+ "				i.favorite_if,\n"
+				+ "				i.sns_if,\n"
+				+ "				i.name_if,\n"
+				+ "                i.photo_if,\n"
+				+ "				i.nickname_if,\n"
+				+ "				i.phone_if,\n"
+				+ "				i.email_if,\n"
+				+ "				p.seq_if,\n"
+				+ "				p.member_seq,\n"
+				+ "				p.condition_if,\n"
+				+ "				p.career_if,\n"
+				+ "				p.intro_if,\n"
+				+ "				p.slike_if,\n"
+				+ "                p.rlike_if from influencer i, profile_if p where i.seq_if = member_seq) temp)\n"
+				+ "				 where rn between ? and ?";
+				
+
 
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql)){;
@@ -159,27 +161,14 @@ public class InfluencerDAO  {
 					LinkedHashMap<Profile_IfDTO, InfluencerDTO> list = new LinkedHashMap<Profile_IfDTO, InfluencerDTO>();
 
 					while(rs.next()) {
-						//						int seq = rs.getInt("seq_if");
 						String id = rs.getString("id_if");
-						//						String pw = rs.getString("pw_if");
 						String photo = rs.getString("photo_if");
 						String name = rs.getString("name_if");
 						String nickname = rs.getString("nickname_if");
-						//						String zipcode = rs.getString("zipcode_if");
-						//						String address1 = rs.getString("address1_if");
-						//						String address2 = rs.getString("address2_if");
 						String sns = rs.getString("sns_if");
 						String phone = rs.getString("phone_if");
 						String email= rs.getString("email_if");
 						String grade = rs.getString("grade");
-
-
-
-						//		InfluencerDTO influencerDTO = new InfluencerDTO(seq,id,pw,photo,name,nickname,zipcode,address1,address2,sns,phone,email,grade);
-
-						//						String pwAsk = rs.getString("pwAsk_if");
-						//
-						//						String pwAnswer= rs.getString("pwAnswer_if");
 						String favorite = rs.getString("favorite_if");
 
 						int seq_if = rs.getInt("seq_if");
