@@ -115,7 +115,13 @@ public class BoardController extends HttpServlet {
 			}else if(cmd.equals("/delete.board")) {
 				int result = bdao.delete(Integer.parseInt(seq));
 				System.out.println("삭제 결과 : " + result);
-				response.sendRedirect("/boardList.board?cpage="+cpage);
+				
+				if(session.getAttribute("loginID").equals("kkanbu")) {
+					response.sendRedirect("/adminBoard.admin?cpage=1");
+				}else {
+					response.sendRedirect("/boardList.board?cpage="+cpage);		
+				}
+			
 			}else if(cmd.equals("/search.board")) {
 				String select = request.getParameter("select");
 				String keyword = request.getParameter("keyword");

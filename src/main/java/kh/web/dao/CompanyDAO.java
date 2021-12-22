@@ -142,7 +142,7 @@ public class CompanyDAO {
 				+ "        intro_cp,\n"
 				+ "        slike_cp,\n"
 				+ "        rlike_cp,\n"
-				+ "        b.photo_cp b_photo_cp from company c,board_cp b where seq_cp = member_seq) temp)\n"
+				+ "        b.photo_cp b_photo_cp from company c,board_cp b where seq_cp = member_seq order by seq_board_cp desc) temp)\n"
 				+ "        where rn between ? and ? order by 2 desc";
 
 		try(Connection con = this.getConnection();
@@ -936,24 +936,25 @@ public class CompanyDAO {
 		}
 	}
 	
-	public List<Board_CpDTO> findBoard_CpBySeq(int seq_cp) throws Exception{ // 기업 시퀀스로 board_cp불러오기.
-		String sql = "select * from board_cp where member_seq=?";
+	public List<Board_CpDTO> findBoard_CpBySeq(String title_cp,int seq_cp) throws Exception{ // 기업 시퀀스로 board_cp불러오기.
+		String sql = "select * from board_cp where title_cp=? and member_seq=?";
 
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
-			pstat.setInt(1, seq_cp);
+			pstat.setString(1, title_cp);
+			pstat.setInt(2, seq_cp);
 			try(ResultSet rs = pstat.executeQuery();){
 				List<Board_CpDTO> list = new ArrayList();
 				while(rs.next()) {
 					int seq_board_cp = rs.getInt("seq_board_cp");
 					int member_seq = rs.getInt("member_seq");
-					String title_cp = rs.getString("title_cp");
+					String title_cp1 = rs.getString("title_cp");
 					String condition_cp = rs.getString("condition_cp");
 					String intro_cp = rs.getString("intro_cp");
 					int sLike_cp = rs.getInt("sLike_cp");
 					int rLike_cp = rs.getInt("rLike_cp");
 					String photo_cp = rs.getString("photo_cp");
-					Board_CpDTO board_CpDTO = new Board_CpDTO(seq_board_cp,member_seq,title_cp,condition_cp,intro_cp,sLike_cp,rLike_cp,photo_cp);
+					Board_CpDTO board_CpDTO = new Board_CpDTO(seq_board_cp,member_seq,title_cp1,condition_cp,intro_cp,sLike_cp,rLike_cp,photo_cp);
 					list.add(board_CpDTO);
 				}
 				return list;
@@ -961,14 +962,14 @@ public class CompanyDAO {
 		}
 	}
 	
-	public int modifyIntro(String title,String intro,String condition,int seq) throws Exception { // 제품 수정
-		String sql = "update board_cp set title_cp=?, intro_cp=?, condition_cp=? where member_seq=?";
+	public int modifyIntro(String title,String intro,String condition,String seq_board_cp) throws Exception { // 제품 수정
+		String sql = "update board_cp set title_cp=?, intro_cp=?, condition_cp=? where seq_board_cp=?";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
 			pstat.setString(1, title);
 			pstat.setString(2, intro);
 			pstat.setString(3, condition);
-			pstat.setInt(4, seq);
+			pstat.setString(4, seq_board_cp);
 			int result = pstat.executeUpdate();
 			con.setAutoCommit(false);
 			con.commit();
@@ -989,9 +990,36 @@ public class CompanyDAO {
 			return result;
 		}
 	}
+	
+	public int findCpSeqBySeqNTitle(String title_cp,int seq_cp) throws Exception{ // 기업 시퀀스로 기업 제품등록 시퀀스 찾기.
+		String sql = "SELECT seq_board_cp FROM board_cp WHERE title_cp=? and member_seq =?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, title_cp);
+			pstat.setInt(2, seq_cp);
+			int result = 0;
+			try(ResultSet rs = pstat.executeQuery();){
+				if(rs.next()) {
+					result = rs.getInt("seq_board_cp");
+				}
+			}
+			return result;
+		}
+	}
+	public boolean didEnroll(int seq) throws Exception{
 
+		String sql = "select * from board_cp where member_seq = ?";
+
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setInt(1,seq);
+			try(ResultSet rs = pstat.executeQuery()){
+				return rs.next();
+			}		
+		}
+	}
+	
 }
-
 
 
 

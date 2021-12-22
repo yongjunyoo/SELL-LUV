@@ -209,38 +209,45 @@ body {
 	
 
 	<div class="container">
-		<div class="row" id="header">
+	<div class="row" id="header">
 			<div class="col">
 				<jsp:include page="/header.jsp" flush="false" />
 			</div>
 		</div>
-		<div class="row">
+	<div class="row">
 			<div class="col-12 col-md-4 col-lg-3">
 				<div class="card">
 					<div class="card-body">
 						<div class="row">
 							<div class="grade">${dto.grade }</div>
-							<div class="col" id="profile-box">
-								<img id="profile" class="img-profile"
-										src="/myProfile.file?name=${loginID }" alt="">
+							<div class="col " id="profile-box">
+								<div class="row">
+									<div class="col-6 col-md-12">
+									<img id="profile" class="img-profile"
+										src="/myProfile.file?name=${dto.name }" alt="">
+									</div>
+									<div class="col-6 col-md-12"> 
+									<ul class="meta list list-unstyled profile-detail">
+										<li class="name">${dto.name }</li>
+										<li class="label" style="margin: 0; padding: 0">기업</li>
+										<li class="email">${dto.email }</li>
+										<li class="activity"> ${dto.rpt} </li>
+									</ul>
+									</div>
+								</div>
 							</div>
 						</div>
-						<ul class="meta list list-unstyled profile-detail">
-							<li class="name">${dto.name }</li>
-							<li class="label" style="margin: 0; padding: 0">기업 </li>
-							<li class="email">${dto.email }</li>
-							<li class="activity"> ${dto.rpt} </li>
-						</ul>
+
 					</div>
 				</div>
+				
 				<div class="card">
 					<div class="card-body">
 						<div class="d-grid"></div>
 						<h5 class="my-3">My Page</h5>
 						<div class="fm-menu">
 							<div class="list-group list-group-flush">
-								<a href="/modify.mem" class="list-group-item py-1"><i class="bx bx-cool me-2"></i><span>개인 정보 수정</span></a> 							
-								<a href="/Ifprofile.mem" class="list-group-item py-1"><i class="bx bx-face me-2"></i><span>프로필 수정</span></a> 
+								<a href="/modify.mem" class="list-group-item py-1"><i class="bx bx-cool me-2"></i><span>개인 정보 수정</span></a> 															
 								<a href="/showCompanyKkanbuRequest.kkanbu?IDseq=${IDseq }" class="list-group-item py-1"><i class="bx bx-heart me-2"></i><span>깐부 관리</span></a>
 								<a href="/CPReviewList.mem?cpage=1" class="list-group-item py-1"><i class="bx bx-like me-2"></i><span>리뷰 관리</span></a>
 								<a href="/CPBoardList.mem?cpage=1" class="list-group-item py-1"><i class="bx bx-highlight me-2"></i><span>커뮤니티 관리</span></a>

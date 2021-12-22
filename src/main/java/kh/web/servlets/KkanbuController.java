@@ -29,6 +29,7 @@ import kh.web.dto.Profile_IfDTO;
 
 @WebServlet("*.kkanbu")
 public class KkanbuController extends HttpServlet {
+
 	
 	String kkanbuTitleCp = "";
 	int board_cp = 0;
@@ -163,65 +164,67 @@ public class KkanbuController extends HttpServlet {
 				}else if(isRequestStillPending) {
 					String errorMessage = "이미 깐부요청을 하셨습니다..";
 
-					request.setAttribute("errorMessage", errorMessage);
-					request.setAttribute("ckkanbuCardSeq", kkanbuCardSeq);
-					RequestDispatcher rd =request.getRequestDispatcher("/companyBoard.ifcp?seq="+kkanbuCardSeq+"&cpage="+cpage);  
-					rd.forward(request, response);
-				}
-			
-		}else if(cmd.equals("/showKkanbuRequest.kkanbu")) {
-			
-			int loggedInSeq = Integer.parseInt(request.getParameter("IDseq"));
-			String seq = (String)request.getSession().getAttribute("IDseq");
-			String id = (String)request.getSession().getAttribute("loginID");
-			InfluencerDTO idto = influencerDAO.selectById(id);
-			Profile_IfDTO pdto = influencerDAO.selectBySeq(seq);
-			
-			System.out.println("loggedInSeq : "+loggedInSeq);
-			
-			ArrayList<KkanbuDTO> kkanbuList = kkanbuDAO.getInfKkanbu(loggedInSeq);
-			
-			List<InfluencerKkanbuRequestDTO> kkanbuRequest = influencerKkanbuRequestDAO.getKkanbuRequest(loggedInSeq);
-			
-			for( InfluencerKkanbuRequestDTO kkanbu : kkanbuRequest) {
-				System.out.println(kkanbu.getIf_kkanbu_seq()+ " " + kkanbu.getIf_kkanbuNameFrom());
-			}
-			
-			request.setAttribute("pdto", pdto);
-			request.setAttribute("dto", idto);
-			request.setAttribute("kkanbuRequest", kkanbuRequest);
-			request.setAttribute("kkanbuList", kkanbuList);
-			request.getRequestDispatcher("/resources/mypage/IFmypageKkanbu.jsp").forward(request, response);
-			
-			
-			
-		}else if(cmd.equals("/showCompanyKkanbuRequest.kkanbu")) {
-			int loggedInSeq = Integer.parseInt(request.getParameter("IDseq"));
-			String id = (String)request.getSession().getAttribute("loginID");
-			CompanyDTO cdto = companyDAO.selectById(id);
-			
-			System.out.println(loggedInSeq);
-			
-			List<CompanyKkanbuRequestDTO> kkanbuRequest = companyKkanbuRequestDAO.getKkanbuRequest(loggedInSeq);
-			
-			for( CompanyKkanbuRequestDTO kkanbu : kkanbuRequest) {
-				System.out.println(kkanbu.getCp_kkanbu_seq()+ " " + kkanbu.getCp_kkanbuNameFrom());
-			}
-			
-			request.setAttribute("dto", cdto);
-			request.setAttribute("kkanbuRequest", kkanbuRequest);
-			request.getRequestDispatcher("/resources/mypage/CPmypageKkanbu.jsp").forward(request, response);
-			
-			
-			
-		}else if(cmd.equals("/deleteInfKkanbuRequest.kkanbu")) {
-			
-			int kkanbuSeq = Integer.parseInt(request.getParameter("kkanbuSeq"));
-			int kkanbuTo = Integer.parseInt(request.getParameter("kkanbuTo"));
-			
-			
-			int result = influencerKkanbuRequestDAO.delete(kkanbuSeq); 
-			
+
+               request.setAttribute("errorMessage", errorMessage);
+               request.setAttribute("ckkanbuCardSeq", kkanbuCardSeq);
+               RequestDispatcher rd =request.getRequestDispatcher("/companyBoard.ifcp?seq="+kkanbuCardSeq+"&cpage="+cpage);  
+               rd.forward(request, response);
+            }
+         
+      }else if(cmd.equals("/showKkanbuRequest.kkanbu")) {
+         
+         int loggedInSeq = Integer.parseInt(request.getParameter("IDseq"));
+         String seq = (String)request.getSession().getAttribute("IDseq");
+         String id = (String)request.getSession().getAttribute("loginID");
+         InfluencerDTO idto = influencerDAO.selectById(id);
+         Profile_IfDTO pdto = influencerDAO.selectBySeq(seq);
+         
+         System.out.println("loggedInSeq : "+loggedInSeq);
+         
+         ArrayList<KkanbuDTO> kkanbuList = kkanbuDAO.getInfKkanbu(loggedInSeq);
+         
+         List<InfluencerKkanbuRequestDTO> kkanbuRequest = influencerKkanbuRequestDAO.getKkanbuRequest(loggedInSeq);
+         
+         for( InfluencerKkanbuRequestDTO kkanbu : kkanbuRequest) {
+            System.out.println(kkanbu.getIf_kkanbu_seq()+ " " + kkanbu.getIf_kkanbuNameFrom());
+         }
+         
+         request.setAttribute("pdto", pdto);
+         request.setAttribute("dto", idto);
+         request.setAttribute("kkanbuRequest", kkanbuRequest);
+         request.setAttribute("kkanbuList", kkanbuList);
+         request.getRequestDispatcher("/resources/mypage/IFmypageKkanbu.jsp").forward(request, response);
+         
+         
+         
+      }else if(cmd.equals("/showCompanyKkanbuRequest.kkanbu")) {
+         int loggedInSeq = Integer.parseInt(request.getParameter("IDseq"));
+         String id = (String)request.getSession().getAttribute("loginID");
+         CompanyDTO cdto = companyDAO.selectById(id);
+         
+         System.out.println(loggedInSeq);
+         
+         List<CompanyKkanbuRequestDTO> kkanbuRequest = companyKkanbuRequestDAO.getKkanbuRequest(loggedInSeq);
+         
+         for( CompanyKkanbuRequestDTO kkanbu : kkanbuRequest) {
+            System.out.println(kkanbu.getCp_kkanbu_seq()+ " " + kkanbu.getCp_kkanbuNameFrom());
+         }
+         
+         request.setAttribute("dto", cdto);
+         request.setAttribute("kkanbuRequest", kkanbuRequest);
+         request.getRequestDispatcher("/resources/mypage/CPmypageKkanbu.jsp").forward(request, response);
+         
+         
+         
+      }else if(cmd.equals("/deleteInfKkanbuRequest.kkanbu")) {
+         
+         int kkanbuSeq = Integer.parseInt(request.getParameter("kkanbuSeq"));
+         int kkanbuTo = Integer.parseInt(request.getParameter("kkanbuTo"));
+         
+         
+         int result = influencerKkanbuRequestDAO.delete(kkanbuSeq); 
+         
+
 
 			response.sendRedirect("/showKkanbuRequest.kkanbu?IDseq="+deleteKkanbuId);
 			
@@ -284,19 +287,20 @@ public class KkanbuController extends HttpServlet {
 	    	  kkanbuTitleCp = request.getParameter("select");
 	    	  session.setAttribute("kkanbuTitleCp", kkanbuTitleCp);
 
-	      }
-	}catch(Exception e) {
-		e.printStackTrace();
-		response.sendRedirect("/error.jsp");
-	}
-	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+         }
+   }catch(Exception e) {
+      e.printStackTrace();
+      response.sendRedirect("/error.jsp");
+   }
+   }
+
+   /**
+    * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+    */
+   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+      // TODO Auto-generated method stub
+      doGet(request, response);
+   }
 
 }
