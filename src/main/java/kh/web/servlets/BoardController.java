@@ -90,6 +90,8 @@ public class BoardController extends HttpServlet {
 			// 게시글 페이지로 이동
 			}else if(cmd.equals("/detail.board")) {
 				BoardDTO dto = bdao.selectBySeq(Integer.parseInt(seq));
+				// 조회수 올리기
+				bdao.addViewCount(Integer.parseInt(seq));
 				request.setAttribute("dto", dto);
 				// 인플루언서인지 기업인지 (게시글)
 				boolean isCompanyMem = companyDAO.isMember(dto.getWriter());
@@ -101,8 +103,6 @@ public class BoardController extends HttpServlet {
 				// 댓글 가져가기
 				List<CommentDTO> cList = cdao.selectByBoardSeqAddName(Integer.parseInt(seq));
 				request.setAttribute("cList", cList);
-				// 조회수 올리기
-				bdao.addViewCount(Integer.parseInt(seq));
 				request.getRequestDispatcher("/resources/board/boardDetail.jsp?cpage"+cpage+"&seq="+seq).forward(request, response);
 			// 게시글 수정
 			}else if(cmd.equals("/modify.board")) {

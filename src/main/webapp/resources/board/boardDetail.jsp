@@ -28,7 +28,7 @@ rel="stylesheet" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://rawgit.com/jackmoore/autosize/master/dist/autosize.min.js"></script>
-<link rel="icon" href="#">
+<link rel="icon" href="">
 <style>
 	body {
 		margin: 0;
@@ -241,7 +241,7 @@ rel="stylesheet" />
 	<div class="container-fluid mt-100">
     <div id="board-title">
     <img id="title" src="/resources/board/image/title.png">
-    <span>커뮤니티 게시판${loginID }</span>
+    <span>커뮤니티 게시판</span>
     </div>       
     <br>
 	
