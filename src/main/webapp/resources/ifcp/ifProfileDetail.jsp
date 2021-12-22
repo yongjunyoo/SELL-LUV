@@ -197,7 +197,11 @@
 						</c:forEach>
 						<div class="widget-title" style="text-align: center;">
 							<c:forEach var="dto" items="${ifList }">
-								<c:if test="${loginID eq dto.value.id or loginID==kkanbu}">
+								<c:if test="${loginID eq dto.value.id}">
+									<a href="/ifDelete.ifcp?seq=${dto.key.seq_if}&cpage=1"><button
+											type="button" id="delBtn">삭제하기</button></a>
+								</c:if>
+								<c:if test="${loginID eq 'kkanbu'}">
 									<a href="/ifDelete.ifcp?seq=${dto.key.seq_if}&cpage=1"><button
 											type="button" id="delBtn">삭제하기</button></a>
 								</c:if>
@@ -210,7 +214,6 @@
 		</div>
 	</div>
 	<jsp:include page="/footer.jsp" flush="false" />
-	<div id="errorMessage" style="display: hidden">${errorMessage}</div>
 
 
 	<script>

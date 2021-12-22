@@ -146,8 +146,10 @@ public boolean areTheyKkanbuForInfluencer(int kkanbuSeqFrom, int kkanbuSeqTo) th
 	
 	try(Connection con = this.getConnection();
 			PreparedStatement pstat = con.prepareStatement(sql);){
-		pstat.setInt(1, kkanbuSeqFrom);
-		pstat.setInt(2, kkanbuSeqTo);
+
+		pstat.setInt(1, kkanbuSeqTo);
+		pstat.setInt(2, kkanbuSeqFrom);
+
 		try(ResultSet rs = pstat.executeQuery();){
 			
 				boolean result = rs.next();
@@ -250,4 +252,20 @@ String sql = "select kkanbu_seq from kkanbu where company_Seq = ? and influencer
 	       }
 	    }
 	
+	public boolean areTheyRealKkanbu(int kkanbuSeqFrom, int kkanbuCardSeq) throws SQLException, Exception {// 기업시퀀스와 인플시퀀스로 깐부인지 아닌지
+		String sql = "select * from kkanbu where influencer_seq =? and company_Seq=?";
+		
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setInt(1, kkanbuSeqFrom);
+			pstat.setInt(2, kkanbuCardSeq);
+			try(ResultSet rs = pstat.executeQuery();){
+				
+					boolean result = rs.next();
+					
+					return result;
+			
+					}
+			}
+	}
 }
