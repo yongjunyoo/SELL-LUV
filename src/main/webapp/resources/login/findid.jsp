@@ -280,7 +280,7 @@ form .btn input[type="button"]{
                      <input type="text" name="email_cp" placeholder="이메일을 입력하세요." id="email_cp" required>
                   </div>
                   <div class="field">
-                     <input type="text" name="name_cp" placeholder="이름을 입력하세요." id="name_cp" required>
+                     <input type="text" name="name_cp" placeholder="기업상호를 입력하세요." id="name_cp" required>
                   </div>
                   <div class="field check-text-box">
                      <select class="check-text" name="check-text-cp" id="check-text-cp">

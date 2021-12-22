@@ -258,7 +258,7 @@ form .btn input[type="button"]{
                      <input type="text" name="id_cp" placeholder="아이디를 입력하세요." id="id_cp" required>
                   </div>
                   <div class="field">
-                     <input type="text" name="name_cp" placeholder="이름을 입력하세요." id="name_cp" required>
+                     <input type="text" name="name_cp" placeholder="기업상호를 입력하세요." id="name_cp" required>
                   </div>
                   <div class="field check-text-box">
                      <select class="check-text" name="check-text-cp" id="check-text-cp">
