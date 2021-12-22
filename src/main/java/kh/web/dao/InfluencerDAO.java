@@ -125,6 +125,7 @@ public class InfluencerDAO  {
 
 	public LinkedHashMap<Profile_IfDTO, InfluencerDTO> selectByBound(int start, int end) throws Exception {
 
+
 		String sql = " select * from (\n"
 				+ "				 select \n"
 				+ "                    row_number() over(order by seq_if desc) rn, \n"
@@ -149,6 +150,7 @@ public class InfluencerDAO  {
 				+ "                p.rlike_if from influencer i, profile_if p where i.seq_if = member_seq) temp)\n"
 				+ "				 where rn between ? and ?";
 				
+
 
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql)){;

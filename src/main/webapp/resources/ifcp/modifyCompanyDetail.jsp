@@ -45,9 +45,10 @@
 										<label>제품 사진</label> <br>
 										<div
 											style="height: 256.98px; width: 256.98px; border: 1px solid grey; border-radius: 3px; overflow: hidden;">
-											<img src="/product.file?seq= ${seq_board_cp}" alt="" id="preview"
+											<img src="/product.file?seq=${seq_board_cp}" alt="" id="preview"
 												style="width: 100%; height: 100%; object-fit: cover;" />
 										</div>
+										<input type="hidden" value="${board_cp[0].seq_cp}" name="seq_board_cp">
 										<br> <label>제품명</label> <br> <input type="text"
 											style="width: 425px;" name="title" id="title" value="${board_cp[0].title_cp}"><br>
 										<br> <label>소개글</label><br>
